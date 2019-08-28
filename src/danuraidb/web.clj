@@ -174,7 +174,7 @@
   (context "/aosc"    [] aosc-routes)
   (context "/whuw"    [] whuw-routes)
   (context "/whconq"  [] whconq-routes)
-  (context "/admin"   [] admin-routes) ;(friend/wrap-authorize admin-routes #{::db/admin}))
+  (context "/admin"   [] (friend/wrap-authorize admin-routes #{::db/admin}))
   (POST "/register" [username password]
     (db/adduser username password false)
     (redirect "/"))

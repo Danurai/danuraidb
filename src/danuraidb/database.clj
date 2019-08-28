@@ -16,6 +16,8 @@
             {:classname   "org.sqlite.JDBC"
              :subprotocol "sqlite"
              :subname     "resources/db/db.sqlite3"}))
+; Local postgresql for testing
+;(def db {:dbtype "postgresql" :subprotocol "postgresql" :dbname "danuraidb" :host "localhost" :port "5432" :user "danuraidbadmin" :password "admin"})
              
 (def tcreate {
   :users {
@@ -46,20 +48,20 @@
               [:updated     :bigint]
               ;["FOREIGN KEY (author) REFERENCES users(uid)"]
               ]
-   :aosccollection [[:owner :integer] [:collection :text]] ;["FOREIGN KEY (owner) REFERENCES users(uid)"]
+   :aosccollection [[:owner :integer] [:collection :text]] ; ["FOREIGN KEY (owner) REFERENCES users(uid)"]]
    :version [[:major :int] [:minor :int] [:note :text] [:released :bigint]]
 })
 
-; Local postgresql for testing
-;(def db {:dbtype "postgresql" :dbname "conq_db" :host "localhost" :port "5432" :user "root" :password "admin"})
       
 (defn updateuseradmin [uid admin]
-  (j/update! db :users {:admin admin}
-           ["uid = ?" uid]))
+  (j/db-do-commands db [(str "update users set admin=" admin " where uid=" uid)]))
+;  (j/update! db :users {:admin (= admin 1)}
+;           ["uid = ?" uid]))
   
 (defn updateuserpassword [uid password]
-  (j/update! db :users {:password (creds/hash-bcrypt password)}
-           ["uid = ?" uid]))
+  (j/db-do-commands db [(str "update users set password='" (creds/hash-bcrypt password) "' where uid=" uid)]))
+;  (j/update! db :users {:password (creds/hash-bcrypt password)}
+;           ["uid = ?" (int uid)]))
            
 (defn adduser [username password admin]
   (j/insert! db :users 
@@ -82,16 +84,16 @@
 ;      "1.0" nil}}})
       
 (defn- create-tbl-users []
-  (let [sp (-> db :subprotocol keyword)]
+  (let [sp (-> db :subprotocol keyword) 
+        timestamp (if (= sp :postgresql) (c/to-long (t/now)) (t/now))]
+    (prn "db subprotocol" sp)
     (try
       (if (= sp :postgresql) (j/db-do-commands db ["create sequence user_uid_seq minvalue 1000"]))
       (j/db-do-commands db 
         (j/create-table-ddl :users (-> tcreate :users sp)))
       (if (= sp :sqlite) (j/insert! db :sqlite_sequence {:name "users" :seq 1000}))
-      ;(adduser "root" "admin" true)
-      ;(adduser "dan" "user" false)
-      (j/insert! db :users {:username "root" :password (creds/hash-bcrypt "admin") :active true :admin true  :created (t/now)})
-      (j/insert! db :users {:username "dan"  :password (creds/hash-bcrypt "user")  :active true :admin false :created (t/now)})
+      (j/insert! db :users {:username "root" :password (creds/hash-bcrypt "admin") :active true :admin true  :created timestamp})
+      (j/insert! db :users {:username "dan"  :password (creds/hash-bcrypt "user")  :active true :admin false :created timestamp})
       (catch Exception e (println (str "DB Error - Users: " e ))))))
       
 (defn- create-tbl-custom [ tname schema ]
@@ -173,7 +175,8 @@
           result)))))
     
 (defn get-user-decks [ system uid ]
-  (j/query db ["SELECT * FROM decklists WHERE author = ? AND system = ? ORDER BY UPDATED DESC" uid system]))
+  ;(j/query db [(str "SELECT * FROM decklists WHERE author = '" uid "' AND system = '" system "' ORDER BY UPDATED DESC" ) ]))
+  (j/query db ["SELECT * FROM decklists WHERE author = ? AND system = ? ORDER BY UPDATED DESC" uid (str system)]))
   
 (defn get-user-deck [ deckuid ]
   (first (j/query db ["SELECT * FROM decklists WHERE uid = ?" deckuid])))  
