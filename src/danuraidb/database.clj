@@ -12,12 +12,12 @@
 (derive ::admin ::user)
 
 ; Define sqlite for local, or system (postgresql)
-(def db (or (System/getenv "DATABASE_URL")
-            {:classname   "org.sqlite.JDBC"
-             :subprotocol "sqlite"
-             :subname     "resources/db/db.sqlite3"}))
+;(def db (or (System/getenv "DATABASE_URL")
+;            {:classname   "org.sqlite.JDBC"
+;             :subprotocol "sqlite"
+;             :subname     "resources/db/db.sqlite3"}))
 ; Local postgresql for testing
-;(def db {:dbtype "postgresql" :dbname "danuraidb" :host "localhost" :port "5432" :user "danuraidbadmin" :password "admin"})
+(def db {:dbtype "postgresql" :dbname "danuraidb" :host "localhost" :port "5432" :user "danuraidbadmin" :password "admin"})
              
 (def tcreate {
   :users {
@@ -84,7 +84,7 @@
 ;      "1.0" nil}}})
       
 (defn- create-tbl-users []
-  (let [sp (keyword (or (:subprotocol db) (:dbtype db)))
+  (let [sp (keyword (get db :subprotocol "postgresql"))
         timestamp (if (= sp :postgresql) (c/to-long (t/now)) (t/now))]
     (prn "db subprotocol" sp)
     (try
