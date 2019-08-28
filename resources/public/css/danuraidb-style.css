@@ -1,0 +1,37 @@
+th.sortable {
+	cursor: pointer;
+}
+
+.icon-sm {
+  width: 32px;
+}
+.icon-xs {
+  width: 24px
+}
+
+.caret {
+  font-size: 0.8em;
+  float: right;
+  color: darkred;
+}
+
+cite:before {
+  content: "-";
+}
+cite {
+  white-space: pre;
+}
+
+.icon-inline {
+  height: 1em;
+}
+
+.button-icon {
+  width: 1.5em;
+}
+
+#cardtbl .btn-group-xs .btn {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+}

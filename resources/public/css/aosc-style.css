@@ -1,0 +1,355 @@
+body {
+  font-family: "Eczar", Serif;
+}
+
+/* decklist */
+#decklists .deck-icon {
+  width: 1.2em;
+}
+
+.data-icon {
+  width: 3em;
+}
+
+.subject-icon {
+  height: 3em;
+}
+
+.trait-icon {
+  width: 1.4em;
+  opacity: 0.8;
+}
+
+/* quick collection */
+.list-deck-card {
+  user-select: none;
+  cursor: pointer;
+}
+.list-deck-card .cardcounts {
+  min-width: 10%;
+}
+#cards {
+  overflow-x: scroll;
+}
+#cards .cardimg {
+  width: 90px;
+}
+#cards .cardimggrey {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+@media (min-width: 1175px) {
+  #cards .cardimg {width: 150px;} 
+}
+
+#cards td {
+  padding: 5px;
+}
+#cards .cardcontainer {
+  position: relative;
+  min-height: 100px;
+  min-width: 150px;
+}
+#cards .countbox {
+  position: absolute;
+  bottom: 0px;
+  /* left: 0; */
+  right: 20%;
+  width: 2em;
+  /* margin: auto; */
+  text-align: center;
+  color: #FFF;
+  /* background-color: #333; */
+  background-color: rgba(40,40,40,0.5);
+  border-radius: 50% 50% 0% 0%;
+  font-size: 1.25em;
+  line-height: 1.5em;
+  user-select: none;
+  cursor: pointer;
+}
+#cards .countnumber {
+  vertical-align: middle;
+}
+
+#cards .greyed {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  background-color: black;
+  opacity: 0.4;
+  z-index: 99;
+}
+
+.modal img {
+  width: 100%;
+}
+
+/* Popover */
+.cardlink , .card-tooltip{
+  color: #212529;
+}
+.popover-keyword {
+  background: black; 
+  border-radius: 5px; 
+  color: white;
+}
+.popover-icon {
+  width: 1.5em;
+  color: white;
+  background-color: #555;
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  margin: 0 0 0 0.25rem;
+}
+
+.popover-corner-bg {
+  display: inline-block;
+  width: 3em;
+  height: 3em;
+  background-repeat: no-repeat;
+  background-size: 3em;
+  text-align: center;
+  position: relative;
+}
+.popover-corner-value {
+  color: #FFF;
+  line-height: 3em;
+  font-weight: bold;
+}
+.popover-corner-image {
+  width: 65%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5px;
+  margin: auto;
+}
+.popover-corner-championclunky { background-image: url("/img/aosc/icons/corner_clunky_champion.png"); }
+
+.popover-corner-blessingsmooth { background-image: url("/img/aosc/icons/corner_smooth_blessing.png"); }
+.popover-corner-blessingclunky { background-image: url("/img/aosc/icons/corner_clunky_blessing.png"); }
+.popover-corner-spellsmooth { background-image: url("/img/aosc/icons/corner_smooth_spell.png"); }
+.popover-corner-spellclunky { background-image: url("/img/aosc/icons/corner_clunky_spell.png"); }
+.popover-corner-unitsmooth { background-image: url("/img/aosc/icons/corner_smooth_unit.png"); }
+.popover-corner-unitclunky { background-image: url("/img/aosc/icons/corner_clunky_unit.png"); }
+
+.bl-war {border-left: 2px solid red;}
+.bl-wiz {border-left: 2px solid blue;}
+.bl-any {border-left: 2px solid gray;}
+
+.br-war {border-right: 2px solid red;}
+.br-wiz {border-right: 2px solid blue;}
+.br-any {border-right: 2px solid gray;}
+
+.bg-war {height: 2px; width: 50%; background-color: red;}
+.bg-wiz {height: 2px; width: 50%; background-color: blue;}
+.bg-any {height: 2px; width: 50%; background-color: gray;}
+
+/* New Deck Buttons */
+.newdeck {
+  border: 1px solid grey;
+  border-radius: 2px;
+  width: 200px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: 284px;
+  background-position: -42px -67px;
+}
+.newdeck-order  {background-image: url("/img/aosc/cards/Light_of_Sigmar.jpg");} 
+.newdeck-chaos  {background-image: url("/img/aosc/cards/Khornes_Chosen.jpg");}
+.newdeck-death  {background-image: url("/img/aosc/cards/Unholy_Vitality.jpg");}
+.newdeck-destruction  {background-image: url("/img/aosc/cards/Might_of_Gork.jpg");}
+
+/* Table */
+table .sortable {
+  cursor: pointer; 
+  user-select: none;
+}
+table th {position: relative;}
+table .caret {
+  position: absolute;
+  bottom: 0px;
+  color: blue;
+  margin-left: 5px;
+}
+
+#cardtbl .btn-group-xs .btn {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+#collectiontbl .w-08  {width: 8%;}
+#collectiontbl tr:nth-child(6n+4), 
+#collectiontbl  tr:nth-child(6n+5), 
+#collectiontbl  tr:nth-child(6n+6) {
+  background-color: #EEE;
+}
+#collectiontbl tr:hover {
+  background-color: #DDD;
+}
+
+.type-icon {
+  display: inline-block;
+  padding: .25em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #6c757d;
+  min-width: 1.6em;
+}
+
+/* adjustments */
+[class^="aosc-type-"], [class*=" aosc-type-"] {
+   position: relative;
+   top: 1px;
+}
+
+/* typeahead 
+.typeahead,
+.tt-query,
+.tt-hint {
+  width: 396px;
+  height: 30px;
+  padding: 8px 12px;
+  font-size: 24px;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
+}*/
+
+.twitter-typeahead ,
+.tt-hint,
+.tt-input{
+  width: 100%;
+}
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097cf;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-menu {
+  width: 422px;
+  margin: 12px 0;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #0097cf;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+/* Collection */
+.card-icon{
+  display: inline-block;
+  border: 1px solid darkgrey; 
+  height: 1em; 
+  width: 0.7em; 
+}
+.card-icon-digital {
+  background-color: blue;
+}
+.card-icon-physical {
+  background-color: gray;
+}
+.card-icon-foil {
+  background-image: linear-gradient(35deg, lightblue, gray, lightblue, gray);
+}
+
+/* deckbuilder */
+.hp {
+  width: 1.5em;
+  border-radius: 50%;
+  border: 1px darkred solid;
+  display: inline-block;
+  background-color: darkred;
+  color: white;
+  font-weight: bold;
+}
+.cost {
+  width: 1.5em;
+  border-radius: 50%;
+  border: 1px darkgreen solid;
+  display: inline-block;
+  background-color: darkgreen;
+  color: white;
+  font-weight: bold;
+}
+.hiderow {
+  display: none;
+  webkit-transition: 1s ease-in-out;
+}
+
+.class-warrior {
+  border-left: red 2px solid;
+  padding-left: 5px;
+}
+.class-wizard {
+  border-left: blue 2px solid;
+  padding-left: 5px;
+}
+.class-warrior-wizard {
+  border-left: purple 2px solid;
+  padding-left: 5px;
+}
+.class-any {
+  border-left: grey 2px solid;
+  padding-left: 5px;
+}
+#decklist {
+  display: inherit;
+}
+
+/* Search */
+.card {
+  max-width: 400px;
+}
