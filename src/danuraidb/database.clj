@@ -44,8 +44,9 @@
               [:notes       :text]
               [:created     :bigint]
               [:updated     :bigint]
-              ["FOREIGN KEY (author) REFERENCES users(uid)"]]
-   :aosccollection [[:owner :integer] [:collection :text] ["FOREIGN KEY (owner) REFERENCES users(uid)"]]
+              ;["FOREIGN KEY (author) REFERENCES users(uid)"]
+              ]
+   :aosccollection [[:owner :integer] [:collection :text]] ;["FOREIGN KEY (owner) REFERENCES users(uid)"]
    :version [[:major :int] [:minor :int] [:note :text] [:released :bigint]]
 })
 
