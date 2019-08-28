@@ -12,7 +12,7 @@
 (derive ::admin ::user)
 
 ; Define sqlite for local, or system (postgresql)
-(def db (or (System/getenv "DATABASE_URL")
+(def db (or (assoc (System/getenv "DATABASE_URL") :subprotocol "postgresql")
             {:classname   "org.sqlite.JDBC"
              :subprotocol "sqlite"
              :subname     "resources/db/db.sqlite3"}))
