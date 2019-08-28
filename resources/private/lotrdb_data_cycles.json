@@ -1,0 +1,21 @@
+[
+  {"cycle_position": 1, "name": "Core"},
+  {"cycle_position": 2, "name": "Shadows of Mirkwood Cycle"},
+  {"cycle_position": 3, "name": "Khazad-d\u00fbm"},
+  {"cycle_position": 4, "name": "Dwarrowdelf Cycle"},
+  {"cycle_position": 5, "name": "Heirs of N\u00famenor"},
+  {"cycle_position": 6, "name": "Against The Shadow Cycle"},
+  {"cycle_position": 7, "name": "The Voice of Isengard"},
+  {"cycle_position": 8, "name": "The Ring-maker Cycle"},
+  {"cycle_position": 9, "name": "The Lost Realm"},
+  {"cycle_position": 10, "name": "Angmar Awakened Cycle"},
+  {"cycle_position": 11, "name": "The Grey Havens"},
+  {"cycle_position": 12, "name": "Dream-Chaser Cycle"},
+  {"cycle_position": 13, "name": "The Hobbit"},
+  {"cycle_position": 14, "name": "Lord of the Rings Saga Expansions"},
+  {"cycle_position": 16, "name": "The Sands of Harad"},
+  {"cycle_position": 17, "name": "Haradrim Cycle"},
+  {"cycle_position": 18, "name": "The Wilds of Rhovanion"},
+  {"cycle_position": 19, "name": "Ered Mithril Cycle"},
+  {"cycle_position": 99, "name": "Print on Demand"}
+]
