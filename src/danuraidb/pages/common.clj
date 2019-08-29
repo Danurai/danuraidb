@@ -34,7 +34,9 @@
       ;; Login Icon
             [:span.nav-item.dropdown
               [:a#userDropdown.nav-link.dropdown-toggle.text-white {:href="#" :role "button" :data-toggle "dropdown" :aria-haspopup "true" :aria-expanded "false"}
-                [:i.fas.fa-user]]
+                [:i.fas.fa-user]
+                (if-let [identity (friend/identity req)]
+                  [:span.h5.mx-2 (:current identity)])]
                 (if-let [identity (friend/identity req)]
                   [:div.dropdown-menu {:aria-labelledby "userDropdown"}
                     (if (friend/authorized? #{::db/admin} (friend/identity req))

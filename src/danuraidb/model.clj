@@ -188,7 +188,7 @@
 
              
 (defn aosc-get-cards []
-  (map :_source (-> (aosc-api-cards) :hits :hits)))
+  (map #(assoc (:_source %) :setnumber (-> % :_source :set first :number)) (-> (aosc-api-cards) :hits :hits)))
         
 (def aosc-types
   [{:name "Champion" :symbol [:i.fas.fa-users] :img "/img/aosc/icons/category_champion.png"}
@@ -249,8 +249,8 @@
             :id field-name
             :val (or 
                   (case field-name 
-                       (:cycle_position :healthMod :cost :setnumber) (read-string field-val) 
-                       field-val)
+                     (:cycle_position :healthMod :cost :setnumber) (read-string field-val)
+                     field-val)
                   %)
           })
     (->> qry (re-seq find-regex) (remove clojure.string/blank?))

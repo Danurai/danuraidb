@@ -63,3 +63,41 @@ function parse_deck_list (data) {
   });
   return generate(deck);
 }
+
+
+$('#exportall').on('click',function() {
+  var $temp = $('<input>');
+  var deckjson = JSON.stringify($(this).data('export'));
+  $('body').append($temp);
+  $temp.val(deckjson);
+  $temp.select();
+  document.execCommand("copy");
+  document.execCommand("paste");
+  add_toast($temp.val() == deckjson ? "All decklists copied to clipboard as JSON" : "decklist copy failed");
+  $temp.remove();
+});
+
+$('#importallsubmit').on('click',function(ev) {
+  var decks = JSON.parse($('#importalldata').val()).reverse();
+  var saved = 0;
+  var id = setInterval(prog_fn,10);
+  var pb = $('#importallmodal').find('.progress-bar');
+  
+  $('#importallmodal').find('button').addClass('disabled');
+  $('#importallmodal').find('button').attr('disabled',true);
+  $.each(decks, function(id,d) {
+    $.post('/aosc/decks/import',d, function() {
+      saved++
+      if (saved == decks.length) { location.reload();}
+    });
+  });
+  function prog_fn() {
+    if (saved == decks.length) {
+      clearInterval(id);
+    } else {
+      var prg = parseInt(100 * saved / decks.length) + '%';
+      pb.css('width',prg);
+      pb.html(prg);
+    }
+  }
+});

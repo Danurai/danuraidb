@@ -21,7 +21,6 @@
   
 ;[id system name decklist alliance tags notes uid]
 (defn- save-deck-handler [{:keys [id system name decklist alliance tags notes] :as deck} req]
-  (prn deck)
   (db/save-deck id system name decklist alliance tags notes (-> req pages/get-authentications :uid))
   (alert "alert-info" (str "Deck " name " saved"))
   (redirect (str "/" (-> model/systems (get system) :code) "/decks")))
@@ -54,10 +53,11 @@
     (db/adduser username password (= admin "on"))
     (alert "alert-info" (str "User Account created for " username))
     (redirect "/admin"))
-  (POST "/deleteuser" [uid]
-    (alert "alert-warning" "User Account Deleted")
-    (db/dropuser uid)
-    (redirect "/admin")))
+ ; (POST "/deleteuser" [uid]
+ ;   (alert "alert-warning" "User Account Deleted")
+ ;   (db/dropuser uid)
+ ;   (redirect "/admin"))
+    )
     
 ;; LOTRDB ;;
     
@@ -137,6 +137,10 @@
   (POST "/new"     [] pages/aosc-deckbuilder)
   (GET "/new/:id"  [] pages/aosc-deckbuilder)
   (GET "/edit/:id" [] pages/aosc-deckbuilder)
+  (POST "/import" [name data] 
+    (friend/wrap-authorize
+      #(save-deck-handler {:system 1 :id (db/unique-deckid) :name name :decklist data} %)
+      #{::db/user}))
   (POST "/save"   [deckuid deckname deckdata deckalliance decknotes] 
     (friend/wrap-authorize 
       ;[id system name decklist alliance tags notes uid]

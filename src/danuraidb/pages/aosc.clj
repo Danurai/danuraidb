@@ -76,15 +76,24 @@
       (h/include-js "/js/aosc_tools.js?v=1")
       (h/include-js "/js/aosc_quickcollection.js?v=1")]))
       
-(defn- aosc-cardimage [r]
-  [:div.col-sm-3 
-    [:div.row
-      [:a {:href (str "/aosc/cards/" (:id r))}
-        [:img.py-1.px-1.img-fluid.img-thumbnail {
-          :src (str "/img/aosc/cards/" (->> r :skus (filter :default) first :id) ".jpg") 
-          :title (:name r) 
-          :alt   (:name r)}]]]])
+;; https://assets.warhammerchampions.com/card-database/icons/
+;; https://assets.warhammerchampions.com/card-database/cards/"
 
+(defn- aosc-cardimage [r]
+  (let [imgfilename (str (->> r :skus (filter :default) first :id) ".jpg")]
+    [:div.col-sm-3 
+      [:div.row
+        [:a {:href (str "/aosc/cards/" (:id r))}
+          [:img.py-1.px-1.img-fluid.img-thumbnail {
+            :src (str "/img/aosc/cards/" imgfilename) 
+            :title (:name r) 
+            :alt   imgfilename}]]]]))
+
+;Redirect to local resources
+;https://assets.warhammerchampions.com/card-database/cards/
+;(into aosc-pretty-head [:script "function replaceImage(ele,fname) {ele.onerror=null;ele.src=\"/img/aosc/cards/\"+fname;"])
+;[:img {:onerror (str "replaceImage(this,\"" imgfilename "\")")}
+            
 (defn aosc-cards-page [req]
   (let [q (or (-> req :params :q) "")]
     (h/html5 
@@ -102,7 +111,6 @@
                       [:button.btn.btn-primary {:type "submit"} "Search"]]]]]]]
           [:div.row
             (map (fn [r] (aosc-cardimage r)) (model/cardfilter q (model/aosc-get-cards)))]]])))
-
             
 
 (defn aosc-card-page [req]
@@ -240,6 +248,8 @@
           [:div.row.justify-content-between
             [:div.h3 (str "Decks (" (count decks) ")")]
             [:div 
+              [:button#exportall.btn.btn-secondary.mr-1 {:title "Export to JSON" :data-export (json/write-str (map #(select-keys % [:name :data]) decks))} [:i.fas.fa-clipboard]]
+              [:button#importall.btn.btn-secondary.mr-1 {:title "Import from JSON" :data-toggle "modal" :data-target "#importallmodal"} [:i.fas.fa-paste]] 
               [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
               [:a.btn.btn-primary {:href "/aosc/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
           [:div.row
@@ -259,6 +269,19 @@
                 [:form {:action "/aosc/decks/delete" :method "post"}
                   [:input#deletemodaldeckuid {:name "deletedeckuid" :hidden true}]
                   [:button.btn.btn-danger {:submit "true"} "OK"]]]]]]
+        [:div#importallmodal.modal {:tabindex -1 :role "dialog"}
+          [:div.modal-dialog {:role "document"}
+            [:div.modal-content
+              [:div.modal-header 
+                [:div.modal-title "Import from JSON: [{name: \"name\" deck: \"sharing code\"}]"]
+                [:button {:type "button" :class "close" :data-dismiss "modal"} [:span "x"]]]
+              [:div.modal-body
+                [:textarea#importalldata.form-control.mb-2 {:rows "5"}]
+                [:div.progress
+                  [:div.progress-bar {:role "progressbar"}]]]
+              [:div.modal-footer
+                [:button#importallsubmit.btn.btn-primary "Load"]
+                [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]]    
         [:div#importdeck.modal {:role "dialog"}
           [:div.modal-dialog.modal-lg {:role "document"}
             [:div.modal-content
@@ -266,15 +289,15 @@
                 [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
                   [:span {:aria-hidden "true"} "x"]]]
               [:div.modal-body
-                [:div.container-fluid
-                  [:div.row
-                    [:div "Paste Decklist or Sharing Code below"]
-                    [:textarea#importdecklist.form-control {:rows "10"}]]]]
+                [:div.mb-2 "Paste Decklist or Sharing Code below"]
+                [:input#importdeckname.form-control.mb-2]
+                [:textarea#importdecklist.form-control {:rows "10"}]]]]
               [:div.modal-footer
                 [:form {:action "/aosc/decks/new" :method "post"}
+                  [:input#deckname {:hidden true :name "name"}]
                   [:input#deckcode {:hidden true :name "id"}]
                   [:button.btn.btn-primary {:type "submit"} "Load Deck"]]
-                [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]]
+                [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]
           [:div#exportdeck.modal {:role "dialog"}
             [:div.modal-dialog {:role "document"}
               [:div.modal-content
