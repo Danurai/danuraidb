@@ -1,10 +1,8 @@
 (in-ns 'danuraidb.pages)
 
-
-
 (defn login [req]
   (h/html5
-    (into pretty-head (h/include-js "/js/formvalidation.js?v=0.1"))
+    pretty-head
     [:body  
       (if-let [unauth (-> req :session :cemerick.friend/unauthorized-uri)]
         (case (re-find #"lotrdb|aosc|whuw|whkc" unauth)
@@ -51,6 +49,7 @@
                     [:input#password1.form-control {:type "password" :name "password1" :placeholder "password" :auto-focus true :required true}]
                     [:div.invalid-feedback "Passwords required, passwords must match"]]
                   [:button.btn.btn-warning.mr-2.disabled {:type "submit"} "Register"]]]]]]]
+      (h/include-js "/js/formvalidation.js?v=0.1")
       [:script {
         :src "https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js" 
         :integrity "sha256-Znf8FdJF85f1LV0JmPOob5qudSrns8pLPZ6qkd/+F0o="
@@ -62,13 +61,14 @@
       [:li.list-group-item ;"Add user"
         [:form.form-inline.justify-content-between.needs-validation {:action "admin/adduser" :method "post" :novalidate true}
           [:div.form-row.align-items-center
-            [:div.col-auto
+            [:div.col-auto.mb-auto
               [:input#username.form-control {:name "username" :type "text" :placeholder "Username" :required true}]
-              [:div.invalid-feedback "Username Required"]]
-            [:div.col-auto
+              [:div.invalid-feedback "Username Required"]
+              [:div.valid-feedback "Good to go"]]
+            [:div.col-auto.mb-auto
               [:input#password.form-control {:name "password" :type "password" :placeholder "Password" :required true}]
               [:div.invalid-feedback "Password Required"]]
-            [:div.col-auto
+            [:div.col-auto.mb-auto
               [:input#password1.form-control {:name "confirm" :type "password" :placeholder "Password" :required true}]
               [:div.invalid-feedback "Password Required"]]
             [:div.col-auto
@@ -86,7 +86,8 @@
                 (if (not= (:uid user) 1001) 
                   [:form {:action "admin/deleteuser" :method "post"}
                     [:input {:type "text" :name "uid" :value (:uid user) :readonly true :hidden true}]
-                    [:button.btn.btn-danger.float-right [:i.fas.fa-times.mr-1] "Delete"]])]
+                    ;[:button.btn.btn-danger.float-right [:i.fas.fa-times.mr-1] "Delete"]
+                    ])]
             [:div.row
               [:div.col-sm-2
                 (if (not= (:uid user) 1001)
