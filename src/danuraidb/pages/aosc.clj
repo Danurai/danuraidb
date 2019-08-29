@@ -182,9 +182,9 @@
 
 
 
-(defn- get-aosc-deck-cards [deck]
+(defn- get-aosc-deck-cards [deck aosc-card-data]
   (map (fn [c] 
-    (conj (->> (model/aosc-get-cards) (filter #(= (:id %) (:id c))) first) c)) 
+    (conj (->> aosc-card-data (filter #(= (:id %) (:id c))) first) c)) 
     deck))
 
 (defn- write-deck-list [deck]
@@ -207,8 +207,8 @@
         ["Champion" "Blessing" "Unit" "Spell" "Ability"]))))
     
           
-(defn- aosc-deck-card [d]
-  (let [deck-cards (get-aosc-deck-cards (-> d :data model/parsedeck :cards))]
+(defn- aosc-deck-card [d aosc-card-data]
+  (let [deck-cards (get-aosc-deck-cards (-> d :data model/parsedeck :cards) aosc-card-data)]
     [:li.list-group-item.list-deck-card
       [:div.d-flex.justify-content-between {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} 
         [:div
@@ -239,7 +239,8 @@
           [:a.btn.btn-sm.btn-primary {:href (str "/aosc/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]]))  
           
 (defn aosc-decks [req]
-  (let [decks (db/get-user-decks 1 (-> req get-authentications (get :uid 1002)))]
+  (let [decks (db/get-user-decks 1 (-> req get-authentications (get :uid 1002)))
+        aosc-card-data (model/aosc-get-cards)]
     (h/html5
       aosc-pretty-head
       [:body
@@ -255,7 +256,7 @@
           [:div.row
             [:div#decklists.w-100
               [:ul.list-group
-                (map (fn [d] (aosc-deck-card d)) decks)]]]]
+                (map (fn [d] (aosc-deck-card d aosc-card-data)) decks)]]]]
         [:div#deletemodal.modal {:tabindex -1 :role "dialog"}
           [:div.modal-dialog {:role "document"}
             [:div.modal-content
