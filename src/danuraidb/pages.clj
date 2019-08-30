@@ -17,10 +17,6 @@
 (load "pages/whconq")
 (load "pages/admin")
 
-
-        
-
-
 (defn home [req]
   (h/html5
     pretty-head
@@ -30,3 +26,15 @@
         [:div.h5 "Deckbuilders"]
         (map (fn [{:keys [code desc]}]
           [:div [:a {:href (str "/" code "/decks") } desc]]) model/systems)]]))
+          
+(defn testpage [req]
+  (h/html5
+    pretty-head
+    [:body
+      (navbar req)
+      [:div.container.my-3
+        ;[:div.ddbtoaster
+        ;  (for [al @model/alert])]
+        [:div.row
+          [:div.col-12
+            [:div (str @model/alert)]]]]]))

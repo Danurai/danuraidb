@@ -11,10 +11,10 @@
 (def alert (atom nil))
 
 (def ^:const systems [
-  {:code "lotrdb" :desc "Lord of the Rings LCG"}
-  {:code "aosc"   :desc "Age of Sigmar: Champions"}
-  {:code "whuw"   :desc "Warhammer: Underworlds"}
-  {:code "whconq" :desc "Warhammer 40,000: Conquest LCG"}])
+  1 {:code "aosc"   :desc "Age of Sigmar: Champions"}
+  2 {:code "whuw"   :desc "Warhammer: Underworlds"}
+  0 {:code "lotrdb" :desc "Lord of the Rings LCG"}
+  3 {:code "whconq" :desc "Warhammer 40,000: Conquest LCG"}])
   
 
               
@@ -46,7 +46,7 @@
   30 39 31 40 32 41 33 42 34 43 35 44   ; Angmar Awakened
   36 47                               ; The Grey Havens
   37 48 40 34 41 45 42 46 43 48 44 49   ; Dream-chaser
-  38 16 39 24                         ; Saga - The Hobbit 
+  38 16 39 24                          ; Saga - The Hobbit 
   45 50 46 51 47 54 48 52 49 53 55 62   ; Saga - The Lord of the Rings
   53 55                               ; The Sands of Harad
   50 56 51 57 52 58 54 59 56 60 57 61   ; Haradrim
@@ -56,35 +56,23 @@
   64 99 ; PoD
 })
     
+(defn- load-json-file [ fname ] 
+  (-> fname io/resource slurp (json/read-str :key-fn keyword)))
     
 ;; ALL GET JSON FILES - API WRAPPER
 
-
 (defn get-cycles [] 
-  (-> "private/lotrdb_data_cycles.json"
-      io/resource
-      slurp
-      (json/read-str :key-fn keyword)))
+  (load-json-file "private/lotrdb_data_cycles.json"))
 			
 (defn get-packs [] 
-  (-> "private/ringsdb-api-public-packs.json"
-      io/resource
-      slurp
-      (json/read-str :key-fn keyword)))
+  (load-json-file "private/ringsdb-api-public-packs.json"))
       
 (defn get-cards [] 
-  (-> "private/lotrdb_data_cards.json"
-      io/resource
-      slurp
-      (json/read-str :key-fn keyword)))
+  (load-json-file "private/lotrdb_data_cards.json"))
 			
 (defn get-scenarios []
-  (-> "private/ringsdb-api-public-scenarios.json"
-      io/resource
-      slurp
-      (json/read-str :key-fn keyword)))
+  (load-json-file "private/ringsdb-api-public-scenarios.json"))
       
-			
 ;; Actual Functions
 (defn get-packs-with-sku []
   (->> (get-packs)
@@ -104,9 +92,9 @@
 	
 (defn lotrdb-api-data [ id ]
 	(case id
-		"cards" (get-cards-with-cycle)
-		"packs" (get-packs-with-sku)
-		"cycles" (get-cycles)
+		"cards"     (get-cards-with-cycle)
+		"packs"     (get-packs-with-sku)
+		"cycles"    (get-cycles)
 		"scenarios" (get-scenarios)
 		{:status "Not Found"}))
 		
@@ -180,15 +168,13 @@
         :body
         (json/read-str :key-fn keyword)
         (assoc :source "https://carddatabase.warhammerchampions.com/warhammer-cards/_search"))
-    (-> "private/aosc_cards.json" 
-        io/resource 
-        slurp
-        (json/read-str :key-fn keyword)
+    (-> (load-json-file "private/aosc_cards.json")
         (assoc :source "aosc_cards.json"))))
-
-             
+        
 (defn aosc-get-cards []
-  (map #(assoc (:_source %) :setnumber (-> % :_source :set first :number)) (-> (aosc-api-cards) :hits :hits)))
+  (map 
+    #(assoc (:_source %) :setnumber (-> % :_source :set first :number))
+    (-> (aosc-api-cards) :hits :hits)))
         
 (def aosc-types
   [{:name "Champion" :symbol [:i.fas.fa-users] :img "/img/aosc/icons/category_champion.png"}
@@ -212,6 +198,15 @@
        distinct
        sort))
    
+   
+;;;;;;;;;;;;
+;; WHUW   ;;
+;;;;;;;;;;;;
+
+(defn whuwdata []
+  (load-json-file "private/whuw_data_r2.json"))
+(defn whuwcards []
+  (load-json-file "private/whuw_cards_r2.json"))
     
 ;;;;;;;;;;;;
 ;; FILTER ;;
@@ -235,13 +230,23 @@
 "returns a collection of maps including {:id 'field name' :val 'match')" 
   (map #(let [field-flt  (->> % (re-seq field-regex) first)
              field-name (case (get field-flt 1)
+                            "a" :alliance 
+                            "c" :category   ; Champion, Blessing, Unit, Spell, Action
+                            "w" :class      ; Warrior, Wizard, Warrior Wizard
+                            "s" :setnumber  ; CUSTOM FIELD, = number
+                            "t" :tags
+                            "r" :rarity     ; Common, Uncommon, Rare, Exclusive
+                            "o" :cost       ; number
+                            "h" :healthMod  ; number
+                            "u" :unique     ;true/false
+                            "x" :effect
+                            
                             "e" :pack_code      ;lotr
 														"n" :encounter_name ;lotr
-                            "r" :traits         ;lotr
+                            ;"r" :traits         ;lotr
                             ;"s" :sphere_code    ;lotr
-                            "s" :setnumber      ; AOSC CUSTOM FIELD, = number
-                            "t" :type_code      ;lotr
-                            "x" :text           ;lotr
+                            ;"t" :type_code      ;lotr
+                            ;"x" :text           ;lotr
                             "y" :cycle_position ;lotr
                             :name)
              field-val  (get field-flt 2)]
@@ -299,12 +304,10 @@
                   #(= (id x) (get-in filter-synonyms [id %] %)) 
                   (clojure.string/split val #"\|")))
               data)
-          
           (:tags) (filter (fn [c] (some #(= val %) (:tags c))) data)
           (:unique) (filter (fn [c] (if (= val "true") (some #(= "Unique" %) (:tags c)) (not-any? #(= "Unique" %) (:tags c)))) data)
           (:category :class) (filter #(= (-> % id :en) val) data)
           (:effect) (filter #(some? (re-find (re-pattern (str "(?i)" val)) (-> % id :en))) data)
-          ;(filter #(if (some? (id %)) (op (id %) val)) data)))
           (filter #(= (id %) val) data)))
       cards
       (fmap q))))
@@ -380,8 +383,9 @@
 (defn get-deck-data [req]
 	(let [id   (-> req :params :id)
         new_deck {:uid (db/unique-deckid)}]
-  (prn id)
     (cond 
+      (nil? id) 
+        new_deck
       (some? (re-matches #"[0-9A-F]{6}" id)) 
         (db/get-user-deck id)
       (contains? #{"Order" "Chaos" "Death" "Destruction"} id) ;; AoSC 
