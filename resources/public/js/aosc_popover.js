@@ -1,3 +1,5 @@
+const icon_path = '/img/aosc/icons/';
+
 function setpopover(ele, crd) {
   $(ele).popover({
     trigger: 'hover',
@@ -9,13 +11,15 @@ function setpopover(ele, crd) {
 
 function tooltip_corners(crn,cat) {
   var outp = '';
+  var fname = '';
   $.each(crn, function (id, c) {
     outp += '<span class="popover-corner-bg popover-corner-' + cat.toLowerCase() + (c.smooth ? "smooth" : "clunky") + '">';
     if (c.value != "o") {
       if ($.isNumeric(c.value) || c.value == "X") {
         outp += '<span class="popover-corner-value">' + c.value + '</span>';
       } else {
-        outp += '<img src="/img/icons/quest_' + c.value.toLowerCase() + (typeof c.qualifier !== 'undefined' ? '_' + c.qualifier.toLowerCase() : '' ) + '.png" class="popover-corner-image"></img>';
+        fname = 'quest_' + c.value.toLowerCase() + (typeof c.qualifier !== 'undefined' ? '_' + c.qualifier.toLowerCase() : '' ) + '.png';
+        outp += '<img src="' + icon_path + fname +'" class="popover-corner-image"></img>';
       }
     }
     outp += '</span>';
@@ -25,6 +29,7 @@ function tooltip_corners(crn,cat) {
 
 function tooltip_body(crd)  {
   var cs = class_style(crd);
+  var subjfname = 'subject_' + crd.subjectImage + '.png';
   return '<h5>'
     + ($.inArray("Unique",crd.tags) != -1 ? '&bull;&nbsp;' : '')
     + crd.name + '</h5>'
@@ -34,7 +39,7 @@ function tooltip_body(crd)  {
     + '</div>'
     + '<div class="d-flex pb-1">' + tooltip_corners(crd.corners, crd.category.en) + '</div>'
     + (typeof crd.subjectImage !== "undefined" 
-        ? '<div class="text-center"><img class="mx-auto" style="height: 25px;" src="/img/icons/subject_' + crd.subjectImage + '.png"></div>' 
+        ? '<div class="text-center"><img class="mx-auto subject-icon" src="' + icon_path + subjfname + '"></img></div>' 
         : '')
     + '<div class="d-flex mt-2">'
     + '<div class="bl-' + cs[0] + ' bg-' + cs[0] + '"></div>'

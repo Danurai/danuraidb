@@ -18,6 +18,10 @@ $('#exportdeck').on('show.bs.modal',function (ev) {
   $(this).find('input').val(parse_deck_list($(ev.relatedTarget).data('export')));
 });
   
+$('#importdeckname').on('input',function() {
+  $('#deckname').val($(this).val());
+});
+
 $('#importdecklist').on('input',function () {
   var sharingcode;
   if (parse($(this).val()).version == 1) {
@@ -28,21 +32,12 @@ $('#importdecklist').on('input',function () {
   $('#deckcode').val(sharingcode);
 });
 
+
 $('#exportdeck').on('click','.input-group', function () {
   $(this).find('input').select();
   document.execCommand("copy");
   add_toast($('#exportdeck').find('.modal-header>span').html() + " Deck Sharing Code copied to clipboard");
 });
-  
-function add_toast(msg) {
-  var $toast = $('<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true">'
-    + '<div class="toast-header"><b class="mr-auto">AoSC DB</b></div>'
-    + '<div class="toast-body">'
-    + msg
-    + '</div></div>');
-  $('#toaster').append($toast);
-  $toast.toast({delay: 3000}).toast("show");
-}
   
 function parse_deck_list (data) {
   var crd;
@@ -95,9 +90,9 @@ $('#importallsubmit').on('click',function(ev) {
     if (saved == decks.length) {
       clearInterval(id);
     } else {
-      var prg = parseInt(100 * saved / decks.length) + '%';
+      var prg = parseInt(100 * (saved+1) / decks.length) + '%';
       pb.css('width',prg);
-      pb.html(prg);
+      pb.html((saved+1) + " of " + decks.length);
     }
   }
 });

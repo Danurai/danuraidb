@@ -137,7 +137,7 @@
   (POST "/new"     [] pages/aosc-deckbuilder)
   (GET "/new/:id"  [] pages/aosc-deckbuilder)
   (GET "/edit/:id" [] pages/aosc-deckbuilder)
-  (POST "/import" [name data] 
+  (POST "/import" [name data]
     (friend/wrap-authorize
       #(save-deck-handler {:system 1 :id (db/unique-deckid) :name name :decklist data} %)
       #{::db/user}))
@@ -165,13 +165,39 @@
   (context "/cardlogin" []
     (friend/wrap-authorize (GET "/:id" [id] (redirect (str "/aosc/cards/" id))) #{::db/user})))
   
+(defroutes whuw-deck-routes
+  (GET "/"        [] pages/whuw-decks)
+  (GET "/new"     [] pages/whuw-deckbuilder)
+  )
+;  (GET "/new"     [] pages/aosc-newdeck)
+;  (GET "/new/:id"  [] pages/aosc-deckbuilder)
+;  (GET "/edit/:id" [] pages/aosc-deckbuilder)
+;  (POST "/import" [name data]
+;    (friend/wrap-authorize
+;      #(save-deck-handler {:system 1 :id (db/unique-deckid) :name name :decklist data} %)
+;      #{::db/user}))
+;  (POST "/save"   [deckuid deckname deckdata deckalliance decknotes] 
+;    (friend/wrap-authorize 
+;      ;[id system name decklist alliance tags notes uid]
+;      #(save-deck-handler {:id deckuid :system 1 :name deckname :decklist deckdata :alliance deckalliance :deck-notes decknotes} %)
+;      #{::db/user}))
+;  (POST "/delete" [deletedeckuid] 
+;    (friend/wrap-authorize 
+;      #(delete-deck-handler deletedeckuid 1 %)
+;      #{::db/user})))
   
 (defroutes whuw-routes
-  (GET "/" [] pages/whuw-home))
+  (GET "/" [] pages/whuw-home)
+  (context "/decks" [] 
+    (friend/wrap-authorize whuw-deck-routes #{::db/user}))
+  (GET "/api/data" [] (-> "private/whuw_data_r2.json" io/resource slurp response (content-type "application/json")))
+  (GET "/api/cards" [] (-> "private/whuw_cards_r2.json" io/resource slurp response (content-type "application/json")))
+  )
 (defroutes whconq-routes
   (GET "/" [] pages/whconq-home))
    
 (defroutes app-routes
+  (GET "/test" [] pages/testpage)
   (GET "/"     [] pages/home)
   (GET "/login" [] pages/login)
   (context "/lotrdb"  [] lotrdb-routes)

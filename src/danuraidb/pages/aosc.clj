@@ -29,11 +29,11 @@
     [:body
       (aosc-navbar req)
       [:div.container-fluid.my-2
+        [:div.btn-group.float-right
+          [:button#copycollection.btn.btn-secondary {:title "Copy collection data to clipboard"} [:i.fas.fa-clipboard]]  ;[:a {:href "/aosc/api/private/collection"}
+          [:button.btn.btn-warning {:title "Upload Data" :data-target "#importmodal" :data-toggle "modal"} [:i.fas.fa-file-upload]]]
         [:div.row
-          [:span#stats.mx-auto]
-          [:div.btn-group.ml-auto
-            [:a.btn.btn-warning {:title "Download Data" :href "/aosc/api/private/collection"} [:i.fas.fa-file-download]]
-            [:btn.btn.btn-danger {:title "Upload Data" :data-target "#importmodal" :data-toggle "modal"} [:i.fas.fa-file-upload]]]]
+          [:span#stats.mx-auto]]
         [:div.row-fluid.d-flex.justify-content-center.mb-1
           [:span.mr-2 [:input#filter.form-control.search-info {:placeholder "Filter"}]]
           (optgroup-togglenone model/aosc-alliances "alliance" "Order")
@@ -44,7 +44,9 @@
             [:input#collection {:name "collectionjson"
                                 :hidden true 
                                 :value (json/write-str (db/get-user-collection (-> req get-authentications (get :uid "1002"))))}]
-            [:button#btnsave.btn.btn-warning {:type "submit" :disabled true} [:i.fas.fa-bookmark.mr-1] "Save"]]]
+            [:button#btnsave.btn.btn-warning {:type "submit" :disabled true} 
+              [:i.fas.fa-bookmark] 
+              [:span.d-sm-none.d-md-inline.ml-1 "Save"]]]]
         [:div.row-fluid.mb-1
           [:div#cards.mx-1]]]
       [:div#updatemodal.modal {:tabindex -1 :role "dialog"}
@@ -73,6 +75,7 @@
                 [:input#filterjson {:type "text" :name "filterjson" :hidden true}]
                 [:input#importcollection {:type "text" :name "collectionjson" :hidden true :value "{}"}]
                 [:button.btn.btn-danger {:type "submit"} "Save Changes"]]]]]]
+      [:div#toaster {:style "position: fixed; top: 10px; right: 10px; z-index: 1050"}]
       (h/include-js "/js/aosc_tools.js?v=1")
       (h/include-js "/js/aosc_quickcollection.js?v=1")]))
       
@@ -95,7 +98,7 @@
 ;[:img {:onerror (str "replaceImage(this,\"" imgfilename "\")")}
             
 (defn aosc-cards-page [req]
-  (let [q (or (-> req :params :q) "")]
+  (let [q (or (-> req :params :q) "s:4")]
     (h/html5 
       aosc-pretty-head
       [:body  
@@ -286,19 +289,20 @@
         [:div#importdeck.modal {:role "dialog"}
           [:div.modal-dialog.modal-lg {:role "document"}
             [:div.modal-content
-              [:div.modal-header "Load Deck"
+              [:div.modal-header 
+                [:h5 "Load Deck"]
                 [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
                   [:span {:aria-hidden "true"} "x"]]]
               [:div.modal-body
                 [:div.mb-2 "Paste Decklist or Sharing Code below"]
-                [:input#importdeckname.form-control.mb-2]
-                [:textarea#importdecklist.form-control {:rows "10"}]]]]
+                [:input#importdeckname.form-control.mb-2 {:placeholder "Deck Name"}]
+                [:textarea#importdecklist.form-control {:rows "10"}]]
               [:div.modal-footer
-                [:form {:action "/aosc/decks/new" :method "post"}
-                  [:input#deckname {:hidden true :name "name"}]
-                  [:input#deckcode {:hidden true :name "id"}]
+                [:form {:action "/aosc/decks/import" :method "post"}
+                  [:input#deckname {:hidden true :name "name" :value "Imported Deck"}]
+                  [:input#deckcode {:hidden true :name "data"}]
                   [:button.btn.btn-primary {:type "submit"} "Load Deck"]]
-                [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]
+                [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]]
           [:div#exportdeck.modal {:role "dialog"}
             [:div.modal-dialog {:role "document"}
               [:div.modal-content
@@ -314,8 +318,9 @@
                 [:div.modal-footer
                   [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]]
           [:div#toaster {:style "position: fixed; top: 10px; right: 10px; z-index: 1050"}]
-        (h/include-js "/js/externs/warhammer-deck-sharing.js")
-        (h/include-js "/js/aosc_decklist.js")])))                  
+        (h/include-js "/js/externs/warhammer-deck-sharing.js?v=1.0")
+        (h/include-js "/js/aosc_tools.js?v=1.0")
+        (h/include-js "/js/aosc_decklist.js?v=1.0")])))                  
           
 (defn aosc-newdeck [req]
   (h/html5
@@ -419,7 +424,9 @@
           [:div.modal-content
             [:div.modal-header]
             [:div.modal-body]]]]
-      (h/include-js "/js/externs/typeahead.js")
+      (h/include-js "/js/aosc_popover.js?v=1.000")
+      (h/include-js "/js/aosc_tools.js?v=1.000")
       (h/include-js "/js/externs/warhammer-deck-sharing.js")
+      (h/include-js "/js/externs/typeahead.js")
       (h/include-js "/js/aosc_deckbuilder.js?v=1.100")
-      (h/include-js "/js/aosc_tools.js?v=1.000")])))
+      ])))
