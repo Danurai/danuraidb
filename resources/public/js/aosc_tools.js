@@ -145,44 +145,13 @@ function shuffle(array) {
   return array;
 }
 
-/*
 
-  
-  var set = /e:(\S+)/;
-  res = RegExp(set).exec(f)
-  if (res !== null)  {
-    outp["pack_code"] = {likenocase:res[1].split('|')};
-  }
-  
-  var faction = /f:(\S+)/;
-  res = RegExp(faction).exec(f)
-  if (res !== null)  {
-    outp["faction_code"] = {likenocase:res[1].split('|')};
-  }
-  
-  var cost = /r(\S)([0-9])/;
-  res = RegExp(cost).exec(f);
-  if (res != null)  {
-    outp["cost"] = getNumberFilter(res[1],res[2]);
-  }
-  
-  var command_icons = /c(\S)([0-9])/;
-  res = RegExp(command_icons).exec(f);
-  if (res != null)  {
-    outp["command_icons"] = getNumberFilter(res[1],res[2]);
-  }
-  
-  var cost = /a(\S)([0-9])/;
-  res = RegExp(cost).exec(f);
-  if (res != null)  {
-    outp["attack"] = getNumberFilter(res[1],res[2]);
-  }
-  
-  
-  
-  var unique = /u:(true|false)/;
-  res = RegExp(unique).exec(f)
-  if (res != null)  {
-    outp["unique"] = res[1] == "true";
-  }
-  */
+function add_toast(msg) {
+  var $toast = $('<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true">'
+    + '<div class="toast-header"><b class="mr-auto">AoSC DB</b></div>'
+    + '<div class="toast-body">'
+    + msg
+    + '</div></div>');
+  $('#toaster').append($toast);
+  $toast.toast({delay: 3000}).toast("show");
+}

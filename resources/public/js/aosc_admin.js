@@ -1,17 +1,52 @@
 var _cards;
-var resultdata = document.createElement('div');
-var tbody = document.createElement('tbody');
-var _filter = {"setnumber":4}
+var $resultdata = $('<div>');
+var $table = $('<table class="table table-sm">');
+var $thead = $('<thead>');
+var $tbody = $('<tbody>');
+var _filter = {"setnumber":5}
 
-$('#results').append(resultdata);
-$(resultdata).html('results pending...');
-create_table();
+$('#results').append($resultdata);
+$('#results').append($table);
+  
+$table.append($thead);
+$table.append($tbody);
+  
+$resultdata.html('results pending...');
 
-$('#filter').val(JSON.stringify(_filter));
 
-$('#filter').on('change',function() {
-  _filter = JSON.parse($(this).val());
-  write_table()
+$.getJSON("/aosc/api/data/cards", function (data) {
+  $('#datasrcinfo').html('<b>Source:&nbsp;</b>' +  data.source);
+  delete data.source;
+  $('#aoscdata').val(JSON.stringify(data));
+  _cards=TAFFY(data.hits.hits.map(c => c._source).map(card => $.extend({"setnumber": card.set[0].number},card)));
+  write_table_cards();
+});
+
+
+$('#filter')
+  .val(JSON.stringify(_filter))
+  .on('change',function() {
+    _filter = JSON.parse($(this).val());
+    $('.btn-group-toggle').trigger('change');
+  });
+  
+$('.btn-group-toggle').on('change',  function () {
+  switch ($(this).find('input:checked')[0].id) {
+    case "tbltags":
+      write_table_tags();
+      break;
+    case "tblcorners":
+      write_table_corners();
+      break;
+    case "tblsubjects":
+      write_table_subjects();
+      break;
+    case "tblalliances":
+      write_table_alliances();
+      break;
+    default:
+      write_table_cards();
+  }
 });
 
 $('#copydata').on('click', function () {
@@ -20,41 +55,26 @@ $('#copydata').on('click', function () {
   document.getSelection().removeAllRanges();
 });
 
-$.getJSON("/aosc/api/data/cards", function (data) {
-  $('#datasrcinfo').html('<b>Source:&nbsp;</b>' +  data.source);
-  delete data.source;
-  $('#aoscdata').val(JSON.stringify(data));
-  _cards=TAFFY(data.hits.hits.map(c => c._source).map(card => $.extend({"setnumber": card.set[0].number},card)));
-  write_table();
-});
+/* Table 1 - Card Images */
 
-function create_table() {
-  var tbl = document.createElement('table');
-  var thead = document.createElement('thead');
-  $(tbl).addClass("table table-sm");
-  $(thead).html('<tr><th>id</th><th>Name</th><th>default</th><th>finish</th><th>filename</th><th>img</th><th>img</th></tr>');
-  tbl.append(thead);
-  tbl.append(tbody);
-  $('#results').append(tbl);
-}
-
-function write_table() {
+function write_table_cards() {
   var ccount = 0
   var mcount = 0;
   var x;
-  $(tbody).empty();
+  $thead.html('<tr><th>id</th><th>Name</th><th>default</th><th>finish</th><th>filename</th><th>local img</th><th>server img</th></tr>');
+  $tbody.empty();
   _cards(_filter).each(function (c) {
     ccount++;
     x=0;
     $.each(c.skus,function (id, sku) {
       if (sku.finish == "matte" && sku.default == true && sku.lang == "en") {
         x++;
-        $(tbody).append(write_row(c, sku));
+        $tbody.append(write_row(c, sku));
       }
     });
     if (x>1) {mcount++}
   })
-  $(resultdata).html('Cards: ' + ccount + ' with Multiples: ' + mcount);
+  $resultdata.html('Cards: ' + ccount + ' with Multiples: ' + mcount);
 }
 
 function write_row(c, sku) {
@@ -69,4 +89,56 @@ function write_row(c, sku) {
     + '</tr>';
 }
     
-  
+/* Table 2 tags */
+function write_table_tags() {
+  var imgnames = [].concat.apply([],_cards(_filter).map(c => c.tags))
+    .map(c=>"tag_"+c.toLowerCase()+".png")
+    .filter((ele,idx,a) => a.indexOf(ele) == idx);
+  write_icon_table(imgnames);
+}
+
+/* Table 3 Corners */
+function write_table_corners() {
+  // map all corners into one array
+  // filter out numbers and o x O X 
+  // map to string e.g. quest_unit quest_unit_grot
+  // filter unique values
+  var imgnames = [].concat.apply([],_cards(_filter).map(c => c.corners))
+    .filter(c=>c.value.match(/^[0-9OXox]{1}/)==null)
+    .map(c=>"quest_"+c.value.toLowerCase()+(typeof c.qualifier != 'undefined' ? '_'+c.qualifier.toLowerCase() : '')+".png")
+    .filter((e,i,a) => a.indexOf(e) == i);
+  write_icon_table(imgnames);
+}
+
+/* Table 4 subjects */
+function write_table_subjects() {
+  var imgnames = _cards(_filter)
+    .map(c=>c.subjectImage)
+    .filter(c=>(typeof c != "undefined"))
+    .map(c => "subject_"+c+".png")
+    .filter((c,i,a)=>a.indexOf(c)==i);
+  write_icon_table(imgnames);
+}
+
+/* Table 5 etc */
+function write_table_alliances() {
+  var imgnames = _cards(_filter)
+    .map(c=>"alliance_"+c.alliance.toLowerCase()+".png")
+    .filter((c,i,a)=>a.indexOf(c)==i);
+  imgnames.push("alliance_unaligned.png");
+  write_icon_table(imgnames);
+}
+
+function write_icon_table(imgnames) {
+  var iconpath = "https://assets.warhammerchampions.com/card-database/icons/";
+  var fname = "";
+  $thead.html('<tr><th>Filename</th><th>Local</th><th>Server</th></tr>');
+  $tbody.empty();
+  $.each(imgnames,function (id,t) {
+    $tbody.append('<tr>'
+      + '<td>' + t + '</td>'
+      + '<td><img src="/img/aosc/icons/' + t + '"></img></td>'
+      + '<td><img src="' + iconpath + t + '"></img></td>'
+      + '</tr>');
+  });
+}
