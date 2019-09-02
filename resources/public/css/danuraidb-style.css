@@ -4,9 +4,11 @@ th.sortable {
 
 .icon-sm {
   width: 32px;
+  height: 32px;
 }
 .icon-xs {
-  width: 24px
+  width: 24px;
+  height: 24px;
 }
 
 .caret {

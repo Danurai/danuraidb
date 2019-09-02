@@ -1,0 +1,230 @@
+{
+  "banned": [
+    {
+      "id": 6994,
+      "ref": "Great Concussion",
+      "setname": "Shadespire",
+      "number": 329,
+      "code": "01329"
+    },
+    {
+      "id": 6999,
+      "ref": "Quick Thinker",
+      "setname": "Shadespire",
+      "number": 347,
+      "code": "01347"
+    },
+    {
+      "id": 757,
+      "ref": "Time Trap",
+      "setname": "Shadespire",
+      "number": 368,
+      "code": "01368"
+    },
+    {
+      "id": 12490,
+      "ref": "Extreme Flank",
+      "setname": "Nightvault",
+      "number": 317,
+      "code": "03317"
+    }
+  ],
+  "restricted": [
+    {
+      "id": 7065,
+      "ref": "Advancing Strike",
+      "setname": "Shadespire",
+      "number": 234,
+      "code": "01234"
+    },
+    {
+      "id": 5462,
+      "ref": "Alone in the Darkness",
+      "setname": "Shadespire",
+      "number": 235,
+      "code": "01235"
+    },
+    {
+      "id": 7067,
+      "ref": "Change of Tactics",
+      "setname": "Shadespire",
+      "number": 243,
+      "code": "01243"
+    },
+    {
+      "id": 7070,
+      "ref": "Defensive Strike",
+      "setname": "Shadespire",
+      "number": 252,
+      "code": "01252"
+    },
+    {
+      "id": 5465,
+      "ref": "Escalation",
+      "setname": "Shadespire",
+      "number": 257,
+      "code": "01257"
+    },
+    {
+      "id": 12469,
+      "ref": "Fired Up",
+      "setname": "Nightvault",
+      "number": 319,
+      "code": "03319"
+    },
+    {
+      "id": 12471,
+      "ref": "Loner",
+      "setname": "Nightvault",
+      "number": 342,
+      "code": "03342"
+    },
+    {
+      "id": 5456,
+      "ref": "Perfect Planning",
+      "setname": "Shadespire",
+      "number": 280,
+      "code": "01280"
+    },
+    {
+      "id": 5457,
+      "ref": "Precise Use of Force",
+      "setname": "Shadespire",
+      "number": 284,
+      "code": "01284"
+    },
+    {
+      "id": 934,
+      "ref": "Superior Tactician",
+      "setname": "Shadespire",
+      "number": 291,
+      "code": "01291"
+    },
+    {
+      "id": 5339,
+      "ref": "Earthquake",
+      "setname": "Shadespire",
+      "number": 321,
+      "code": "01321"
+    },
+    {
+      "id": 745,
+      "ref": "Illusory Fighter",
+      "setname": "Shadespire",
+      "number": 332,
+      "code": "01332"
+    },
+    {
+      "id": 6944,
+      "ref": "My Turn",
+      "setname": "Shadespire",
+      "number": 343,
+      "code": "01343"
+    },
+    {
+      "id": 12592,
+      "ref": "Pit Trap",
+      "setname": "Nightvault",
+      "number": 436,
+      "code": "03436"
+    },
+    {
+      "id": 5342,
+      "ref": "Ready for Action",
+      "setname": "Shadespire",
+      "number": 348,
+      "code": "01348"
+    },
+    {
+      "id": 5341,
+      "ref": "Trap",
+      "setname": "Shadespire",
+      "number": 369,
+      "code": "01369"
+    },
+    {
+      "id": 7003,
+      "ref": "Twist the Knife",
+      "setname": "Shadespire",
+      "number": 372,
+      "code": "01372"
+    },
+    {
+      "id": 7019,
+      "ref": "A Destiny to Meet",
+      "setname": "Shadespire",
+      "number": 373,
+      "code": "01373"
+    },
+    {
+      "id": 5417,
+      "ref": "Awakened Weapon",
+      "setname": "Shadespire",
+      "number": 376,
+      "code": "01376"
+    },
+    {
+      "id": 6984,
+      "ref": "Deathly Fortitude",
+      "setname": "Shadespire",
+      "number": 384,
+      "code": "01384"
+    },
+    {
+      "id": 796,
+      "ref": "Helpful Whispers",
+      "setname": "Shadespire",
+      "number": 393,
+      "code": "01393"
+    },
+    {
+      "id": 7023,
+      "ref": "Incredible Strength",
+      "setname": "Shadespire",
+      "number": 395,
+      "code": "01395"
+    },
+    {
+      "id": 6992,
+      "ref": "Shadeglass Dagger",
+      "setname": "Shadespire",
+      "number": 410,
+      "code": "01410"
+    },
+    {
+      "id": 5428,
+      "ref": "Shadeglass Hammer",
+      "setname": "Shadespire",
+      "number": 412,
+      "code": "01412"
+    },
+    {
+      "id": 12620,
+      "ref": "Slumbering Key",
+      "setname": "Nightvault",
+      "number": 539,
+      "code": "03539"
+    },
+    {
+      "id": 805,
+      "ref": "Soultrap",
+      "setname": "Shadespire",
+      "number": 420,
+      "code": "01420"
+    },
+    {
+      "id": 12562,
+      "ref": "Sudden Growth",
+      "setname": "Nightvault",
+      "number": 543,
+      "code": "03543"
+    },
+    {
+      "id": 6982,
+      "ref": "Tethered Spirit",
+      "setname": "Shadespire",
+      "number": 424,
+      "code": "01424"
+    }
+  ]
+}

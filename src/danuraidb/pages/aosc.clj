@@ -1,11 +1,15 @@
 (in-ns 'danuraidb.pages)
 
+
+(def ^:const aosc_card_path "/img/aosc/cards/")
+(def ^:const aosc_icon_path "/img/aosc/icons/")
+
 (def aosc-pretty-head
   (into pretty-head (h/include-css "/css/aosc-style.css?v=1.0")))
   
 (defn aosc-navbar [req]
   (navbar 
-    "/img/aosc/icons/quest_ability.png" 
+    (str aosc_icon_path "quest_ability.png") 
     "AoSC DB" 
     "aosc"
     ["decks" "collection" "cards"]
@@ -75,7 +79,7 @@
                 [:input#filterjson {:type "text" :name "filterjson" :hidden true}]
                 [:input#importcollection {:type "text" :name "collectionjson" :hidden true :value "{}"}]
                 [:button.btn.btn-danger {:type "submit"} "Save Changes"]]]]]]
-      [:div#toaster {:style "position: fixed; top: 10px; right: 10px; z-index: 1050"}]
+      (toaster)
       (h/include-js "/js/aosc_tools.js?v=1")
       (h/include-js "/js/aosc_quickcollection.js?v=1")]))
       
@@ -88,7 +92,7 @@
       [:div.row
         [:a {:href (str "/aosc/cards/" (:id r))}
           [:img.py-1.px-1.img-fluid.img-thumbnail {
-            :src (str "/img/aosc/cards/" imgfilename) 
+            :src (str aosc_card_path imgfilename) 
             :title (:name r) 
             :alt   imgfilename}]]]]))
 
@@ -148,7 +152,7 @@
                             {:class (str "popover-corner-bg popover-corner-" (-> src :category :en clojure.string/lower-case) (if (:smooth corner) "smooth" "clunky"))}
                             (case (:value corner)
                               ("Remove" "Heal" "Damage" "Spell" "Unit" "Ability") 
-                                [:img.popover-corner-image {:src (str "/img/aosc/icons/quest_" 
+                                [:img.popover-corner-image {:src (str aosc_icon_path "quest_" 
                                                (-> corner :value clojure.string/lower-case) 
                                                (if (some? (:qualifier corner)) (str "_" (-> corner :qualifier clojure.string/lower-case)))
                                                ".png")}]
@@ -158,10 +162,10 @@
                       [:td 
                         (for [tag (:tags src)]
                           [:span.mr-2 
-                            [:img.data-icon.mr-2 {:src (str "/img/aosc/icons/tag_" (clojure.string/lower-case tag) ".png")}]
+                            [:img.data-icon.mr-2 {:src (str aosc_icon_path "tag_" (clojure.string/lower-case tag) ".png")}]
                             [:a {:href (str "/aosc/cards?q=t:" tag)} (str tag)]])]]
                     [:tr [:td "Set"][:td [:a {:href (str "/aosc/cards?q=s:" (:setnumber src))} (str (-> src :set first :number) ": " (-> src :set  first :name))]]]
-                    [:tr [:td "Rarity"][:td [:img.data-icon.mr-2 {:src (str "/img/aosc/icons/rarity_" (-> src :rarity clojure.string/lower-case) ".png")}]
+                    [:tr [:td "Rarity"][:td [:img.data-icon.mr-2 {:src (str aosc_icon_path "rarity_" (-> src :rarity clojure.string/lower-case) ".png")}]
                                           [:a {:href (str "/aosc/cards?q=r:" (:rarity src))} (:rarity src)]]]
                     [:tr [:td "Cost"][:td (:cost src)]]
                     [:tr [:td "Health"][:td (:healthMod src)]]
@@ -171,7 +175,7 @@
                     [:tr 
                       [:td "Subject"]
                       [:td (if (some? (:subjectImage src)) 
-                            [:img.subject-icon {:src (str "/img/aosc/icons/subject_" (:subjectImage src) ".png")}])]]
+                            [:img.subject-icon {:src (str aosc_icon_path "subject_" (:subjectImage src) ".png")}])]]
                   ; Additional info
                     [:tr [:td "id"][:td (:id src)]]
                   ]]]]
@@ -225,13 +229,13 @@
                     ) (->> deck-cards (filter #(= (-> % :category :en) "Champion")) (sort-by :name)))))]]]
         [:div.bold.text-center.cardcounts
           [:div
-            [:img.deck-icon.mr-1 {:src "/img/aosc/icons/quest_unit.png"}]
+            [:img.deck-icon.mr-1 {:src (str aosc_icon_path "quest_unit.png")}]
             [:span.mr-1 (->> deck-cards (filter #(= (-> % :category :en) "Unit")) (map :count) (reduce +) )]]
-          [:div
-            [:img.deck-icon.mr-1 {:src "/img/aosc/icons/quest_spell.png"}]
+          [:div 
+            [:img.deck-icon.mr-1 {:src (str aosc_icon_path "quest_spell.png")}]
             [:span.mr-1 (->> deck-cards (filter #(= (-> % :category :en) "Spell")) (map :count) (reduce +) )]]
           [:div 
-            [:img.deck-icon.mr-1 {:src "/img/aosc/icons/quest_ability.png"}]
+            [:img.deck-icon.mr-1 {:src (str aosc_icon_path "quest_ability.png")}]
             [:span.mr-1 (->> deck-cards (filter #(= (-> % :category :en) "Ability")) (map :count) (reduce +) )]]]]
       [:div.collapse.mb-2 {:id (str "deck_" (:uid d))} 
         (write-deck-list deck-cards)
@@ -260,64 +264,11 @@
             [:div#decklists.w-100
               [:ul.list-group
                 (map (fn [d] (aosc-deck-card d aosc-card-data)) decks)]]]]
-        [:div#deletemodal.modal {:tabindex -1 :role "dialog"}
-          [:div.modal-dialog {:role "document"}
-            [:div.modal-content
-              [:div.modal-header
-                [:h5.modal-title "Confirm Delete"]
-                [:button {:type "button" :class "close" :data-dismiss "modal"} 
-                  [:span "x"]]]
-              [:div.modal-body]
-              [:div.modal-footer
-                [:button.btn.btn-primary {:data-dismiss "modal"} "Cancel"]
-                [:form {:action "/aosc/decks/delete" :method "post"}
-                  [:input#deletemodaldeckuid {:name "deletedeckuid" :hidden true}]
-                  [:button.btn.btn-danger {:submit "true"} "OK"]]]]]]
-        [:div#importallmodal.modal {:tabindex -1 :role "dialog"}
-          [:div.modal-dialog {:role "document"}
-            [:div.modal-content
-              [:div.modal-header 
-                [:div.modal-title "Import from JSON: [{name: \"name\" deck: \"sharing code\"}]"]
-                [:button {:type "button" :class "close" :data-dismiss "modal"} [:span "x"]]]
-              [:div.modal-body
-                [:textarea#importalldata.form-control.mb-2 {:rows "5"}]
-                [:div.progress
-                  [:div.progress-bar {:role "progressbar"}]]]
-              [:div.modal-footer
-                [:button#importallsubmit.btn.btn-primary "Load"]
-                [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]]    
-        [:div#importdeck.modal {:role "dialog"}
-          [:div.modal-dialog.modal-lg {:role "document"}
-            [:div.modal-content
-              [:div.modal-header 
-                [:h5 "Load Deck"]
-                [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
-                  [:span {:aria-hidden "true"} "x"]]]
-              [:div.modal-body
-                [:div.mb-2 "Paste Decklist or Sharing Code below"]
-                [:input#importdeckname.form-control.mb-2 {:placeholder "Deck Name"}]
-                [:textarea#importdecklist.form-control {:rows "10"}]]
-              [:div.modal-footer
-                [:form {:action "/aosc/decks/import" :method "post"}
-                  [:input#deckname {:hidden true :name "name" :value "Imported Deck"}]
-                  [:input#deckcode {:hidden true :name "data"}]
-                  [:button.btn.btn-primary {:type "submit"} "Load Deck"]]
-                [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]]
-          [:div#exportdeck.modal {:role "dialog"}
-            [:div.modal-dialog {:role "document"}
-              [:div.modal-content
-                [:div.modal-header "Export Deck:" [:span.ml-1]
-                  [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
-                    [:span {:aria-hidden "true"} "x"]]]
-                [:div.modal-body 
-                  [:textarea.form-control.mb-2 {:rows "10"}]
-                  [:div.input-group {:title "Copy sharing code to clipboard" :style "cursor: pointer;"}
-                    [:input#sharecode.form-control {:type "input" :style "cursor: pointer;"}]
-                    [:div.input-group-append
-                      [:span.input-group-text [:i.fas.fa-clipboard]]]]]
-                [:div.modal-footer
-                  [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]]
-          [:div#toaster {:style "position: fixed; top: 10px; right: 10px; z-index: 1050"}]
+        (deletemodal)
+        (importallmodal)
+        (importdeckmodal)
+        (exportdeckmodal)
+        (toaster)
         (h/include-js "/js/externs/warhammer-deck-sharing.js?v=1.0")
         (h/include-js "/js/aosc_tools.js?v=1.0")
         (h/include-js "/js/aosc_decklist.js?v=1.0")])))                  
@@ -350,6 +301,7 @@
             [:div.row.mb-3
               [:a.btn.mx-auto.newdeck.newdeck-destruction {:href "/aosc/decks/new/Destruction"}]]]]]]))
               
+
 (defn- decknamecolour [ uid ]
   (let [rgb (->> (re-matcher #"(?i)([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})" uid) re-find rest)]
     (if (> 0.5 (/ (reduce + (map #(* %1 (Integer/parseInt %2 16))[0.299 0.587 0.114] rgb)) 255))
@@ -358,9 +310,8 @@
        
 (defn- decknameinput [ deckdata ]
   [:input#deckname.form-control {
-    :name "deckname" :placeholder "deck name" :value (:name deckdata)
+    :name "name" :placeholder "deck name" :value (:name deckdata)
     :style (str "background-color: #" (:uid deckdata) "; color: " (decknamecolour (:uid deckdata)) ";") }])
-    
 (defn aosc-deckbuilder [req]
   (let [deckdata (model/get-deck-data req)]
     (h/html5
@@ -372,14 +323,15 @@
             [:div.col-md-6
               [:div.sticky-top.pt-2
                 [:div.row 
-                  [:form.form.w-100 {:action "/aosc/decks/save" :method "post"}
+                  [:form.form.w-100 {:action "/decks/save" :method "post"}
                     [:div.row.py-1.mr-1
                       [:div.col-sm-8 (decknameinput deckdata)]
                       [:div.col-sm-4
-                        [:input#deckdata {:name "deckdata" :hidden true :value (:data deckdata)}]
-                        [:input#deckuid {:name "deckuid" :hidden true :value (:uid deckdata)}]
-                        [:input#deckalliance {:name "deckalliance" :hidden true :value (:alliance deckdata)}]
-                        [:input#decknotes {:name "decknotes" :hidden true :value (:notes deckdata)}]
+                        [:input#deckdata {:name "data" :hidden true :value (:data deckdata)}]
+                        [:input#deckuid {:name "id" :hidden true :value (:uid deckdata)}]
+                        [:input#decksystem {:name "system" :hidden true :value 1}]
+                        [:input#deckalliance {:name "alliance" :hidden true :value (:alliance deckdata)}]
+                        [:input#decknotes {:name "notes" :hidden true :value (:notes deckdata)}]
                         [:button.btn.btn-warning.float-right {:submit "true"} [:i.fas.fa-bookmark.mr-1] "Save"]]]]]
                 [:div#decklist.row]]]
             [:div.col-md-6
@@ -399,7 +351,7 @@
                     [:input#filtertext.form-control.search-info {:type "text" :placeholder "Search"}]
                     [:select#selecttrait.selectpicker.ml-2 {:multiple true :data-width "fit" :data-multiple-separator "" :data-none-selected-text "Tags"}
                       (for [t model/aosc-traits]
-                        (let [imgtag (str "<img class=\"trait-icon ml-1\" src=\"/img/aosc/icons/tag_" (clojure.string/lower-case t) ".png\" title=\"" t "\" />")]
+                        (let [imgtag (str "<img class=\"trait-icon ml-1\" src=\"" aosc_icon_path "tag_" (clojure.string/lower-case t) ".png\" title=\"" t "\" />")]
                           ^{:key (gensym)}[:option {:data-content imgtag} t]))]]
                   [:div.d-flex.my-1
                     [:table#cardtbl.table.table-hover.table-sm
