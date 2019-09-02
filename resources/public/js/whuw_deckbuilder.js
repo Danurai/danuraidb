@@ -144,8 +144,8 @@ $('body').on('click','.decktoggle',function (evt)  {
   }
 // Set warband Filter if unset
   var warband_card = _cards({"code":decklist,"warband":{"!=":35}}).first();
-  if (typeof warband_card != "undefined" && $('#deck-tags').val() == "") {
-    $('#deck-tags').val(warband_card.warband);
+  if (warband_card && $('#deck-tags').val() == "") {
+    $('#deck-alliance').val(warband_card.warband);
     $('#selectwarband').selectpicker('val',[35,warband_card.warband]).trigger('change');
     $('#deckicon').attr("src", "/img/whuw/icons/" + warband_card.warband_icon);
   }
