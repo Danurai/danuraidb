@@ -8,7 +8,8 @@
 
 (import java.util.Base64)
     
-(def alert (atom nil))
+(def alert (atom []))
+
 
 (def ^:const systems [
   1 {:code "aosc"   :desc "Age of Sigmar: Champions"}
@@ -203,10 +204,40 @@
 ;; WHUW   ;;
 ;;;;;;;;;;;;
 
-(defn whuwdata []
+(defn- whuw_fix_cards [ card ]
+  (case (:id card)
+    9105 (assoc card :warbands [35])   ;; Lucky Trinket
+    9112 (assoc card :card_types [20]) ;; Measured Strike
+    12609 (assoc card :warbands [35])  ;; Ghoulish Pact
+    card))
+    
+(def whuwdata
   (load-json-file "private/whuw_data_r2.json"))
-(defn whuwcards []
-  (load-json-file "private/whuw_cards_r2.json"))
+(def whuwcards
+  (map #(whuw_fix_cards %) (load-json-file "private/whuw_cards_r2.json")))
+  
+(defn whuw_fullcards [] 
+  (let [banlist  (load-json-file "private/whuw_restricted_r2.json")]
+    (map (fn [c]
+      (let [set (->> whuwdata :sets (filter #(= (:id %) (:set c))) first)
+            type (->> whuwdata :card-types (filter #(= (:id %) (:card_type c))) first)
+            warband (->> whuwdata :warbands (filter #(= (:id %) (:warband c))) first)
+            banned (= 1 (->> banlist :banned (filter #(= (:code %) (:code c))) count))
+            restricted (= 1 (->> banlist :restricted (filter #(= (:code %) (:code c))) count))
+            ]
+      (assoc c
+        :set_id (:id set)
+        :set_name (:name set)
+        :set_icon (-> set :icon :filename)
+        :card_type_id (:id type)
+        :card_type_name (:name type)
+        :card_type_icon (-> type :icon :filename)
+        :warband_id (:id warband)
+        :warband_name (:name warband)
+        :warband_icon (-> warband :icon :filename)
+        :banned banned
+        :restricted restricted
+    ))) whuwcards)))
     
 ;;;;;;;;;;;;
 ;; FILTER ;;

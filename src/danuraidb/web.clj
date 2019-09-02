@@ -16,25 +16,29 @@
     [danuraidb.pages :as pages]
     [danuraidb.model :as model]))
   
-(defn- alert [ type message ]
-  (reset! model/alert {:type type :message message}))
+(defn- alert [ type msg ]
+  (swap! model/alert conj {:type type :msg msg}))
+  
+(defn do-redirect [ req ]
+  (redirect
+    (re-find #".+decks|.+" 
+      (-> req :headers (get "referer" "/")))))
   
 ;[id system name decklist alliance tags notes uid]
 (defn- save-deck-handler [{:keys [id system name decklist alliance tags notes] :as deck} req]
   (db/save-deck id system name decklist alliance tags notes (-> req pages/get-authentications :uid))
-  (alert "alert-info" (str "Deck " name " saved"))
-  (redirect (str "/" (-> model/systems (get system) :code) "/decks")))
+  (alert "info" [:span [:b name] " saved."])
+  (do-redirect req))
   
-(defn- delete-deck-handler [ deletedeckuid system req ]
-  (db/delete-deck deletedeckuid)
-  (alert "alert-warning" "Deck deleted.")
-  (redirect (str "/" (-> model/systems (get system) :code) "/decks")))
+(defn- delete-deck-handler [ uid name req ]
+  (db/delete-deck uid)
+  (alert "warning" [:span [:b name] " deleted."])
+  (do-redirect req))
   
 (defn- save-collection-handler [collectionjson filterjson req]
   (db/save-user-collection collectionjson (-> req pages/get-authentications :uid))
-  (reset! model/alert {:type "alert-info" :message "Collection saved"})
-  (redirect (-> req :headers (get "referer")))
-)
+  (alert "info" "Collection saved")
+  (do-redirect req))
 
 ;; ADMIN ;;
      
@@ -65,16 +69,7 @@
   (GET "/" [] pages/lotrdb-decks)
   (GET "/new" [] pages/deckbuilder)
   (GET "/edit" [] pages/deckbuilder)
-  (GET "/edit/:id" [] pages/deckbuilder)
-  (POST "/save" [deck-id deck-name deck-content deck-tags deck-notes]  
-    (friend/wrap-authorize 
-      ;;[id system name decklist alliance tags notes uid]
-      #(save-deck-handler {:id deck-id :system 0 :name deck-name :decklist deck-content :deck-tags deck-tags :deck-notes deck-notes} %)
-      #{::db/user}))
-  (POST "/delete" [deletedeckuid]
-    (friend/wrap-authorize 
-      (delete-deck-handler deletedeckuid)
-      #{::db/user})))
+  (GET "/edit/:id" [] pages/deckbuilder))
 
 (defroutes lotrdb-routes
   (GET "/" [req]
@@ -136,20 +131,7 @@
   (GET "/new"     [] pages/aosc-newdeck)
   (POST "/new"     [] pages/aosc-deckbuilder)
   (GET "/new/:id"  [] pages/aosc-deckbuilder)
-  (GET "/edit/:id" [] pages/aosc-deckbuilder)
-  (POST "/import" [name data]
-    (friend/wrap-authorize
-      #(save-deck-handler {:system 1 :id (db/unique-deckid) :name name :decklist data} %)
-      #{::db/user}))
-  (POST "/save"   [deckuid deckname deckdata deckalliance decknotes] 
-    (friend/wrap-authorize 
-      ;[id system name decklist alliance tags notes uid]
-      #(save-deck-handler {:id deckuid :system 1 :name deckname :decklist deckdata :alliance deckalliance :deck-notes decknotes} %)
-      #{::db/user}))
-  (POST "/delete" [deletedeckuid] 
-    (friend/wrap-authorize 
-      #(delete-deck-handler deletedeckuid 1 %)
-      #{::db/user})))
+  (GET "/edit/:id" [] pages/aosc-deckbuilder))
     
 (defroutes aosc-routes
   (GET "/" [] pages/aosc-home)
@@ -165,49 +147,66 @@
   (context "/cardlogin" []
     (friend/wrap-authorize (GET "/:id" [id] (redirect (str "/aosc/cards/" id))) #{::db/user})))
   
+;; WHUW ;;
+  
 (defroutes whuw-deck-routes
   (GET "/"        [] pages/whuw-decks)
   (GET "/new"     [] pages/whuw-deckbuilder)
+  ;(GET "/new/:id"  [] pages/aosc-deckbuilder)
+  (GET "/edit/:id" [] pages/whuw-deckbuilder)
   )
-;  (GET "/new"     [] pages/aosc-newdeck)
-;  (GET "/new/:id"  [] pages/aosc-deckbuilder)
-;  (GET "/edit/:id" [] pages/aosc-deckbuilder)
-;  (POST "/import" [name data]
-;    (friend/wrap-authorize
-;      #(save-deck-handler {:system 1 :id (db/unique-deckid) :name name :decklist data} %)
-;      #{::db/user}))
-;  (POST "/save"   [deckuid deckname deckdata deckalliance decknotes] 
-;    (friend/wrap-authorize 
-;      ;[id system name decklist alliance tags notes uid]
-;      #(save-deck-handler {:id deckuid :system 1 :name deckname :decklist deckdata :alliance deckalliance :deck-notes decknotes} %)
-;      #{::db/user}))
-;  (POST "/delete" [deletedeckuid] 
-;    (friend/wrap-authorize 
-;      #(delete-deck-handler deletedeckuid 1 %)
-;      #{::db/user})))
   
 (defroutes whuw-routes
   (GET "/" [] pages/whuw-home)
   (context "/decks" [] 
     (friend/wrap-authorize whuw-deck-routes #{::db/user}))
   (GET "/api/data" [] (-> "private/whuw_data_r2.json" io/resource slurp response (content-type "application/json")))
-  (GET "/api/cards" [] (-> "private/whuw_cards_r2.json" io/resource slurp response (content-type "application/json")))
-  )
+  (GET "/api/cards" [] (-> (model/whuw_fullcards) json/write-str response (content-type "application/json"))))
+  
+;; WHCONQ ;;
+  
 (defroutes whconq-routes
   (GET "/" [] pages/whconq-home))
+  
+;; DECK ADMIN ;;
+  
+(defroutes deck-admin-routes
+  (POST "/import" [name system data alliance tags notes]
+    #(save-deck-handler {
+      :id (db/unique-deckid)
+      :system (read-string system)
+      :decklist data 
+      :name (if (empty? name) "Imported Deck" name) 
+      :alliance alliance 
+      :tags tags 
+      :notes notes} %))
+  (POST "/save" [id name system data alliance tags notes]
+    #(save-deck-handler {
+      :id id
+      :system (read-string system)
+      :decklist data 
+      :name (if (empty? name) "Imported Deck" name) 
+      :alliance alliance 
+      :tags tags 
+      :notes notes} %))
+  (POST "/delete" [uid name] 
+    (friend/wrap-authorize 
+      #(delete-deck-handler uid name %)
+      #{::db/user})))
    
 (defroutes app-routes
   (GET "/test" [] pages/testpage)
   (GET "/"     [] pages/home)
   (GET "/login" [] pages/login)
+  (context "/decks"   [] (friend/wrap-authorize deck-admin-routes #{::db/user}))
   (context "/lotrdb"  [] lotrdb-routes)
   (context "/aosc"    [] aosc-routes)
   (context "/whuw"    [] whuw-routes)
   (context "/whconq"  [] whconq-routes)
   (context "/admin"   [] (friend/wrap-authorize admin-routes #{::db/admin}))
-  (POST "/register" [username password]
-    (db/adduser username password false)
-    (redirect "/"))
+  ;(POST "/register" [username password]
+  ;  (db/adduser username password false)
+  ;  (redirect "/"))
   (POST "/checkusername" [username] 
     (response (str (some #(= (clojure.string/lower-case username) (clojure.string/lower-case %)) (map :username (db/get-users))))))
   (friend/logout
