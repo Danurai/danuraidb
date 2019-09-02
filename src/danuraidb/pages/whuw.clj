@@ -1,5 +1,7 @@
 '(in-ns danuraidb.pages)
 
+(def ^:const whuw_icon_path "/img/whuw/icons/")
+
 (def whuw-pretty-head
   (into pretty-head (h/include-css "/css/whuw-style.css?v=1.0")))
   
@@ -23,7 +25,7 @@
   
 (defn whuw-navbar [req]
   (navbar 
-    "/img/whuw/icons/Shadespire-Library-Icons-Universal.png" 
+    (str whuw_icon_path "Shadespire-Library-Icons-Universal.png")
     "WHUW DB" 
     "whuw"
     ["decks" "cards"]
@@ -40,32 +42,69 @@
             [:a {:href "/whuw/decks"} "Login"] 
             [:span.ml-1 "to see your decks"]]]]]))
             
+(defn- whuw-export-string [ deck-cards ]
+  (clojure.string/join "\n"
+    (map (fn [id]
+      (if-let [cards (->> deck-cards (filter #(= (:card_type_id %) id)))]
+        (clojure.string/join "\n" (concat [(-> cards first :card_type_name)] (map :name cards)))))
+      [20,21,150,22])))
 
-
-(defn- whuw-deck-card [deck]
-  [:a.list-group-item.list-group-item-action {:href (str "/deck/edit/" (:uid deck))} 
-    [:div.d-flex.justify-content-between
-      [:span (:name deck)]
-      [:form {:action "/whuw/deck/delete" :method "post"}
-        [:input#deletedeckuid {:name "deletedeckuid" :hidden true :data-lpignore "true" :value (:uid deck)}]
-        [:button.btn.btn-danger.btn-sm {:type "submit" :title "Delete Deck"} "x"]]]])
-        
-(defn whuw-decks [ req ]
-  (let [user-decks (db/get-user-decks 2 (-> req get-authentications :uid) )]
+(defn- whuw-deck-card [ d card-data ]
+  (let [cardlist (-> d :data json/read-str set)
+        deck-cards (filter #(some (partial = (:code %)) cardlist) card-data)]
+    [:li.list-group-item.list-deck-card
+      [:div.d-flex.justify-content-between {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))}
+        [:img.icon-sm.mr-2 {:src (str whuw_icon_path (get (->> deck-cards (filter #(not= 35 (:warband_id %))) first)  :warband_icon "Shadespire-Library-Icons-Universal.png"))}]
+        [:span.h3 (:name d)]
+        [:div.ml-auto
+          (map (fn [id]
+            (if-let [img (->> deck-cards (filter #(= (:card_type_id %) id)) first :card_type_icon)]
+              [:span
+                [:span.mr-1 [:img.icon-xs {:src (str whuw_icon_path img)}]]
+                [:span.align-bottom.mr-2 (->> deck-cards (filter #(= id (:card_type_id %))) count)]]))
+            [20 21 150 22])]]
+      [:div.collapse {:id (str "deck_" (:uid d))} 
+        [:div.row.mb-2
+          (map (fn [id]
+            (if-let [type (->> deck-cards (filter #(= (:card_type_id %) id)) (sort-by :name))]
+              [:div.col-sm-3
+                [:div 
+                  [:img.icon-xs.mr-1 {:src (str whuw_icon_path (-> type first :card_type_icon))}]
+                  [:span.h5.align-bottom (-> type first :card_type_name)]]
+                (for [t type]
+                  [:div.cardlink {:data-code (:code t)} (:name t)])]))
+            [20 21 150 22])]
+        [:div
+          [:button.btn.btn-sm.btn-danger.mr-1 {:data-toggle "modal" :data-target "#deletemodal" :data-name (:name d) :data-uid (:uid d)} [:i.fas.fa-times.mr-1] "Delete"]
+          [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (whuw-export-string deck-cards) :data-deckname (:name d)} [:i.fas.fa-file-export.mr-1] "Export"]
+          [:a.btn.btn-sm.btn-primary {:href (str "/whuw/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]]))
+          
+(defn whuw-decks [req]
+  (let [decks (db/get-user-decks 2 (-> req get-authentications (get :uid 1002)))
+        card-data (model/whuw_fullcards)]
     (h/html5
       whuw-pretty-head
       [:body
         (whuw-navbar req)
-        [:div.toaster.ddb-toaster]
-        [:div.container.my-2
-          [:div.row.my-1
-            [:a.btn.btn-secondary {:href "/whuw/decks/new"} "New Deck"]]
-          [:div.row.my-1
-            [:div.col-md-6
-              [:div.row.mb-2 (str "Saved decks (" (count user-decks) ")")]
-              [:div.list-group
-                (map #(whuw-deck-card %) user-decks)]]]]])))
-
+        [:div.container.my-3
+          [:div.row.justify-content-between
+            [:div.h3 (str "Decks (" (count decks) ")")]
+            [:div 
+              ;[:button#exportall.btn.btn-secondary.mr-1 {:title "Export to JSON" :data-export (json/write-str (map #(select-keys % [:name :data]) decks))} [:i.fas.fa-clipboard]]
+              ;[:button#importall.btn.btn-secondary.mr-1 {:title "Import from JSON" :data-toggle "modal" :data-target "#importallmodal"} [:i.fas.fa-paste]] 
+              [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
+              [:a.btn.btn-primary {:href "/whuw/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]
+              ]
+          [:div.row
+            [:div#decklists.w-100
+              [:ul.list-group
+                (map (fn [d] (whuw-deck-card d card-data)) decks)]]]]
+        (deletemodal)
+        (importdeckmodal)
+        (exportdeckmodal)
+        (toaster)
+        (h/include-js "/js/whuw_decklist.js?v=1.0")])))
+        
 (defn whuw-deckbuilder [req]
   (let [deck (model/get-deck-data req)]
     (h/html5
@@ -77,21 +116,23 @@
             [:div.col-sm-6
               [:div.sticky-top.pt-3
                 [:div.row-fluid.mb-3
-                  [:form#save_form.form.needs-validation {:method "post" :action "/deck/save" :role "form" :novalidate true}
+                  [:form#save_form.form.needs-validation {:method "post" :action "/decks/save" :role "form" :novalidate true}
                     [:div.form-row.align-items-center
                       [:div.col-auto
-                        [:img#deckicon.icon-sm {:src "/img/whuw/icons/Shadespire-Library-Icons-Universal.png"}]]
+                        [:img#deckicon.icon-sm {:src (str whuw_icon_path "Shadespire-Library-Icons-Universal.png")}]]
                       [:div.col-auto
                         [:label.sr-only {:for "#deck-name"} "Deck Name"]
-                        [:input#deck-name.form-control {:type "text" :name "deck-name" :placeholder "New Deck" :required true :value (:name deck) :data-lpignore "true"}]
+                        [:input#deck-name.form-control {:type "text" :name "name" :placeholder "New Deck" :required true :value (:name deck) :data-lpignore "true"}]
                         [:div.invalid-feedback "You must name your deck"]]
                       [:div.col-auto
                         [:button.btn.btn-warning.mr-2 {:role "submit"} "Save"]
                         [:a.btn.btn-light.mr-2 {:href "/"} "Cancel Edits"]]]
-                    [:input#deck-id      {:type "text" :name "deck-id"      :value (:uid deck) :readonly true :hidden true}]
-                    [:input#deck-content {:type "text" :name "deck-content" :value (:data deck)  :readonly true :hidden true}]
-                    [:input#deck-tags    {:type "text" :name "deck-tags"    :value (:tags deck) :readonly true :hidden true}]
-                    [:input#deck-notes   {:type "text"  :name "deck-notes"  :value (:notes deck) :readonly true :hidden true}]]]
+                    [:input#deck-id      {:type "text" :name "id"      :value (:uid deck) :readonly true :hidden true}]
+                    [:input#deck-system  {:type "text" :name "system"   :value 2 :readonly true :hidden true}]
+                    [:input#deck-alliance {:type "text" :name "alliance" :readonly true :hidden true}]
+                    [:input#deck-content {:type "text" :name "data" :value (:data deck)  :readonly true :hidden true}]
+                    [:input#deck-tags    {:type "text" :name "tags"    :value (:tags deck) :readonly true :hidden true}]
+                    [:input#deck-notes   {:type "text" :name "notes"   :value (:notes deck) :readonly true :hidden true}]]]
                 [:div#decklist.row-fluid]
             ]]
             [:div.col-sm-6
@@ -99,23 +140,23 @@
                 [:div.mr-2.my-auto "Set filter"]
                 [:select#selectset.selectpicker {:multiple true :data-width "fit"}
                   (for [item (sorted_vec gw_sets (:sets ordered_lists))]
-                    (let [imgtag (str "<img class=\"icon-sm\" src=\"/img/whuw/icons/" (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                    (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
                     ^{:key (gensym)}[:option {:data-content imgtag :data-subtext (:name item) } (:id item)]))]]
               [:div.row.mb-2
                 [:span.mr-2.my-auto "Warband"]
                 [:select#selectwarband.selectpicker.mr-2 {:multiple true :data-width "fit"}
                   (for [item (sorted_vec gw_warbands (:warbands ordered_lists))]
-                    (let [imgtag (str "<img class=\"icon-sm\" src=\"/img/whuw/icons/" (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                    (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
                     ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]
                 [:span.mr-2.my-auto "Type filter"]
                 [:select#selecttype.selectpicker {:multiple true :data-width "fit"}
                   (for [item (sorted_vec gw_card-types (:card-types ordered_lists))]
-                    (let [imgtag (str "<img class=\"icon-sm\" src=\"/img/whuw/icons/" (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                    (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
                     ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]]
               [:div.row 
                 [:div.col-md-12
                   [:div.row 
-                    [:input#filtertext.form-control {:type "text"}]]]]
+                    [:input#filtertext.form-control.w-100 {:type "text"}]]]]
               [:div#info.row]
               [:div.row
                 [:table.table.table-sm.table-hover

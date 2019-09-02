@@ -79,16 +79,6 @@
     (h/include-css "/css/danuraidb-style.css?v=1")
     ])
     
-
-
-(defn show-alert []
-  (let [type (-> @model/alert :type)
-        msg  (-> @model/alert :message)]
-    (when (some? type)
-      (reset! model/alert {})
-      [:div.alert.alert-dismissible.fade.show {:class type :role "alert"} msg
-        [:button.close {:type"button" :data-dismiss "alert" :aria-label "Close"} [:span {:aria-hidden "true"} "&#10799;"]]])))
-
 (defn optgroup-togglenone
   ([group id]
     (optgroup-togglenone group id nil))
@@ -129,3 +119,90 @@
 (defn- markdown [ txt ]
   txt
 )
+
+(defn- deletemodal []
+  [:div#deletemodal.modal {:tabindex -1 :role "dialog"}
+    [:div.modal-dialog {:role "document"}
+      [:div.modal-content
+        [:div.modal-header
+          [:h5.modal-title "Confirm Delete"]
+          [:button {:type "button" :class "close" :data-dismiss "modal"} 
+            [:span "x"]]]
+        [:div.modal-body]
+        [:div.modal-footer
+          [:button.btn.btn-primary {:data-dismiss "modal"} "Cancel"]
+          [:form {:action "/decks/delete" :method "post"}
+            [:input#deletemodaldeckname {:name "name" :hidden true}]
+            [:input#deletemodaldeckuid {:name "uid" :hidden true}]
+            [:button.btn.btn-danger {:submit "true"} "OK"]]]]]])
+            
+            (defn- importdeckmodal []
+  [:div#importdeck.modal {:role "dialog"}
+    [:div.modal-dialog {:role "document"}
+      [:div.modal-content
+        [:div.modal-header 
+          [:h5 "Load Deck"]
+          [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
+            [:span {:aria-hidden "true"} "x"]]]
+        [:div.modal-body
+          [:div.mb-2 "Paste Decklist or Sharing Code below"]
+          [:input#importdeckname.form-control.mb-2 {:placeholder "Deck Name"}]
+          [:textarea#importdecklist.form-control {:rows "10"}]]
+        [:div.modal-footer
+          [:form {:action "/decks/import" :method "post"}
+            [:input#deckname {:hidden true :name "name" :value "Imported Deck"}]
+            [:input#decksystem {:hidden true :name "system"}]
+            [:input#deckdata {:hidden true :name "data"}]
+            [:button.btn.btn-primary {:type "submit"} "Load Deck"]]
+          [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]])
+          
+(defn- importallmodal []
+  [:div#importallmodal.modal {:tabindex -1 :role "dialog"}
+    [:div.modal-dialog {:role "document"}
+      [:div.modal-content
+        [:div.modal-header 
+          [:div.modal-title "Import from JSON: [{name: \"name\" deck: \"sharing code\"}]"]
+          [:button {:type "button" :class "close" :data-dismiss "modal"} [:span "x"]]]
+        [:div.modal-body
+          [:textarea#importalldata.form-control.mb-2 {:rows "5"}]
+          [:div.progress
+            [:div.progress-bar {:role "progressbar"}]]]
+        [:div.modal-footer
+          [:button#importallsubmit.btn.btn-primary "Load"]
+          [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]] )
+          
+(defn- exportdeckmodal []
+  [:div#exportdeck.modal {:role "dialog"}
+    [:div.modal-dialog {:role "document"}
+      [:div.modal-content
+        [:div.modal-header "Export Deck:" [:span.ml-1]
+          [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
+            [:span {:aria-hidden "true"} "x"]]]
+        [:div.modal-body 
+          [:textarea.form-control.mb-2 {:rows "10"}]
+          [:div.input-group {:title "Copy sharing code to clipboard" :style "cursor: pointer;"}
+            [:input#sharecode.form-control {:type "input" :style "cursor: pointer;"}]
+            [:div.input-group-append
+              [:span.input-group-text [:i.fas.fa-clipboard]]]]]
+        [:div.modal-footer
+          [:button.btn.btn-secondary {:type "button" :data-dismiss "modal"} "Close"]]]]])
+
+(defn- toast [{:keys [type msg]}]
+  [:div.toast {:role "alert" :aria-live "assertive" :aria-atomic "true" :data-delay 5000 :style "min-width: 200px;"}
+    [:div.toast-header 
+      (case type
+        "fatal" [:i.fas.fa-times.text-danger]
+        "warning" [:i.fas.fa-exclamation.text-warning]
+        [:i.fas.fa-exclamation.text-primary])
+      [:b.ml-2.mr-auto (clojure.string/capitalize type)]
+      [:button.close {:role "button" :data-dismiss "toast" :aria-label "Close"} [:span {:aria-hidden true} "&times;"]]]
+   [:div.toast-body
+    [:span msg]]])
+          
+(defn- toaster []
+  (when-let [alerts @model/alert]
+    (reset! model/alert [])
+    [:div#toaster {:style "position: fixed; top: 10px; right: 10px; z-index: 1050"}
+      (for [a alerts]
+        (toast a))
+      [:script "$('.toast').toast('show');"]]))
