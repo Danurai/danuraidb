@@ -6,11 +6,6 @@
   width: 100px;
 }
 
-.sortable {
-  cursor: pointer;
-  position: relative;
-}
-
 .caret {
   position: absolute;
   right: 2px;
