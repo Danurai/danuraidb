@@ -20,7 +20,7 @@
             [:img.mr-1 {:src iconsrc :style "width: 1em;"}] title]
           [:div.dropdown-menu
             (map (fn [s]
-              [:a.dropdown-item {:href (str "/" (:code s) "/decks")} (:desc s)]) model/systems)]]
+              [:a.dropdown-item {:href (str "/" (:code s) "/decks")} [:img.mr-1 {:src (:icon s) :style "width: 1em;"}] (:desc s)]) model/systems)]]
       ;; Collapse Button for smaller viewports
         [:button.navbar-toggler {:type "button" :data-toggle "collapse" :data-target "#navbarSupportedContent" 
                               :aria-controls "navbarSupportedContent" :aria-label "Toggle Navigation" :aria-expanded "false"}

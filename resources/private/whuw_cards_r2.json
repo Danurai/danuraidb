@@ -5996,7 +5996,7 @@
     "card_type": 22,
     "set": 143,
     "warband": 34,
-    "rule": "This fighter\u00e2\u20ac\u2122s Attack actions have +1 Damage when they are adjacent to a friendly leader",
+    "rule": "This fighter's Attack actions have +1 Damage when they are adjacent to a friendly leader",
     "filename": "L02_ENG-1.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/07/L02_ENG-1.png"
   },
@@ -6426,7 +6426,7 @@
     "card_type": 21,
     "set": 143,
     "warband": 35,
-    "rule": "Your leader\u00e2\u20ac\u2122s first Attack action with a Range of 1 that only targets a single fighter in the next activation has a Range of 2",
+    "rule": "Your leader's first Attack action with a Range of 1 that only targets a single fighter in the next activation has a Range of 2",
     "filename": "L32_ENG-1.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/07/L32_ENG-1.png"
   },
@@ -6439,7 +6439,7 @@
     "card_type": 21,
     "set": 143,
     "warband": 35,
-    "rule": "You can re-roll one attack dice during your leader\u00e2\u20ac\u2122s first Attack action in the next activation",
+    "rule": "You can re-roll one attack dice during your leader's first Attack action in the next activation",
     "filename": "L33_ENG-1.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/07/L33_ENG-1.png"
   },
@@ -6491,7 +6491,7 @@
     "card_type": 21,
     "set": 143,
     "warband": 35,
-    "rule": "Remove one wound token from your leader\u00e2\u20ac\u2122s fighter card",
+    "rule": "Remove one wound token from your leader's fighter card",
     "filename": "L37_ENG-1.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/07/L37_ENG-1.png"
   },
@@ -6660,7 +6660,7 @@
     "card_type": 22,
     "set": 143,
     "warband": 35,
-    "rule": "Reaction: During an adjacent enemy fighter\u00e2\u20ac\u2122s Attack action, before any dice are rolled, change the target of that Attack action to this fighter and discard this card",
+    "rule": "Reaction: During an adjacent enemy fighter's Attack action, before any dice are rolled, change the target of that Attack action to this fighter and discard this card",
     "filename": "L50_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/07/L50_ENG.png"
   },
@@ -6790,7 +6790,7 @@
     "card_type": 22,
     "set": 143,
     "warband": 35,
-    "rule": "Reaction: After an adjacent friendly fighter\u00e2\u20ac\u2122s Attack action that fails, that fighter takes 2 damage. If they survive, they can make another Attack action",
+    "rule": "Reaction: After an adjacent friendly fighter's Attack action that fails, that fighter takes 2 damage. If they survive, they can make another Attack action",
     "filename": "L60_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/07/L60_ENG.png"
   },
@@ -9334,7 +9334,7 @@
     "card_type": 150,
     "set": 258,
     "warband": 258,
-    "rule": "Gambit Spell (2 Channel): If this spell is cast, choose an enemy fighter within four hexes of the caster. That fighter\u00e2\u20ac\u2122s Attack actions have -1 Damage (to a minimum of 1). This spell persists until that fighter is out of action.",
+    "rule": "Gambit Spell (2 Channel): If this spell is cast, choose an enemy fighter within four hexes of the caster. That fighter's Attack actions have -1 Damage (to a minimum of 1). This spell persists until that fighter is out of action.",
     "filename": "186-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/186-NV_ENG.png"
   },
@@ -9360,7 +9360,7 @@
     "card_type": 21,
     "set": 258,
     "warband": 258,
-    "rule": "Reaction: Play this during a friendly fighter\u00e2\u20ac\u2122s Attack action, before the attack roll, if that fighter has no supporting fighters. Any rolls of Single Support in the attack roll are successes.",
+    "rule": "Reaction: Play this during a friendly fighter's Attack action, before the attack roll, if that fighter has no supporting fighters. Any rolls of Single Support in the attack roll are successes.",
     "filename": "188-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/188-NV_ENG.png"
   },
@@ -9399,7 +9399,7 @@
     "card_type": 21,
     "set": 258,
     "warband": 258,
-    "rule": "Reaction: Play this during a friendly fighter\u00e2\u20ac\u2122s Attack action, before the attack roll, if that fighter has no supporting fighters. Any rolls of Double Support in the attack roll are considere to be rolls of Critical.",
+    "rule": "Reaction: Play this during a friendly fighter's Attack action, before the attack roll, if that fighter has no supporting fighters. Any rolls of Double Support in the attack roll are considere to be rolls of Critical.",
     "filename": "191-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/191-NV_ENG.png"
   },
@@ -9438,7 +9438,7 @@
     "card_type": 22,
     "set": 258,
     "warband": 258,
-    "rule": "-1 Wounds (to a minimum of 1). This fighter\u00e2\u20ac\u2122s Attack actions with a Range of 1 or 2 have +1 Damage.",
+    "rule": "-1 Wounds (to a minimum of 1). This fighter's Attack actions with a Range of 1 or 2 have +1 Damage.",
     "filename": "194-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/194-NV_ENG.png"
   },
@@ -9464,7 +9464,7 @@
     "card_type": 22,
     "set": 258,
     "warband": 258,
-    "rule": "[3 Hex | 3 Sword | 1 Damage | Cleave] This Attack action has +1 Damage when made during this fighter\u00e2\u20ac\u2122s Charge action.",
+    "rule": "[3 Hex | 3 Sword | 1 Damage | Cleave] This Attack action has +1 Damage when made during this fighter's Charge action.",
     "filename": "196-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/196-NV_ENG.png"
   },
@@ -9490,7 +9490,7 @@
     "card_type": 22,
     "set": 258,
     "warband": 258,
-    "rule": "+1 Wounds, +1 Dice to this fighter\u00e2\u20ac\u2122s Attack actions. You may only apply this upgrade to a fighter that has an upgrade.",
+    "rule": "+1 Wounds, +1 Dice to this fighter's Attack actions. You may only apply this upgrade to a fighter that has an upgrade.",
     "filename": "198-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/198-NV_ENG.png"
   },
@@ -9503,7 +9503,7 @@
     "card_type": 22,
     "set": 258,
     "warband": 258,
-    "rule": "[3 Hex | 2 Sword | 1 Damage] Reaction: After an enemy fighter\u00e2\u20ac\u2122s Move action that ends adjacent to this fighter, make this Attack action. It must target that fighter and cannot drive them back.",
+    "rule": "[3 Hex | 2 Sword | 1 Damage] Reaction: After an enemy fighter's Move action that ends adjacent to this fighter, make this Attack action. It must target that fighter and cannot drive them back.",
     "filename": "199-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/199-NV_ENG.png"
   },
@@ -9516,7 +9516,7 @@
     "card_type": 22,
     "set": 258,
     "warband": 258,
-    "rule": "You can play this upgrade using the following reaction: Reaction: After a friendly fighter\u00e2\u20ac\u2122s Attack action that takes an adjacent enemy fighter out of action, if this card is in your hand, apply this",
+    "rule": "You can play this upgrade using the following reaction: Reaction: After a friendly fighter's Attack action that takes an adjacent enemy fighter out of action, if this card is in your hand, apply this",
     "filename": "200-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/200-NV_ENG.png"
   },
@@ -9529,7 +9529,7 @@
     "card_type": 22,
     "set": 258,
     "warband": 258,
-    "rule": "On a critical hit, this fighter\u00e2\u20ac\u2122s Attack actions with a Range of 1 or 2 have +1 Damage.",
+    "rule": "On a critical hit, this fighter's Attack actions with a Range of 1 or 2 have +1 Damage.",
     "filename": "201-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/201-NV_ENG.png"
   },
@@ -9846,7 +9846,7 @@
     "card_type": 22,
     "set": 257,
     "warband": 257,
-    "rule": "You can re-roll one dice in each attack roll for this fighter\u00e2\u20ac\u2122s Attack actions.",
+    "rule": "You can re-roll one dice in each attack roll for this fighter's Attack actions.",
     "filename": "224-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/224-NV_ENG.png"
   },
@@ -13386,7 +13386,7 @@
     "card_type": 22,
     "set": 258,
     "warband": 35,
-    "rule": "Action: This fighter\u00e2\u20ac\u2122s next casting rollin this phase has Innate (Focus).",
+    "rule": "Action: This fighter's next casting rollin this phase has Innate (Focus).",
     "filename": "474-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/474-NV_ENG.png"
   },
@@ -14153,7 +14153,7 @@
     "card_type": 22,
     "set": 258,
     "warband": 35,
-    "rule": "Remove up to one wound token from this fighter\u00e2\u20ac\u2122s fighter card at the beginning of each round.",
+    "rule": "Remove up to one wound token from this fighter's fighter card at the beginning of each round.",
     "filename": "532-NV_ENG.png",
     "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/532-NV_ENG.png"
   },

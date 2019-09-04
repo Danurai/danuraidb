@@ -62,17 +62,19 @@
               [:span
                 [:span.mr-1 [:img.icon-xs {:src (str whuw_icon_path img)}]]
                 [:span.align-bottom.mr-2 (->> deck-cards (filter #(= id (:card_type_id %))) count)]]))
-            [20 21 150 22])]]
+            [20 21 150 22])]
+        [:span [:button.btn.btn-outline-secondary.btn-sm {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} [:i.fas.fa-plus]]]]
       [:div.collapse {:id (str "deck_" (:uid d))} 
         [:div.row.mb-2
           (map (fn [id]
-            (if-let [type (->> deck-cards (filter #(= (:card_type_id %) id)) (sort-by :name))]
-              [:div.col-sm-3
-                [:div 
-                  [:img.icon-xs.mr-1 {:src (str whuw_icon_path (-> type first :card_type_icon))}]
-                  [:span.h5.align-bottom (-> type first :card_type_name)]]
-                (for [t type]
-                  [:div.cardlink {:data-code (:code t)} (:name t)])]))
+            (let [type (->> deck-cards (filter #(= (:card_type_id %) id)) (sort-by :name))]
+              (if (not-empty type)
+                [:div.col-sm-3
+                  [:div 
+                    [:img.icon-xs.mr-1 {:src (str whuw_icon_path (-> type first :card_type_icon))}]
+                    [:span.h5.align-bottom (-> type first :card_type_name)]]
+                  (for [t type]
+                    [:div.cardlink {:data-code (:code t)} (:name t)])])))
             [20 21 150 22])]
         [:div
           [:button.btn.btn-sm.btn-danger.mr-1 {:data-toggle "modal" :data-target "#deletemodal" :data-name (:name d) :data-uid (:uid d)} [:i.fas.fa-times.mr-1] "Delete"]
@@ -126,7 +128,7 @@
                         [:div.invalid-feedback "You must name your deck"]]
                       [:div.col-auto
                         [:button.btn.btn-warning.mr-2 {:role "submit"} "Save"]
-                        [:a.btn.btn-light.mr-2 {:href "/"} "Cancel Edits"]]]
+                        [:a.btn.btn-light.mr-2 {:href "/whuw/decks"} "Cancel Edits"]]]
                     [:input#deck-id      {:type "text" :name "id"      :value (:uid deck) :readonly true :hidden true}]
                     [:input#deck-system  {:type "text" :name "system"   :value 2 :readonly true :hidden true}]
                     [:input#deck-alliance {:type "text" :name "alliance" :readonly true :hidden true}]
@@ -180,3 +182,29 @@
               [:div.modal-body]]]]
       (h/include-js "/js/externs/typeahead.js")
       (h/include-js "/js/whuw_deckbuilder.js")])))
+      
+
+(defn whuw-cards [ req ]
+  (h/html5
+    whuw-pretty-head
+    [:body
+      (whuw-navbar req)
+      [:div.container.my-3
+        [:div.row 
+          [:div.mr-2.my-auto "Set filter"]
+          [:select#selectset.selectpicker.mr-2 {:multiple true :data-width "fit"}
+            (for [item (sorted_vec gw_sets (:sets ordered_lists))]
+              (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+              ^{:key (gensym)}[:option {:data-content imgtag :data-subtext (:name item) } (:id item)]))]
+          [:span.mr-2.my-auto "Warband"]
+          [:select#selectwarband.selectpicker.mr-2 {:multiple true :data-width "fit"}
+            (for [item (sorted_vec gw_warbands (:warbands ordered_lists))]
+              (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+              ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]
+          [:span.mr-2.my-auto "Type filter"]
+          [:select#selecttype.selectpicker {:multiple true :data-width "fit"}
+            (for [item (sorted_vec gw_card-types (:card-types ordered_lists))]
+              (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+              ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]]
+        [:div#results.row]]
+      (h/include-js "/js/whuw_cards.js?v=1")]))

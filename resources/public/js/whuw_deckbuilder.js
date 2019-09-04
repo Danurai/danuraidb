@@ -21,10 +21,12 @@ $.getJSON('/whuw/api/cards', function (data) {
   
   // save selected sets between sessions
   var savedsets = localStorage.getItem("whuwsets");
-  if (savedsets != "undefined" && savedsets != null) {
-    filter.set_id = JSON.parse(savedsets);
-    $('#selectset').selectpicker('val',filter.set_id);
+  if (savedsets == "" || savedsets == null) {
+    savedsets=[156];
+    localStorage.setItem("whuwdata",savedsets);
   }
+  filter.set_id = JSON.parse(savedsets);
+  $('#selectset').selectpicker('val',filter.set_id);
 
 // Save deck in LocalStorage?
 

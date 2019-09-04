@@ -135,7 +135,7 @@
     (h/include-js "/js/aosc_admin.js?v=1")])
     
 (defn whuw-site-admin []
-  (let [carddata (model/whuwdata)]
+  (let [carddata model/whuwdata]
     [:div.my-3
       [:ul.nav.nav-tabs.nav-justified {:role "tablist"}
         [:li.nav-item [:a.nav-link {:data-toggle "tab" :href "#warbands"} "Warbands"]]
@@ -181,9 +181,10 @@
                 [:th "url"]
                 [:th "img"]
                 ]]
-            [:tbody]]]]
+            [:tbody]]]
+            ]
         (h/include-js "/js/whuw_admin.js?v=1") ;newdata.js
-        ]))      
+        ]))
   
 (defn admin-page [ req ]
   (h/html5

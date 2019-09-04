@@ -4,8 +4,15 @@ $.getJSON("/whuw/api/cards",function (data) {
   _cards = TAFFY(data);
 });
 
-$('#importdeck').on('show.bs.modal', function(ev) {
-  $('#decksystem').val(2);
+$('#importdeck')
+  .on('show.bs.modal', function() {
+    $('#decksystem').val(2);
+  });
+$('#importdeckname').on('input',function() {
+  $('#deckname').val($(this).val())
+});
+$('#importdecklist').on('input',function() {
+  $('#deckdata').val(parse_whuw_decklist($(this).val()))
 });
 
 $('#deletemodal').on('show.bs.modal', function (ev) {
@@ -18,10 +25,13 @@ $('#deletemodal').on('show.bs.modal', function (ev) {
 
 function parse_whuw_decklist ( decklist ) {
   var code = [];
-  $.each(decklist.match(/.+/g),((id, c) =>
-    code.push(_cards({"name":c}).first().code)
-  ))
-  
+  try {
+    code = JSON.parse(decklist);
+  } catch (e) {
+    $.each(decklist.match(/.+/g),((id, c) =>
+      code.push(_cards({"name":c}).first().code)
+    ));
+  }
   return JSON.stringify(code.filter(c=>c!=null));
 }
   
@@ -50,3 +60,7 @@ function add_toast(msg) {
   $('#toaster').append($toast);
   $toast.toast({delay: 3000}).toast("show");
 }
+
+$('li [data-toggle=collapse]').on('click',function() {
+  $(this).find('button[data-toggle=collapse] [data-fa-i2svg]').toggleClass('fa-plus fa-minus');
+});
