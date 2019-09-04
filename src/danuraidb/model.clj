@@ -12,10 +12,10 @@
 
 
 (def ^:const systems [
-  1 {:code "aosc"   :desc "Age of Sigmar: Champions"}
-  2 {:code "whuw"   :desc "Warhammer: Underworlds"}
-  0 {:code "lotrdb" :desc "Lord of the Rings LCG"}
-  3 {:code "whconq" :desc "Warhammer 40,000: Conquest LCG"}])
+  {:id 1 :code "aosc"   :desc "Age of Sigmar: Champions" :icon "/img/aosc/icons/quest_ability.png"}
+  {:id 2 :code "whuw"   :desc "Warhammer: Underworlds"   :icon "/img/whuw/icons/Shadespire-Library-Icons-Universal.png"}
+  {:id 0 :code "lotrdb" :desc "Lord of the Rings LCG"    :icon "/img/lotrdb/icons/sphere_fellowship.png"}
+  {:id 3 :code "whconq" :desc "Warhammer 40,000: Conquest LCG" :icon "/img/whconq/icons/skull.png"}])
   
 
               

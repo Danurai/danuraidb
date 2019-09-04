@@ -160,6 +160,7 @@
   (GET "/" [] pages/whuw-home)
   (context "/decks" [] 
     (friend/wrap-authorize whuw-deck-routes #{::db/user}))
+  (GET "/cards" [] pages/whuw-cards)
   (GET "/api/data" [] (-> "private/whuw_data_r2.json" io/resource slurp response (content-type "application/json")))
   (GET "/api/cards" [] (-> (model/whuw_fullcards) json/write-str response (content-type "application/json"))))
   

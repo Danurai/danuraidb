@@ -17,6 +17,8 @@
 (load "pages/whconq")
 (load "pages/admin")
 
+
+
 (defn home [req]
   (h/html5
     pretty-head
@@ -24,8 +26,8 @@
       (navbar req)
       [:div.container.my-3
         [:div.h5 "Deckbuilders"]
-        (map (fn [{:keys [code desc]}]
-          [:div [:a {:href (str "/" code "/decks") } desc]]) model/systems)]]))
+        (map (fn [{:keys [code desc icon]}]
+          [:div [:a {:href (str "/" code "/decks") } [:img.mr-2 {:src icon :style "width: 1em"}] desc]]) model/systems)]]))
           
 (defn testpage [req]
   (h/html5
