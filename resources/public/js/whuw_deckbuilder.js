@@ -146,7 +146,7 @@ $('body').on('click','.decktoggle',function (evt)  {
   }
 // Set warband Filter if unset
   var warband_card = _cards({"code":decklist,"warband":{"!=":35}}).first();
-  if (warband_card && $('#deck-tags').val() == "") {
+  if (warband_card && $('#deck-alliance').val() != warband_card.warband) {
     $('#deck-alliance').val(warband_card.warband);
     $('#selectwarband').selectpicker('val',[35,warband_card.warband]).trigger('change');
     $('#deckicon').attr("src", "/img/whuw/icons/" + warband_card.warband_icon);
@@ -198,6 +198,10 @@ $('#selectwarband').on('change', function() {
   delete filter.warband_id;
   if (vals.length > 0) {
     filter.warband_id = vals.map(wb => parseInt(wb));
+    var swb = vals.filter(c=>c!="35");
+    if (swb.length > 0 && $('#deck-alliance').val() == "") {
+      $('#deck-alliance').val(swb[0]);
+    }
   }
   write_table();
 });
