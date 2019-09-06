@@ -153,8 +153,7 @@
   (GET "/"        [] pages/whuw-decks)
   (GET "/new"     [] pages/whuw-deckbuilder)
   ;(GET "/new/:id"  [] pages/aosc-deckbuilder)
-  (GET "/edit/:id" [] pages/whuw-deckbuilder)
-  )
+  (GET "/edit/:id" [] pages/whuw-deckbuilder))
   
 (defroutes whuw-routes
   (GET "/" [] pages/whuw-home)
@@ -166,8 +165,24 @@
   
 ;; WHCONQ ;;
   
+(defroutes whconq-deck-routes 
+  (GET "/" [] pages/whconq-decks)
+  )
+  
+(defroutes whconq-api-routes
+  (GET "/:id" [id]
+    (try
+      (-> (str "private/whconq/whconq_" id ".min.json")
+          io/resource
+          slurp
+          response 
+          (content-type "application/json"))
+      (catch Exception e #(h/html5 pages/pretty-head [:body (pages/navbar %) [:div.container.my-3 [:h4 "Data not found"]]])))))
+  
 (defroutes whconq-routes
-  (GET "/" [] pages/whconq-home))
+  (GET "/" [] pages/whconq-home)
+  (context "/decks" [] whconq-deck-routes)
+  (context "/api"   [] whconq-api-routes))
   
 ;; DECK ADMIN ;;
   

@@ -1,10 +1,9 @@
 (in-ns 'danuraidb.pages)
 
-
 (def ^:const aosc_card_path "/img/aosc/cards/")
 (def ^:const aosc_icon_path "/img/aosc/icons/")
 
-(def aosc-pretty-head
+(def aosc-pretty-head 
   (into pretty-head (h/include-css "/css/aosc-style.css?v=1.0")))
   
 (defn aosc-navbar [req]
@@ -40,9 +39,9 @@
           [:span#stats.mx-auto]]
         [:div.row-fluid.d-flex.justify-content-center.mb-1
           [:span.mr-2 [:input#filter.form-control.search-info {:placeholder "Filter"}]]
-          (optgroup-togglenone model/aosc-alliances "alliance" "Order")
-          [:span.ml-2]
           (optgroup-togglenone model/aosc-types "category" "Champion")
+          [:span.ml-2]
+          (optgroup-togglenone model/aosc-alliances "alliance" "Order")
           [:form.ml-2 {:method "post" :action "/aosc/collection/save"}
             [:input {:name "filterjson" :hidden true}]
             [:input#collection {:name "collectionjson"
