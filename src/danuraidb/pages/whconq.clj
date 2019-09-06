@@ -5,10 +5,10 @@
   
 (defn whconq-navbar [req]
   (navbar 
-    "/img/aosc/icons/quest_ability.png" 
-    "AoSC DB" 
-    "aosc"
-    ["decks" "collection" "cards"]
+    "/img/whconq/icons/skull_white.png" 
+    "WH40k DB" 
+    "whconq"
+    ["decks" "cards"]
     req
     :style "background-color: darkblue !important;"))
                   
