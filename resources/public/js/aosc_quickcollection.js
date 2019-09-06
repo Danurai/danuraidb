@@ -49,9 +49,9 @@ function write_cards() {
     total = (parseInt(res[i].digital) + parseInt(res[i].physical) + parseInt(res[i].foil));
     outp += '<td><div class="cardcontainer" data-id=' + res[i].id + '>'
       + '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + imageName(res[i]) + '" alt="' + res[i].name + '">'
-      //+ (total == 0 ? '<span class="greyed"></span>' : '')
-      + '<span class="countbox"><span data-id=' + res[i].id + ' data-toggle="modal" data-target="#updatemodal">'
-      + (total == 0 ? '<i class="fa fa-lock">' : 'x' + total)
+      + '<span class="collectionbox ' + (total == 0 ? 'lockbox' : 'countbox') + '">'
+		+ '<span data-id=' + res[i].id + ' data-toggle="modal" data-target="#updatemodal">'
+		+ (total == 0 ? '<i class="fa fa-lock">' : 'x' + total)
       + '</span></span>'
       + '</div></td>';
   }
@@ -113,14 +113,13 @@ function update_card_collection (id, type, val) {
   write_stats();
   
   var card_container = $('#cards').find('.cardcontainer[data-id=' + id + ']');
+  var card_collection = card_container.find('.collectionbox');
   if (total == "x0") {
-    //if (card_container.find('span.greyed').length == 0) {
-    //  card_container.append('<span class="greyed"></span>');
-    //}
     card_container.find('img').addClass('cardimggrey');
-    card_container.find('span.countbox').find('span[data-id=' + id + ']').html('<i class="fa fa-lock"></i>');
+	card_collection.removeClass("countbox").addClass("lockbox");
+    card_container.find('.collectionbox').find('span').html('<i class="fa fa-lock"></i>');
   } else {
-    //card_container.find('span.greyed').remove();
+	card_collection.removeClass("lockbox").addClass("countbox");
     card_container.find('img').removeClass('cardimggrey');
     card_container.find('span.countbox').find('span[data-id=' + id + ']').html(total);
   }
