@@ -85,8 +85,8 @@
     pages/lotrdb-packs-page)
   (GET "/scenarios" []
     pages/lotrdb-scenarios-page)
-  (GET "/search" [ q ]
-    (pages/lotrdb-search-page q))
+  (GET "/search" []
+    pages/lotrdb-search-page)
   (GET "/cycle/:id" [ id ]
     (pages/lotrdb-search-page (str "y:" id)))
   (GET "/pack/:id" [ id ]

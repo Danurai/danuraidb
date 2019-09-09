@@ -116,7 +116,7 @@
                     [:div.input-group-append
                       [:button.btn.btn-primary {:type "submit"} "Search"]]]]]]]
           [:div.row
-            (map (fn [r] (aosc-cardimage r)) (model/cardfilter q (model/aosc-get-cards)))]]])))
+            (map (fn [r] (aosc-cardimage r)) (model/cardfilter q (model/aosc-get-cards) :aosc))]]])))
             
 
 (defn aosc-card-page [req]

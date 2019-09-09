@@ -254,29 +254,53 @@
   :sphere_code {"l" "leadership" "o" "lore" "s" "spirit" "t" "tactics" "n" "neutral" "f" "fellowship"}
 })
 
-(defn fmap [qry]
+(def lotrdb-field-map {
+  "e" :pack_code      
+  "n" :encounter_name 
+  "r" :traits         
+  "s" :sphere_code    
+  "t" :type_code      
+  "x" :text           
+  "y" :cycle_position
+  })
+  
+(def aosc-field-map {
+  "a" :alliance 
+  "c" :category   ; Champion, Blessing, Unit, Spell, Action
+  "w" :class      ; Warrior, Wizard, Warrior Wizard
+  "s" :setnumber  ; CUSTOM FIELD, = number
+  "t" :tags
+  "r" :rarity     ; Common, Uncommon, Rare, Exclusive
+  "o" :cost       ; number
+  "h" :healthMod  ; number
+  "u" :unique     ;true/false
+  "x" :effect
+  })
+
+(defn fmap [qry field-map]
 "returns a collection of maps including {:id 'field name' :val 'match')" 
   (map #(let [field-flt  (->> % (re-seq field-regex) first)
-             field-name (case (get field-flt 1)
-                            "a" :alliance 
-                            "c" :category   ; Champion, Blessing, Unit, Spell, Action
-                            "w" :class      ; Warrior, Wizard, Warrior Wizard
-                            "s" :setnumber  ; CUSTOM FIELD, = number
-                            "t" :tags
-                            "r" :rarity     ; Common, Uncommon, Rare, Exclusive
-                            "o" :cost       ; number
-                            "h" :healthMod  ; number
-                            "u" :unique     ;true/false
-                            "x" :effect
-                            
-                            "e" :pack_code      ;lotr
-														"n" :encounter_name ;lotr
-                            ;"r" :traits         ;lotr
-                            ;"s" :sphere_code    ;lotr
-                            ;"t" :type_code      ;lotr
-                            ;"x" :text           ;lotr
-                            "y" :cycle_position ;lotr
-                            :name)
+             field-name (get field-map (get field-flt 1))
+             ;field-name (case (get field-flt 1)
+             ;               "a" :alliance 
+             ;               "c" :category   ; Champion, Blessing, Unit, Spell, Action
+             ;               "w" :class      ; Warrior, Wizard, Warrior Wizard
+             ;               "s" :setnumber  ; CUSTOM FIELD, = number
+             ;               "t" :tags
+             ;               "r" :rarity     ; Common, Uncommon, Rare, Exclusive
+             ;               "o" :cost       ; number
+             ;               "h" :healthMod  ; number
+             ;               "u" :unique     ;true/false
+             ;               "x" :effect
+             ;               
+             ;               "e" :pack_code      ;lotr
+							;							"n" :encounter_name ;lotr
+             ;               ;"r" :traits         ;lotr
+             ;               ;"s" :sphere_code    ;lotr
+             ;               ;"t" :type_code      ;lotr
+             ;               ;"x" :text           ;lotr
+             ;               "y" :cycle_position ;lotr
+             ;               :name)
              field-val  (get field-flt 2)]
           {
             :id field-name
@@ -318,43 +342,31 @@
 ;     :op (get_op_fn field-op)})
 ;    (->> qry (re-seq find-regex) (remove clojure.string/blank?))))
 
-(defn cardfilter [ q cards ]
-  (sort-by :code
-    (reduce
-      (fn [data {:keys [id val]}]
-        (case id
-          (:name :text :traits :alliance) 
-            (filter #(some? (re-find (re-pattern (str "(?i)" val)) (id % ""))) data) ; partial match
-          (:pack_code :type_code :sphere_code) 
-            (filter 
-              (fn [x] 
-                (some 
-                  #(= (id x) (get-in filter-synonyms [id %] %)) 
-                  (clojure.string/split val #"\|")))
-              data)
-          (:tags) (filter (fn [c] (some #(= val %) (:tags c))) data)
-          (:unique) (filter (fn [c] (if (= val "true") (some #(= "Unique" %) (:tags c)) (not-any? #(= "Unique" %) (:tags c)))) data)
-          (:category :class) (filter #(= (-> % id :en) val) data)
-          (:effect) (filter #(some? (re-find (re-pattern (str "(?i)" val)) (-> % id :en))) data)
-          (filter #(= (id %) val) data)))
-      cards
-      (fmap q))))
-      
-;(defn cardfilter [cards q]
-;  (if (nil? q)
-;      (cards)
-;      (sort-by :name
-;        (reduce
-;          (fn [data {:keys [id op val]}]
-;            (case id
-;              (:name :alliance) (filter #(some? (re-find (re-pattern (str "(?i)" val)) (id %))) data)
-;              (:tags) (filter (fn [c] (some #(= val %) (:tags c))) data)
-;              (:unique) (filter (fn [c] (if (= val "true") (some #(= "Unique" %) (:tags c)) (not-any? #(= "Unique" %) (:tags c)))) data)
-;              (:category :class) (filter #(= (-> % id :en) val) data)
-;              (:effect) (filter #(some? (re-find (re-pattern (str "(?i)" val)) (-> % id :en))) data)
-;              (filter #(if (some? (id %)) (op (id %) val)) data)))
-;          (cards)
-;          (fmap q)))))
+(defn cardfilter [ q cards system ]
+  (let [field-map (case system 
+                    :lotrdb lotrdb-field-map
+                    :aosc aosc-field-map
+                    {"x" :text})]
+    (sort-by :code
+      (reduce
+        (fn [data {:keys [id val]}]
+          (case id
+            (:name :text :traits :alliance) 
+              (filter #(some? (re-find (re-pattern (str "(?i)" val)) (id % ""))) data) ; partial match
+            (:pack_code :type_code :sphere_code) 
+              (filter 
+                (fn [x] 
+                  (some 
+                    #(= (id x) (get-in filter-synonyms [id %] %)) 
+                    (clojure.string/split val #"\|")))
+                data)
+            (:tags) (filter (fn [c] (some #(= val %) (:tags c))) data)
+            (:unique) (filter (fn [c] (if (= val "true") (some #(= "Unique" %) (:tags c)) (not-any? #(= "Unique" %) (:tags c)))) data)
+            (:category :class) (filter #(= (-> % id :en) val) data)
+            (:effect) (filter #(some? (re-find (re-pattern (str "(?i)" val)) (-> % id :en))) data)
+            (filter #(= (id %) val) data)))
+        cards
+        (fmap q field-map)))))
       
 ;;;;;;;;;;;;; Parse Deck ;;;;;;;;;;;;;;
 
