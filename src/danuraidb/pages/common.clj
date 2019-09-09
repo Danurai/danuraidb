@@ -13,7 +13,7 @@
 (defn navbar 
   ([ iconsrc title root links req & {:keys [style]}]
     [:nav.navbar.navbar-expand-lg.navbar-dark.bg-dark {:style style}
-      [:div.container
+      [:div.container-fluid
       ;; Home Brand with Icon
         [:div.nav-item.dropdown
           [:a..navbar-brand.h1.mb-0.dropdown-toggle {:href "#" :role "button" :data-toggle "dropdown"} 
