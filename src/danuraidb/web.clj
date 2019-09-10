@@ -88,9 +88,9 @@
   (GET "/search" []
     pages/lotrdb-search-page)
   (GET "/cycle/:id" [ id ]
-    (pages/lotrdb-search-page (str "y:" id)))
+    #(pages/lotrdb-search-page (assoc-in % [:params :q] (str "y:" id))))
   (GET "/pack/:id" [ id ]
-    (pages/lotrdb-search-page (str "e:" id)))
+    #(pages/lotrdb-search-page (assoc-in % [:params :q] (str "e:" id)))) 
   (GET "/card/:id" [ id ]
     (pages/lotrdb-card-page id)))
     
