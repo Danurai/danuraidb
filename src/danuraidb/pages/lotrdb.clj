@@ -122,14 +122,108 @@
 												(for [e (sort-by :id (:encounters s))]
 													(if (not= (:name s) (:name e))
 														[:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]]])))
-
+(defn lotrdb-search-page [ req ]
+  (let [q (or (-> req :params :q) "")
+       view (or (-> req :params :view) "")
+       sort (or (-> req :params :sort) "code")
+       sortfield (case sort
+                  "sphere" :sphere_code
+                  "type"   :type_code
+                  (keyword sort))
+       sortfn (case sort
+                ("sphere" "type" "code" "name") #(compare %1 %2)
+                #(compare %2 %1))
+       results (sort-by sortfield sortfn (model/cardfilter q (model/get-cards-with-cycle) :lotrdb))]
+    (h/html5
+      lotrdb-pretty-head
+      [:body
+        (lotrdb-navbar req)
+        [:div.container-fluid.my-3
+          [:form {:action "/lotrdb/search" :method "GET"}
+            [:div.row
+              [:div.col-sm-4.mb-2
+                [:div.input-group
+                  [:input.form-control {:type "text" :name "q" :value q}]
+                  [:div.input-group-append
+                    [:button.btn.btn-primary.mr-2 {:role "submit"} "Search"]]]]
+              [:div.col-sm-4.mb-2
+                [:select.form-control {:type "select" :name "view"}
+                  [:option {:selected (= view "list") :value "list"} "View as list"]
+                  [:option {:selected (= view "cards") :value "cards"} "View as cards"]]]
+              [:div.col-sm-4.mb-2
+                [:select.form-control {:type "select" :name "sort"}
+                  (for [s ["code" "name" "type" "sphere" "threat" "willpower" "attack" "defense" "health"]]
+                    [:option {:value s :selected (= (name sort) s)} (str "Sort by " s)])]]]]
+          [:div.row
+            (if (= view "cards")
+              (for [card results]
+                [:div.col-auto
+                  [:img.img-fluid {:src (or (:cgdbimgurl card) (model/get-card-image-url card))}]])
+              [:div.col
+                [:table#tblresults.table.table-sm.table-hover
+                  [:thead [:tr  
+                    [:th.sortable.d-none.d-md-table-cell "Code"]
+                    [:th.sortable "Name"]
+                    [:th.sortable.text-center {:title "Threat/Cost"} "T/C"]
+                    [:th.sortable.text-center {:title "Willpower"} "W."]
+                    [:th.sortable.text-center {:title "Attack"} "A."]
+                    [:th.sortable.text-center {:title "Defense"} "D."]
+                    [:th.sortable "Type"]
+                    [:th.sortable "Sphere"]
+                    [:th.sortable.d-none.d-md-table-cell "Set"]
+                    [:th.text-center "qty"]]]
+                  [:tbody#bodyresults
+                    (for [card results]
+                      [:tr
+                        [:td.d-none.d-md-table-cell (:code card)]
+                        [:td [:a.card-link {:data-code (:code card) :href (str "/lotrdb/card/" (:code card))} (:name card)]]
+                        [:td.text-center (or (:threat card) (:cost card))]
+                        [:td.text-center (:willpower card)]
+                        [:td.text-center (:attack card)]
+                        [:td.text-center (:defense card)]
+                        [:td (:type_name card)]
+                        [:td (:sphere_name card)]
+                        [:td.d-none.d-md-table-cell (str (:pack_name card) " #" (:position card))]
+                        [:td.text-center (:quantity card)]])]]])]]
+      (h/include-js "/js/lotrdb_popover.js?v=1")])))
+      
+(defn- prev-card [ cards code ]
+  (->> cards  
+      (sort-by :code)
+      (take-while #(not= (:code %) code))
+      (take-last 2)
+      last))
+      
+  
+(defn- next-card [ cards code ]
+  (->> cards 
+      (sort-by :code #(compare %2  %1))
+      (take-while #(not= (:code %) code))
+      (take-last 2)
+      last))
+      
+      
 (defn lotrdb-card-page [ id ]
-  (let [card (->> (model/get-cards-with-cycle) (filter #(= (:code %) id)) first)]
+  (let [cards  (model/get-cards-with-cycle)
+       card   (->> cards (filter #(= (:code %) id)) first)
+       prc    (prev-card cards id)
+       nxc    (next-card cards id)]
     (h/html5
       lotrdb-pretty-head
       [:body
         (lotrdb-navbar nil)
         [:div.container.my-3
+          [:div.row.mb-2
+            [:div.col
+              (if (some? prc)
+                [:a.btn.btn-primary.card-link
+                  {:href (str "/lotrdb/card/" (:code prc)) :data-code (:code prc)}
+                  [:div (:name prc)][:small (str (:pack_name prc) " #" (:position prc))]]
+                [:button.btn.button-primary])
+              (if (some? nxc)
+                [:a.btn.btn-primary.card-link.float-right
+                  {:href (str "/lotrdb/card/" (:code nxc)) :data-code (:code nxc)}
+                  [:div (:name nxc)][:small (str (:pack_name nxc) " #" (:position nxc))]])]]
           [:div.row
             [:div.col-sm-6
               [:div.card 
@@ -142,41 +236,11 @@
                   [:div.mt-1	 [:em {:style "white-space: pre-wrap;"} (:flavor card)]]
                   [:div [:small.text-muted (str (:pack_name card) " #" (:position card))]]]]]
             [:div.col-sm-6
-              [:img {:src (or (:cgdbimgurl card) (model/get-card-image-url card))}]]]]])))
+              [:img {:src (or (:cgdbimgurl card) (model/get-card-image-url card))}]]]]
+      (h/include-js "/js/lotrdb_popover.js?v=1")])))
             
 
-(defn lotrdb-search-page [ req ]
-  (let [q (or (-> req :params :q) "")
-       view (or (-> req :params :view) "")]
-    (h/html5
-      lotrdb-pretty-head
-      [:body
-        (lotrdb-navbar req)
-        [:div.container-fluid.my-3
-          [:div.row.mb-2
-            [:form.form-inline {:action "/lotrdb/search" :method "GET"}
-              [:div.col-sm-12
-                [:input.form-control.mr-2 {:type "text" :name "q" :value q}]
-                [:button.btn.btn-primary.mr-2 {:role "submit"} "Search"]
-                [:select.form-control {:type "select" :name "view"}
-                  [:option {:selected (= view "list") :value "list"} "View as list"]
-                  [:option {:selected (= view "cards") :value "cards"} "View as cards"]]]]]
-          [:div.row
-            (if (= view "cards")
-              (for [card (model/cardfilter (or q "") (model/get-cards-with-cycle) :lotrdb)]
-                [:div.col-auto
-                  [:img.img-fluid {:src (or (:cgdbimgurl card) (model/get-card-image-url card))}]])
-              [:table#tblresults.table.table-sm.table-hover
-                [:thead [:tr [:th.sortable "Code"][:th.sortable "Name"][:th.sortable "Type"][:th.sortable "Sphere"][:th.sortable "Set"][:th.sortable "qty"]]]
-                [:tbody#bodyresults
-                  (for [card (model/cardfilter (or q "") (model/get-cards-with-cycle) :lotrdb)]
-                    [:tr
-                      [:td (:code card)]
-                      [:td [:a.card-link {:data-code (:code card) :href (str "/lotrdb/card/" (:code card))} (:name card)]]
-                      [:td (:type_name card)]
-                      [:td (:sphere_name card)]
-                      [:td (str (:pack_name card) " #" (:position card))]
-                      [:td (:quantity card)]])]])]]])))
+
                   
 (defn deckbuilder [ req ]
   (let [deck (model/get-deck-data req)]

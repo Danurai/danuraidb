@@ -240,8 +240,8 @@
 ;; FILTER ;;
 ;;;;;;;;;;;;
 
-(def find-regex #".*?(?=\s[a-z]:)|.+")
-(def field-regex #"([a-z]):(.+)")
+(def find-regex #".*?(?=\s[a-z][:\<\>])|.+")
+(def field-regex #"([a-z])([:\<\>])(.+)")
 
 (defn- get_op_fn [ operator ]
   (case operator
@@ -252,6 +252,8 @@
 (def filter-synonyms {
   :type_code {"h" "hero" "a" "ally" "e" "event" "t" "attachment"}
   :sphere_code {"l" "leadership" "o" "lore" "s" "spirit" "t" "tactics" "n" "neutral" "f" "fellowship"}
+  :class {"wa" "Warrior" "wi" "Wizard" "ww" "Warrior Wizard"}
+  :rarity {"c" "Common" "u" "Uncommon" "r" "Rare" "e" "Exclusive"}
 })
 
 (def lotrdb-field-map {
@@ -262,6 +264,7 @@
   "t" :type_code      
   "x" :text           
   "y" :cycle_position
+  "d" :deck ;p or e
   })
   
 (def aosc-field-map {
@@ -281,27 +284,8 @@
 "returns a collection of maps including {:id 'field name' :val 'match')" 
   (map #(let [field-flt  (->> % (re-seq field-regex) first)
              field-name (get field-map (get field-flt 1))
-             ;field-name (case (get field-flt 1)
-             ;               "a" :alliance 
-             ;               "c" :category   ; Champion, Blessing, Unit, Spell, Action
-             ;               "w" :class      ; Warrior, Wizard, Warrior Wizard
-             ;               "s" :setnumber  ; CUSTOM FIELD, = number
-             ;               "t" :tags
-             ;               "r" :rarity     ; Common, Uncommon, Rare, Exclusive
-             ;               "o" :cost       ; number
-             ;               "h" :healthMod  ; number
-             ;               "u" :unique     ;true/false
-             ;               "x" :effect
-             ;               
-             ;               "e" :pack_code      ;lotr
-							;							"n" :encounter_name ;lotr
-             ;               ;"r" :traits         ;lotr
-             ;               ;"s" :sphere_code    ;lotr
-             ;               ;"t" :type_code      ;lotr
-             ;               ;"x" :text           ;lotr
-             ;               "y" :cycle_position ;lotr
-             ;               :name)
-             field-val  (get field-flt 2)]
+             field-op   (get field-flt 2)
+             field-val  (get field-flt 3)]
           {
             :id field-name
             :val (or 
@@ -309,38 +293,11 @@
                      (:cycle_position :healthMod :cost :setnumber) (read-string field-val)
                      field-val)
                   %)
+            :op (get_op_fn field-op)
           })
     (->> qry (re-seq find-regex) (remove clojure.string/blank?))
   )
 )
-
-;; FMAP for AOSC
-;(defn fmap [qry]
-;"returns a collection of maps including {:id 'field name' :val 'match')" 
-;  (map #(let [field-flt  (->> % (re-seq field-regex) first)
-;             field-name (case (get field-flt 1)
-;         ; TODO UPDATE FIELD LIST
-;                            "a" :alliance
-;                            "c" :category   ; Champion, Blessing, Unit, Spell, Action
-;                            "w" :class      ; Warrior, Wizard, Warrior Wizard
-;                            "t" :tags
-;                            "s" :setnumber  ; CUSTOM FIELD, = number
-;                            "r" :rarity     ; Common, Uncommon, Rare, Exclusive
-;                            "o" :cost       ; number
-;                            "h" :healthMod  ; number
-;                            "u" :unique     ;true/false
-;                            ; digital
-;                            ; physical 
-;                            ; foil
-;                            "x" :effect
-;                            :name)
-;             field-val  (get field-flt 3)
-;             field-op  (get field-flt 2)]
-;    {:id field-name
-;     :val (or (case field-name (:healthMod :cost :setnumber) (read-string field-val) field-val) ; Value Based
-;              %)
-;     :op (get_op_fn field-op)})
-;    (->> qry (re-seq find-regex) (remove clojure.string/blank?))))
 
 (defn cardfilter [ q cards system ]
   (let [field-map (case system 
@@ -349,7 +306,7 @@
                     {"x" :text})]
     (sort-by :code
       (reduce
-        (fn [data {:keys [id val]}]
+        (fn [data {:keys [id val op]}]
           (case id
             (:name :text :traits :alliance) 
               (filter #(some? (re-find (re-pattern (str "(?i)" val)) (id % ""))) data) ; partial match
@@ -357,14 +314,22 @@
               (filter 
                 (fn [x] 
                   (some 
-                    #(= (id x) (get-in filter-synonyms [id %] %)) 
+                    #(some? (re-find (re-pattern (str "(?i)" (get-in filter-synonyms [id %] %))) (id x)))
+                    ;#(= (id x) (get-in filter-synonyms [id %] %))
                     (clojure.string/split val #"\|")))
                 data)
-            (:tags) (filter (fn [c] (some #(= val %) (:tags c))) data)
-            (:unique) (filter (fn [c] (if (= val "true") (some #(= "Unique" %) (:tags c)) (not-any? #(= "Unique" %) (:tags c)))) data)
+            :deck
+              (filter 
+                (fn [c] 
+                  (let [cfn (if (= val "p") some not-any?)
+                       player_type_codes ["hero" "attachment" "ally" "event" "fellowship" "baggins"]]
+                    (cfn (partial = (:type_code c)) player_type_codes)))
+                data)
+            :tags     (filter (fn [c] (some #(= val %) (:tags c))) data)
+            :unique   (filter (fn [c] (if (= val "true") (some #(= "Unique" %) (:tags c)) (not-any? #(= "Unique" %) (:tags c)))) data)
             (:category :class) (filter #(= (-> % id :en) val) data)
-            (:effect) (filter #(some? (re-find (re-pattern (str "(?i)" val)) (-> % id :en))) data)
-            (filter #(= (id %) val) data)))
+            :effect   (filter #(some? (re-find (re-pattern (str "(?i)" val)) (-> % id :en))) data)
+            (filter #(op (id %) val) data)))
         cards
         (fmap q field-map)))))
       
