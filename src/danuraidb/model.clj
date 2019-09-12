@@ -240,8 +240,8 @@
 ;; FILTER ;;
 ;;;;;;;;;;;;
 
-(def find-regex #".*?(?=\s[a-z][:\<\>])|.+")
-(def field-regex #"([a-z])([:\<\>])(.+)")
+(def find-regex #".*?(?=\s[a-zA-ZS][:\<\>])|.+")
+(def field-regex #"([a-zA-Z])([:\<\>])(.+)")
 
 (defn- get_op_fn [ operator ]
   (case operator
@@ -251,7 +251,7 @@
     
 (def filter-synonyms {
   :type_code {"h" "hero" "a" "ally" "e" "event" "t" "attachment"}
-  :sphere_code {"l" "leadership" "o" "lore" "s" "spirit" "t" "tactics" "n" "neutral" "f" "fellowship"}
+  :sphere_code {"l" "leadership" "o" "lore" "s" "spirit" "t" "tactics" "n" "neutral" "f" "fellowship" "b" "baggins"}
   :class {"wa" "Warrior" "wi" "Wizard" "ww" "Warrior Wizard"}
   :rarity {"c" "Common" "u" "Uncommon" "r" "Rare" "e" "Exclusive"}
 })
@@ -264,6 +264,7 @@
   "t" :type_code      
   "x" :text           
   "y" :cycle_position
+  "u" :is_unique
   "d" :deck ;p or e
   })
   
@@ -282,10 +283,12 @@
 
 (defn fmap [qry field-map]
 "returns a collection of maps including {:id 'field name' :val 'match')" 
+  (prn qry)
   (map #(let [field-flt  (->> % (re-seq field-regex) first)
-             field-name (get field-map (get field-flt 1))
+             field-name (get field-map (if-let [fstr (get field-flt 1)] (clojure.string/lower-case fstr)) :name)
              field-op   (get field-flt 2)
              field-val  (get field-flt 3)]
+          (prn field-flt)
           {
             :id field-name
             :val (or 
@@ -310,23 +313,27 @@
           (case id
             (:name :text :traits :alliance) 
               (filter #(some? (re-find (re-pattern (str "(?i)" val)) (id % ""))) data) ; partial match
-            (:pack_code :type_code :sphere_code) 
+            (:pack_code :type_code :sphere_code)
               (filter 
-                (fn [x] 
-                  (some 
-                    #(some? (re-find (re-pattern (str "(?i)" (get-in filter-synonyms [id %] %))) (id x)))
-                    ;#(= (id x) (get-in filter-synonyms [id %] %))
-                    (clojure.string/split val #"\|")))
+                #(re-matches (re-pattern (str "(?i)" val)) (id (get-in filter-synonyms [id %] %)))
                 data)
             :deck
               (filter 
                 (fn [c] 
-                  (let [cfn (if (= val "p") some not-any?)
-                       player_type_codes ["hero" "attachment" "ally" "event" "fellowship" "baggins"]]
-                    (cfn (partial = (:type_code c)) player_type_codes)))
+                  (let [type_codes (case val 
+                                    "p" ["hero" "attachment" "ally" "event" "treasure"]
+                                    "e" ["enemy" "location" "objective" "treachery" "objective ally" ]
+                                    "q" ["campaign" "quest" "player side quest"]
+                                    [])  ]
+                    (some (partial = (:type_code c)) type_codes)))
                 data)
             :tags     (filter (fn [c] (some #(= val %) (:tags c))) data)
-            :unique   (filter (fn [c] (if (= val "true") (some #(= "Unique" %) (:tags c)) (not-any? #(= "Unique" %) (:tags c)))) data)
+            :is_unique (filter #(if (= val "true") (:is_unique %) (false? (:is_unique %))) data)
+            :unique   
+              (filter 
+                (fn [c] 
+                  (if (= val "true") (some #(= "Unique" %) (:tags c)) (not-any? #(= "Unique" %) (:tags c))))
+                data)
             (:category :class) (filter #(= (-> % id :en) val) data)
             :effect   (filter #(some? (re-find (re-pattern (str "(?i)" val)) (-> % id :en))) data)
             (filter #(op (id %) val) data)))
@@ -402,7 +409,21 @@
               (assoc new_deck :name id))
           (catch Exception e (assoc new_deck :name id))))))
 
-;            (if (some? (-> req :params :deck))
-;              (let [new_deck (json/read-str (-> req :params :deck) :key-fn keyword)]
-;                (assoc new_deck :data (-> deck :data json/write-str)))
-;              {})))))
+;; Markdown
+
+
+(defn convert
+"Converts single element to hiccup or reagent"
+[pre txt]
+  (if-let [symbol (re-matches #"\[(\w+)\]" txt)]
+    [:i {:class (str pre (second symbol))}]
+    txt))
+
+(defn makespan [res] 
+  (apply conj [:span] 
+    (reduce 
+      #(if (string? %2) 
+        (if (string? (last %1)) 
+          (conj (-> %1 drop-last vec) (str (last %1) %2)) 
+          (conj (vec %1) %2)) 
+        (conj (vec %1) %2)) [""] res)))

@@ -122,6 +122,8 @@
 												(for [e (sort-by :id (:encounters s))]
 													(if (not= (:name s) (:name e))
 														[:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]]])))
+
+
 (defn lotrdb-search-page [ req ]
   (let [q (or (-> req :params :q) "")
        view (or (-> req :params :view) "")
@@ -143,7 +145,7 @@
             [:div.row
               [:div.col-sm-4.mb-2
                 [:div.input-group
-                  [:input.form-control {:type "text" :name "q" :value q}]
+                  [:input.form-control.search-info {:type "text" :name "q" :value q}]
                   [:div.input-group-append
                     [:button.btn.btn-primary.mr-2 {:role "submit"} "Search"]]]]
               [:div.col-sm-4.mb-2
@@ -158,7 +160,7 @@
             (if (= view "cards")
               (for [card results]
                 [:div.col-auto
-                  [:img.img-fluid {:src (or (:cgdbimgurl card) (model/get-card-image-url card))}]])
+                  [:img.img-fluid.card-link {:data-code (:code card) :src (or (:cgdbimgurl card) (model/get-card-image-url card))}]])
               [:div.col
                 [:table#tblresults.table.table-sm.table-hover
                   [:thead [:tr  
@@ -185,7 +187,9 @@
                         [:td (:sphere_name card)]
                         [:td.d-none.d-md-table-cell (str (:pack_name card) " #" (:position card))]
                         [:td.text-center (:quantity card)]])]]])]]
-      (h/include-js "/js/lotrdb_popover.js?v=1")])))
+      (h/include-js "/js/lotrdb_popover.js?v=1")
+      (h/include-css "/css/lotrdb-icomoon-style.css?v=1")
+      ])))
       
 (defn- prev-card [ cards code ]
   (->> cards  
@@ -201,7 +205,12 @@
       (take-while #(not= (:code %) code))
       (take-last 2)
       last))
-      
+             
+(defn lotrdb-markdown [ txt ]
+  (->> txt
+      (re-seq #"\[\w+\]|\w+|." )
+      (map #(model/convert "lotr-type-" %))
+      model/makespan))
       
 (defn lotrdb-card-page [ id ]
   (let [cards  (model/get-cards-with-cycle)
@@ -228,20 +237,21 @@
             [:div.col-sm-6
               [:div.card 
                 [:div.card-header
-                  [:span.h3.card-title (:name card)]
+                  [:span.h3.card-title 
+                    (if (:is_unique card)
+                      [:i.lotr-type-unique.unique-icon])
+                    (:name card)]
                   (lotrdb-card-icon card)]
                 [:div.card-body
                   [:div.text-center [:b (:traits card)]]
-                  [:div {:style "white-space: pre-wrap;"} (:text card)]
+                  [:div {:style "white-space: pre-wrap;"} (-> card :text lotrdb-markdown)]
                   [:div.mt-1	 [:em {:style "white-space: pre-wrap;"} (:flavor card)]]
                   [:div [:small.text-muted (str (:pack_name card) " #" (:position card))]]]]]
             [:div.col-sm-6
               [:img {:src (or (:cgdbimgurl card) (model/get-card-image-url card))}]]]]
-      (h/include-js "/js/lotrdb_popover.js?v=1")])))
-            
-
-
-                  
+      (h/include-js "/js/lotrdb_popover.js?v=1")
+      (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))                            
+                            
 (defn deckbuilder [ req ]
   (let [deck (model/get-deck-data req)]
 		(h/html5
