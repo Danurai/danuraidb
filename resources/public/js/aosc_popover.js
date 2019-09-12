@@ -91,21 +91,19 @@ function markdown(str)  {
   return rtn;
 }
 
-$(document).ready(function () {
-  $('.search-info').popover({
-    trigger: 'hover',
-    placement: 'auto',
-    html: true,
-    content: '<b>Search hints</b><span class="small">'
-      + '<br>&lt;name&gt;<br>a: alliance'
-      + '<br>c: category'
-      + '<br>w: class <i>or</i> &quot;class&quot;'
-      + '<br>t: tag(|tag)'
-      + '<br>s:!<> set number'
-      + '<br>r: rarity'
-      + '<br>o:!<> cost'
-      + '<br>h:!<> health modifier'
-      + '<br>x: text <i>or</i> &quot;text&quot;'
-      + '<br>u: unique (true|false)'
-  });
+$('.search-info').popover({
+  trigger: 'hover',
+  placement: 'auto',
+  html: true,
+  content: '<b>Search hints</b><span class="small">'
+    + '<br>&lt;name&gt;<br>a: alliance'
+    + '<br>c: category'
+    + '<br>w: class <i>or</i> &quot;class&quot;'
+    + '<br>t: tag(|tag)'
+    + '<br>s:!<> set number'
+    + '<br>r: rarity'
+    + '<br>o:!<> cost'
+    + '<br>h:!<> health modifier'
+    + '<br>x: text <i>or</i> &quot;text&quot;'
+    + '<br>u: unique (true|false)'
 });
