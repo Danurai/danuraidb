@@ -33,6 +33,25 @@
                 [:admin    :boolean]
                 [:active   :boolean]
                 [:created  :bigint]]}
+  :staging {
+    :sqlite     [[:uid      :integer :primary :key :AUTOINCREMENT]
+                 [:system   :text]
+                 [:type     :text]
+                 [:name     :text]
+                 [:decklist :text]
+                 [:alliance :text]
+                 [:tags     :text]
+                 [:notes    :text]
+                 [:uploaded :date]]
+    :postgresql [[:uid      :int :default "nextval ('staging_uid_seq')"]
+                 [:system   :text]
+                 [:type     :text]
+                 [:name     :text]
+                 [:decklist :text]
+                 [:alliance :text]
+                 [:tags     :text]
+                 [:notes    :text]
+                 [:uploaded :bigint]]}
    :systems [[:id   :integer :primary :key]
             [:code :text]
             [:desc :text]]
@@ -96,6 +115,14 @@
       (j/insert! db :users {:username "dan"  :password (creds/hash-bcrypt "user")  :active true :admin false :created timestamp})
       (catch Exception e (println (str "DB Error - Users: " e ))))))
       
+(defn- create-tbl-staging []
+  (let [sp (keyword (get db :subprotocol "postgresql"))]
+    (try
+      (if (= sp :postgresql) (j/db-do-commands db ["create sequence staging_uid_seq minvalue 1000"]))
+      (j/db-do-commands db   (j/create-table-ddl :staging (-> tcreate :staging sp)))
+      (if (= sp :sqlite)     (j/insert! db :sqlite_sequence {:name "staging" :seq 1000}))
+      (catch Exception e (println (str "DB Error - Staging: " e ))))))
+      
 (defn- create-tbl-custom [ tname schema ]
   (try
     (j/db-do-commands db
@@ -107,7 +134,8 @@
   (if (= (:protocol db) "sqlite")
     (j/db-do-commands db ["PRAGMA foreign_keys = ON;"]))
   (create-tbl-users)
-  (doseq [[tname schema] (dissoc tcreate :users)]
+  (create-tbl-staging)
+  (doseq [[tname schema] (dissoc tcreate :users :staging)]
     (create-tbl-custom tname schema)))
   
 ;;;;;;;;
@@ -196,3 +224,14 @@
       
 (defn save-user-collection [collection-json uid]
   (update-or-insert! db :aosccollection {:owner uid :collection collection-json} ["owner =?" uid]))
+  
+;;;;;;;;;;;
+; Staging ;
+;;;;;;;;;;;
+
+(defn stage-data [data]
+  (let [sp (keyword (get db :subprotocol "postgresql"))]
+    (j/insert! db :staging (assoc data :uploaded  (if (= sp :postgresql) (c/to-long (t/now)) (t/now)) ))))
+        
+(defn get-staged-data []
+  (j/query db ["SELECT * FROM staging"]))

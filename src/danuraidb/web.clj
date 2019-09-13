@@ -8,6 +8,7 @@
     [ring.middleware.keyword-params :refer [wrap-keyword-params]]
     [ring.middleware.params :refer [wrap-params]]
     [ring.middleware.session :refer [wrap-session]]
+    [ring.middleware.cors :refer [wrap-cors]]
     [cemerick.friend :as friend]
     (cemerick.friend [workflows :as workflows]
                    [credentials :as creds])
@@ -220,6 +221,13 @@
   (context "/whuw"    [] whuw-routes)
   (context "/whconq"  [] whconq-routes)
   (context "/admin"   [] (friend/wrap-authorize admin-routes #{::db/admin}))
+  (GET "/staging" []
+    (friend/wrap-authorize pages/staging-page #{::db/user}))
+  (POST "/staging" []
+    #(let [data (-> % :params)]
+      (if (contains? #{"deck" "collection"} (:type data))
+        (db/stage-data data)
+        (response nil))))
   ;(POST "/register" [username password]
   ;  (db/adduser username password false)
   ;  (redirect "/"))
@@ -242,4 +250,7 @@
     (friend/authenticate friend-authentication-hash)
     (wrap-keyword-params)
     (wrap-params)
-    (wrap-session)))
+    (wrap-session)
+    (wrap-cors :access-control-allow-origin [#"https://api.jquery.com"]
+               :access-control-allow-methods [:get :post] )
+    ))

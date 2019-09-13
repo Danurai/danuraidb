@@ -20,7 +20,8 @@
             [:img.mr-1 {:src iconsrc :style "width: 1em;"}] title]
           [:div.dropdown-menu
             (map (fn [s]
-              [:a.dropdown-item {:href (str "/" (:code s) "/decks")} [:img.mr-1 {:src (:icon s) :style "width: 1em;"}] (:desc s)]) model/systems)]]
+              [:a.dropdown-item {:href (str "/" (:code s) "/decks")} [:img.mr-1 {:src (:icon s) :style "width: 1em;"}] (:desc s)]) model/systems)
+            [:a.dropdown-item {:href "/staging"} [:i.fas.fa-file-upload.text-primary.mr-2] "Staging"]]]
       ;; Collapse Button for smaller viewports
         [:button.navbar-toggler {:type "button" :data-toggle "collapse" :data-target "#navbarSupportedContent" 
                               :aria-controls "navbarSupportedContent" :aria-label "Toggle Navigation" :aria-expanded "false"}
@@ -136,7 +137,7 @@
             [:input#deletemodaldeckuid {:name "uid" :hidden true}]
             [:button.btn.btn-danger {:submit "true"} "OK"]]]]]])
             
-            (defn- importdeckmodal []
+(defn- importdeckmodal []
   [:div#importdeck.modal {:role "dialog"}
     [:div.modal-dialog {:role "document"}
       [:div.modal-content
