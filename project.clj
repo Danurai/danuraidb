@@ -20,6 +20,7 @@
                  ; routing
                  [compojure "1.6.0"]
                  [ring/ring-defaults "0.3.1"]
+                 [ring-cors "0.1.11"]
                  [clj-http "3.7.0"]
                  ; Websocket sente
                  ; [com.taoensso/sente "1.12.0"]
