@@ -251,6 +251,6 @@
     (wrap-keyword-params)
     (wrap-params)
     (wrap-session)
-    (wrap-cors :access-control-allow-origin [#"https://api.jquery.com"]
+    (wrap-cors :access-control-allow-origin [#".*"]
                :access-control-allow-methods [:get :post] )
     ))
