@@ -148,7 +148,7 @@ function shuffle(array) {
 
 function add_toast(msg) {
   var $toast = $('<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true">'
-    + '<div class="toast-header"><b class="mr-auto">AoSC DB</b></div>'
+    + '<div class="toast-header"><i class="fas fa-exclamation text-primary mr-2"></i><b class="mr-auto">AoSC DB</b></div>'
     + '<div class="toast-body">'
     + msg
     + '</div></div>');

@@ -10,7 +10,9 @@ $('#importdeck').on('show.bs.modal', function(ev) {
   $('#decksystem').val(1);
 });
 
+
 //global
+
 $('#deletemodal').on('show.bs.modal', function (ev) {
   var button = $(ev.relatedTarget);
   $(this).find('.modal-body').html('Are you sure you want to delete the decklist <b>' + button.data('name') + '</b>');
@@ -45,6 +47,21 @@ $('#importdecklist').on('input',function () {
   $('#deckdata').val(sharingcode);
 });
 
+$('.btn-stage').on('click',function () {
+  var d = $(this).data('d')  
+  var dx = {
+    name: d.name,
+    system: parseInt(d.system),
+    decklist: d.data,
+    type: "deck"
+  }
+  $.post("https://danuraidb.herokuapp.com/staging",dx,function(x){
+    console.log(x);
+    add_toast("Deck " + dx.name + " staged");
+  });
+});
+
+//////////////////////////////////
   
 function parse_deck_list (data) {
   var crd;
