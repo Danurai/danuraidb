@@ -59,12 +59,11 @@
             [:tbody
               (for [data (db/get-staged-data)]
                 [:tr 
-                  [:td [:input {:type "checkbox" :data-id (:uid data)}]]
+                  [:td.align-middle.align-center [:input {:style "width: 20px; height: 20px;" :type "checkbox" :data-d (json/write-str data)}]]
                   [:td (-> data :type clojure.string/capitalize)]
                   [:td [:img.icon-sm {:src (->> model/systems (filter #(= (:id %) (-> data :system read-string))) first :icon)}]] ;[:img.icon-sm {:src (->> model/systems (filter (= :id (-> data :system read-string))) first :icon)}]]
                   [:td (:name data)]
-                  [:td.w-25 {:style "text-overflow: hidden;"} (-> data :data str)]])]]
-          [:span (db/get-staged-data)]]]
+                  [:td.w-25 {:style "text-overflow: hidden;"} (-> data :decklist str)]])]]]]
       [:div#deletemodal.modal {:tabindex -1 :role "dialog"}
         [:div.modal-dialog {:role "document"}
           [:div.modal-content

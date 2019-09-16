@@ -234,4 +234,7 @@
     (j/insert! db :staging (assoc data :uploaded  (if (= sp :postgresql) (c/to-long (t/now)) (t/now)) ))))
         
 (defn get-staged-data []
-  (j/query db ["SELECT * FROM staging"]))
+  (j/query db ["SELECT * FROM staging ORDER BY uid DESC"]))
+  
+(defn delete-staged-data [ uid ]
+  (j/delete! db :staging ["uid = ?" uid]))

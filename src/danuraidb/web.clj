@@ -199,7 +199,7 @@
       :notes notes} %))
   (POST "/save" [id name system data alliance tags notes]
     #(save-deck-handler {
-      :id id
+      :id (or id (db/unique-deckid))
       :system (read-string system)
       :decklist data 
       :name (if (empty? name) "Imported Deck" name) 
@@ -211,6 +211,17 @@
       #(delete-deck-handler uid name %)
       #{::db/user})))
    
+(defroutes staging-routes 
+  (GET "/" []
+    (friend/wrap-authorize pages/staging-page #{::db/user}))
+  (POST "/" []
+    #(let [data (-> % :params)]
+      (if (contains? #{"deck" "collection"} (:type data))
+        (db/stage-data data)
+        (response nil))))
+  (POST "/delete" [uid]
+    (db/delete-staged-data uid)))
+   
 (defroutes app-routes
   (GET "/test" [] pages/testpage)
   (GET "/"     [] pages/home)
@@ -221,13 +232,7 @@
   (context "/whuw"    [] whuw-routes)
   (context "/whconq"  [] whconq-routes)
   (context "/admin"   [] (friend/wrap-authorize admin-routes #{::db/admin}))
-  (GET "/staging" []
-    (friend/wrap-authorize pages/staging-page #{::db/user}))
-  (POST "/staging" []
-    #(let [data (-> % :params)]
-      (if (contains? #{"deck" "collection"} (:type data))
-        (db/stage-data data)
-        (response nil))))
+  (context "/staging" [] staging-routes)
   ;(POST "/register" [username password]
   ;  (db/adduser username password false)
   ;  (redirect "/"))
@@ -251,6 +256,6 @@
     (wrap-keyword-params)
     (wrap-params)
     (wrap-session)
-    (wrap-cors :access-control-allow-origin [#".*"]
+    (wrap-cors :access-control-allow-origin [#"https://api.jquery.com"]
                :access-control-allow-methods [:get :post] )
     ))

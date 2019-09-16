@@ -192,10 +192,10 @@
   [:div.toast {:role "alert" :aria-live "assertive" :aria-atomic "true" :data-delay 5000 :style "min-width: 200px;"}
     [:div.toast-header 
       (case type
-        "fatal" [:i.fas.fa-times.text-danger]
-        "warning" [:i.fas.fa-exclamation.text-warning]
-        [:i.fas.fa-exclamation.text-primary])
-      [:b.ml-2.mr-auto (clojure.string/capitalize type)]
+        "fatal" [:i.fas.fa-times.text-danger.mr-2]
+        "warning" [:i.fas.fa-exclamation.text-warning.mr-2]
+        [:i.fas.fa-exclamation.text-primary.mr-2])
+      [:b.mr-auto (clojure.string/capitalize type)]
       [:button.close {:role "button" :data-dismiss "toast" :aria-label "Close"} [:span {:aria-hidden true} "&times;"]]]
    [:div.toast-body
     [:span msg]]])
