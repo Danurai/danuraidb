@@ -213,7 +213,7 @@
         ["Champion" "Blessing" "Unit" "Spell" "Ability"]))))
     
           
-(defn- aosc-deck-card [d aosc-card-data]
+(defn- aosc-deck-card [d aosc-card-data req]
   (let [deck-cards (get-aosc-deck-cards (-> d :data model/parsedeck :cards) aosc-card-data)]
     [:li.list-group-item.list-deck-card
       [:div.d-flex.justify-content-between {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} 
@@ -241,6 +241,8 @@
         [:div
           [:button.btn.btn-sm.btn-danger.mr-1 {:data-toggle "modal" :data-target "#deletemodal" :data-name (:name d) :data-uid (:uid d)} [:i.fas.fa-times.mr-1] "Delete"]
           [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (deck-export-string deck-cards) :data-deckname (:name d)} [:i.fas.fa-file-export.mr-1] "Export"]
+          (if (= "localhost:9009" (-> req :headers (get "host")))
+            [:btn.btn-sm.btn-dark.mr-1.btn-stage {:data-d (json/write-str d) :title "Stage at danuraidb.herokuapp.com"} [:i.fas.fa-cloud-upload-alt.mr-1] "Stage"])
           [:a.btn.btn-sm.btn-dark.mr-1 {:href (str "warhammer-tcg://share-deck?deckCode=" (:data d) "&deepLinkTimestamp=" (tc/to-long (time/now)))} [:i.fas.fa-gamepad.mr-1] "Champions"]
           [:a.btn.btn-sm.btn-primary {:href (str "/aosc/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]]))  
           
@@ -262,7 +264,7 @@
           [:div.row
             [:div#decklists.w-100
               [:ul.list-group
-                (map (fn [d] (aosc-deck-card d aosc-card-data)) decks)]]]]
+                (map (fn [d] (aosc-deck-card d aosc-card-data req)) decks)]]]]
         (deletemodal)
         (importallmodal)
         (importdeckmodal)
@@ -311,6 +313,7 @@
   [:input#deckname.form-control {
     :name "name" :placeholder "deck name" :value (:name deckdata)
     :style (str "background-color: #" (:uid deckdata) "; color: " (decknamecolour (:uid deckdata)) ";") }])
+    
 (defn aosc-deckbuilder [req]
   (let [deckdata (model/get-deck-data req)]
     (h/html5
@@ -380,4 +383,5 @@
       (h/include-js "/js/externs/warhammer-deck-sharing.js")
       (h/include-js "/js/externs/typeahead.js")
       (h/include-js "/js/aosc_deckbuilder.js?v=1.100")
+      (h/include-css "/css/aosc-icomoon-style.css?v=1.3")
       ])))
