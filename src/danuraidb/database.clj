@@ -237,4 +237,4 @@
   (j/query db ["SELECT * FROM staging ORDER BY uid DESC"]))
   
 (defn delete-staged-data [ uid ]
-  (j/delete! db :staging ["uid = ?" uid]))
+  (j/delete! db :staging ["uid = ?" (read-string uid)]))
