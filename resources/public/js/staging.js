@@ -38,17 +38,26 @@ $('#importselected').on('click', function () {
   //  (POST "/save" [id name system data alliance tags notes]
   $.each(staged, function (id, ele) {
     deck = $(ele).data('d');
-    var dx  ={
-      name: deck.name,
-      system: parseInt(deck.system),
-      data: deck.decklist,
-      notes: deck.notes,
-      tags: deck.tags,
-      alliance: deck.alliance
+    if (deck.type == "deck") {
+      var dx  ={
+        name: deck.name,
+        system: parseInt(deck.system),
+        data: deck.decklist,
+        notes: deck.notes,
+        tags: deck.tags,
+        alliance: deck.alliance
+      }
+      $.post("/decks/save", dx, function (r) {
+        add_toast("Deck " + deck.name + " saved to your collection.")
+      });
+    } else if (deck.type == "collection") {
+      var dx = {
+        collectionjson: deck.decklist
+      }
+      $.post("/aosc/collection/save", dx, function (r) {
+        add_toast("Collection saved");
+      });
     }
-    $.post("/decks/save", dx, function (r) {
-      add_toast("Deck " + deck.name + " saved to your collection.")
-    });
   });
 });
 
