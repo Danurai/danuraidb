@@ -1,10 +1,11 @@
 (in-ns 'danuraidb.pages)
 
-(def ^:const aosc_card_path "/img/aosc/cards/")
+(def ^:const aosc_card_path "https://assets.warhammerchampions.com/card-database/cards/") 
 (def ^:const aosc_icon_path "/img/aosc/icons/")
 
 (def aosc-pretty-head 
-  (into pretty-head (h/include-css "/css/aosc-style.css?v=1.0")))
+  (into pretty-head 
+    (h/include-css "/css/aosc-style.css?v=1.0")))
   
 (defn aosc-navbar [req]
   (navbar 
@@ -87,24 +88,24 @@
 ;; https://assets.warhammerchampions.com/card-database/icons/
 ;; https://assets.warhammerchampions.com/card-database/cards/"
 
+(defn- aosc-img-uri [ img local remote ]
+  (if (nil? (io/resource (str "public" local img)))
+      (str remote img)
+      (str local img)))
+
 (defn- aosc-cardimage [r]
-  (let [imgfilename (str (->> r :skus (filter :default) first :id) ".jpg")]
+  (let [img (str (->> r :skus (filter :default) first :id) ".jpg")]
     [:div.col-sm-3 
-      [:div.row
+      [:div.row 
         [:a {:href (str "/aosc/cards/" (:id r))}
           [:img.py-1.px-1.img-fluid.img-thumbnail {
-            :src (str aosc_card_path imgfilename) 
+            :src   (aosc-img-uri img "/img/aosc/cards/" aosc_card_path)
             :title (:name r) 
-            :alt   imgfilename}]]]]))
-
-;Redirect to local resources
-;https://assets.warhammerchampions.com/card-database/cards/
-;(into aosc-pretty-head [:script "function replaceImage(ele,fname) {ele.onerror=null;ele.src=\"/img/aosc/cards/\"+fname;"])
-;[:img {:onerror (str "replaceImage(this,\"" imgfilename "\")")}
+            :alt   img}]]]]))
             
 (defn aosc-cards-page [req]
   (let [q (or (-> req :params :q) "s:4")]
-    (h/html5 
+    (h/html5
       aosc-pretty-head
       [:body  
         (aosc-navbar req)
@@ -120,7 +121,6 @@
           [:div.row
             (map (fn [r] (aosc-cardimage r)) (model/cardfilter q (model/aosc-get-cards) :aosc))]]])))
             
-
 (defn aosc-card-page [req]
   (let [id (-> req :params :id)
         src (->> (model/aosc-get-cards) (filter #(= (-> % :id str) id)) first)
@@ -181,7 +181,7 @@
                     [:tr [:td "id"][:td (:id src)]]
                   ]]]]
             [:div.col-sm-4
-              [:img#cardimg.img-fluid {:src (str "/img/aosc/cards/" (->> src :skus (filter :image) first :id) ".jpg")}]
+              [:img#cardimg.img-fluid {:src (aosc-img-uri (str (->> src :skus (filter :image) first :id) ".jpg") "/img/aosc/cards/" aosc_card_path)}]
               (if (< 1 (->> src :skus (filter :image) count))
                 [:div.d-flex.justify-content-around
                   (map-indexed (fn [id sku]
