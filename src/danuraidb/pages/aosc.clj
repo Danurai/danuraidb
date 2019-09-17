@@ -82,8 +82,8 @@
                 [:input#importcollection {:type "text" :name "collectionjson" :hidden true :value "{}"}]
                 [:button.btn.btn-danger {:type "submit"} "Save Changes"]]]]]]
       (toaster)
-      (h/include-js "/js/aosc_tools.js?v=1")
-      (h/include-js "/js/aosc_quickcollection.js?v=1")]))
+      (h/include-js "/js/aosc_tools.js?v=1.1")
+      (h/include-js "/js/aosc_quickcollection.js?v=1.1")]))
       
 ;; https://assets.warhammerchampions.com/card-database/icons/
 ;; https://assets.warhammerchampions.com/card-database/cards/"
