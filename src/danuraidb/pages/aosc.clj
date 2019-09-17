@@ -32,11 +32,14 @@
     [:body
       (aosc-navbar req)
       [:div.container-fluid.my-2
-        [:div.btn-group.float-right
-          [:button#copycollection.btn.btn-secondary {:title "Copy collection data to clipboard"} [:i.fas.fa-clipboard]]  ;[:a {:href "/aosc/api/private/collection"}
-          [:button.btn.btn-warning {:title "Upload Data" :data-target "#importmodal" :data-toggle "modal"} [:i.fas.fa-file-upload]]]
-        [:div.row
-          [:span#stats.mx-auto]]
+        [:div.row-fluid
+          [:div.btn-group.float-right
+            [:button#copycollection.btn.btn-secondary {:title "Copy collection data to clipboard"} [:i.fas.fa-clipboard]]  ;[:a {:href "/aosc/api/private/collection"}
+            [:button.btn.btn-warning {:title "Upload Data" :data-target "#importmodal" :data-toggle "modal"} [:i.fas.fa-file-upload]]
+            (if (= "localhost:9009" (-> req :headers (get "host")))
+              [:button#stagecollection.btn.btn-primary {:title "Stage Collection at http://danuraidb.herokuapp.com"} [:i.fas.fa-cloud-upload-alt]])
+            ]
+          [:div.d-flex [:span#stats.mx-auto]]]
         [:div.row-fluid.d-flex.justify-content-center.mb-1
           [:span.mr-2 [:input#filter.form-control.search-info {:placeholder "Filter"}]]
           (optgroup-togglenone model/aosc-types "category" "Champion")
@@ -50,8 +53,7 @@
             [:button#btnsave.btn.btn-warning {:type "submit" :disabled true} 
               [:i.fas.fa-bookmark] 
               [:span.d-sm-none.d-md-inline.ml-1 "Save"]]]]
-        [:div.row-fluid.mb-1
-          [:div#cards.mx-1]]]
+        [:div#cards.row-fluid.mb-1]]
       [:div#updatemodal.modal {:tabindex -1 :role "dialog"}
         [:div.modal-dialog {:role "document"}
           [:div.modal-content

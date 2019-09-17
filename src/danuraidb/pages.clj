@@ -45,25 +45,32 @@
     pretty-head
     [:body
       (navbar req)
-      [:div.container.my-3
+      [:div.container-fluid.my-3
         (toaster)
-        [:div.row.h4 "Staging"]
+        [:div.row.h4 
+          [:div.col "Staging"]]
         [:div.row.mb-2
-          [:div.btn-group.mr-2
-            [:button#importselected.btn.btn-primary {:title "Import Selected"} [:i.fas.fa-file-upload]]
-            [:button#deleteselected.btn.btn-danger {:title "Delete Selected" :data-toggle "modal" :data-target "#deletemodal"} [:i.fas.fa-trash-alt]]
-            [:button#selectall.btn.btn-warning {:title "Select All"} [:i.fas.fa-check-square]]]]
+          [:div.col
+            [:div.btn-group.mr-2
+              [:button#importselected.btn.btn-primary {:title "Import Selected"} [:i.fas.fa-file-upload]]
+              [:button#deleteselected.btn.btn-danger {:title "Delete Selected" :data-toggle "modal" :data-target "#deletemodal"} [:i.fas.fa-trash-alt]]]]]
         [:div.row
-          [:table.table.table-sm
-            [:thead [:tr [:th "Select"][:th "Type"][:th "System"][:th "Name"][:th "Data"]]]
-            [:tbody
-              (for [data (db/get-staged-data)]
-                [:tr 
-                  [:td.align-middle.align-center [:input {:style "width: 20px; height: 20px;" :type "checkbox" :data-d (json/write-str data)}]]
-                  [:td (-> data :type clojure.string/capitalize)]
-                  [:td [:img.icon-sm {:src (->> model/systems (filter #(= (:id %) (-> data :system read-string))) first :icon)}]] ;[:img.icon-sm {:src (->> model/systems (filter (= :id (-> data :system read-string))) first :icon)}]]
-                  [:td (:name data)]
-                  [:td.w-25 {:style "text-overflow: hidden;"} (-> data :decklist str)]])]]]]
+          [:div.col
+            [:table.table.table-sm {:style "table-layout: fixed;"}
+              [:thead [:tr
+                [:th {:style "width: 5%"} [:input#selectall.checkbox-md {:type "checkbox" :title "Select None/All"}]]
+                [:th {:style "width: 10%"} "Type"]
+                [:th {:style "width: 5%"} "Sys."]
+                [:th {:style "width: 20%"} "Name"]
+                [:th {:style "width: 60%"} "Data"]]]
+              [:tbody
+                (for [data (db/get-staged-data)]
+                  [:tr
+                    [:td.align-middle.align-center [:input.checkbox-md {:type "checkbox" :data-d (json/write-str data)}]]
+                    [:td (-> data :type clojure.string/capitalize)]
+                    [:td [:img.icon-sm {:src (->> model/systems (filter #(= (:id %) (-> data :system read-string))) first :icon)}]]
+                    [:td (:name data)]
+                    [:td {:style "overflow: hidden; white-space: nowrap;"} (-> data :decklist str)]])]]]]]
       [:div#deletemodal.modal {:tabindex -1 :role "dialog"}
         [:div.modal-dialog {:role "document"}
           [:div.modal-content
@@ -72,7 +79,7 @@
               [:button {:type "button" :class "close" :data-dismiss "modal"} 
                 [:span "x"]]]
             [:div.modal-body
-              [:div.mb-2 "Are you sure you want to delete selected decks?"]
+              [:div.mb-2 "Are you sure you want to delete selected items?"]
               [:div.progress [:div.progress-bar {:role "progressbar"}]]]
             [:div.modal-footer
               [:button.btn.btn-primary {:data-dismiss "modal"} "Cancel"]
