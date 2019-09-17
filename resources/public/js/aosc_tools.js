@@ -22,19 +22,19 @@ var _imgpath = localpath;
 _collection = $('#collection').val();
 _collection = (_collection != "" ? JSON.parse(_collection) : {});
 
-function setPath (uri, callback) {
-  var $img = $('<img></img>');
-  $img.on('load',function() {
-    _imgpath = localpath;
-    callback;
-  });
-  $img.on('error',function() {
-    _imgpath = aoscpath;
-    callback;
-  });
-  
-  $img.attr('src',uri);
-}
+//function setPath (uri, callback) {
+//  var $img = $('<img></img>');
+//  $img.on('load',function() {
+//    _imgpath = localpath;
+//    callback;
+//  });
+//  $img.on('error',function() {
+//    _imgpath = aoscpath;
+//    callback;
+//  });
+//  
+//  $img.attr('src',uri);
+//}
 
 /* Parse Filter */
 // name

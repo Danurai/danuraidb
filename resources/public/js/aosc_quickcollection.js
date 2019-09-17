@@ -3,7 +3,9 @@ var _freeFilter = {};
 var _cards;
 var _collection;
 
-  
+
+var cval = $('#collection').val();
+_collection = (cval != "" ? JSON.parse(cval) : {});
 
 $.getJSON('/aosc/api/data/cards', function(data) {
   var data_source = data['hits']['hits'].map(c => c['_source']);
@@ -15,7 +17,7 @@ $.getJSON('/aosc/api/data/cards', function(data) {
   _filter.alliance =  $('#alliance').find('input:checked').first().attr('id');
   _filter.category =  {"en":$('#category').find('input:checked').first().attr('id')};
   
-  setPath(localpath + imageName(_cards().first()), write_cards());
+  write_cards();
 });
 
 function write_stats () {
@@ -36,12 +38,18 @@ function imageName(c) {
   return sku.id + ".jpg"
 }
 
-function imgerr () {
-  $(this).onerror = null;
-  $(this).attr('src',aoscpath + this.alt);
+function write_cards() {
+  var localpath = "/img/aosc/cards/";
+  var remotepath = "https://assets.warhammerchampions.com/card-database/cards/";
+  $.get(localpath + imageName(_cards().first()),function () { 
+      write_table(localpath);
+    })
+    .fail(function () {
+      write_table(remotepath);
+    });
 }
 
-function write_cards() {
+function write_table(imgpath) {
   var outp = '<table class="mx-auto"><tbody>';
   var c;
   var total = 0;
@@ -54,7 +62,7 @@ function write_cards() {
     }
     total = (parseInt(res[i].digital) + parseInt(res[i].physical) + parseInt(res[i].foil));
     outp += '<td><div class="cardcontainer" data-id=' + res[i].id + '>'
-      + '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + _imgpath + imageName(res[i]) + '" alt="' + res[i].name + '" onerror="imgerr">'
+      + '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + imgpath + imageName(res[i]) + '" alt="' + res[i].name + '" onerror="imgerr">'
       + '<span class="collectionbox ' + (total == 0 ? 'lockbox' : 'countbox') + '">'
 		+ '<span data-id=' + res[i].id + ' data-toggle="modal" data-target="#updatemodal">'
 		+ (total == 0 ? '<i class="fa fa-lock">' : 'x' + total)
