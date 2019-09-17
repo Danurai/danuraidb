@@ -10,7 +10,6 @@ $('#importdeck').on('show.bs.modal', function(ev) {
   $('#decksystem').val(1);
 });
 
-
 //global
 
 $('#deletemodal').on('show.bs.modal', function (ev) {
@@ -46,6 +45,8 @@ $('#importdecklist').on('input',function () {
   }
   $('#deckdata').val(sharingcode);
 });
+
+var staging_uri = "https://danuraidb.herokuapp.com/staging"
 
 $('.btn-stage').on('click',function () {
   var d = $(this).data('d')  

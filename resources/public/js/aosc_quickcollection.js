@@ -169,3 +169,19 @@ $('#copycollection').on('click',function() {
   add_toast("Collection copied to clipboard");
   $(this).select();
 });
+
+
+var staging_uri = "https://danuraidb.herokuapp.com/staging"
+
+$('#stagecollection').on('click', function () {
+  var dx = {
+    name: "Collection",
+    type: "collection",
+    system: 1,
+    decklist: $('#collection').val()
+  }
+  $.post(staging_uri,dx,function(x) {
+    console.log(x);
+    add_toast("Collection Staged.");
+  });
+});
