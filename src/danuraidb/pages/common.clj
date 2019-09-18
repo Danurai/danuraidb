@@ -86,7 +86,7 @@
   ([group id default]
     [:div.btn-group.btn-group-toggle.btn-group-toggle-none.mb-1 {:id id}
       (map (fn [btn]
-            [:label.btn.btn-outline-primary {:title (:name btn) :class (if (= default (:name btn)) "active")}
+            [:label.btn.btn-outline-secondary {:title (:name btn) :class (if (= default (:name btn)) "active")}
               [:input {:id (:name btn) :checked (= default (:name btn)) :type "checkbox"}
                 (if (some? (:img btn))
                     [:img.button-icon {:src (:img btn)}]
@@ -98,7 +98,7 @@
   ([group id default]
     [:div.btn-group.btn-group-toggle.mb-1 {:id id :data-toggle "buttons"}
       (map (fn [btn]
-            [:label.btn.btn-outline-primary {:title (:name btn) :class (if (= default (:name btn)) "active")}
+            [:label.btn.btn-outline-secondary {:title (:name btn) :class (if (= default (:name btn)) "active")}
               [:input {:id (:name btn) :data-code (:code btn) :checked (= default (:name btn)) :type "checkbox"}
                 (if (some? (:img btn))
                     [:img.button-icon {:src (:img btn)}]
@@ -110,16 +110,11 @@
   ([group id default]
     [:div.btn-group.btn-group-toggle.mb-1 {:id id :data-toggle "buttons"}
       (map (fn [btn]
-            [:label.btn.btn-outline-primary {:title (:name btn) :class (if (= default (:name btn)) "active")}
+            [:label.btn.btn-outline-secondary {:title (:name btn) :class (if (= default (:name btn)) "active")}
               [:input {:id (:name btn) :type "radio" :name id :checked (= default (:name btn))} 
                 (if (some? (:img btn))
                   [:img.button-icon {:src (:img btn)}]
                   (:symbol btn))]]) group)]))
-
-
-(defn- markdown [ txt ]
-  txt
-)
 
 (defn- deletemodal []
   [:div#deletemodal.modal {:tabindex -1 :role "dialog"}
