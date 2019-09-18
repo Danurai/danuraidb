@@ -15,6 +15,26 @@
     ["decks" "collection" "cards"]
     req
     :style "background-color: darkblue !important;"))
+    
+;; TODO - 
+; e.g.
+;(defn convert
+;"Converts single element to hiccup or reagent"
+;[pre txt]
+;  (if-let [symbol (re-matches #"\[(\w+)\]" txt)]
+;    [:i {:class (str pre (second symbol))}]
+;    txt))
+;(defn lotrdb-markdown [ txt ]
+;  (->> txt
+;      (re-seq #"\[\w+\]|\w+|." )
+;      (map #(model/convert "lotr-type-" %))
+;      model/makespan))
+;;(defn makespan [res] 
+;; model/convert -> [:span "something" [:i {:class "etc"} " else"]
+
+(defn- aosc-markdown [ txt ]
+  txt)
+
                   
 (defn aosc-home [ req ]
   (h/html5
@@ -170,9 +190,7 @@
                                           [:a {:href (str "/aosc/cards?q=r:" (:rarity src))} (:rarity src)]]]
                     [:tr [:td "Cost"][:td (:cost src)]]
                     [:tr [:td "Health"][:td (:healthMod src)]]
-                    
-                    [:tr [:td "Effect"][:td (-> src :effect :en markdown)]]
-                    
+                    [:tr [:td "Effect"][:td (-> src :effect :en aosc-markdown)]]                    
                     [:tr 
                       [:td "Subject"]
                       [:td (if (some? (:subjectImage src)) 
@@ -187,8 +205,6 @@
                   (map-indexed (fn [id sku]
                     [:span [:a.altlink {:href "#" :data-id (:id sku)} (str "#" (inc id))]]) (->> src :skus (filter :image)))])]]]
         [:script "$('.altlink').on('click',function (evt) {evt.preventDefault(); $('#cardimg').attr('src','/img/aosc/cards/' + $(this).data('id') + '.jpg');});"]])))
-
-
 
 (defn- get-aosc-deck-cards [deck aosc-card-data]
   (map (fn [c] 
@@ -213,7 +229,6 @@
                     (filter #(= (-> % :category :en) category)) 
                     (map #(str (:count %) "x " (:name %))))))
         ["Champion" "Blessing" "Unit" "Spell" "Ability"]))))
-    
           
 (defn- aosc-deck-card [d aosc-card-data req]
   (let [deck-cards (get-aosc-deck-cards (-> d :data model/parsedeck :cards) aosc-card-data)]
@@ -241,12 +256,22 @@
       [:div.collapse.mb-2 {:id (str "deck_" (:uid d))} 
         (write-deck-list deck-cards)
         [:div
-          [:button.btn.btn-sm.btn-danger.mr-1 {:data-toggle "modal" :data-target "#deletemodal" :data-name (:name d) :data-uid (:uid d)} [:i.fas.fa-times.mr-1] "Delete"]
-          [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (deck-export-string deck-cards) :data-deckname (:name d)} [:i.fas.fa-file-export.mr-1] "Export"]
+          [:button.btn.btn-sm.btn-danger.mr-1 {:data-toggle "modal" :data-target "#deletemodal" :data-name (:name d) :data-uid (:uid d) :title "Delete"} 
+            [:i.fas.fa-times] 
+            [:span.ml-1.d-none.d-sm-inline-block "Delete"]]
+          [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (deck-export-string deck-cards) :data-deckname (:name d)} 
+            [:i.fas.fa-file-export] 
+            [:span.ml-1.d-none.d-sm-inline-block "Export"]]
           (if (= "localhost:9009" (-> req :headers (get "host")))
-            [:btn.btn-sm.btn-dark.mr-1.btn-stage {:data-d (json/write-str d) :title "Stage at danuraidb.herokuapp.com"} [:i.fas.fa-cloud-upload-alt.mr-1] "Stage"])
-          [:a.btn.btn-sm.btn-dark.mr-1 {:href (str "warhammer-tcg://share-deck?deckCode=" (:data d) "&deepLinkTimestamp=" (tc/to-long (time/now)))} [:i.fas.fa-gamepad.mr-1] "Champions"]
-          [:a.btn.btn-sm.btn-primary {:href (str "/aosc/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]]))  
+            [:btn.btn-sm.btn-dark.mr-1.btn-stage {:data-d (json/write-str d) :title "Stage at danuraidb.herokuapp.com"} 
+              [:i.fas.fa-cloud-upload-alt] 
+              [:span.ml-1.d-none.d-sm-inline-block "Stage"]])
+          [:a.btn.btn-sm.btn-dark.mr-1 {:href (str "warhammer-tcg://share-deck?deckCode=" (:data d) "&deepLinkTimestamp=" (tc/to-long (time/now)))} 
+            [:i.fas.fa-gamepad] 
+            [:span.ml-1.d-none.d-sm-inline-block "Champions"]]
+          [:a.btn.btn-sm.btn-primary.mr-1 {:href (str "/aosc/decks/edit/" (:uid d))} 
+            [:i.fas.fa-edit] 
+            [:span.ml-1.d-none.d-sm-inline-block "Edit"]]]]]))  
           
 (defn aosc-decks [req]
   (let [decks (db/get-user-decks 1 (-> req get-authentications (get :uid 1002)))
@@ -255,18 +280,20 @@
       aosc-pretty-head
       [:body
         (aosc-navbar req)
-        [:div.container.my-3
-          [:div.row.justify-content-between
-            [:div.h3 (str "Decks (" (count decks) ")")]
-            [:div 
-              [:button#exportall.btn.btn-secondary.mr-1 {:title "Export to JSON" :data-export (json/write-str (map #(select-keys % [:name :data]) decks))} [:i.fas.fa-clipboard]]
-              [:button#importall.btn.btn-secondary.mr-1 {:title "Import from JSON" :data-toggle "modal" :data-target "#importallmodal"} [:i.fas.fa-paste]] 
-              [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
-              [:a.btn.btn-primary {:href "/aosc/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
+        [:div.container-fluid.my-3
           [:div.row
-            [:div#decklists.w-100
-              [:ul.list-group
-                (map (fn [d] (aosc-deck-card d aosc-card-data req)) decks)]]]]
+            [:div.col.d-flex.justify-content-between
+              [:div.h3 (str "Decks (" (count decks) ")")]
+              [:div 
+                [:button#exportall.btn.btn-secondary.mr-1 {:title "Export to JSON" :data-export (json/write-str (map #(select-keys % [:name :data]) decks))} [:i.fas.fa-clipboard]]
+                [:button#importall.btn.btn-secondary.mr-1 {:title "Import from JSON" :data-toggle "modal" :data-target "#importallmodal"} [:i.fas.fa-paste]] 
+                [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
+                [:a.btn.btn-primary {:href "/aosc/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]]
+          [:div.row
+            [:div.col
+              [:div#decklists.w-100
+                [:ul.list-group
+                  (map (fn [d] (aosc-deck-card d aosc-card-data req)) decks)]]]]]
         (deletemodal)
         (importallmodal)
         (importdeckmodal)
@@ -304,7 +331,6 @@
             [:div.row.mb-3
               [:a.btn.mx-auto.newdeck.newdeck-destruction {:href "/aosc/decks/new/Destruction"}]]]]]]))
               
-
 (defn- decknamecolour [ uid ]
   (let [rgb (->> (re-matcher #"(?i)([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})" uid) re-find rest)]
     (if (> 0.5 (/ (reduce + (map #(* %1 (Integer/parseInt %2 16))[0.299 0.587 0.114] rgb)) 255))
@@ -316,29 +342,30 @@
     :name "name" :placeholder "deck name" :value (:name deckdata)
     :style (str "background-color: #" (:uid deckdata) "; color: " (decknamecolour (:uid deckdata)) ";") }])
     
+
 (defn aosc-deckbuilder [req]
   (let [deckdata (model/get-deck-data req)]
     (h/html5
       aosc-pretty-head
       [:body
         (aosc-navbar req)
-        [:div.container
+        [:div.container-fluid
           [:div.row.my-2
-            [:div.col-md-6
+            [:div.col-sm-6
               [:div.sticky-top.pt-2
-                [:div.row 
+                [:div.row-fluid
                   [:form.form.w-100 {:action "/decks/save" :method "post"}
                     [:div.row.py-1.mr-1
-                      [:div.col-sm-8 (decknameinput deckdata)]
-                      [:div.col-sm-4
+                      [:div.col-8 (decknameinput deckdata)]
+                      [:div.col-4
                         [:input#deckdata {:name "data" :hidden true :value (:data deckdata)}]
                         [:input#deckuid {:name "id" :hidden true :value (:uid deckdata)}]
                         [:input#decksystem {:name "system" :hidden true :value 1}]
                         [:input#deckalliance {:name "alliance" :hidden true :value (:alliance deckdata)}]
                         [:input#decknotes {:name "notes" :hidden true :value (:notes deckdata)}]
-                        [:button.btn.btn-warning.float-right {:submit "true"} [:i.fas.fa-bookmark.mr-1] "Save"]]]]]
-                [:div#decklist.row]]]
-            [:div.col-md-6
+                        [:button.btn.btn-warning.float-right {:submit "true"} [:i.fas.fa-bookmark.mr-1] [:span.ml-1.d-none.d-sm-inline-block"Save"]]]]]]
+                [:div#decklist.row-fluid]]]
+            [:div.col-sm-6
               [:ul.nav.nav-tabs.nav-fill
                 [:li.nav-item [:a.nav-link.active {:href "#buildtab" :data-toggle "tab" :role "tab"} "Build"]]
                 [:li.nav-item [:a.nav-link {:href "#notestab" :data-toggle "tab" :role "tab"} "Notes"]]
@@ -347,16 +374,16 @@
                 [:div#buildtab.tab-pane.fade.show.active.mt-2 {:role "tabpanel"}
                   [:div.row.px-3.justify-content-between
                     (btngroup model/aosc-types "filter_type")
-                    (optgroup (remove #(= "Any" (:name %)) model/aosc-alliances) "filter_alliance" (:alliance deckdata)) ;  [:span.float-sm-right
-                    [:div.btn-group.btn-group-toggle.mb-1 {:data-toggle "buttons"}
-                      [:label.btn.btn-outline-secondary {:title "Toggle owned cards"}
-                        [:input#lock {:type "checkbox"} [:i.fas.fa-unlock]]]]]
+                    (optgroup (remove #(= "Any" (:name %)) model/aosc-alliances) "filter_alliance" (:alliance deckdata))]
                   [:div.d-flex.my-1
                     [:input#filtertext.form-control.search-info {:type "text" :placeholder "Search"}]
                     [:select#selecttrait.selectpicker.ml-2 {:multiple true :data-width "fit" :data-multiple-separator "" :data-none-selected-text "Tags"}
                       (for [t model/aosc-traits]
                         (let [imgtag (str "<img class=\"trait-icon ml-1\" src=\"" aosc_icon_path "tag_" (clojure.string/lower-case t) ".png\" title=\"" t "\" />")]
-                          ^{:key (gensym)}[:option {:data-content imgtag} t]))]]
+                          ^{:key (gensym)}[:option {:data-content imgtag} t]))]
+                    [:div.btn-group-toggle {:data-toggle "buttons"}
+                      [:button.btn.btn-outline-secondary {:title "Toggle owned cards"}
+                        [:input#lock {:type "checkbox"} [:i.fas.fa-unlock]]]]]
                   [:div.d-flex.my-1
                     [:table#cardtbl.table.table-hover.table-sm
                       [:thead
@@ -385,5 +412,4 @@
       (h/include-js "/js/externs/warhammer-deck-sharing.js")
       (h/include-js "/js/externs/typeahead.js")
       (h/include-js "/js/aosc_deckbuilder.js?v=1.100")
-      (h/include-css "/css/aosc-icomoon-style.css?v=1.3")
-      ])))
+      (h/include-css "/css/aosc-icomoon-style.css?v=1.3")])))
