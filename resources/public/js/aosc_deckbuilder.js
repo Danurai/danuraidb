@@ -48,11 +48,12 @@ function write_table () {
 }
 function table_row (c)  {
   var hiderow = $('#lock').prop('checked');
-  return '<tr' 
-      + (c.owned == 0 ? ' class="table-secondary text-muted' + (hiderow ? ' hiderow' : '') + '"' : '') 
-      + '>'
+  return '<tr class="'
+       + getCardClass(c)
+       + (c.owned == 0 ? ' table-secondary text-muted' + (hiderow ? ' hiderow' : '') : '') 
+      + '">'
     + '<td>' + card_button_group(c) + '</td>'
-    + '<td><span data-toggle="modal" data-target="#cardmodal" data-id="'+  c.id + '" class="' + getCardClass(c) +'">'
+    + '<td><span data-toggle="modal" data-target="#cardmodal" data-id="'+  c.id + '">'
       + '<a href="#" data-id = "' + c.id + '" class="card-tooltip" data-toggle="popover">'
       + ($.inArray("Unique",c.tags) != -1 ? '&bull;&nbsp;' : '')
       + c.name + '</span></span></td>'
@@ -310,7 +311,7 @@ function setModalHtml(modal,crd) {
     .find('.modal-body')
     .html('<div class="row">'
       + '<div class="col-sm-9">'
-      + '<img src="/img/cards/' + crd.skus.filter(sku => (sku.default == true && sku.lang == "en"))[0].id + '.jpg" style="width: 100%;"></img>'
+      + '<img src="/img/aosc/cards/' + crd.skus.filter(sku => (sku.default == true && sku.lang == "en"))[0].id + '.jpg" style="width: 100%;"></img>'
       + '</div></div>');
 }  
 function modalButtonGroup(crd) {
