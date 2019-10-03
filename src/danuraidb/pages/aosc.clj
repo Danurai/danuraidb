@@ -29,11 +29,17 @@
 ;      (re-seq #"\[\w+\]|\w+|." )
 ;      (map #(model/convert "lotr-type-" %))
 ;      model/makespan))
-;;(defn makespan [res] 
-;; model/convert -> [:span "something" [:i {:class "etc"} " else"]
+
+(defn- aosc-convert [ txt ]
+  (if-let [kw (re-matches #"\[(\w+)\]" txt)]
+    [:span.px-1.popover-keyword (second kw)]
+    txt))
 
 (defn- aosc-markdown [ txt ]
-  txt)
+  (->> txt 
+      (re-seq #"\[\w+\]|\w+|.")
+      (map #(aosc-convert %))
+      model/makespan))
 
                   
 (defn aosc-home [ req ]
@@ -58,15 +64,19 @@
             [:button#copycollection.btn.btn-secondary {:title "Copy collection data to clipboard"} [:i.fas.fa-clipboard]]  ;[:a {:href "/aosc/api/private/collection"}
             [:button.btn.btn-warning {:title "Upload Data" :data-target "#importmodal" :data-toggle "modal"} [:i.fas.fa-file-upload]]
             (if (= "localhost:9009" (-> req :headers (get "host")))
-              [:button#stagecollection.btn.btn-primary {:title "Stage Collection at http://danuraidb.herokuapp.com"} [:i.fas.fa-cloud-upload-alt]])
-            ]
-          [:div.d-flex [:span#stats.mx-auto]]]
-        [:div.row-fluid.d-flex.justify-content-center.mb-1
-          [:span.mr-2 [:input#filter.form-control.search-info {:placeholder "Filter"}]]
-          (optgroup-togglenone model/aosc-types "category" "Champion")
-          [:span.ml-2]
-          (optgroup-togglenone model/aosc-alliances "alliance" "Order")
-          [:form.ml-2 {:method "post" :action "/aosc/collection/save"}
+              [:button#stagecollection.btn.btn-primary {:title "Stage Collection at http://danuraidb.herokuapp.com"} [:i.fas.fa-cloud-upload-alt]])]        
+          [:div#incomplete.btn-group.btn-group-toggle.float-right.mr-2 {:data-toggle "buttons"}
+            [:label.btn.btn-sm.btn-outline-secondary {:title "Toggle Incomplete Collection"} 
+              [:input {:type "checkbox"}]
+              [:i.fas.fa-low-vision]]]
+          [:div.d-flex.pr-2.mb-1
+            [:span#stats.mx-auto]]]
+       ; [:div.row-fluid.d-flex.justify-content-center.mb-1
+        [:div.row.d-flex.justify-content-center
+          [:span.mr-2.mb-1 [:input#filter.form-control.search-info {:placeholder "Filter"}]]
+          [:span.mr-2.mb-1 (optgroup-togglenone model/aosc-types "category" "Champion")]
+          [:span.mr-2.mb-1 (optgroup-togglenone model/aosc-alliances "alliance" "Order")]        
+          [:form.mb-1 {:method "post" :action "/aosc/collection/save"}
             [:input {:name "filterjson" :hidden true}]
             [:input#collection {:name "collectionjson"
                                 :hidden true 
@@ -103,7 +113,8 @@
                 [:button.btn.btn-danger {:type "submit"} "Save Changes"]]]]]]
       (toaster)
       (h/include-js "/js/aosc_tools.js?v=1.1")
-      (h/include-js "/js/aosc_quickcollection.js?v=1.1")]))
+      (h/include-js "/js/aosc_quickcollection.js?v=1.1")
+      (h/include-js "/js/aosc_popover.js?v=1.000")]))
       
 ;; https://assets.warhammerchampions.com/card-database/icons/
 ;; https://assets.warhammerchampions.com/card-database/cards/"

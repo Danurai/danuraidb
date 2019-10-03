@@ -2,6 +2,8 @@ var _filter = {};
 var _freeFilter = {};
 var _cards;
 var _collection;
+var _localpath = "/img/aosc/cards/";
+var _remotepath = "https://assets.warhammerchampions.com/card-database/cards/";
 
 
 var cval = $('#collection').val();
@@ -12,13 +14,35 @@ $.getJSON('/aosc/api/data/cards', function(data) {
   _cards = TAFFY (
     data_source
       .map(function(c) {return $.extend({"digital":0,"physical":0,"foil":0},this[c.id],c)}, _collection)
-      .map(function(c) {return $.extend({"catid":this.indexOf(c.category.en),"setnumber":c.set[0].number,"text":c.effect.en},c)},["Champion","Blessing","Unit","Spell","Ability"])
+      .map(function(c) {
+        return $.extend({
+          "catid":this.indexOf(c.category.en),
+          "setnumber":c.set[0].number,
+          "text":c.effect.en,
+          "maxqty":getMaxQty($.inArray("Unique",c.tags)>-1, c.category.en),
+          "craftcost":getCraftCost(c.category.en, c.rarity[0])
+        },c)},["Champion","Blessing","Unit","Spell","Ability"])
   )
   _filter.alliance =  $('#alliance').find('input:checked').first().attr('id');
   _filter.category =  {"en":$('#category').find('input:checked').first().attr('id')};
   
   write_cards();
 });
+
+function getMaxQty (unique, cat) {
+  return (unique ? 1 
+    : (cat == "Champion" ? 2
+        : (cat == "Blessing" ? 1
+            : 3)))
+}
+
+function getCraftCost (cat, rarity) {
+  return (cat == "Blessing" && rarity == "E" 
+    ? 2500
+    : (cat == "Champion" || cat == "Blessing"
+      ? {"C": 150, "U": 375, "R": 750, "E": 1000}[rarity]
+      : {"C": 100, "U": 250, "R": 500, "E": 750}[rarity] ))
+}
 
 function write_stats () {
    var outp = '';
@@ -39,13 +63,11 @@ function imageName(c) {
 }
 
 function write_cards() {
-  var localpath = "/img/aosc/cards/";
-  var remotepath = "https://assets.warhammerchampions.com/card-database/cards/";
-  $.get(localpath + imageName(_cards().first()),function () { 
-      write_table(localpath);
+  $.get(_localpath + imageName(_cards().first()),function () { 
+      write_table(_localpath);
     })
     .fail(function () {
-      write_table(remotepath);
+      write_table(_remotepath);
     });
 }
 
@@ -55,6 +77,9 @@ function write_table(imgpath) {
   var total = 0;
   var res = _cards($.extend({},_filter, _freeFilter)).order("catid asec, name asec").get();
   
+  if ($('#incomplete').find('input:checked').length > 0) {
+    res = res.filter(c=>c.digital+c.physical+c.foil<c.maxqty);
+  }
   outp += '<tr>'
   for (i=0; i<res.length; i++) {
     if (((i % 7) == 0) && (i != 0)) {
@@ -77,6 +102,34 @@ function write_table(imgpath) {
 function valueUpdateInputs(crd) {
   return '<div class="row" data-id = ' + crd.id + '>'
       + '<div class="col-sm-4">'
+        + '<div class="input-group">'
+          + '<div class="input-group-prepend">'
+          + '<span class="input-group-text" title="Digital"><i class="fas fa-mobile-alt" /></span>'
+          + '</div>'
+          + '<input type="number" data-type="digital" class="form-control" value=' + crd.digital + '></input>'
+        + '</div>'
+      + '</div>'
+      + '<div class="col-sm-4">'
+        + '<div class="input-group">'
+          + '<div class="input-group-prepend">'
+          + '<span class="input-group-text" title="Physical"><i class="fas fa-globe" /></span>'
+          + '</div>'
+        + '<input type="number" data-type="physical" class="form-control" value=' + crd.physical + '></input>'
+        + '</div>'
+      + '</div>'
+      + '<div class="col-sm-4">'
+        + '<div class="input-group">'
+          + '<div class="input-group-prepend">'
+          + '<span class="input-group-text" title="Foil"><i class="far fa-gem" /></span>'
+          + '</div>'
+        + '<input type="number" data-type="foil" class="form-control" value=' + crd.foil + '></input>'
+        + '</div>'
+      + '</div>'
+    + '</div>';
+}
+function valueUpdateInputsX(crd) {
+  return '<div class="row" data-id = ' + crd.id + '>'
+      + '<div class="col-sm-4">'
       + '<label>Digital</label>'
       + '<input type="number" data-type="digital" class="form-control" value=' + crd.digital + '></input>'
       + '</div>'
@@ -94,11 +147,22 @@ function valueUpdateInputs(crd) {
 $('#updatemodal').on('show.bs.modal', function (evt) {
   var id = $(evt.relatedTarget).closest('div').data('id');
   var crd = _cards({"id":id}).first();
-  $(this).find('.modal-title').html(crd.name);
-  $(this).find('.modal-body').html(valueUpdateInputs (crd) 
-      + '<img class="mt-2" src="' + imageName(crd) + '"></img>');
+  var $modalBody = $(this).find('.modal-body');
+  $.get(_localpath + imageName(crd),function () { 
+      setModalBody($modalBody, _localpath, crd);
+    })
+    .fail(function () {
+      setModalBody($modalBody, _remotepath, crd);
+    });
+  $(this).find('.modal-title').html('<h4>' + crd.name + '<span class="ml-2" style="font-size: 0.8rem;"> Craft: ' + crd.craftcost + '</span></h4>');
   $($(this).find('.modal-footer a')[0]).attr("href","/aosc/cards/" + crd.id);
 });
+
+function setModalBody ( $modalBody, path, crd ) {
+  $modalBody.html(
+    valueUpdateInputs (crd) 
+     + '<img class="mt-2" src="' + path + imageName(crd) + '" onerror="imgerr"></img>');
+}
 
 $('#updatemodal').on('change','input[type=number]',function () {
   var id = $(this).closest('.row').data('id');
@@ -140,6 +204,10 @@ function update_card_collection (id, type, val) {
   $('#btnsave').prop("disabled",false);
 }
   
+$('#incomplete').on('click', function () {
+    $(this).find('label').blur();
+    write_cards();
+    });
   
 // FILTERS
 $('.btn-group-toggle-none label.btn').on('click',function() {
