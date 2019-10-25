@@ -68,9 +68,9 @@
     
 (defroutes lotrdb-deck-routes 
   (GET "/" [] pages/lotrdb-decks)
-  (GET "/new" [] pages/deckbuilder)
-  (GET "/edit" [] pages/deckbuilder)
-  (GET "/edit/:id" [] pages/deckbuilder))
+  (GET "/new" [] pages/lotrdb-deckbuilder)
+  (GET "/edit" [] pages/lotrdb-deckbuilder)
+  (GET "/edit/:id" [] pages/lotrdb-deckbuilder))
 
 (defroutes lotrdb-routes
   (GET "/" [req]
@@ -80,7 +80,7 @@
 				json/write-str
 				response
 				(content-type "application/json")))
-  (context "/decks" [] 
+  (context "/decks" []
     (friend/wrap-authorize lotrdb-deck-routes #{::db/user}))
   (GET "/packs" []
     pages/lotrdb-packs-page)
@@ -88,6 +88,8 @@
     pages/lotrdb-scenarios-page)
   (GET "/search" []
     pages/lotrdb-search-page)
+  (GET "/solo" []
+    pages/lotrdb-solo-page)
   (GET "/cycle/:id" [ id ]
     #(pages/lotrdb-search-page (assoc-in % [:params :q] (str "y:" id))))
   (GET "/pack/:id" [ id ]
@@ -167,10 +169,21 @@
 ;; WHCONQ ;;
   
 (defroutes whconq-deck-routes 
-  (GET "/" [] pages/whconq-decks)
+  (GET "/"        [] pages/whconq-decks)
+  (GET "/new"     [] pages/whconq-newdeck)
+  (ANY "/new/"    [] pages/whconq-deckbuilder)
+  (GET "/new/:id"  [] pages/whconq-deckbuilder)
+  (GET "/edit/:id" [] pages/whconq-deckbuilder)
   )
   
 (defroutes whconq-api-routes
+  (GET "/deck/:id" [id]
+    (let [deck (db/get-user-deck id)] 
+      (content-type (response
+        (-> deck  
+           (dissoc :data :uid :author)
+           (assoc :data (json/read-str (:data deck) :key-fn keyword))
+           json/write-str)) "application/json")))
   (GET "/:id" [id]
     (try
       (-> (str "private/whconq/whconq_" id ".min.json")
@@ -182,8 +195,19 @@
   
 (defroutes whconq-routes
   (GET "/" [] pages/whconq-home)
-  (context "/decks" [] whconq-deck-routes)
-  (context "/api"   [] whconq-api-routes))
+  (GET "/cards"      [] pages/whconq-cards)
+  (GET "/collection" [] pages/whconq-collection)
+  (GET "/find"      [q] (pages/whconq-findcards q))
+  (GET "/cycle/:id" [id]
+    (let [cycle_code (->> model/whconq-cycle-data (filter #(= (:position %) (read-string id))) first :code)]
+      (pages/whconq-findcards (str "e:" (->> model/whconq-pack-data (filter #(= (:cycle_code %) cycle_code)) (map :code) (clojure.string/join "|"))))))
+  (GET "/pack/:id" [id] (pages/whconq-findcards (str "e:" id)))
+  (GET "/card/:code{[0-9]+}" [code] (pages/whconq-cardpage code))
+  (context "/decks" [] 
+    (friend/wrap-authorize whconq-deck-routes #{::db/user}))
+  (context "/api"   [] whconq-api-routes)
+)
+
   
 ;; DECK ADMIN ;;
   
