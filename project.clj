@@ -69,7 +69,7 @@
   ;; https://github.com/bhauman/lein-figwheel/wiki/Using-the-Figwheel-REPL-within-NRepl
   :profiles {:uberjar {:aot :all
                      :source-paths ["src"]
-                     ;:prep-tasks ["compile" ["cljsbuild" "once" "min"]]
+                     :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
                      }
             :dev {:dependencies [[reloaded.repl "0.2.4"]
                                [expectations "2.2.0-rc3"]
