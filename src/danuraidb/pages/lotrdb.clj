@@ -12,7 +12,7 @@
 (def sphere_icons
   (map #(let [code (clojure.string/lower-case %)] 
           (hash-map :name % :code code :img  (str "/img/lotrdb/icons/sphere_" code ".png")))
-    ["Leadership","Lore","Spirit","Tactics","Baggins","Fellowship"]))
+    ["Leadership","Lore","Spirit","Tactics","Neutral"]))  ;,"Baggins","Fellowship"
   
               
 (defn lotrdb-navbar [req]
@@ -20,7 +20,7 @@
     "/img/lotrdb/icons/sphere_fellowship.png" 
     "LotR DB" 
     "lotrdb"
-    ["decks" "packs" "scenarios" "search"]
+    ["decks" "packs" "scenarios" "search" "solo"]
     req))
     
 (defn lotrdb-home [ req ]
@@ -83,7 +83,6 @@
 														[:span (str
 															(->> cards (filter #(= (:pack_code %) (:code pack))) (map :quantity) (reduce +))
 															" cards")]]])])]))]]])))
-
 
 (defn- lotrdb-card-icon [ card ]
   [:img.icon-sm.float-right {
@@ -251,63 +250,4 @@
               [:img {:src (or (:cgdbimgurl card) (model/get-card-image-url card))}]]]]
       (h/include-js "/js/lotrdb_popover.js?v=1")
       (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))                            
-                            
-(defn deckbuilder [ req ]
-  (let [deck (model/get-deck-data req)]
-		(h/html5
-			lotrdb-pretty-head
-			[:body
-				(lotrdb-navbar req)
-        [:div.container.my-3
-          [:div.row.my-1
-            [:div.col-sm-6
-              [:div.row.my-3
-                [:form#save_form.form.needs-validation {:method "post" :action "/deck/save" :role "form" :novalidate true}
-                  [:div.form-row.align-items-center
-                    [:div.col-auto
-                      [:label.sr-only {:for "#deck-name"} "Fellowship Name"]
-                      [:input#fellowshipname.form-control {:type "text" :name "fellowshipname" :placeholder "New Fellowship" :required true :value (:name deck) :data-lpignore "true"}]
-                      [:div.invalid-feedback "You must name your fellowship"]]
-                    [:div.col-auto
-                      [:button.btn.btn-warning.mr-2 {:role "submit"} "Save"]
-                      [:a.btn.btn-light.mr-2 {:href "/lotrd/decks"} "Cancel Edits"]]]
-                  [:input#deck-id      {:type "text" :name "deck-id"      :value (:uid deck) :readonly true :hidden true}]
-                  [:input#deck-content {:type "text" :name "deck-content" :value (:data deck)  :readonly true :hidden true}]
-                  [:input#deck-tags    {:type "text" :name "deck-tags"    :value (:tags deck) :readonly true :hidden true}]
-                  [:input#deck-notes   {:type "text" :name "deck-notes"  :value (:notes deck) :readonly true :hidden true}]]]
-              [:div#decklist.row]
-            ]
-            [:div.col-sm-6
-              [:div.row.mb-2.justify-content-between
-                (btngroup player_type_icons "type_code")
-                (btngroup sphere_icons "sphere_code")]
-              [:div.row 
-                [:div.col-md-12
-                  [:div.row 
-                    [:input#filtertext.form-control {:type "text"}]]]]
-              [:div#info.row]
-              [:div.row
-                [:table.table.table-sm.table-hover
-                  [:thead
-                    [:tr 
-                      [:th "#"]
-                      [:th.sortable {:data-field "name"} "Name"]
-                      [:th.sortable.text-center {:data-field "type_code"} "Type"]
-                      [:th.sortable.text-center {:data-field "sphere_code"} "Sphere"]
-                      [:th.sortable.text-center {:data-field "cost" :title "Cost/Threat"} "C."]
-                      [:th.sortable.text-center {:data-field "attack" :title "Attack"} "A."]
-                      [:th.sortable.text-center {:data-field "defense" :title "Defense"} "D."]
-                      [:th.sortable.text-center {:data-field "willpower" :title "Willpower"} "W."]
-                      ]]
-                  [:tbody#cardtbl]]]
-            ]]]
-        [:div#cardmodal.modal {:tab-index -1 :role "dialog"}
-          [:div.modal-dialog.modal-sm {:role "document"}
-            [:div.modal-content
-              [:div.modal-header
-                [:h5.modal-title]
-                [:span.buttons]
-                [:button.close {:data-dismiss "modal"} "x"]]
-              [:div.modal-body]]]]
-	  (h/include-js "/js/externs/typeahead.js")
-    (h/include-js "/js/lotrdb_deckbuilder.js?v=1.1")])))
+                         
