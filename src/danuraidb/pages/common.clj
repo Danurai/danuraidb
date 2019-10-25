@@ -75,7 +75,7 @@
   ;; Showdown markup 
     [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js" :integrity "sha256-LSUpTY0kkXGKvcBC9kbmgibmx3NVVgJvAEfTZbs51mU=" :crossorigin "anonymous"}]
   ;; font 
-    [:link {:href "https://fonts.googleapis.com/css?family=Eczar" :rel "stylesheet"}]
+    [:link {:href "https://fonts.googleapis.com/css?family=Eczar|Exo+2" :rel "stylesheet"}]
   ;; Site Specific
     (h/include-css "/css/danuraidb-style.css?v=1")
     ])

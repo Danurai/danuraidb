@@ -26,15 +26,16 @@ $('#deletemodal').on('show.bs.modal', function (ev) {
 function parse_whconq_decklist ( decklist ) {
   var deck = {};
   var crd;
-  var regex = /([1-9])x\s(.+)/gi;
+  var regex = /([1-9])x\s(.+)\s\(.+\)|(.+)\s\(.+\)/gi;
   try {
     code = JSON.parse(decklist);
   } catch (e) {
+    
     $.each(decklist.match(/(.+)/g),function (id, c) {
       c.match(regex);
-      crd = _cards({"name":{"isnocase":RegExp.$2}}).first();
+      crd = _cards({"name":{"isnocase":(RegExp.$3 || RegExp.$2)}}).first();
       if (crd) {
-        deck[crd.code] = RegExp.$1;
+        deck[crd.code] = parseInt(RegExp.$1 || 1);
       }
     });
   }
@@ -48,7 +49,7 @@ function parse_whconq_decklist ( decklist ) {
 $('#exportdeck').on('show.bs.modal',function (ev) { 
   $(this).find('.modal-header>span').html($(ev.relatedTarget).data('deckname'));
   $(this).find('textarea').val($(ev.relatedTarget).data('export'))
-  $(this).find('input').val(parse_whuw_decklist($(ev.relatedTarget).data('export')));
+  $(this).find('input').val(parse_whconq_decklist($(ev.relatedTarget).data('export')));
 });
 
 $('#exportdeck').on('click','.input-group', function () {

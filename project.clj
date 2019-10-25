@@ -12,29 +12,29 @@
   :uberjar-name "danuraidb-standalone.jar"
   
   :dependencies [[org.clojure/clojure "1.10.0"]
-                 [org.clojure/clojurescript "1.10.520"]
-                 [org.clojure/core.async  "0.3.443"]
-                 ; Web server
-                 [http-kit "2.3.0"]
-                 [com.stuartsierra/component "0.3.2"]
-                 ; routing
-                 [compojure "1.6.0"]
-                 [ring/ring-defaults "0.3.1"]
-                 [ring-cors "0.1.11"]
-                 [clj-http "3.7.0"]
-                 ; Websocket sente
-                 ; [com.taoensso/sente "1.12.0"]
-                 ; page rendering
-                 [hiccup "1.0.5"]
-								 ; [cheshire "5.8.0"]
-                 ; [reagent "0.7.0"]
-                 ; user management
-                 [com.cemerick/friend "0.2.3"]
-                 ; Databasing
-                 [org.clojure/java.jdbc "0.7.5"]
-                 [org.xerial/sqlite-jdbc "3.7.2"]
-                 [org.postgresql/postgresql "9.4-1201-jdbc41"]
-                 [funcool/octet "1.1.2"]]
+                [org.clojure/clojurescript "1.10.520"]
+                [org.clojure/core.async  "0.3.443"]
+                ; Web server
+                [http-kit "2.3.0"]
+                [com.stuartsierra/component "0.3.2"]
+                ; routing
+                [compojure "1.6.0"]
+                [ring/ring-defaults "0.3.1"]
+                [ring-cors "0.1.11"]
+                [clj-http "3.7.0"]
+                ; Websocket sente
+                ; [com.taoensso/sente "1.12.0"]
+                ; page rendering
+                [hiccup "1.0.5"]
+								[reagent "0.7.0"]
+                [cljs-http "0.1.46"]
+                ; user management
+                [com.cemerick/friend "0.2.3"]
+                ; Databasing
+                [org.clojure/java.jdbc "0.7.5"]
+                [org.xerial/sqlite-jdbc "3.7.2"]
+                [org.postgresql/postgresql "9.4-1201-jdbc41"]
+                [funcool/octet "1.1.2"]]
 
   :plugins [[lein-figwheel "0.5.14"]
            [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
@@ -42,27 +42,25 @@
 
   :source-paths ["src"]
 
-  :cljsbuild {:builds
-              [{:id "dev"
-                :source-paths ["src"]
-                :figwheel true
-                :compiler {:main danuraidb.core
-                           :asset-path "js/compiled/out"
-                           :output-to "resources/public/js/compiled/app.js"
-                           :output-dir "resources/public/js/compiled/out"
-                           :source-map-timestamp true
-                           ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
-                           ;; https://github.com/binaryage/cljs-devtools
-                           :preloads [devtools.preload]}}
-               ;; This next build is a compressed minified build for
-               ;; production. You can build this with:
-               ;; lein cljsbuild once min
-               {:id "min"
-                :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/app.js"
-                           :main danuraidb.core
-                           :optimizations :advanced
-                           :pretty-print false}}]}
+  :cljsbuild {
+    :builds {
+      :dev {
+        :source-paths ["src/cljs-lotrsolo"]
+        :figwheel true
+        :compiler {
+          :main danuraidb.lotrsolocore
+          :asset-path "/js/compiled/out"
+          :output-to "resources/public/js/compiled/lotrsolo.js"
+          :output-dir "resources/public/js/compiled/out"
+          :source-map-timestamp true
+          :preloads [devtools.preload]}}
+      :min {
+        :source-paths ["src/cljs-lotrsolo"]
+        :compiler {
+          :main danuraidb.lotrsolocore
+          :output-to "resources/public/js/compiled/lotrsolo.js"
+          :optimizations :advanced
+          :pretty-print false}}}}
 
   :figwheel { :css-dirs ["resources/public/css"]}
 

@@ -1,0 +1,8 @@
+/* Folder Specifc Styling */
+
+.card  {
+  min-height: 150px;
+}
+.card .card-footer {
+  padding: 5px 10px;
+}
