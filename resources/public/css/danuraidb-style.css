@@ -11,8 +11,8 @@ th.sortable {
   height: 32px;
 }
 .icon-xs {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
 .checkbox-md {
@@ -25,12 +25,15 @@ th.sortable {
   float: right;
   color: darkred;
 }
-
+.wsprewrap {
+  white-space: pre-wrap;
+}
+  
 cite:before {
   content: "-";
 }
 cite {
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .icon-inline {
@@ -104,3 +107,19 @@ cite {
 }
 
 .tt-suggestion p { margin: 0; }
+
+/* Decklist Columns */
+
+.decklist {
+  column-count: 2;
+  column-gap: 20px;
+  column-width: 200px;
+  -moz-column-count: 2;
+  -moz-column-gap: 20px;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 20px;
+}
+  
+.decklist-section {
+  break-inside: "avoid";
+}
