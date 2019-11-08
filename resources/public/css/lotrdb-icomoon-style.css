@@ -26,9 +26,11 @@
 
 .lotr-type-spirit:before {
   content: "\e900";
+  color: cyan;
 }
 .lotr-type-tactics:before {
   content: "\e901";
+  color: red;
 }
 .lotr-type-threat:before {
   content: "\e902";
@@ -47,7 +49,9 @@
 }
 .lotr-type-leadership:before {
   content: "\e907";
+  color: purple;
 }
 .lotr-type-lore:before {
   content: "\e908";
+  color: green;
 }
