@@ -11,6 +11,9 @@
   :jar-name     "danuraidb.jar"
   :uberjar-name "danuraidb-standalone.jar"
   
+  :repl-options {:init-ns user
+                 :timeout 120000}
+  
   :dependencies [[org.clojure/clojure "1.10.0"]
                 [org.clojure/clojurescript "1.10.520"]
                 [org.clojure/core.async  "0.3.443"]
@@ -44,23 +47,40 @@
 
   :cljsbuild {
     :builds {
-      :dev {
+      :solo {
         :source-paths ["src/cljs-lotrsolo"]
         :figwheel true
         :compiler {
           :main danuraidb.lotrsolocore
-          :asset-path "/js/compiled/out"
+          :asset-path "/js/compiled/soloout"
           :output-to "resources/public/js/compiled/lotrsolo.js"
-          :output-dir "resources/public/js/compiled/out"
+          :output-dir "resources/public/js/compiled/soloout"
           :source-map-timestamp true
           :preloads [devtools.preload]}}
-      :min {
+      :fellowship {
+        :source-paths ["src/cljs-lotrfellowship"]
+        :figwheel true
+        :compiler {
+          :main danuraidb.fellowship-core
+          :asset-path "/js/compiled/fellowshipout"
+          :output-to "resources/public/js/compiled/fellowship.js"
+          :output-dir "resources/public/js/compiled/fellowshipout"
+          :source-map-timestamp true
+          :preloads [devtools.preload]}}
+      :solo-min {
         :source-paths ["src/cljs-lotrsolo"]
         :compiler {
           :main danuraidb.lotrsolocore
           :output-to "resources/public/js/compiled/lotrsolo.js"
-          :optimizations :advanced
-          :pretty-print false}}}}
+          :output-dir "resources/public/js/compiled/solooutmin"
+          :optimizations :advanced :pretty-print false}}
+      :fellowship-min {
+        :source-paths ["src/cljs-lotrfellowship"]
+        :compiler {
+          :main danuraidb.fellowship-core
+          :output-to "resources/public/js/compiled/fellowship.js"
+          :output-dir "resources/public/js/compiled/fellowshipoutmin"
+          :optimizations :advanced :pretty-print false}}}}
 
   :figwheel { :css-dirs ["resources/public/css"]}
 
@@ -69,7 +89,8 @@
   ;; https://github.com/bhauman/lein-figwheel/wiki/Using-the-Figwheel-REPL-within-NRepl
   :profiles {:uberjar {:aot :all
                      :source-paths ["src"]
-                     :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
+                     :prep-tasks ["compile" ["cljsbuild" "once" "fellowship-min"]
+                                 "compile" ["cljsbuild" "once" "solo-min"]]
                      }
             :dev {:dependencies [[reloaded.repl "0.2.4"]
                                [expectations "2.2.0-rc3"]
