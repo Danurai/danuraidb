@@ -61,7 +61,7 @@
         :source-paths ["src/cljs-lotrfellowship"]
         :figwheel true
         :compiler {
-          :main danuraidb.fellowship-core
+          :main danuraidb.fellowshipcore
           :asset-path "/js/compiled/fellowshipout"
           :output-to "resources/public/js/compiled/fellowship.js"
           :output-dir "resources/public/js/compiled/fellowshipout"
@@ -77,7 +77,7 @@
       :fellowship-min {
         :source-paths ["src/cljs-lotrfellowship"]
         :compiler {
-          :main danuraidb.fellowship-core
+          :main danuraidb.fellowshipcore
           :output-to "resources/public/js/compiled/fellowship.js"
           :output-dir "resources/public/js/compiled/fellowshipoutmin"
           :optimizations :advanced :pretty-print false}}}}
