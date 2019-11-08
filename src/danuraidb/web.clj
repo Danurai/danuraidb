@@ -27,7 +27,7 @@
   
 ;[id system name decklist alliance tags notes uid]
 (defn- save-deck-handler [{:keys [id system name decklist alliance tags notes] :as deck} req]
-  (db/save-deck id system name decklist alliance tags notes (-> req pages/get-authentications :uid))
+  (db/save-deck id system name decklist alliance tags notes (-> req model/get-authentications :uid))
   (alert "info" [:span [:b name] " saved."])
   (do-redirect req))
   
@@ -37,7 +37,7 @@
   (do-redirect req))
   
 (defn- save-collection-handler [collectionjson filterjson req]
-  (db/save-user-collection collectionjson (-> req pages/get-authentications :uid))
+  (db/save-user-collection collectionjson (-> req model/get-authentications :uid))
   (alert "info" "Collection saved")
   (do-redirect req))
 
@@ -67,6 +67,8 @@
 ;; LOTRDB ;;
     
 (defroutes lotrdb-deck-routes 
+  (GET "/fellowship" [] pages/fellowship)
+  (GET "/fellowship/:id" [] pages/fellowship)
   (GET "/" [] pages/lotrdb-decks)
   (GET "/new" [] pages/lotrdb-deckbuilder)
   (GET "/edit" [] pages/lotrdb-deckbuilder)
@@ -76,11 +78,12 @@
   (GET "/" [req]
     pages/lotrdb-home)
   (GET "/api/data/:id" [id] 
-		(-> (model/lotrdb-api-data id)
+		#(-> (model/lotrdb-api-data id %)
 				json/write-str
 				response
 				(content-type "application/json")))
   (context "/decks" []
+    ;lotrdb-deck-routes) 
     (friend/wrap-authorize lotrdb-deck-routes #{::db/user}))
   (GET "/packs" []
     pages/lotrdb-packs-page)
@@ -108,7 +111,7 @@
     
 (defroutes aosc-private-api-routes 
   (GET "/collection" []
-    #(-> (db/get-user-collection (-> % pages/get-authentications :uid))
+    #(-> (db/get-user-collection (-> % model/get-authentications :uid))
          json/write-str
          response
          (content-type "application/json"))))

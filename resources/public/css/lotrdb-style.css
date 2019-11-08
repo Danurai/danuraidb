@@ -28,6 +28,13 @@ a {
   background-position: 90% 5%;
 }
 
+.herosphere {
+  font-size: 1.8rem;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 35px;
+}
 
 /* APP */
 .small-card {
@@ -61,6 +68,8 @@ a {
 }
 .counter.counter-dmg {
   background-color: rgba(92,0,0,0.8);
+  right: unset;
+  left: 5px;
 }
 .counter.counter-count {
   background-color: rgba(0,0,0,0.8);

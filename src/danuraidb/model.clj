@@ -2,6 +2,7 @@
   (:require
     [clojure.java.io :as io]
     [clojure.data.json :as json]
+    [cemerick.friend :as friend]
     [octet.core :as buf]
     [clj-http.client :as http]
 		[danuraidb.database :as db]))
@@ -18,6 +19,9 @@
   
 (defn- load-json-file [ fname ] 
   (-> fname io/resource slurp (json/read-str :key-fn keyword)))
+
+(defn get-authentications [req]
+  (#(-> (friend/identity %) :authentications (get (:current (friend/identity %)))) req))
   
 (def ^:const aosc_icon_path "/img/aosc/icons/")
 
@@ -140,13 +144,14 @@
 										 )))
       (get-cards))))
 	
-(defn lotrdb-api-data [ id ]
+(defn lotrdb-api-data [ id req ]
 	(case id
 		"cards"     (get-cards-with-cycle)
 		"packs"     (get-packs-with-sku)
 		"cycles"    (get-cycles)
 		"scenarios" (get-scenarios)
-		{:status "Not Found"}))
+    "userdecks" (db/get-user-decks 0 (-> req get-authentications :uid))
+    {:status "Not Found"}))
 		
     
     

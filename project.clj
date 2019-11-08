@@ -61,7 +61,7 @@
         :source-paths ["src/cljs-lotrfellowship"]
         :figwheel true
         :compiler {
-          :main danuraidb.fellowship-core
+          :main danuraidb.fellowshipcore
           :asset-path "/js/compiled/fellowshipout"
           :output-to "resources/public/js/compiled/fellowship.js"
           :output-dir "resources/public/js/compiled/fellowshipout"
@@ -73,16 +73,14 @@
           :main danuraidb.lotrsolocore
           :output-to "resources/public/js/compiled/lotrsolo.js"
           :output-dir "resources/public/js/compiled/solooutmin"
-          :optimizations :advanced
-          :pretty-print false}}
+          :optimizations :advanced :pretty-print false}}
       :fellowship-min {
         :source-paths ["src/cljs-lotrfellowship"]
         :compiler {
-          :main danuraidb.fellowship-core
+          :main danuraidb.fellowshipcore
           :output-to "resources/public/js/compiled/fellowship.js"
           :output-dir "resources/public/js/compiled/fellowshipoutmin"
-          :optimizations :advanced
-          :pretty-print false}}}}
+          :optimizations :advanced :pretty-print false}}}}
 
   :figwheel { :css-dirs ["resources/public/css"]}
 
@@ -91,8 +89,8 @@
   ;; https://github.com/bhauman/lein-figwheel/wiki/Using-the-Figwheel-REPL-within-NRepl
   :profiles {:uberjar {:aot :all
                      :source-paths ["src"]
-                     :prep-tasks ["compile" ["cljsbuild" "once" "solo-min"]
-                                  "compile" ["cljsbuild" "once" "fellowship-min"]]
+                     :prep-tasks ["compile" ["cljsbuild" "once" "fellowship-min"]
+                                 "compile" ["cljsbuild" "once" "solo-min"]]
                      }
             :dev {:dependencies [[reloaded.repl "0.2.4"]
                                [expectations "2.2.0-rc3"]

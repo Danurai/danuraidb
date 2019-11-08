@@ -198,7 +198,7 @@
           [:a.btn.btn-sm.btn-primary {:href (str "/whconq/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]]))  
           
 (defn whconq-decks [req]
-  (let [decks (db/get-user-decks 3 (-> req get-authentications :uid))
+  (let [decks (db/get-user-decks 3 (-> req model/get-authentications :uid))
         card-data model/whconq-card-data]
     (h/html5
       whconq-pretty-head

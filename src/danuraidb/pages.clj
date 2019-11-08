@@ -2,8 +2,8 @@
   (:require 
     [clojure.data.json :as json]
     [clojure.java.io :as io]
-    [hiccup.page :as h]
     [cemerick.friend :as friend]
+    [hiccup.page :as h]
     [clj-time.core :as time]
     [clj-time.coerce :as tc]
     [danuraidb.database :as db]
@@ -13,16 +13,88 @@
 (load "pages/common")
 (load "pages/lotrdb")
 
-(defn lotrdb-solo-page [ req ]
-  (h/html5 
-    lotrdb-pretty-head
-    [:body
-      (lotrdb-navbar req)
-      [:div#lotrsolo]
-      (h/include-js "/js/compiled/lotrsolo.js")
-      (h/include-css "/css/lotrdb-icomoon-style.css")
-      (h/include-js "/js/lotrdb_popover.js?v=1")
-      ]))
+
+(defn- code-to-name [ c ]
+  (-> c
+      (clojure.string/replace "_" " ")
+      clojure.string/capitalize))
+      
+(defn- lotrdb-export-string [ d deck-cards ]
+  (clojure.string/join "\n"
+    (reduce concat
+      [(:name d)
+       (str "\nTotal Cards: (" (->> deck-cards (filter #(not= (:type_code %) "hero")) (map :qty) (apply +)) ")")]
+      (mapv (fn [tc]
+        (let [tc-cards (filter #(= (:type_code %) tc) deck-cards)]
+          (reduce conj 
+            [(str "\n" (code-to-name tc) ": (" (->> tc-cards (map :qty) (apply +)) ")")]
+            (mapv #(str (:qty %) "x " (:name %) " (" (:pack_name %) ")") tc-cards))
+          )) ["hero" "ally" "attachment" "event" "player-side-quest"]))))
+
+(defn- lotrdb-deck-card-list-by-type [type_code cards-in-deck]
+  (let [cid-by-type (filter #(= (:type_code %) type_code) cards-in-deck)]
+    [:div.decklist-section
+      [:div [:b (str (-> cid-by-type first :type_name) " (" (->> cid-by-type (map :qty) (reduce +)) ")")]]
+      (map (fn [r] 
+            [:div (str (:qty r) "x ")
+              [:a.card-tooltip {:href (str "/lotrdb/card/" (:code r)) :data-code (:code r) :class (:faction_code r)} (if (:unique r) [:i.fas.fa-skull.fa-xs.mr-1]) (:name r)]
+            ]) cid-by-type)]))
+            
+(defn- lotrdb-deck-card [d card-data]
+  (let [deck-cards (map (fn [[k v]] (assoc (first (filter #(= (:code %) k) card-data)) :qty v)) (json/read-str (:data d)))
+        heroes     (filter #(= (:type_code %) "hero") deck-cards)]
+    [:li.list-group-item.list-deck-card
+      [:div.py-1 {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} 
+        [:div.d-flex.justify-content-between
+          [:div
+            [:div.h4.mt-2 (:name d)]
+            [:div (map (fn [x] [:a.badge.badge-secondary.text-light.mr-1 x]) (re-seq #"\w+" (:tags d)))]]
+          [:div.d-none.d-sm-flex
+            (for [h heroes] 
+              [:span 
+                [:div.deckhero.ml-1 {:style (str "background-image: url(" (:cgdbimgurl h) "); position: relative;") :title (:name h)}
+                  [:span {:style "position: absolute; right: 2px; bottom: 2px;"}
+                    [:img {:style "width: 35px" :src (str "/img/lotrdb/icons/sphere_" (:sphere_code h) ".png")}]]]]
+                )]]]
+      [:div.collapse.mb-2 {:id (str "deck_" (:uid d))}   
+        [:div.text-muted.mb-2
+          (str "Cards " (->> deck-cards (filter #(not= "hero" (:type_code %))) (map :qty) (reduce +)) "/50")]
+        [:div.mb-2.decklist
+          (map #(lotrdb-deck-card-list-by-type % deck-cards) ["hero" "ally" "attachment" "event" "player-side-quest"])]
+        [:div.mb-2
+          [:div.small.col-sm-12.text-muted (str "Created on " (-> d :created tc/from-long))]
+          [:div.small.col-sm-12.text-muted (str "Updated on " (-> d :updated tc/from-long))]]
+        [:div
+          [:button.btn.btn-sm.btn-danger.mr-1 {:data-toggle "modal" :data-target "#deletemodal" :data-name (:name d) :data-uid (:uid d)} [:i.fas.fa-times.mr-1] "Delete"]
+          [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (lotrdb-export-string d deck-cards) :data-deckname (:name d)} [:i.fas.fa-file-export.mr-1] "Export"]
+          [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]
+    ]))
+          
+(defn lotrdb-decks [req]
+  (let [decks (db/get-user-decks 0 (-> req model/get-authentications (get :uid 1002)))
+        card-data (model/get-cards-with-cycle)]
+    (h/html5
+      lotrdb-pretty-head
+      [:body
+        (lotrdb-navbar req)
+        [:div.container.my-3
+          [:div.d-flex.justify-content-between
+            [:a.h3 {:href "/lotrdb/decks/fellowship"} "Fellowships"]
+            [:div.h3 (str "Saved Decks (" (count decks) ")")]
+            [:div 
+              [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
+              [:a.btn.btn-primary {:href "/lotrdb/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
+          [:div.d-flex
+            [:div#decklists.w-100
+              [:ul.list-group
+                (map (fn [d] (lotrdb-deck-card d card-data)) decks)]]]]
+        (deletemodal)
+        (importallmodal)
+        (importdeckmodal)
+        (exportdeckmodal)
+        (toaster)
+        (h/include-js "/js/lotrdb/lotrdb_decklist.js?v=1.0")])))
+
    
 (defn lotrdb-deckbuilder [ req ]
   (let [deckdata (model/get-deck-data req)]
@@ -136,6 +208,17 @@
 	  (h/include-js "/js/lotrdb_tools.js?v=1.0")
 	  (h/include-js "/js/lotrdb_popover.js?v=1.0")
     (h/include-js "/js/lotrdb_deckbuilder.js?v=1.1")])))
+    
+(defn fellowship [ req ]  
+  (h/html5 
+    lotrdb-pretty-head
+    [:body
+      (lotrdb-navbar req)
+      [:div#fellowship]
+      (h/include-js "/js/compiled/fellowship.js")
+      (h/include-css "/css/lotrdb-icomoon-style.css")
+      (h/include-js "/js/lotrdb_popover.js?v=1")
+      ]))
     
 (load "pages/aosc")    
 (load "pages/whuw")
