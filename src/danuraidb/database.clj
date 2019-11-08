@@ -150,9 +150,6 @@
 (defn get-users []
   (j/query db ["SELECT uid, username, admin FROM users"]))
 
-(defn get-authentications [req]
-  (#(-> (friend/identity %) :authentications (get (:current (friend/identity %)))) req))
-
 ;;;;;;;;;
 ; DECKs ;
 ;;;;;;;;;

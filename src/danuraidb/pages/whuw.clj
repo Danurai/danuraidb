@@ -49,21 +49,24 @@
         (clojure.string/join "\n" (concat [(-> cards first :card_type_name)] (map :name cards)))))
       [20,21,150,22])))
 
+
+
 (defn- whuw-deck-card [ d card-data ]
   (let [cardlist (-> d :data json/read-str set)
         deck-cards (filter #(some (partial = (:code %)) cardlist) card-data)]
     [:li.list-group-item.list-deck-card
       [:div.d-flex.justify-content-between {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))}
         [:img.icon-sm.mr-2 {:src (str whuw_icon_path (get (->> deck-cards (filter #(not= 35 (:warband_id %))) first)  :warband_icon "Shadespire-Library-Icons-Universal.png"))}]
-        [:span.h3 (:name d)]
+        [:span.h4 (:name d)]
         [:div.ml-auto
           (map (fn [id]
             (if-let [img (->> deck-cards (filter #(= (:card_type_id %) id)) first :card_type_icon)]
-              [:span
+              [:div
                 [:span.mr-1 [:img.icon-xs {:src (str whuw_icon_path img)}]]
                 [:span.align-bottom.mr-2 (->> deck-cards (filter #(= id (:card_type_id %))) count)]]))
             [20 21 150 22])]
-        [:span [:button.btn.btn-outline-secondary.btn-sm {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} [:i.fas.fa-plus]]]]
+        [:span {:style "position: absolute; top: 0px; right: 0px;"}
+          [:button.btn.btn-sm {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} [:i.fas.fa-xs.fa-plus]]]]
       [:div.collapse {:id (str "deck_" (:uid d))} 
         [:div.row.mb-2
           (map (fn [id]
@@ -81,26 +84,25 @@
           [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (whuw-export-string deck-cards) :data-deckname (:name d)} [:i.fas.fa-file-export.mr-1] "Export"]
           [:a.btn.btn-sm.btn-primary {:href (str "/whuw/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]]))
           
+
 (defn whuw-decks [req]
-  (let [decks (db/get-user-decks 2 (-> req get-authentications (get :uid 1002)))
+  (let [decks (db/get-user-decks 2 (-> req model/get-authentications (get :uid 1002)))
         card-data (model/whuw_fullcards)]
     (h/html5
       whuw-pretty-head
       [:body
         (whuw-navbar req)
-        [:div.container.my-3
-          [:div.row.justify-content-between
-            [:div.h3 (str "Decks (" (count decks) ")")]
-            [:div 
-              ;[:button#exportall.btn.btn-secondary.mr-1 {:title "Export to JSON" :data-export (json/write-str (map #(select-keys % [:name :data]) decks))} [:i.fas.fa-clipboard]]
-              ;[:button#importall.btn.btn-secondary.mr-1 {:title "Import from JSON" :data-toggle "modal" :data-target "#importallmodal"} [:i.fas.fa-paste]] 
-              [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
-              [:a.btn.btn-primary {:href "/whuw/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]
-              ]
-          [:div.row
-            [:div#decklists.w-100
-              [:ul.list-group
-                (map (fn [d] (whuw-deck-card d card-data)) decks)]]]]
+        [:div.container-fluid.my-3
+          [:div.col
+            [:div.row-fluid.d-flex.justify-content-between.mb-2
+              [:div.h4 (str "Decks (" (count decks) ")")]
+              [:div 
+                [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
+                [:a.btn.btn-primary {:href "/whuw/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
+            [:div.row-fluid
+              [:div#decklists.w-100
+                [:ul.list-group
+                  (map (fn [d] (whuw-deck-card d card-data)) decks)]]]]]
         (deletemodal)
         (importdeckmodal)
         (exportdeckmodal)

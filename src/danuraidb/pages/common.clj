@@ -1,8 +1,5 @@
 (in-ns 'danuraidb.pages)
 
-(defn get-authentications [req]
-  (#(-> (friend/identity %) :authentications (get (:current (friend/identity %)))) req))
-
 (defn- nav-link [ req uri title ]
   [:li.nav-item 
     [:a.nav-link {

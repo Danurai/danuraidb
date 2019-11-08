@@ -5,7 +5,7 @@
     pretty-head
     [:body  
       (if-let [unauth (-> req :session :cemerick.friend/unauthorized-uri)]
-        (case (re-find #"lotrdb|aosc|whuw|whkc" unauth)
+        (case (re-find #"lotrdb|aosc|whuw|whconq" unauth)
           "lotrdb" (lotrdb-navbar req)
           "aosc" (aosc-navbar req)
           "whuw" (whuw-navbar req)

@@ -33,29 +33,6 @@
           [:div.row
             [:a {:href "/lotrdb/decks"} "Login"] 
             [:span.ml-1 "to see your decks"]]]]]))
-            
-(defn- lotrdb-deck-card [deck]
-  [:a.list-group-item.list-group-item-action {:href (str "/lotrdb/decks/edit/" (:uid deck))} 
-    [:div.d-flex.justify-content-between
-      [:span (:name deck)]
-      [:form {:action "/decks/delete" :method "post"}
-        [:input#deletedeckuid {:name "deletedeckuid" :hidden true :data-lpignore "true" :value (:uid deck)}]
-        [:button.btn.btn-danger.btn-sm {:type "submit" :title "Delete Deck"} "x"]]]])
-        
-(defn lotrdb-decks [ req ]
-  (let [user-decks (db/get-user-decks 0 (-> req get-authentications :uid))]
-    (h/html5
-      lotrdb-pretty-head
-      [:body
-        (lotrdb-navbar req)
-        [:div.container.my-2
-          [:div.row.my-1
-            [:a.btn.btn-secondary.mr-1 {:href "/lotrdb/decks/new"} "New Deck"]]
-          [:div.row.my-1
-            [:div.col-md-6
-              [:div.row.mb-2 (str "Saved decks (" (count user-decks) ")")]
-              [:div.list-group
-                (map #(lotrdb-deck-card %) user-decks)]]]]])))
                 
 (defn lotrdb-packs-page [ req ]
 	(let [cards (model/get-cards-with-cycle)]
@@ -251,3 +228,14 @@
       (h/include-js "/js/lotrdb_popover.js?v=1")
       (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))                            
                          
+
+(defn lotrdb-solo-page [ req ]
+  (h/html5 
+    lotrdb-pretty-head
+    [:body
+      (lotrdb-navbar req)
+      [:div#lotrsolo]
+      (h/include-js "/js/compiled/lotrsolo.js")
+      (h/include-css "/css/lotrdb-icomoon-style.css")
+      (h/include-js "/js/lotrdb_popover.js?v=1")
+      ]))

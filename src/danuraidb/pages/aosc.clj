@@ -80,7 +80,7 @@
             [:input {:name "filterjson" :hidden true}]
             [:input#collection {:name "collectionjson"
                                 :hidden true 
-                                :value (json/write-str (db/get-user-collection (-> req get-authentications (get :uid "1002"))))}]
+                                :value (json/write-str (db/get-user-collection (-> req model/get-authentications (get :uid "1002"))))}]
             [:button#btnsave.btn.btn-warning {:type "submit" :disabled true} 
               [:i.fas.fa-bookmark] 
               [:span.d-sm-none.d-md-inline.ml-1 "Save"]]]]
@@ -155,7 +155,7 @@
 (defn aosc-card-page [req]
   (let [id (-> req :params :id)
         src (->> (model/aosc-get-cards) (filter #(= (-> % :id str) id)) first)
-        owned (db/get-user-collection (-> req get-authentications :uid))]
+        owned (db/get-user-collection (-> req model/get-authentications :uid))]
     (h/html5
       aosc-pretty-head
       [:body
@@ -174,7 +174,7 @@
                     [:tr [:td "Collector Info"][:td (-> src :collectorInfo)]]
                     [:tr 
                       [:td "Collection"]
-                      [:td (if (nil? (-> req get-authentications :uid))
+                      [:td (if (nil? (-> req model/get-authentications :uid))
                               [:span [:a {:href (str "/aosc/cardlogin/" id)} "Login"] " to see your collection info"]
                               (for [[k v] (owned (keyword id))] [:span.mr-2 (str (-> k name clojure.string/capitalize) ": " v)]))]]
                     [:tr [:td "Corners"]
@@ -285,7 +285,7 @@
             [:span.ml-1.d-none.d-sm-inline-block "Edit"]]]]]))  
           
 (defn aosc-decks [req]
-  (let [decks (db/get-user-decks 1 (-> req get-authentications (get :uid 1002)))
+  (let [decks (db/get-user-decks 1 (-> req model/get-authentications :uid))
         aosc-card-data (model/aosc-get-cards)]
     (h/html5
       aosc-pretty-head
