@@ -153,20 +153,80 @@
     {
       "id": 259,
       "name": "Thundrik's Profiteers",
-      "slug": "kharadron",
+      "slug": "Thundricks_Profiteer",
       "icon": {
-        "filename": "Warband-Icons-Kharadron250x250.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Warband-Icons-Kharadron250x250.png"
+        "filename": "Thundricks_Profiteer.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Thundricks_Profiteer.png"
       },
       "colour": "#000000"
     },
     {
       "id": 260,
       "name": "Ylthari Guardians",
-      "slug": "Sylvaneth",
+      "slug": "Yltharis_Guardians",
       "icon": {
-        "filename": "Warband-Icons-Sylvaneth250x250.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Warband-Icons-Sylvaneth250x250.png"
+        "filename": "Yltharis_Guardians.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Yltharis_Guardians.png"
+      },
+      "colour": "#000000"
+    },
+    {
+      "id": 261,
+      "name": "Ironsoul's Condemners",
+      "slug": "ironsoul",
+      "icon": {
+        "filename": "ironsoul-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/ironsoul-icon.png"
+      },
+      "colour": "#000000"
+    },
+    {
+      "id": 262,
+      "name": "Lady Harrow's Mournflight",
+      "slug": "ladyharrow",
+      "icon": {
+        "filename": "ladyharrow-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/ladyharrow-icon.png"
+      },
+      "colour": "#000000"
+    },
+    {
+      "id": 263,
+      "name": "Grashrak's Despoilers",
+      "slug": "Grashraks-Despoilers",
+      "icon": {
+        "filename": "Grashraks-Despoilers.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Grashraks-Despoilers.png"
+      },
+      "colour": "#000000"
+    },
+    {
+      "id": 264,
+      "name": "Skaeth's Wild Hunt",
+      "slug": "Skaeths-Wild-Hunt",
+      "icon": {
+        "filename": "Skaeths-Wild-Hun.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Skaeths-Wild-Hun.png"
+      },
+      "colour": "#000000"
+    },
+    {
+      "id": 265,
+      "name": "The Grymwatch",
+      "slug": "grymwatch",
+      "icon": {
+        "filename": "grymwatch-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/10/grymwatch-icon.png"
+      },
+      "colour": "#000000"
+    },
+    {
+      "id": 266,
+      "name": "Rippa's Snarlfangs",
+      "slug": "snarlfangs",
+      "icon": {
+        "filename": "snarlfangs-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/snarlfangs-icon.png"
       },
       "colour": "#000000"
     }
@@ -312,8 +372,8 @@
       "name": "Thundrik's Profiteers",
       "slug": "kharadron",
       "icon": {
-        "filename": "Warband-Icons-Kharadron250x250.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Warband-Icons-Kharadron250x250.png"
+        "filename": "Thundricks_Profiteer.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Thundricks_Profiteer.png"
       }
     },
     {
@@ -321,8 +381,62 @@
       "name": "Ylthari Guardians",
       "slug": "Sylvaneth",
       "icon": {
-        "filename": "Warband-Icons-Sylvaneth250x250.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Warband-Icons-Sylvaneth250x250.png"
+        "filename": "Yltharis_Guardians.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Yltharis_Guardians.png"
+      }
+    },
+    {
+      "id": 261,
+      "name": "Power Unbound",
+      "slug": "Power_Unbound",
+      "icon": {
+        "filename": "Power_Unbound.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Power_Unbound.png"
+      }
+    },
+    {
+      "id": 262,
+      "name": "Champions of Dreadfane expansion",
+      "slug": "cod-icon",
+      "icon": {
+        "filename": "cod-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/cod-icon.png"
+      }
+    },
+    {
+      "id": 263,
+      "name": "Beastgrave Core Set",
+      "slug": "beastgrave",
+      "icon": {
+        "filename": "WHUW_BG_icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/WHUW_BG_icon.png"
+      }
+    },
+    {
+      "id": 264,
+      "name": "The Grymwatch",
+      "slug": "grymwatch",
+      "icon": {
+        "filename": "grymwatch-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/10/grymwatch-icon.png"
+      }
+    },
+    {
+      "id": 265,
+      "name": "Rippa's Snarlfangs",
+      "slug": "snarlfangs",
+      "icon": {
+        "filename": "snarlfangs-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/snarlfangs-icon.png"
+      }
+    },
+    {
+      "id": 266,
+      "name": "Beastgrave Gift Pack expansion",
+      "slug": "beastgrave-gift-pack",
+      "icon": {
+        "filename": "WHUW_BG_icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/WHUW_BG_icon.png"
       }
     }
   ],
