@@ -27,9 +27,98 @@
       "setname": "Nightvault",
       "number": 317,
       "code": "03317"
-    }
+    }    
   ],
-  "restricted": [
+  "forsaken": [{
+    "id": 9999
+    "name": "Extreme Flank"
+    "setname": "Nightvault",
+    "number": 317,
+    "code": "03317"
+  },{
+    "id": 9999,
+    "name": "Upper Hand",  
+    "setname": "Power Unbound",
+    "number": 48,
+    "code": "04048"
+  }],
+  "restricted": [{
+    "name": "Acolyte of the Katophranes",
+		"setname": "Nightvault",
+    "number": 436,
+    "code": "03436"
+	},{
+    "name": "Burst of Speed",
+		"setname": "Power Unbound",
+    "number": 25,
+    "code": "04025"
+	},{
+    "name": "Calculated Risk",
+		"setname": "Nightvault",
+    "number": 302,
+    "code": "03302"
+	},{
+    "name": "Loner",
+		"setname": "Nightvault",
+    "number": 342,
+    "code": "03342"
+	},{
+    "name": "Longstrider",
+		"setname": "Nightvault",
+    "number": 343,
+    "code": "03343"
+	},{
+    "name": "Sorcerous Scouring",
+		"setname": "Nightvault",
+    "number": 371,
+    "code": "03371"
+	},{
+    "name": "Warning Shot",
+		"setname": "Power Unbound",
+    "number": 36,
+    "code": "04036"
+	},{
+    "name": "Pit Trap",
+		"setname": "Nightvault",
+    "number": 436,
+    "code": "03436"
+	},{
+    "name": "Sorcerous Flourish",
+		"setname": "Power Unbound",
+    "number": 46,
+    "code": "04046"
+	},{
+    "name": "Sphere of Aqshy",
+		"setname": "Nightvault",
+    "number": 451,
+    "code": "03451"
+	},{
+    "name": "Slumbering Key",
+		"setname": "Nightvault",
+    "number": 539,
+    "code": "03539"
+	},{
+    "name": "Spiritbond",
+		"setname": "Power Unbound",
+    "number": 57,
+    "code": "04057"
+	},{
+    "name": "Sudden Growth",
+		"setname": "Nightvault",
+    "number": 543,
+    "code": "03543"
+	},{
+    "name": "Tome of Offerings",
+		"setname": "Nightvault",
+    "number": 550,
+    "code": "03550"
+	},{
+    "name": "Well of Power",
+		"setname": "Nightvault",
+    "number": 557,
+    "code": "03557"
+	}],
+  "oldrestricted": [
     {
       "id": 7065,
       "ref": "Advancing Strike",

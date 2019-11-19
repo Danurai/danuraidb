@@ -87,7 +87,7 @@ function add_row (crd) {
 
 function ban_restrict_icon (c) {
   return (c.banned ? '<i class="mr-1 text-danger fa-sm fas fa-times-circle" title="Banned"></i>' :
-    (c.restricted ? '<i class="mr-1 text-info fa-sm fas fa-exclamation-circle" title="Restricted (5 per deck)"></i>' : ''))
+    (c.restricted ? '<i class="mr-1 text-info fa-sm fas fa-exclamation-circle" title="Restricted (3 per deck)"></i>' : ''))
 }
 
 function validity () {
@@ -96,8 +96,9 @@ function validity () {
   var ug = _cards({"code":decklist,"card_type_id":22}).count();
   var ban = _cards({"code":decklist,"banned":true}).count();
   var restrict = _cards({"code":decklist,"restricted":true}).count();
+  var rotated = _cards({"code":decklist.filter(code=>code.substring(0,2)=="01"),"warband_name":"Universal"}).count();
   
-  valid = (obj == 12 && (ploy + ug) > 19 && ploy <= ((ploy + ug) / 2) && ban == 0 && restrict <= 5)
+  valid = (obj == 12 && (ploy + ug) > 19 && ploy <= ((ploy + ug) / 2) && ban == 0 && restrict <= 3 && rotated ==0)
   
   return '<span class="mr-2 font-weight-bold">Validity:</span>' 
     + (valid 
@@ -107,8 +108,13 @@ function validity () {
     + '<span class="mr-1">Power: ' + (ploy + ug) + '>=20</span>'
     + '<span class="mr-1">Ploys: ' + ploy + '<=' + ((ploy + ug) / 2) + '</span>'
     + '<span class="mr-1">Banned: ' + ban + '</span>'
-    + '<span class="mr-1">Restricted: ' + restrict + '/5</span>'
+    + '<span class="mr-1">Restricted: ' + restrict + '/3</span>'
+    + '<span class="mr-1">Rotated: ' + rotated + '</span>'
     + '</span>';
+}
+
+function isRotated (c) {
+  return (c.code.substring(0,2) == "01" && c.warband_name == "Universal")
 }
 
 function write_deck () {
@@ -122,7 +128,7 @@ function write_deck () {
   $.each(deck_groups, function (key, type) {
     outp += '<div class="col-sm-4"><b>' + type.name + ' (' + _cards({"code":decklist,"card_type_id":type.card_types}).count() + ')</b>';
     _cards({"code":decklist,"card_type_id":type.card_types}).order("name asec").each(function (c) {
-      outp += '<div>'
+      outp += '<div ' + (isRotated (c) ? 'style="text-decoration: line-through" title="Rotated"' : "") + '>'
         + ban_restrict_icon (c)
         + '<a href="#" class="cardlink mr-1" data-code="' + c.code + '" data-toggle="modal" data-target="#cardmodal">' 
         + c.name
