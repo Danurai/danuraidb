@@ -225,7 +225,7 @@
       (let [set (->> whuwdata :sets (filter #(= (:id %) (:set c))) first)
             type (->> whuwdata :card-types (filter #(= (:id %) (:card_type c))) first)
             warband (->> whuwdata :warbands (filter #(= (:id %) (:warband c))) first)
-            banned (= 1 (->> banlist :banned (filter #(= (:code %) (:code c))) count))
+            banned (= 1 (->> banlist :forsaken (filter #(= (:code %) (:code c))) count))
             restricted (= 1 (->> banlist :restricted (filter #(= (:code %) (:code c))) count))
             ]
       (assoc c

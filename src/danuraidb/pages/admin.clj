@@ -183,7 +183,7 @@
                 ]]
             [:tbody]]]
             ]
-        (h/include-js "/js/whuw_admin.js?v=1") ;newdata.js
+        (h/include-js "/js/whuw/whuw_admin.js?v=1") ;newdata.js
         ]))
   
 (defn admin-page [ req ]
