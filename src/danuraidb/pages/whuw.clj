@@ -49,8 +49,6 @@
         (clojure.string/join "\n" (concat [(-> cards first :card_type_name)] (map :name cards)))))
       [20,21,150,22])))
 
-
-
 (defn- whuw-deck-card [ d card-data ]
   (let [cardlist (-> d :data json/read-str set)
         deck-cards (filter #(some (partial = (:code %)) cardlist) card-data)]
@@ -107,7 +105,7 @@
         (importdeckmodal)
         (exportdeckmodal)
         (toaster)
-        (h/include-js "/js/whuw_decklist.js?v=1.0")])))
+        (h/include-js "/js/whuw/whuw_decklist.js?v=1.0")])))
         
 (defn whuw-deckbuilder [req]
   (let [deck (model/get-deck-data req)]
@@ -183,7 +181,7 @@
                 [:button.close {:data-dismiss "modal"} "x"]]
               [:div.modal-body]]]]
       (h/include-js "/js/externs/typeahead.js")
-      (h/include-js "/js/whuw_deckbuilder.js")])))
+      (h/include-js "/js/whuw/whuw_deckbuilder.js")])))
       
 
 (defn whuw-cards [ req ]
@@ -209,4 +207,4 @@
               (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
               ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]]
         [:div#results.row]]
-      (h/include-js "/js/whuw_cards.js?v=1")]))
+      (h/include-js "/js/whuw/whuw_cards.js?v=1")]))
