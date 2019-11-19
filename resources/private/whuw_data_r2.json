@@ -153,10 +153,10 @@
     {
       "id": 259,
       "name": "Thundrik's Profiteers",
-      "slug": "Thundricks_Profiteer",
+      "slug": "Thundriks_Profiteer",
       "icon": {
-        "filename": "Thundricks_Profiteer.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Thundricks_Profiteer.png"
+        "filename": "Thundriks_Profiteer.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Thundriks_Profiteer.png"
       },
       "colour": "#000000"
     },
@@ -205,8 +205,8 @@
       "name": "Skaeth's Wild Hunt",
       "slug": "Skaeths-Wild-Hunt",
       "icon": {
-        "filename": "Skaeths-Wild-Hun.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Skaeths-Wild-Hun.png"
+        "filename": "Skaeths-Wild-Hunt.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Skaeths-Wild-Hunt.png"
       },
       "colour": "#000000"
     },
@@ -372,8 +372,8 @@
       "name": "Thundrik's Profiteers",
       "slug": "kharadron",
       "icon": {
-        "filename": "Thundricks_Profiteer.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Thundricks_Profiteer.png"
+        "filename": "Thundriks_Profiteer.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Thundriks_Profiteer.png"
       }
     },
     {
