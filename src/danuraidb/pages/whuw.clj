@@ -119,66 +119,67 @@
       [:body 
         (whuw-navbar req)
         [:div.container.my-2
-          [:div.row.my-1
-            [:div.col-sm-6
-              [:div.pt-3  ;.sticky-top
-                [:div.row-fluid.mb-3
-                  [:form#save_form.form.needs-validation {:method "post" :action "/decks/save" :role "form" :novalidate true}
-                    [:div.form-row.align-items-center
-                      [:div.col-auto
-                        [:img#deckicon.icon-sm {:src (str whuw_icon_path "Shadespire-Library-Icons-Universal.png")}]]
-                      [:div.col-auto
-                        [:label.sr-only {:for "#deck-name"} "Deck Name"]
-                        [:input#deck-name.form-control {:type "text" :name "name" :placeholder "New Deck" :required true :value (:name deck) :data-lpignore "true"}]
-                        [:div.invalid-feedback "You must name your deck"]]
-                      [:div.col-auto
-                        [:button.btn.btn-warning.mr-2 {:role "submit"} "Save"]
-                        [:a.btn.btn-light.mr-2 {:href "/whuw/decks"} "Cancel Edits"]]]
-                    [:input#deck-id      {:type "text" :name "id"      :value (:uid deck) :readonly true :hidden true}]
-                    [:input#deck-system  {:type "text" :name "system"   :value 2 :readonly true :hidden true}]
-                    [:input#deck-alliance {:type "text" :name "alliance" :value (:alliance deck) :readonly true :hidden true}]
-                    [:input#deck-content {:type "text" :name "data" :value (:data deck)  :readonly true :hidden true}]
-                    [:input#deck-tags    {:type "text" :name "tags"    :value (:tags deck) :readonly true :hidden true}]
-                    [:input#deck-notes   {:type "text" :name "notes"   :value (:notes deck) :readonly true :hidden true}]]]
-                [:div#decklist.row-fluid]
-            ]]
-            [:div.col-sm-6
-              [:div.row.mb-2
-                [:div.mr-2.my-auto "Set filter"]
-                [:select#selectset.selectpicker {:multiple true :data-width "fit"}
-                  (for [item (sorted_vec gw_sets (:sets ordered_lists))]
-                    (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
-                    ^{:key (gensym)}[:option {:data-content imgtag :data-subtext (:name item) } (:id item)]))]
-                [:button#championstoggle.mx-2.btn.btn-outline-warning.active {:data-toggle "button" :title "Championship Legal" :aria-pressed "true"} [:i.far.fa-bookmark]]
-                ]
-              [:div.row.mb-2
-                [:span.mr-2.my-auto "Warband"]
-                [:select#selectwarband.selectpicker.mr-2 {:multiple true :data-width "fit"}
-                  (for [item (sorted_vec gw_warbands (:warbands ordered_lists))]
-                    (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
-                    ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]
-                [:span.mr-2.my-auto "Type filter"]
-                [:select#selecttype.selectpicker {:multiple true :data-width "fit"}
-                  (for [item (sorted_vec gw_card-types (:card-types ordered_lists))]
-                    (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
-                    ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]]
-              [:div.row 
-                [:div.col-md-12
-                  [:div.row 
-                    [:input#filtertext.form-control.w-100 {:type "text"}]]]]
-              [:div#info.row]
-              [:div.row
-                [:table.table.table-sm.table-hover
-                  [:thead
-                    [:tr 
-                      [:td.sortable {:data-field "name"} "Name"]
-                      [:td.sortable.text-center {:data-field "card_type_id"} "Type"]
-                      [:td.sortable.text-center {:data-field "set_id"} "Set"]
-                      [:td.sortable.text-center {:data-field "warband_id"} "Warband"]
-                      [:td.sortable.text-center {:data-field "glory"} "Glory"]
-                      [:td]]]
-                  [:tbody#cardtbl]]]
-            ]]]
+          [:div.col
+            [:div.row.my-1
+              [:div.col-sm-6
+                [:div.pt-3  ;.sticky-top
+                  [:div.row-fluid.mb-3
+                    [:form#save_form.form.needs-validation {:method "post" :action "/decks/save" :role "form" :novalidate true}
+                      [:div.form-row.align-items-center
+                        [:div.col-auto
+                          [:img#deckicon.icon-sm {:src (str whuw_icon_path "Shadespire-Library-Icons-Universal.png")}]]
+                        [:div.col-auto
+                          [:label.sr-only {:for "#deck-name"} "Deck Name"]
+                          [:input#deck-name.form-control {:type "text" :name "name" :placeholder "New Deck" :required true :value (:name deck) :data-lpignore "true"}]
+                          [:div.invalid-feedback "You must name your deck"]]
+                        [:div.col-auto
+                          [:button.btn.btn-warning.mr-2 {:role "submit"} "Save"]
+                          [:a.btn.btn-light.mr-2 {:href "/whuw/decks"} "Cancel Edits"]]]
+                      [:input#deck-id      {:type "text" :name "id"      :value (:uid deck) :readonly true :hidden true}]
+                      [:input#deck-system  {:type "text" :name "system"   :value 2 :readonly true :hidden true}]
+                      [:input#deck-alliance {:type "text" :name "alliance" :value (:alliance deck) :readonly true :hidden true}]
+                      [:input#deck-content {:type "text" :name "data" :value (:data deck)  :readonly true :hidden true}]
+                      [:input#deck-tags    {:type "text" :name "tags"    :value (:tags deck) :readonly true :hidden true}]
+                      [:input#deck-notes   {:type "text" :name "notes"   :value (:notes deck) :readonly true :hidden true}]]]
+                  [:div#decklist.row-fluid]
+              ]]
+              [:div.col-sm-6
+                [:div.row.mb-2
+                  [:div.mr-2.my-auto "Set filter"]
+                  [:select#selectset.selectpicker {:multiple true :data-width "fit"}
+                    (for [item (sorted_vec gw_sets (:sets ordered_lists))]
+                      (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                      ^{:key (gensym)}[:option {:data-content imgtag :data-subtext (:name item) } (:id item)]))]
+                  [:button#championstoggle.mx-2.btn.btn-outline-warning.active {:data-toggle "button" :title "Championship Legal" :aria-pressed "true"} [:i.far.fa-bookmark]]
+                  ]
+                [:div.row.mb-2
+                  [:span.mr-2.my-auto "Warband"]
+                  [:select#selectwarband.selectpicker.mr-2 {:multiple true :data-width "fit"}
+                    (for [item (sorted_vec gw_warbands (:warbands ordered_lists))]
+                      (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                      ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]
+                  [:span.mr-2.my-auto "Type filter"]
+                  [:select#selecttype.selectpicker {:multiple true :data-width "fit"}
+                    (for [item (sorted_vec gw_card-types (:card-types ordered_lists))]
+                      (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                      ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]]
+                [:div.row 
+                  [:div.col-md-12
+                    [:div.row 
+                      [:input#filtertext.form-control.w-100 {:type "text"}]]]]
+                [:div#info.row]
+                [:div.row
+                  [:table.table.table-sm.table-hover
+                    [:thead
+                      [:tr 
+                        [:td.sortable {:data-field "name"} "Name"]
+                        [:td.sortable.text-center {:data-field "card_type_id"} "Type"]
+                        [:td.sortable.text-center {:data-field "set_id"} "Set"]
+                        [:td.sortable.text-center {:data-field "warband_id"} "Warband"]
+                        [:td.sortable.text-center {:data-field "glory"} "Glory"]
+                        [:td]]]
+                    [:tbody#cardtbl]]]
+              ]]]]
         [:div#cardmodal.modal {:tab-index -1 :role "dialog"}
           [:div.modal-dialog.modal-sm {:role "document"}
             [:div.modal-content
@@ -198,21 +199,22 @@
     [:body
       (whuw-navbar req)
       [:div.container.my-3
-        [:div.row 
-          [:div.mr-2.my-auto "Set filter"]
-          [:select#selectset.selectpicker.mr-2 {:multiple true :data-width "fit"}
-            (for [item (sorted_vec gw_sets (:sets ordered_lists))]
-              (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
-              ^{:key (gensym)}[:option {:data-content imgtag :data-subtext (:name item) } (:id item)]))]
-          [:span.mr-2.my-auto "Warband"]
-          [:select#selectwarband.selectpicker.mr-2 {:multiple true :data-width "fit"}
-            (for [item (sorted_vec gw_warbands (:warbands ordered_lists))]
-              (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
-              ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]
-          [:span.mr-2.my-auto "Type filter"]
-          [:select#selecttype.selectpicker {:multiple true :data-width "fit"}
-            (for [item (sorted_vec gw_card-types (:card-types ordered_lists))]
-              (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
-              ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]]
-        [:div#results.row]]
+        [:div.col
+          [:div.row 
+            [:div.mr-2.my-auto "Set filter"]
+            [:select#selectset.selectpicker.mr-2 {:multiple true :data-width "fit"}
+              (for [item (sorted_vec gw_sets (:sets ordered_lists))]
+                (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                ^{:key (gensym)}[:option {:data-content imgtag :data-subtext (:name item) } (:id item)]))]
+            [:span.mr-2.my-auto "Warband"]
+            [:select#selectwarband.selectpicker.mr-2 {:multiple true :data-width "fit"}
+              (for [item (sorted_vec gw_warbands (:warbands ordered_lists))]
+                (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]
+            [:span.mr-2.my-auto "Type filter"]
+            [:select#selecttype.selectpicker {:multiple true :data-width "fit"}
+              (for [item (sorted_vec gw_card-types (:card-types ordered_lists))]
+                (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]]
+          [:div#results.row]]]
       (h/include-js "/js/whuw/whuw_cards.js?v=1")]))
