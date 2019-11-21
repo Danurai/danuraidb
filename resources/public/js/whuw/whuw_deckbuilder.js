@@ -177,38 +177,36 @@ $('body').on('click','.decktoggle',function (evt)  {
   write_table();
 });
 
+var img = $('<img></img>');
+var _modal_card;
+
 $('#cardmodal').on('show.bs.modal',function (evt) {
   var crd = _cards({"code": ($(evt.relatedTarget).data("code"))}).first();
   var indeck = (decklist.indexOf(crd.code) > -1);
+  var $body = $(this).find('.modal-body');
   var addbutton = '<button type="button" class="btn btn-secondary btn-sm float-right decktoggle" data-code="' + crd.code + '" data-dismiss="modal">'
       + (indeck ? 'Remove' : 'Add')
       + '</button>';
+  var img = $('<img class="img-fluid mb-2"></img>'); 
+  
+  img.on('error',function () {
+    $(img).attr('src',WHUWCARDPATH + crd.filename);
+  });
+  img.attr('src',crd.url);
+      
   $(this).find('.modal-title').html(ban_restrict_icon (crd) + crd.name);
   
-  $.get(crd.url, function() {
-    $('#cardmodal').find('.modal-body').html(
-      ban_restrict_info(crd) 
-      + '<img class="img-fluid mb-2" src="' + crd.url + '">' 
-      + addbutton)})
-    .fail(function () {
-      $('#cardmodal').find('.modal-body').html(
-        ban_restrict_info(crd) 
-        + '<img class="img-fluid mb-2" src="' + WHUWCARDPATH + crd.filename + '">' 
-        + addbutton)});
-    
-  $(this).find('.modal-body').html(ban_restrict_info(crd) + '<img class="img-fluid mb-2" src="' + card_image_src (crd) + '">' + addbutton);
+  $body.append(ban_restrict_info(crd));
+  $body.append(img);
+  $body.append(addbutton);
+  
 });
+
 
 function ban_restrict_info (c) {
   return (c.banned ? '<div class="text-danger text-small">This card is Forsaken</div>' : '')
     + (c.restricted ? '<div class="text-info text-small">This card is restricted - limit 3 restricted cards per deck</div>' : '')
     + (!c.championship_legal ? '<div class="text-secondary text-small">This card is not Championship Legal</div>' : '')
-}
-
-function card_image_src ( c ) {
-  $.get(c.url)
-    .done(c=>c.url)
-    .fail(c=>WHUWCARDPATH + c.filename);
 }
 
 $('body')
@@ -295,7 +293,6 @@ $('#championstoggle').on('click', function () {
   } else {
     filter.championship_legal = true;
   }
-  //this.button('toggle');
   write_table();
 });
 
