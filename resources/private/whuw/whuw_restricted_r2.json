@@ -1,0 +1,283 @@
+{
+  "forsaken": [{
+    "id": 6994,
+    "name": "Great Concussion",
+    "setname": "Shadespire",
+    "number": 329,
+    "code": "01329"
+  },{
+    "id": 6999,
+    "name": "Quick Thinker",
+    "setname": "Shadespire",
+    "number": 347,
+    "code": "01347"
+  },{
+    "id": 757,
+    "name": "Time Trap",
+    "setname": "Shadespire",
+    "number": 368,
+    "code": "01368"
+  },{
+    "id": 9999
+    "name": "Extreme Flank"
+    "setname": "Nightvault",
+    "number": 317,
+    "code": "03317"
+  },{
+    "id": 9999,
+    "name": "Upper Hand",  
+    "setname": "Power Unbound",
+    "number": 48,
+    "code": "04048"
+  }],
+  "restricted": [{
+    "id": 7065,
+    "name": "Advancing Strike",
+    "setname": "Shadespire",
+    "number": 234,
+    "code": "01234"
+  },
+  {
+    "id": 5462,
+    "name": "Alone in the Darkness",
+    "setname": "Shadespire",
+    "number": 235,
+    "code": "01235"
+  },
+  {
+    "id": 7067,
+    "name": "Change of Tactics",
+    "setname": "Shadespire",
+    "number": 243,
+    "code": "01243"
+  },
+  {
+    "id": 7070,
+    "name": "Defensive Strike",
+    "setname": "Shadespire",
+    "number": 252,
+    "code": "01252"
+  },
+  {
+    "id": 5465,
+    "name": "Escalation",
+    "setname": "Shadespire",
+    "number": 257,
+    "code": "01257"
+  },
+  {
+    "id": 12469,
+    "name": "Fired Up",
+    "setname": "Nightvault",
+    "number": 319,
+    "code": "03319"
+  },
+  {
+    "id": 12471,
+    "name": "Loner",
+    "setname": "Nightvault",
+    "number": 342,
+    "code": "03342"
+  },
+  {
+    "id": 5456,
+    "name": "Perfect Planning",
+    "setname": "Shadespire",
+    "number": 280,
+    "code": "01280"
+  },
+  {
+    "id": 5457,
+    "name": "Precise Use of Force",
+    "setname": "Shadespire",
+    "number": 284,
+    "code": "01284"
+  },
+  {
+    "id": 934,
+    "name": "Superior Tactician",
+    "setname": "Shadespire",
+    "number": 291,
+    "code": "01291"
+  },
+  {
+    "id": 5339,
+    "name": "Earthquake",
+    "setname": "Shadespire",
+    "number": 321,
+    "code": "01321"
+  },
+  {
+    "id": 745,
+    "name": "Illusory Fighter",
+    "setname": "Shadespire",
+    "number": 332,
+    "code": "01332"
+  },
+  {
+    "id": 6944,
+    "name": "My Turn",
+    "setname": "Shadespire",
+    "number": 343,
+    "code": "01343"
+  },
+  {
+    "id": 5342,
+    "name": "Ready for Action",
+    "setname": "Shadespire",
+    "number": 348,
+    "code": "01348"
+  },
+  {
+    "id": 5341,
+    "name": "Trap",
+    "setname": "Shadespire",
+    "number": 369,
+    "code": "01369"
+  },
+  {
+    "id": 7003,
+    "name": "Twist the Knife",
+    "setname": "Shadespire",
+    "number": 372,
+    "code": "01372"
+  },
+  {
+    "id": 7019,
+    "name": "A Destiny to Meet",
+    "setname": "Shadespire",
+    "number": 373,
+    "code": "01373"
+  },
+  {
+    "id": 5417,
+    "name": "Awakened Weapon",
+    "setname": "Shadespire",
+    "number": 376,
+    "code": "01376"
+  },
+  {
+    "id": 6984,
+    "name": "Deathly Fortitude",
+    "setname": "Shadespire",
+    "number": 384,
+    "code": "01384"
+  },
+  {
+    "id": 796,
+    "name": "Helpful Whispers",
+    "setname": "Shadespire",
+    "number": 393,
+    "code": "01393"
+  },
+  {
+    "id": 7023,
+    "name": "Incredible Strength",
+    "setname": "Shadespire",
+    "number": 395,
+    "code": "01395"
+  },
+  {
+    "id": 6992,
+    "name": "Shadeglass Dagger",
+    "setname": "Shadespire",
+    "number": 410,
+    "code": "01410"
+  },
+  {
+    "id": 5428,
+    "name": "Shadeglass Hammer",
+    "setname": "Shadespire",
+    "number": 412,
+    "code": "01412"
+  },
+  {
+    "id": 805,
+    "name": "Soultrap",
+    "setname": "Shadespire",
+    "number": 420,
+    "code": "01420"
+  },
+  {
+    "id": 6982,
+    "name": "Tethered Spirit",
+    "setname": "Shadespire",
+    "number": 424,
+    "code": "01424"
+  },{
+    "name": "Acolyte of the Katophranes",
+		"setname": "Nightvault",
+    "number": 436,
+    "code": "03436"
+	},{
+    "name": "Burst of Speed",
+		"setname": "Power Unbound",
+    "number": 25,
+    "code": "04025"
+	},{
+    "name": "Calculated Risk",
+		"setname": "Nightvault",
+    "number": 302,
+    "code": "03302"
+	},{
+    "name": "Loner",
+		"setname": "Nightvault",
+    "number": 342,
+    "code": "03342"
+	},{
+    "name": "Longstrider",
+		"setname": "Nightvault",
+    "number": 343,
+    "code": "03343"
+	},{
+    "name": "Sorcerous Scouring",
+		"setname": "Nightvault",
+    "number": 371,
+    "code": "03371"
+	},{
+    "name": "Warning Shot",
+		"setname": "Power Unbound",
+    "number": 36,
+    "code": "04036"
+	},{
+    "name": "Pit Trap",
+		"setname": "Nightvault",
+    "number": 436,
+    "code": "03436"
+	},{
+    "name": "Sorcerous Flourish",
+		"setname": "Power Unbound",
+    "number": 46,
+    "code": "04046"
+	},{
+    "name": "Sphere of Aqshy",
+		"setname": "Nightvault",
+    "number": 451,
+    "code": "03451"
+	},{
+    "name": "Slumbering Key",
+		"setname": "Nightvault",
+    "number": 539,
+    "code": "03539"
+	},{
+    "name": "Spiritbond",
+		"setname": "Power Unbound",
+    "number": 57,
+    "code": "04057"
+	},{
+    "name": "Sudden Growth",
+		"setname": "Nightvault",
+    "number": 543,
+    "code": "03543"
+	},{
+    "name": "Tome of Offerings",
+		"setname": "Nightvault",
+    "number": 550,
+    "code": "03550"
+	},{
+    "name": "Well of Power",
+		"setname": "Nightvault",
+    "number": 557,
+    "code": "03557"
+	}]
+}
