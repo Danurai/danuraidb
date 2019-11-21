@@ -11,3 +11,21 @@
   right: 2px;
   color: darkslategrey;
 }
+
+.attack-bar {
+  border-radius: 2px;
+  padding: 2px;
+  color: white;
+  background-color: black;
+  padding: 2px 5px;
+}
+
+.dice-icon {
+  background-color: white;
+  color: black;
+  padding: 2px;
+}
+
+.popover-body {
+  white-space: pre-wrap;
+}

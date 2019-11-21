@@ -8,7 +8,6 @@
     [clj-time.coerce :as tc]
     [danuraidb.database :as db]
     [danuraidb.model :as model]))
-        
                   
 (load "pages/common")
 (load "pages/lotrdb")
@@ -16,7 +15,6 @@
 (load "pages/whuw")
 (load "pages/whconq")
 (load "pages/admin")
-
 
 (defn home [req]
   (h/html5

@@ -3,10 +3,12 @@ var _sets;
 var _warbands;
 var _types;
 var _data;
+var _championship = $('#championstoggle').hasClass("active");
 
-var filter = {};
+var filter = {"championship_legal":true};
 var order = "name asec";
 var decklist = [];
+const WHUWCARDPATH = "/img/whuw/cards/";
 
 $.fn.selectpicker.Constructor.DEFAULTS.multipleSeparator = " ";
 
@@ -19,7 +21,7 @@ $.getJSON('/whuw/api/cards', function (data) {
      decklist = decklist.map(c => _cards({"gw_id":c}).first().code);
   }
   
-  // save selected sets between sessions
+  // ` selected sets between sessions
   var savedsets = localStorage.getItem("whuwsets");
   if (savedsets == "" || savedsets == null) {
     savedsets=[156];
@@ -31,7 +33,7 @@ $.getJSON('/whuw/api/cards', function (data) {
 // Save deck in LocalStorage?
 
   // initialise warbands for existing decks
-  var warband = $('#deck-tags').val();
+  var warband = $('#deck-alliance').val();
   if (warband != "") {
     filter.warband_id = [35,parseInt(warband)];
     $('#selectwarband').selectpicker('val',filter.warband_id);
@@ -60,7 +62,7 @@ function write_table () {
 function add_row (crd) {
   var indeck = (decklist.indexOf(crd.code) > -1);
   $('#cardtbl').append(
-    '<tr>'
+    '<tr' + (!crd.championship_legal ? ' style="background-color: lightslategrey"' : '') + '>'
     + '<td>'
       + ban_restrict_icon(crd)
       + '<a class="cardlink" href="#" data-code="' + crd.code + '" data-toggle="modal" data-target="#cardmodal">' 
@@ -86,7 +88,7 @@ function add_row (crd) {
 }
 
 function ban_restrict_icon (c) {
-  return (c.banned ? '<i class="mr-1 text-danger fa-sm fas fa-times-circle" title="Banned"></i>' :
+  return (c.banned ? '<i class="mr-1 text-danger fa-sm fas fa-times-circle" title="Forsaken"></i>' :
     (c.restricted ? '<i class="mr-1 text-info fa-sm fas fa-exclamation-circle" title="Restricted (3 per deck)"></i>' : ''))
 }
 
@@ -107,7 +109,7 @@ function validity () {
     + '<span class="mr-1">Objectives: ' + obj + '/12</span>'
     + '<span class="mr-1">Power: ' + (ploy + ug) + '>=20</span>'
     + '<span class="mr-1">Ploys: ' + ploy + '<=' + ((ploy + ug) / 2) + '</span>'
-    + '<span class="mr-1">Banned: ' + ban + '</span>'
+    + '<span class="mr-1">Forsaken: ' + ban + '</span>'
     + '<span class="mr-1">Restricted: ' + restrict + '/3</span>'
     + '<span class="mr-1">Rotated: ' + rotated + '</span>'
     + '</span>';
@@ -121,24 +123,37 @@ function write_deck () {
   var outp = '<div class="col">';
   var deck_groups = [
     {card_types: 20, name: "Objectives"},
-    {card_types: [21,150], name: "Ploys/Gambits"},
+    {card_types: 21, name: "Ploys"},
+    {card_types: 150, name: "Gambit Spells"},
     {card_types: 22, name: "Upgrades"}];
   outp += '<div class="row">' + validity() + '</div>';
-  outp += '<div class="row">';
+  outp += '<div class="row"><div class="decklist">';
   $.each(deck_groups, function (key, type) {
-    outp += '<div class="col-sm-4"><b>' + type.name + ' (' + _cards({"code":decklist,"card_type_id":type.card_types}).count() + ')</b>';
-    _cards({"code":decklist,"card_type_id":type.card_types}).order("name asec").each(function (c) {
-      outp += '<div ' + (isRotated (c) ? 'style="text-decoration: line-through" title="Rotated"' : "") + '>'
-        + ban_restrict_icon (c)
-        + '<a href="#" class="cardlink mr-1" data-code="' + c.code + '" data-toggle="modal" data-target="#cardmodal">' 
-        + c.name
-        + '</a>'
-        + '<span class="text-muted">' + (c.glory > 0 ? c.glory : '') + '</span>'
-        + '</div>';
-    });
-    outp += '</div>';
+    if (_cards({"code":decklist,"card_type_id":type.card_types}).count() > 0) {
+      outp += '<div class="decklist-section mb-1"><b>' 
+        + type.name 
+        + ' (' + _cards({"code":decklist,"card_type_id":type.card_types}).count() + ')'
+        + '</b>'
+        + (type.name == "Objectives"
+          ? '&nbsp<span class="text-muted">' 
+            + _cards({"code":decklist,"card_type_id":type.card_types})
+              .select("glory").map(c=>parseInt(c))
+              .reduce((t,c)=>t+=c,0) 
+            + 'pts</span>'
+          : '');
+        _cards({"code":decklist,"card_type_id":type.card_types}).order("name asec").each(function (c) {
+          outp += '<div ' + (isRotated (c) ? 'style="text-decoration: line-through" title="Rotated"' : "") + '>'
+            + ban_restrict_icon (c)
+            + '<a href="#" class="cardlink mr-1" data-code="' + c.code + '" data-toggle="modal" data-target="#cardmodal">' 
+            + c.name
+            + '</a>'
+            + '<span class="text-muted">' + (c.glory > 0 ? c.glory : '') + '</span>'
+            + '</div>';
+      });
+      outp += '</div>';
+    }
   });
-  outp += '</div></div>';
+  outp += '</div></div></div>';
   $('#decklist').html(outp);
 }
 
@@ -169,12 +184,31 @@ $('#cardmodal').on('show.bs.modal',function (evt) {
       + (indeck ? 'Remove' : 'Add')
       + '</button>';
   $(this).find('.modal-title').html(ban_restrict_icon (crd) + crd.name);
-  $(this).find('.modal-body').html(ban_restrict_info(crd) + '<img class="img-fluid mb-2" src="/img/whuw/cards/' + crd.filename + '">' + addbutton);
+  
+  $.get(crd.url, function() {
+    $('#cardmodal').find('.modal-body').html(
+      ban_restrict_info(crd) 
+      + '<img class="img-fluid mb-2" src="' + crd.url + '">' 
+      + addbutton)})
+    .fail(function () {
+      $('#cardmodal').find('.modal-body').html(
+        ban_restrict_info(crd) 
+        + '<img class="img-fluid mb-2" src="' + WHUWCARDPATH + crd.filename + '">' 
+        + addbutton)});
+    
+  $(this).find('.modal-body').html(ban_restrict_info(crd) + '<img class="img-fluid mb-2" src="' + card_image_src (crd) + '">' + addbutton);
 });
 
 function ban_restrict_info (c) {
-  return (c.banned ? '<span class="text-danger text-small">This card is banned</span>' : 
-            c.restricted ? '<span class="text-info text-small">This card is restricted - limit 5 restricted cards per deck</span>' : '')
+  return (c.banned ? '<div class="text-danger text-small">This card is Forsaken</div>' : '')
+    + (c.restricted ? '<div class="text-info text-small">This card is restricted - limit 3 restricted cards per deck</div>' : '')
+    + (!c.championship_legal ? '<div class="text-secondary text-small">This card is not Championship Legal</div>' : '')
+}
+
+function card_image_src ( c ) {
+  $.get(c.url)
+    .done(c=>c.url)
+    .fail(c=>WHUWCARDPATH + c.filename);
 }
 
 $('body')
@@ -193,10 +227,33 @@ $('body')
         '<div>' 
         + ban_restrict_info(crd)
         + '</div>'
-        + '<div>' + crd.rule + '</div>'
+        + '<div>' + whu_md(crd.rule) + '</div>'
         + (crd.card_type == 20 ? '<div>Glory: ' + crd.glory + '</div>' : '')
+        + (crd.target != "-" ? '<div class="d-flex mt-2 justify-content-center"><span class="attack-bar">' + crd.target + '</span></div>' : '')
     }).popover('show');
   });
+  
+function whu_md (txt) {
+  var pattern = /\[Hex\s([0-9])\s(\w+)\s([0-9\-])\sDmg\s([0-9])\](|\s)/
+  res = pattern.exec(txt)
+  if (res != null) {
+    atk = '<div class="d-flex justify-content-center"><span class="attack-bar">'
+      + '<span class="mr-2"><span class="mr-1">&#x2B22;</span>' + RegExp.$1 + '</span>'
+      + '<span class="mr-2"><i class="mr-1 dice-icon ' + iconmap[RegExp.$2] + '"></i>' + RegExp.$3 + '</span>'
+      + '<span><i class="mr-1 ra ra-bomb-explosion"></i>' + RegExp.$4 + '</span>'
+      + '</span></div>';
+    return txt.replace(pattern,atk);      
+  } else {
+    return txt;
+  }
+}
+
+iconmap = {
+  "Hammer": "ra ra-battered-axe",
+  "Sword":  "ra ra-crossed-swords",
+  "Channel": "ra ra-lightning-trio",
+  "Focus": "ra ra-slash-ring"
+}
   
 /***** FILTERS *****/
 $('#selectwarband').on('change', function() {
@@ -232,6 +289,16 @@ $('#selecttype').on('change', function() {
   write_table();
 });
 
+$('#championstoggle').on('click', function () {
+  if ($(this).hasClass('active')) {
+    delete filter.championship_legal;
+  } else {
+    filter.championship_legal = true;
+  }
+  //this.button('toggle');
+  write_table();
+});
+
 /***** TYPEAHEAD *****/
 
 $('#filtertext').typeahead({
@@ -263,6 +330,12 @@ $('.sortable').on('click',function () {
   $(this).append('<span class="caret float-right"><i class="fas fa-sort-' + (dir == "asec" ? "up" : "down" ) + '" /></span>');
   write_table();
 });
+
+// Don't save an empty deck!
+$('#save_form').on('submit',function(ev) {
+  if (decklist.length == 0) {
+    ev.preventDefault()
+}});
 
 // Form Validation
 (function() {

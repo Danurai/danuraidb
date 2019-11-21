@@ -6,14 +6,14 @@
   (into pretty-head (h/include-css "/css/whuw-style.css?v=1.0")))
   
 (def gw_metadata
-  (-> (io/resource "private/whuw_data_r2.json")
+  (-> (io/resource "private/whuw/whuw_data_r2.json")
       slurp 
       (json/read-str :key-fn keyword)))
 (def gw_card-types (:card-types gw_metadata))
 (def gw_sets      (:sets gw_metadata))
 (def gw_warbands  (:warbands gw_metadata))
 (def ordered_lists {
-  :card-types [20 21 22 150]
+  :card-types [20 21 150 22]
   :warbands [35 31 34 33 32 93 107 119 120 162 168 211 203 257 258 259 260]
   :sets [30 24 25 92 106 121 122 143 156 218 225 233 232 257 258 259 260]})
 
@@ -51,29 +51,34 @@
 
 (defn- whuw-deck-card [ d card-data ]
   (let [cardlist (-> d :data json/read-str set)
-        deck-cards (filter #(some (partial = (:code %)) cardlist) card-data)]
+        deck-cards (filter #(some (partial = (:code %)) cardlist) card-data)
+        warband_exemplar (->> deck-cards (filter #(not= 35 (:warband_id %))) first)]
     [:li.list-group-item.list-deck-card
-      [:div.d-flex.justify-content-between {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))}
-        [:img.icon-sm.mr-2 {:src (str whuw_icon_path (get (->> deck-cards (filter #(not= 35 (:warband_id %))) first)  :warband_icon "Shadespire-Library-Icons-Universal.png"))}]
-        [:span.h4 (:name d)]
-        [:div.ml-auto
-          (map (fn [id]
-            (if-let [img (->> deck-cards (filter #(= (:card_type_id %) id)) first :card_type_icon)]
-              [:div
-                [:span.mr-1 [:img.icon-xs {:src (str whuw_icon_path img)}]]
-                [:span.align-bottom.mr-2 (->> deck-cards (filter #(= id (:card_type_id %))) count)]]))
-            [20 21 150 22])]
-        [:span {:style "position: absolute; top: 0px; right: 0px;"}
-          [:button.btn.btn-sm {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} [:i.fas.fa-xs.fa-plus]]]]
+      [:div {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))}
+        [:div.d-flex.justify-content-between
+          [:span {:style "position: absolute; top: 0px; right: 0px;"}
+            [:button.btn.btn-sm {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} [:i.fas.fa-xs.fa-plus]]]
+          [:img.icon-sm.mr-2 {:src (str whuw_icon_path (get warband_exemplar :warband_icon "Shadespire-Library-Icons-Universal.png"))}]
+          [:div.h4 (:name d)]
+          [:div.ml-auto
+            [:span.d-none.d-sm-block
+              (map (fn [id]
+                (if-let [img (->> deck-cards (filter #(= (:card_type_id %) id)) first :card_type_icon)]
+                  [:span
+                    [:span.mr-1 [:img.icon-xs {:src (str whuw_icon_path img)}]]
+                    [:span.align-bottom.mr-2 (->> deck-cards (filter #(= id (:card_type_id %))) count)]]))
+                [20 21 150 22])]]]
+        [:div (get warband_exemplar :warband_name "Unknown Warband")]]
       [:div.collapse {:id (str "deck_" (:uid d))} 
-        [:div.row.mb-2
+        [:div.row.my-2
           (map (fn [id]
             (let [type (->> deck-cards (filter #(= (:card_type_id %) id)) (sort-by :name))]
               (if (not-empty type)
                 [:div.col-sm-3
                   [:div 
                     [:img.icon-xs.mr-1 {:src (str whuw_icon_path (-> type first :card_type_icon))}]
-                    [:span.h5.align-bottom (-> type first :card_type_name)]]
+                    [:span.mt-auto
+                      [:b (-> type first :card_type_name)] [:span (str " (" (count type) ")")]]]
                   (for [t type]
                     [:div.cardlink {:data-code (:code t)} (:name t)])])))
             [20 21 150 22])]
@@ -116,7 +121,7 @@
         [:div.container.my-2
           [:div.row.my-1
             [:div.col-sm-6
-              [:div.sticky-top.pt-3
+              [:div.pt-3  ;.sticky-top
                 [:div.row-fluid.mb-3
                   [:form#save_form.form.needs-validation {:method "post" :action "/decks/save" :role "form" :novalidate true}
                     [:div.form-row.align-items-center
@@ -131,7 +136,7 @@
                         [:a.btn.btn-light.mr-2 {:href "/whuw/decks"} "Cancel Edits"]]]
                     [:input#deck-id      {:type "text" :name "id"      :value (:uid deck) :readonly true :hidden true}]
                     [:input#deck-system  {:type "text" :name "system"   :value 2 :readonly true :hidden true}]
-                    [:input#deck-alliance {:type "text" :name "alliance" :readonly true :hidden true}]
+                    [:input#deck-alliance {:type "text" :name "alliance" :value (:alliance deck) :readonly true :hidden true}]
                     [:input#deck-content {:type "text" :name "data" :value (:data deck)  :readonly true :hidden true}]
                     [:input#deck-tags    {:type "text" :name "tags"    :value (:tags deck) :readonly true :hidden true}]
                     [:input#deck-notes   {:type "text" :name "notes"   :value (:notes deck) :readonly true :hidden true}]]]
@@ -143,7 +148,9 @@
                 [:select#selectset.selectpicker {:multiple true :data-width "fit"}
                   (for [item (sorted_vec gw_sets (:sets ordered_lists))]
                     (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
-                    ^{:key (gensym)}[:option {:data-content imgtag :data-subtext (:name item) } (:id item)]))]]
+                    ^{:key (gensym)}[:option {:data-content imgtag :data-subtext (:name item) } (:id item)]))]
+                [:button#championstoggle.mx-2.btn.btn-outline-warning.active {:data-toggle "button" :title "Championship Legal" :aria-pressed "true"} [:i.far.fa-bookmark]]
+                ]
               [:div.row.mb-2
                 [:span.mr-2.my-auto "Warband"]
                 [:select#selectwarband.selectpicker.mr-2 {:multiple true :data-width "fit"}
@@ -181,7 +188,8 @@
                 [:button.close {:data-dismiss "modal"} "x"]]
               [:div.modal-body]]]]
       (h/include-js "/js/externs/typeahead.js")
-      (h/include-js "/js/whuw/whuw_deckbuilder.js")])))
+      (h/include-js "/js/whuw/whuw_deckbuilder.js")
+      (h/include-css "/css/rpg-awesome.min.css")])))
       
 
 (defn whuw-cards [ req ]
