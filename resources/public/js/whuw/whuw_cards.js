@@ -1,7 +1,7 @@
 var _filter = {};
 var _whuw_cards=TAFFY();
 const WHUWCARDPATH = "/img/whuw/cards/";
-// WHUWCARDPATH + card.filname OR card.url
+var img = $('<img></img>');
 
 $.fn.selectpicker.Constructor.DEFAULTS.multipleSeparator = " ";
 
@@ -21,19 +21,25 @@ $.getJSON('/whuw/api/cards', function (d) {
   
   function write_results () {
     $('#results').empty();
-    $cards = $('<div class="row">');
     $('#results').append('<small class="col-sm-12 mb-1">Cards returned: ' + _whuw_cards(_filter).count() + '</small>');
-    $.get(_whuw_cards(_filter).first().url, function () {
-      _whuw_cards(_filter)
-        .order("card_type_id, name")
-        .each(c=>$cards.append(cardimg (c, c.url)));
+    
+    // trigger img load result to populate page
+    $(img).attr('src',_whuw_cards(_filter).first().url);
+  }
+  
+  // img.src is set to a remote image, if this is OK, load all from the remote source
+  $(img).on('load',function () {
+      write_cards ('remote');
     })
-    .fail (function () {
-      _whuw_cards(_filter)
-        .order("card_type_id, name")
-        .each(c=>$cards.append(cardimg (c, WHUWCARDPATH + c.filename)));
+    .on('error',function () {
+      write_cards ('local');
     });
       
+  function write_cards ( src ) {
+    $cards = $('<div class="row">');
+    _whuw_cards(_filter)
+      .order("card_type_id, name")
+      .each(c=>$cards.append(cardimg (c, (src == 'remote' ? c.url : WHUWCARDPATH + c.filename))));
     $('#results').append($cards);
   }
   
