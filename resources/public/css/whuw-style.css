@@ -26,6 +26,29 @@
   padding: 2px;
 }
 
+.card-set-icon {
+  position: absolute; 
+  left: 5px; 
+  bottom: 5px; 
+  width: 20%;
+  border-radius: 50%;
+  box-shadow: 5px 5px 5px black;
+}  
+
 .popover-body {
   white-space: pre-wrap;
+}
+
+.card-forsaken {
+  border: 2px solid red;
+  border-radius: 15px;
+}
+
+.card-restricted {
+  border: 2px solid cyan;
+  border-radius: 15px;
+}
+
+.card-illegal {
+  filter: grayscale(100%);
 }
