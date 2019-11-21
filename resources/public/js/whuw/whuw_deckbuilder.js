@@ -196,6 +196,7 @@ $('#cardmodal').on('show.bs.modal',function (evt) {
       
   $(this).find('.modal-title').html(ban_restrict_icon (crd) + crd.name);
   
+  $body.empty();
   $body.append(ban_restrict_info(crd));
   $body.append(img);
   $body.append(addbutton);
