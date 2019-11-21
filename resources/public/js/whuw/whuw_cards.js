@@ -1,6 +1,7 @@
 var _filter = {};
 var _whuw_cards=TAFFY();
 const WHUWCARDPATH = "/img/whuw/cards/";
+// WHUWCARDPATH + card.filname OR card.url
 
 $.fn.selectpicker.Constructor.DEFAULTS.multipleSeparator = " ";
 
@@ -22,15 +23,22 @@ $.getJSON('/whuw/api/cards', function (d) {
     $('#results').empty();
     $cards = $('<div class="row">');
     $('#results').append('<small class="col-sm-12 mb-1">Cards returned: ' + _whuw_cards(_filter).count() + '</small>');
-    _whuw_cards(_filter)
-      .order("card_type_id, name")
-      .each(c=>$cards.append(cardimg (c)));
+    $.get(_whuw_cards(_filter).first().url, function () {
+      _whuw_cards(_filter)
+        .order("card_type_id, name")
+        .each(c=>$cards.append(cardimg (c, c.url)));
+    })
+    .fail (function () {
+      _whuw_cards(_filter)
+        .order("card_type_id, name")
+        .each(c=>$cards.append(cardimg (c, WHUWCARDPATH + c.filename)));
+    });
       
     $('#results').append($cards);
   }
   
-  function cardimg (c) {
-    return '<div class="col-sm-3 mb-2"><img class="img-fluid" src="' + WHUWCARDPATH + c.filename + '" title="' + c.name + '" alt="' + c.filename + '"></img></div>';
+  function cardimg ( c, src ) {
+    return '<div class="col-sm-3 mb-2"><img class="img-fluid" src="' + src + '" title="' + c.name + '" alt="' + c.filename + '"></img></div>';
   }
   
   
