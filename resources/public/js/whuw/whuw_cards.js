@@ -1,6 +1,7 @@
 var _filter = {};
 var _whuw_cards=TAFFY();
 const WHUWCARDPATH = "/img/whuw/cards/";
+const WHUWICONPATH = "/img/whuw/icons/";
 var img = $('<img></img>');
 
 $.fn.selectpicker.Constructor.DEFAULTS.multipleSeparator = " ";
@@ -44,7 +45,7 @@ $.getJSON('/whuw/api/cards', function (d) {
   }
   
   function cardimg ( c, src ) {
-    var style = 'img-fluid' +
+    var style = 
       (c.banned ? ' card-forsaken' :
         (c.restricted ? ' card-restricted' : ''))
       + (!c.championship_legal ? ' card-illegal' : '')
@@ -57,12 +58,19 @@ $.getJSON('/whuw/api/cards', function (d) {
     title = c.name + (restrictions.length > 0 ? ' (' + restrictions.join(', ') + ')' : '')
     
     return '<div class="col-sm-3 mb-2">'
-      + '<img class="' + style + '" src="' + src + '" title="' + title + '" alt="' + c.filename + '"></img>'
-      + '</div>';
+      + '<div class="' + style + '" style="position: relative;">'
+        + '<img class="card-set-icon" '
+          + 'src="' + WHUWICONPATH + c.set_icon + '"'
+          + ' title="' + c.set_name + '"></img>'
+        + '<img class="img-fluid" src="' + src + '" title="' + title + '" alt="' + c.filename + '"></img>'
+      + '</div></div>';
   }
   
   
-  $('#selectset').on('change', function () { update_filter("set_id",$(this).val()); });
+  $('#selectset').on('change', function () { 
+    update_filter("set_id",$(this).val()); 
+    localStorage.setItem("whuwsets",JSON.stringify(_filter.set_id));
+  });
   $('#selectwarband').on('change', function () { update_filter("warband_id",$(this).val()); });
   $('#selecttype').on('change', function () { update_filter("card_type_id",$(this).val()); });
   
