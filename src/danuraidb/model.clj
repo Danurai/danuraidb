@@ -215,18 +215,20 @@
     card))
     
 (def whuwdata
-  (load-json-file "private/whuw_data_r2.json"))
+  (load-json-file "private/whuw/whuw_data_r2.json"))
 (def whuwcards
-  (map #(whuw_fix_cards %) (load-json-file "private/whuw_cards_r2.json")))
+  (map #(whuw_fix_cards %) (load-json-file "private/whuw/whuw_cards_r2.json")))
   
 (defn whuw_fullcards [] 
-  (let [banlist  (load-json-file "private/whuw_restricted_r2.json")]
+  (let [banlist  (load-json-file "private/whuw/whuw_restricted_r2.json")
+        championship_universal #{"N" "P" "B" "G"}]  ; Nightvault, Power Unbound Beastgrave / Gift set
     (map (fn [c]
       (let [set (->> whuwdata :sets (filter #(= (:id %) (:set c))) first)
             type (->> whuwdata :card-types (filter #(= (:id %) (:card_type c))) first)
             warband (->> whuwdata :warbands (filter #(= (:id %) (:warband c))) first)
             banned (= 1 (->> banlist :forsaken (filter #(= (:code %) (:code c))) count))
             restricted (= 1 (->> banlist :restricted (filter #(= (:code %) (:code c))) count))
+            setcode (or (re-find #"^[A-Za-z]+" (:id c)) "S")
             ]
       (assoc c
         :set_id (:id set)
@@ -240,6 +242,7 @@
         :warband_icon (-> warband :icon :filename)
         :banned banned
         :restricted restricted
+        :championship_legal (or (contains? championship_universal setcode) (not= (:warband c) 35))
     ))) whuwcards)))
     
     
