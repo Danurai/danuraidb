@@ -38,7 +38,21 @@ $.getJSON('/whuw/api/cards', function (d) {
   }
   
   function cardimg ( c, src ) {
-    return '<div class="col-sm-3 mb-2"><img class="img-fluid" src="' + src + '" title="' + c.name + '" alt="' + c.filename + '"></img></div>';
+    var style = 'img-fluid' +
+      (c.banned ? ' card-forsaken' :
+        (c.restricted ? ' card-restricted' : ''))
+      + (!c.championship_legal ? ' card-illegal' : '')
+    var restrictions = [];
+    var title = '' ;
+    
+    if (c.banned) {restrictions.push("Forsaken")};
+    if (c.restricted) {restrictions.push("Restricted 3/deck")};
+    if (!c.championship_legal) {restrictions.push("Not Championship Legal")};
+    title = c.name + (restrictions.length > 0 ? ' (' + restrictions.join(', ') + ')' : '')
+    
+    return '<div class="col-sm-3 mb-2">'
+      + '<img class="' + style + '" src="' + src + '" title="' + title + '" alt="' + c.filename + '"></img>'
+      + '</div>';
   }
   
   
