@@ -58,6 +58,10 @@ cite {
   font-size: 1.5em;
 }
 
+.popover {
+   min-width: 175px;
+}
+
 .twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 100%; }
 
 .typeahead { background-color: #fff; }
