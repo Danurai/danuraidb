@@ -27,7 +27,7 @@
   
 ;[id system name decklist alliance tags notes uid]
 (defn- save-deck-handler [{:keys [id system name decklist alliance tags notes] :as deck} req]
-  (db/save-deck id system name decklist alliance tags notes (-> req model/get-authentications :uid))
+  (prn (db/save-deck id system name decklist alliance tags notes (-> req model/get-authentications :uid)))
   (alert "info" [:span [:b name] " saved."])
   (do-redirect req))
   
@@ -161,13 +161,26 @@
   ;(GET "/new/:id"  [] pages/aosc-deckbuilder)
   (GET "/edit/:id" [] pages/whuw-deckbuilder))
   
+  
+  
+(defroutes whuw-api-routes
+  (GET "/cards" [] (-> (model/whuw_fullcards) json/write-str response (content-type "application/json")))
+  (GET "/card/:id" [id]
+    (-> (->> (model/whuw_fullcards) (filter #(= (:id %) id)) first)
+        json/write-str
+        response (content-type "application/json")))
+  (GET "/data"  [] (-> model/whuwdata json/write-str response (content-type "application/json")))
+  (GET "/data/:id" [id]
+    (-> (get model/whuwdata (keyword id)) json/write-str response (content-type "application/json")))
+)
+  
 (defroutes whuw-routes
   (GET "/" [] pages/whuw-home)
   (context "/decks" [] 
     (friend/wrap-authorize whuw-deck-routes #{::db/user}))
-  (GET "/cards" [] pages/whuw-cards)
-  (GET "/api/data" [] (-> "private/whuw_data_r2.json" io/resource slurp response (content-type "application/json")))
-  (GET "/api/cards" [] (-> (model/whuw_fullcards) json/write-str response (content-type "application/json"))))
+  (GET "/cards"     [] pages/whuw-cards)
+  (GET "/boards"    [] pages/whuw-boards)
+  (context "/api" [] whuw-api-routes))
   
 ;; WHCONQ ;;
   
