@@ -5,7 +5,7 @@ var _types;
 var _data;
 var _championship = $('#championstoggle').hasClass("active");
 
-var filter = {"championship_legal":true};
+var filter = {"championship_legal":{"!=":false}};
 var order = "name asec";
 var decklist = [];
 const WHUWCARDPATH = "/img/whuw/cards/";
@@ -64,16 +64,18 @@ function add_row (crd) {
   $('#cardtbl').append(
     '<tr' + (!crd.championship_legal ? ' style="background-color: lightslategrey"' : '') + '>'
     + '<td>'
-      + ban_restrict_icon(crd)
-      + '<a class="cardlink" href="#" data-code="' + crd.code + '" data-toggle="modal" data-target="#cardmodal">' 
-      + '<span>' +  crd.name + '</span>'
-      + '</a>'
+      + card_link(crd)
+      //+ ban_restrict_icon(crd)
+      //+ '<a class="cardlink" href="#" data-code="' + crd.code + '" data-toggle="modal" data-target="#cardmodal">' 
+      //+ '<span>' +  crd.name + '</span>'
+      //+ '</a>'
+      //+ (crd.reprint_set_name ? '<sup class="ml-1" title="Reprint: ' + crd.reprint_set_name + '">r</sup>' : '')
     + '</td>'
     + '<td class="text-center">'
       + '<img class="icon-sm" src="/img/whuw/icons/' + crd.card_type_icon + '" title="' + crd.card_type_name + '">'
     + '</td>'
     + '<td class="text-center">'
-      + '<img class="icon-sm" src="/img/whuw/icons/' + crd.set_icon + '" title="' + crd.set_name + '">'
+      + '<img class="icon-sm" src="/img/whuw/icons/' + crd.set_icon + '" title="' + crd.set_name + (crd.reprint_set_name ? '\n' + crd.reprint_set_name : '') + '">'
     + '</td>'
     + '<td class="text-center">'
       + '<img class="icon-sm" src="/img/whuw/icons/' + crd.warband_icon + '" title="' + crd.warband_name + '">'
@@ -98,7 +100,7 @@ function validity () {
   var ug = _cards({"code":decklist,"card_type_id":22}).count();
   var ban = _cards({"code":decklist,"banned":true}).count();
   var restrict = _cards({"code":decklist,"restricted":true}).count();
-  var rotated = _cards({"code":decklist.filter(code=>code.substring(0,2)=="01"),"warband_name":"Universal"}).count();
+  var rotated = _cards({"code":decklist,"championship_legal":false}).count();
   
   valid = (obj == 12 && (ploy + ug) > 19 && ploy <= ((ploy + ug) / 2) && ban == 0 && restrict <= 3 && rotated ==0)
   
@@ -113,10 +115,6 @@ function validity () {
     + '<span class="mr-1">Restricted: ' + restrict + '/3</span>'
     + '<span class="mr-1">Rotated: ' + rotated + '</span>'
     + '</span>';
-}
-
-function isRotated (c) {
-  return (c.code.substring(0,2) == "01" && c.warband_name == "Universal")
 }
 
 function write_deck () {
@@ -141,20 +139,26 @@ function write_deck () {
               .reduce((t,c)=>t+=c,0) 
             + 'pts</span>'
           : '');
-        _cards({"code":decklist,"card_type_id":type.card_types}).order("name asec").each(function (c) {
-          outp += '<div ' + (isRotated (c) ? 'style="text-decoration: line-through" title="Rotated"' : "") + '>'
-            + ban_restrict_icon (c)
-            + '<a href="#" class="cardlink mr-1" data-code="' + c.code + '" data-toggle="modal" data-target="#cardmodal">' 
-            + c.name
-            + '</a>'
-            + '<span class="text-muted">' + (c.glory > 0 ? c.glory : '') + '</span>'
-            + '</div>';
-      });
+        _cards({"code":decklist,"card_type_id":type.card_types})
+          .order("name asec")
+          .each(function (crd) {outp += card_link(crd);});
       outp += '</div>';
     }
   });
   outp += '</div></div></div>';
   $('#decklist').html(outp);
+}
+
+function card_link ( crd ) {
+  var tag = (crd.championship_legal ? 'div' : 'del')
+  return '<' + tag + '>'
+    + ban_restrict_icon (crd)
+    + '<a href="#" class="cardlink mr-1" data-code="' + crd.code + '" data-toggle="modal" data-target="#cardmodal">' 
+    + crd.name
+    + '</a>'
+    + (crd.reprint_set_name ? '<sup title="Reprint: ' + crd.reprint_set_name + '">r</sup>' : '')
+    //+ '<span class="text-muted ml-1">' + (crd.glory > 0 ? crd.glory : '') + '</span>'
+    + '</div>';
 }
 
 $('body').on('click','.decktoggle',function (evt)  {
@@ -189,10 +193,17 @@ $('#cardmodal').on('show.bs.modal',function (evt) {
       + '</button>';
   var img = $('<img class="img-fluid mb-2"></img>'); 
   
-  img.on('error',function () {
-    $(img).attr('src',WHUWCARDPATH + crd.filename);
+  //img.on('error',function () {
+  //  $(img).attr('src',WHUWCARDPATH + crd.filename);
+  //  $(this).onerror = null;
+  //});
+  //img.attr('src',crd.url);
+  
+  $.get(WHUWCARDPATH + crd.filename,function () {
+    img.attr('src',WHUWCARDPATH + crd.filename)
+  }).fail(function () {
+    img.attr('src',crd.url)
   });
-  img.attr('src',crd.url);
       
   $(this).find('.modal-title').html(ban_restrict_icon (crd) + crd.name);
   
@@ -292,7 +303,7 @@ $('#championstoggle').on('click', function () {
   if ($(this).hasClass('active')) {
     delete filter.championship_legal;
   } else {
-    filter.championship_legal = true;
+    filter.championship_legal = {"!=":false};
   }
   write_table();
 });
