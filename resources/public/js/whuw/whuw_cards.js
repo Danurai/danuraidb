@@ -1,8 +1,9 @@
 var _filter = {};
+var _order = "card_type_id, name";
 var _whuw_cards=TAFFY();
 const WHUWCARDPATH = "/img/whuw/cards/";
 const WHUWICONPATH = "/img/whuw/icons/";
-var img = $('<img></img>');
+//var img = $('<img></img>');
 
 $.fn.selectpicker.Constructor.DEFAULTS.multipleSeparator = " ";
 
@@ -25,21 +26,27 @@ $.getJSON('/whuw/api/cards', function (d) {
     $('#results').append('<small class="col-sm-12 mb-1">Cards returned: ' + _whuw_cards(_filter).count() + '</small>');
     
     // trigger img load result to populate page
-    $(img).attr('src',_whuw_cards(_filter).first().url);
+    //$(img).attr('src',_whuw_cards(_filter).first().url);
+    
+    $.get(WHUWCARDPATH + _whuw_cards(_filter).first().filename, function () {
+      write_cards('local');
+    }).fail(function () {
+      write_cards('remote');
+    });
   }
   
   // img.src is set to a remote image, if this is OK, load all from the remote source
-  $(img).on('load',function () {
-      write_cards ('remote');
-    })
-    .on('error',function () {
-      write_cards ('local');
-    });
+  //$(img).on('load',function () {
+  //    write_cards ('remote');
+  //  })
+  //  .on('error',function () {
+  //    write_cards ('local');
+  //  });
       
   function write_cards ( src ) {
     $cards = $('<div class="row">');
     _whuw_cards(_filter)
-      .order("card_type_id, name")
+      .order(_order)
       .each(c=>$cards.append(cardimg (c, (src == 'remote' ? c.url : WHUWCARDPATH + c.filename))));
     $('#results').append($cards);
   }
@@ -61,7 +68,10 @@ $.getJSON('/whuw/api/cards', function (d) {
       + '<div class="' + style + '" style="position: relative;">'
         + '<img class="card-set-icon" '
           + 'src="' + WHUWICONPATH + c.set_icon + '"'
-          + ' title="' + c.set_name + '"></img>'
+          + ' title="' + c.set_name + '" />'
+        + ( typeof(c.championship_legal) == 'number' 
+          ? '<img class="card-reprint-set-icon" src="' + WHUWICONPATH + c.reprint_set_icon + '" title="Reprint: ' + c.reprint_set_name + '" />'
+          : '')
         + '<img class="img-fluid" src="' + src + '" title="' + title + '" alt="' + c.filename + '"></img>'
       + '</div></div>';
   }
@@ -81,4 +91,18 @@ $.getJSON('/whuw/api/cards', function (d) {
     }
     write_results();
   }
+  
+  $('#sort').on('change',function () {
+    switch ($(this).val()) {
+      case "set": 
+        _order = "set_id, card_type_id, name";
+        break;
+      case "type": 
+        _order = "card_type_id, name";
+        break;
+      case "name":
+        _order = "name";
+    }
+    write_results();
+  });
 });
