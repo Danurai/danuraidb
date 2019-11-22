@@ -28,7 +28,7 @@
     (str whuw_icon_path "Shadespire-Library-Icons-Universal.png")
     "WHUW DB" 
     "whuw"
-    ["decks" "cards"]
+    ["decks" "cards" "boards"]
     req))
                   
 (defn whuw-home [ req ]
@@ -215,6 +215,31 @@
             [:select#selecttype.selectpicker {:multiple true :data-width "fit"}
               (for [item (sorted_vec gw_card-types (:card-types ordered_lists))]
                 (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
-                ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]]
+                ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]
+            [:span.mr-2.my-auto "Sort by"]
+            [:div.d-flex [:select#sort.form-control
+              [:option {:value "type"} "Sort by Card Type"]
+              [:option {:value "set"} "Sort by Card Set"]
+              [:option {:value "name"} "Sort by Card Name"]]]]
           [:div#results.row]]]
       (h/include-js "/js/whuw/whuw_cards.js?v=1")]))
+      
+
+(defn whuw-boards [ req ]
+  (h/html5
+    whuw-pretty-head
+    [:body
+      (whuw-navbar req)
+      [:div.container.my-3
+        [:div.row
+          (for [b (-> model/whuwdata :boards)]
+            [:div.col-sm-6.mb-2 (:key (gensym))
+              [:div.border.border-secondary
+                [:div.mb-1
+                  [:img.img-fluid {:src (str "/img/whuw/boards/" (:filename b))}]]
+                [:div.ml-2.mb-1
+                  [:h5.mb-0 (:name b)]
+                  [:span (str (:set_name b) " - Championship Legal:")
+                    (if (:championship_legal b) 
+                        [:i.fas.fa-check-circle.ml-1.text-success] 
+                        [:i.fas.fa-times-circle.ml-1.text-danger])]]]])]]]))

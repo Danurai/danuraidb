@@ -213,15 +213,16 @@
     9112 (assoc card :card_types [20]) ;; Measured Strike
     12609 (assoc card :warbands [35])  ;; Ghoulish Pact
     card))
-    
+
 (def whuwdata
   (load-json-file "private/whuw/whuw_data_r2.json"))
+
 (def whuwcards
   (map #(whuw_fix_cards %) (load-json-file "private/whuw/whuw_cards_r2.json")))
   
 (defn whuw_fullcards [] 
   (let [banlist  (load-json-file "private/whuw/whuw_restricted_r2.json")
-        championship_universal #{"N" "P" "B" "G"}]  ; Nightvault, Power Unbound Beastgrave / Gift set
+        championship_universal #{"N" "P" "B" "G"}]  ; Nightvault, Power Unbound Beastgrave / Gift set] 
     (map (fn [c]
       (let [set (->> whuwdata :sets (filter #(= (:id %) (:set c))) first)
             type (->> whuwdata :card-types (filter #(= (:id %) (:card_type c))) first)
@@ -229,6 +230,8 @@
             banned (= 1 (->> banlist :forsaken (filter #(= (:code %) (:code c))) count))
             restricted (= 1 (->> banlist :restricted (filter #(= (:code %) (:code c))) count))
             setcode (or (re-find #"^[A-Za-z]+" (:id c)) "S")
+            reprint (->> whuwcards (filter #(and (= (:name %) (:name c)) (not= (:set %) (:set c)))) (sort-by :set) last :set)
+            reprint-set (->> whuwdata :sets (filter #(= (:id %) reprint)) first)
             ]
       (assoc c
         :set_id (:id set)
@@ -242,10 +245,12 @@
         :warband_icon (-> warband :icon :filename)
         :banned banned
         :restricted restricted
-        :championship_legal (or (contains? championship_universal setcode) (not= (:warband c) 35))
+        :championship_legal (or reprint (contains? championship_universal setcode) (not= (:warband c) 35))
+        :reprint_set_id reprint
+        :reprint_set_name (:name reprint-set)
+        :reprint_set_icon (-> reprint-set :icon :filename)
     ))) whuwcards)))
-    
-    
+
 ;;;;;;;;;;
 ; WHCONQ ;
 ;;;;;;;;;;
