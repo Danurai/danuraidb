@@ -482,4 +482,104 @@
       }
     }
   ]
+  "boards": [
+    {
+      "set_name": "Shadespire",
+      "number": "1A",
+      "name": "The Mirror Well",
+      "filename": "the-mirror-well.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Shadespire",
+      "number": "1B",
+      "name": "Shyshian Stardial",
+      "filename": "shyishian-stardial.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Shadespire",
+      "number": "2A",
+      "name": "Katophrane's Reliquary",
+      "filename": "katophranes-reliquary.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Shadespire",
+      "number": "2B",
+      "name": "The Shattered Tower",
+      "filename": "the-shattered-tower.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Nightvault",
+      "number": "1A",
+      "name": "The Cursed Oubliette",
+      "filename": "the-cursed-oubliette.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Nightvault",
+      "number": "1B",
+      "name": "Penitents Throne",
+      "filename": "penitents-throne.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Nightvault",
+      "number": "2A",
+      "name": "Soul Refractor",
+      "filename": "soul-refractor.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Nightvault",
+      "number": "2B",
+      "name": "The Ruptured Seal",
+      "filename": "the-ruptured-seal.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Nightvault: Forbidden Chambers",
+      "number": "1A",
+      "name": "Molten Shardpit",
+      "filename": "molten-shardpit.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Nightvault: Forbidden Chambers",
+      "number": "1B",
+      "name": "Shattered Refractor",
+      "filename": "shattered-refractor.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Beastgrave",
+      "number": "1A",
+      "name": "Shrine of the Silent People",
+      "filename": "shrine-of-the-silent-people.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Beastgrave",
+      "number": "1B",
+      "name": "Wyrmgrave",
+      "filename": "wyrmgrave.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Beastgrave",
+      "number": "2A",
+      "name": "Abandoned Lair",
+      "filename": "abandoned-lair.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Beastgrave",
+      "number": "2B",
+      "name": "Living Rock",
+      "filename": "living-rock.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "The Shattered City",
+      "number": "1A",
+      "name": "The Animus Forge",
+      "filename": "the-animus-forge.jpg",
+      "championship_legal": false
+    },
+    {
+      "set_name": "The Shattered City",
+      "number": "1B",
+      "name": "The Arcane Nexus",
+      "filename": "the-arcane-nexus.jpg",
+      "championship_legal": false
+    }
+  ]
 }
