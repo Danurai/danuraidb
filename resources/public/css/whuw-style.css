@@ -27,8 +27,16 @@
 }
 
 .card-set-icon {
-  position: absolute; 
+  position: absolute;
   left: 5px; 
+  bottom: 5px; 
+  width: 20%;
+  border-radius: 50%;
+  box-shadow: 5px 5px 5px black;
+}  
+.card-reprint-set-icon {
+  position: absolute;
+  right: 5px; 
   bottom: 5px; 
   width: 20%;
   border-radius: 50%;
