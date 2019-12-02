@@ -303,3 +303,12 @@ table .caret {
 .card {
   max-width: 400px;
 }
+
+.placeholder {
+  display: flex;
+}
+.placeholder-order { background-color: lightyellow; }
+.placeholder-chaos { background-color: lightred; }
+.placeholder-death { background-color: lightblue; }
+.placeholder-destruction { background-color: lightgreen; }
+.placeholder-neutral { background-color: beige; }
