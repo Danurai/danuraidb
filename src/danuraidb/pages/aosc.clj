@@ -112,9 +112,9 @@
                 [:input#importcollection {:type "text" :name "collectionjson" :hidden true :value "{}"}]
                 [:button.btn.btn-danger {:type "submit"} "Save Changes"]]]]]]
       (toaster)
-      (h/include-js "/js/aosc_tools.js?v=1.1")
-      (h/include-js "/js/aosc_quickcollection.js?v=1.1")
-      (h/include-js "/js/aosc_popover.js?v=1.000")]))
+      (h/include-js "/js/aosc/aosc_tools.js?v=1.1")
+      (h/include-js "/js/aosc/aosc_quickcollection.js?v=1.1")
+      (h/include-js "/js/aosc/aosc_popover.js?v=1.000")]))
       
 ;; https://assets.warhammerchampions.com/card-database/icons/
 ;; https://assets.warhammerchampions.com/card-database/cards/"
@@ -311,8 +311,8 @@
         (exportdeckmodal)
         (toaster)
         (h/include-js "/js/externs/warhammer-deck-sharing.js?v=1.0")
-        (h/include-js "/js/aosc_tools.js?v=1.0")
-        (h/include-js "/js/aosc_decklist.js?v=1.0")])))                  
+        (h/include-js "/js/aosc/aosc_tools.js?v=1.0")
+        (h/include-js "/js/aosc/aosc_decklist.js?v=1.0")])))                  
           
 (defn aosc-newdeck [req]
   (h/html5
@@ -418,9 +418,9 @@
           [:div.modal-content
             [:div.modal-header]
             [:div.modal-body]]]]
-      (h/include-js "/js/aosc_popover.js?v=1.000")
-      (h/include-js "/js/aosc_tools.js?v=1.000")
       (h/include-js "/js/externs/warhammer-deck-sharing.js")
       (h/include-js "/js/externs/typeahead.js")
-      (h/include-js "/js/aosc_deckbuilder.js?v=1.100")
+      (h/include-js "/js/aosc/aosc_popover.js?v=1.000")
+      (h/include-js "/js/aosc/aosc_tools.js?v=1.000")
+      (h/include-js "/js/aosc/aosc_deckbuilder.js?v=1.100")
       (h/include-css "/css/aosc-icomoon-style.css?v=1.3")])))

@@ -1,4 +1,4 @@
-var _filter = {};
+var _filter = {"setnumber":2.1};
 var _freeFilter = {};
 var _cards;
 var _collection;
@@ -62,16 +62,27 @@ function imageName(c) {
   return sku.id + ".jpg"
 }
 
-function write_cards() {
-  $.get(_localpath + imageName(_cards().first()),function () { 
-      write_table(_localpath);
-    })
-    .fail(function () {
-      write_table(_remotepath);
-    });
-}
 
-function write_table(imgpath) {
+var tableimg = new Image();
+tableimg.onload = function () {
+    write_table(true);
+  }
+tableimg.onerror = function () {
+    write_table(false);
+  }
+  
+function write_cards() {
+  tableimg.src = _remotepath + imageName(_cards().first());
+}
+//  $.get(_localpath + imageName(_cards().first()),function () { 
+//    write_table(_localpath);
+//  })
+//  .fail(function () {
+//    write_table(_remotepath);
+//  });
+//}
+
+function write_table(remotepath) {
   var outp = '<table class="mx-auto"><tbody>';
   var c;
   var total = 0;
@@ -86,12 +97,16 @@ function write_table(imgpath) {
        outp += '</tr><tr>';
     }
     total = (parseInt(res[i].digital) + parseInt(res[i].physical) + parseInt(res[i].foil));
-    outp += '<td><div class="cardcontainer" data-id=' + res[i].id + '>'
-      + '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + imgpath + imageName(res[i]) + '" alt="' + res[i].name + '" onerror="imgerr">'
+    outp += '<td><div class="cardcontainer d-flex" data-id=' + res[i].id + '>'
+      + (remotepath
+        ? '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + imgpath + imageName(res[i]) + '" alt="' + res[i].name + '">'
+        : '<div class="cardimg' + (total == 0 ? ' cardimggrey' : '') + ' placeholder placeholder-' + res[i].alliance.toLowerCase() + '">'
+          + '<span class="m-auto"> ' + res[i].name + '</span>'
+          + '</div>') 
       + '<span class="collectionbox ' + (total == 0 ? 'lockbox' : 'countbox') + '">'
-		+ '<span data-id=' + res[i].id + ' data-toggle="modal" data-target="#updatemodal">'
-		+ (total == 0 ? '<i class="fa fa-lock">' : 'x' + total)
-      + '</span></span>'
+        + '<span data-id=' + res[i].id + ' data-toggle="modal" data-target="#updatemodal">'
+          + (total == 0 ? '<i class="fa fa-lock">' : 'x' + total)
+        + '</span></span>'
       + '</div></td>';
   }
   outp+='</tr>';

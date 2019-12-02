@@ -13,14 +13,6 @@ $(document).ready(function () {
   });
 });
 
-/* image load */
-
-const aoscpath = "https://assets.warhammerchampions.com/card-database/cards/";
-const localpath = "/img/aosc/cards/";
-var _imgpath = localpath;
-
-_collection = $('#collection').val();
-_collection = (_collection != "" ? JSON.parse(_collection) : {});
 
 //function setPath (uri, callback) {
 //  var $img = $('<img></img>');
