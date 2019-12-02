@@ -1,4 +1,4 @@
-var _filter = {"setnumber":2.1};
+var _filter = {};
 var _freeFilter = {};
 var _cards;
 var _collection;
