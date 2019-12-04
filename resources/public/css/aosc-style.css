@@ -35,10 +35,7 @@ body {
   }
 }
 
-#cards .cardimg {
-  width: 90px;
-  height: auto;
-}
+
 #cards .cardimggrey {
   filter: grayscale(100%);
   -webkit-filter: grayscale(100%) brightness(80%);
