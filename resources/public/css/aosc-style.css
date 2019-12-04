@@ -37,6 +37,7 @@ body {
 
 #cards .cardimg {
   width: 90px;
+  height: auto !important;
 }
 
 #cards .cardimggrey {
