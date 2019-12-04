@@ -35,6 +35,9 @@ body {
   }
 }
 
+#cards .card-img {
+  width: 90px;
+}
 
 #cards .cardimggrey {
   filter: grayscale(100%);
