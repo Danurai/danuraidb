@@ -104,7 +104,7 @@ function write_table(imgpath) {
        outp += '</tr><tr>';
     }
     total = (parseInt(res[i].digital) + parseInt(res[i].physical) + parseInt(res[i].foil));
-    outp += '<td><div class="cardcontainer d-flex" data-id=' + res[i].id + '>'
+    outp += '<td><div class="cardcontainer" data-id=' + res[i].id + '>'
         + '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + imgpath + imageName(res[i]) + '" alt="' + res[i].name + '" />'
         + '<span class="collectionbox ' + (total == 0 ? 'lockbox' : 'countbox') + '">'
         + '<span data-id=' + res[i].id + ' data-toggle="modal" data-target="#updatemodal">'
