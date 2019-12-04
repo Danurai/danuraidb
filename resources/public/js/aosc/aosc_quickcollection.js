@@ -23,9 +23,26 @@ $.getJSON('/aosc/api/data/cards', function(data) {
           "craftcost":getCraftCost(c.category.en, c.rarity[0])
         },c)},["Champion","Blessing","Unit","Spell","Ability"])
   )
-  _filter.alliance =  $('#alliance').find('input:checked').first().attr('id');
-  _filter.category =  {"en":$('#category').find('input:checked').first().attr('id')};
-  
+  if (sessionStorage.getItem("aoscfilter") != null) {
+    _filter = JSON.parse(sessionStorage.getItem("aoscfilter"));
+    if (typeof _filter.alliance !== 'undefined') {
+      $('#alliance').find('input').prop('checked',false);
+      $('#alliance').find('label').removeClass('active');
+      var ele = $('#alliance').find('input[id="' + _filter.alliance + '"]');
+      ele.prop('checked',true);
+      ele.closest('label').addClass('active');
+    }
+    if (typeof _filter.category !== 'undefined') {
+      $('#category').find('input').prop('checked',false);
+      $('#category').find('label').removeClass('active');
+      var ele = $('#category').find('input[id="' + _filter.category.en + '"]');
+      ele.prop('checked',true);
+      ele.closest('label').addClass('active');
+    }
+  } else {
+    _filter.alliance =  $('#alliance').find('input:checked').first().attr('id');
+    _filter.category =  {"en":$('#category').find('input:checked').first().attr('id')};
+  }
   write_cards();
 });
 
@@ -61,33 +78,23 @@ function imageName(c) {
   var sku = c.skus.filter(sku => (sku.default == true && sku.lang == "en"))[0]
   return sku.id + ".jpg"
 }
-
-
-var tableimg = new Image();
-tableimg.onload = function () {
-    write_table(true);
-  }
-tableimg.onerror = function () {
-    write_table(false);
-  }
   
 function write_cards() {
-  tableimg.src = _remotepath + imageName(_cards().first());
+  $.get(_localpath + imageName(_cards().first()),function () { 
+    write_table(_localpath);
+  })
+  .fail(function () {
+    write_table(_remotepath);
+  });
 }
-//  $.get(_localpath + imageName(_cards().first()),function () { 
-//    write_table(_localpath);
-//  })
-//  .fail(function () {
-//    write_table(_remotepath);
-//  });
-//}
 
-function write_table(remotepath) {
+function write_table(imgpath) {
   var outp = '<table class="mx-auto"><tbody>';
   var c;
   var total = 0;
   var res = _cards($.extend({},_filter, _freeFilter)).order("catid asec, name asec").get();
   
+  outp = '<div class="d-flex"><small class="text-muted mx-auto">Showing ' + res.length + ' out of ' + _cards().count() + ' cards</small></div>' + outp;
   if ($('#incomplete').find('input:checked').length > 0) {
     res = res.filter(c=>c.digital+c.physical+c.foil<c.maxqty);
   }
@@ -98,12 +105,8 @@ function write_table(remotepath) {
     }
     total = (parseInt(res[i].digital) + parseInt(res[i].physical) + parseInt(res[i].foil));
     outp += '<td><div class="cardcontainer d-flex" data-id=' + res[i].id + '>'
-      + (remotepath
-        ? '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + imgpath + imageName(res[i]) + '" alt="' + res[i].name + '">'
-        : '<div class="cardimg' + (total == 0 ? ' cardimggrey' : '') + ' placeholder placeholder-' + res[i].alliance.toLowerCase() + '">'
-          + '<span class="m-auto"> ' + res[i].name + '</span>'
-          + '</div>') 
-      + '<span class="collectionbox ' + (total == 0 ? 'lockbox' : 'countbox') + '">'
+        + '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + imgpath + imageName(res[i]) + '" alt="' + res[i].name + '" />'
+        + '<span class="collectionbox ' + (total == 0 ? 'lockbox' : 'countbox') + '">'
         + '<span data-id=' + res[i].id + ' data-toggle="modal" data-target="#updatemodal">'
           + (total == 0 ? '<i class="fa fa-lock">' : 'x' + total)
         + '</span></span>'
@@ -208,12 +211,12 @@ function update_card_collection (id, type, val) {
   var card_container = $('#cards').find('.cardcontainer[data-id=' + id + ']');
   var card_collection = card_container.find('.collectionbox');
   if (total == "x0") {
-    card_container.find('img').addClass('cardimggrey');
-	card_collection.removeClass("countbox").addClass("lockbox");
+    card_container.find('.cardimg').addClass('cardimggrey');
+    card_collection.removeClass("countbox").addClass("lockbox");
     card_container.find('.collectionbox').find('span').html('<i class="fa fa-lock"></i>');
   } else {
 	card_collection.removeClass("lockbox").addClass("countbox");
-    card_container.find('img').removeClass('cardimggrey');
+    card_container.find('.cardimg').removeClass('cardimggrey');
     card_container.find('span.countbox').find('span[data-id=' + id + ']').html(total);
   }
   $('#btnsave').prop("disabled",false);
@@ -243,6 +246,11 @@ $('.btn-group-toggle-none label.btn').on('click',function() {
     else { _filter[f] = v; }
   }
   
+  if ($.isEmptyObject(_filter)) {
+    sessionStorage.removeItem("aoscfilter"); 
+  } else {
+    sessionStorage.setItem("aoscfilter",JSON.stringify(_filter));
+  }
   write_cards();
   return false; // don't fire twice!
 });

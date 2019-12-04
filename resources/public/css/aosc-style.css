@@ -29,9 +29,12 @@ body {
   min-width: 10%;
 }
 
-#cards {
-  overflow-x: scroll;
+@media (max-width: 600px) {
+  #cards {
+    overflow-x: scroll;
+  }
 }
+
 #cards .cardimg {
   width: 90px;
 }
@@ -306,9 +309,10 @@ table .caret {
 
 .placeholder {
   display: flex;
+  user-select: none;
 }
 .placeholder-order { background-color: lightyellow; }
-.placeholder-chaos { background-color: lightred; }
+.placeholder-chaos { background-color: lightpink; }
 .placeholder-death { background-color: lightblue; }
 .placeholder-destruction { background-color: lightgreen; }
-.placeholder-neutral { background-color: beige; }
+.placeholder-any { background-color: beige; }
