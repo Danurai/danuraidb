@@ -37,13 +37,16 @@ body {
 
 #cards .cardimg {
   width: 90px;
+  height: auto;
 }
 #cards .cardimggrey {
   filter: grayscale(100%);
   -webkit-filter: grayscale(100%) brightness(80%);
 }
 @media (min-width: 1175px) {
-  #cards .cardimg {width: 150px;} 
+  #cards .cardimg {
+     width: 150px;
+    height: auto;} 
 }
 
 #cards td {
