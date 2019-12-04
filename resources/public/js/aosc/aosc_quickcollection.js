@@ -19,7 +19,7 @@ $.getJSON('/aosc/api/data/cards', function(data) {
           "catid":this.indexOf(c.category.en),
           "setnumber":c.set[0].number,
           "text":c.effect.en,
-          "maxqty":getMaxQty($.inArray("Unique",c.tags)>-1, c.category.en),
+          "maxqty":getMaxQty($.inArray("Unique",c.tags)>-1,$.inArray("Unleash",c.tags)>-1, c.category.en),
           "craftcost":getCraftCost(c.category.en, c.rarity[0])
         },c)},["Champion","Blessing","Unit","Spell","Ability"])
   )
@@ -46,8 +46,8 @@ $.getJSON('/aosc/api/data/cards', function(data) {
   write_cards();
 });
 
-function getMaxQty (unique, cat) {
-  return (unique ? 1 
+function getMaxQty (unique, unleash, cat) {
+  return (unique || unleash ? 1 
     : (cat == "Champion" ? 2
         : (cat == "Blessing" ? 1
             : 3)))
@@ -62,15 +62,23 @@ function getCraftCost (cat, rarity) {
 }
 
 function write_stats () {
-   var outp = '';
-   $.each(_cards().order("setnumber").distinct("setnumber"),function (k, v) {
-     outp += '<span class="mr-2">' 
-       + '<b>' + _cards({"setnumber":v}).first().set[0].name + ": </b>" 
-       + _cards({"setnumber":v,"digital":{">":0}}).count()
-       + "/" + _cards({"setnumber":v}).count()
-       + '</span>';
-   });
-   $('#stats').html(outp);
+  var outp = '';
+  // Distinct
+  $.each(_cards().order("setnumber").distinct("setnumber"),function (k, v) {
+    outp += '<span class="mr-2 d-inline-block">' 
+        + '<b>' + _cards({"setnumber":v}).first().set[0].name + "</b>"
+        + " Distinct: " 
+          + _cards([{"setnumber":v,"digital":{">":0}},{"setnumber":v,"physical":{">":0}},{"setnumber":v,"foil":{">":0}}]).count()
+          + "/" + _cards({"setnumber":v}).count()
+        + " Total: " 
+          + _cards({"setnumber":v})
+            .select("maxqty","digital","physical","foil")
+            .map(c=>Math.min(c[0],c.slice(1).reduce((t,x)=>t+x,0)))
+            .reduce((t,c)=>t+c,0)
+          + "/" + _cards({"setnumber":v}).sum("maxqty")
+        + '</span>';
+  });
+  $('#stats').html(outp);
 }
 
 
@@ -94,10 +102,11 @@ function write_table(imgpath) {
   var total = 0;
   var res = _cards($.extend({},_filter, _freeFilter)).order("catid asec, name asec").get();
   
-  outp = '<div class="d-flex"><small class="text-muted mx-auto">Showing ' + res.length + ' out of ' + _cards().count() + ' cards</small></div>' + outp;
   if ($('#incomplete').find('input:checked').length > 0) {
     res = res.filter(c=>c.digital+c.physical+c.foil<c.maxqty);
-  }
+  }  
+  outp = '<div class="d-flex"><small class="text-muted mx-auto">Showing ' + res.length + ' out of ' + _cards().count() + ' cards</small></div>' + outp;
+
   outp += '<tr>'
   for (i=0; i<res.length; i++) {
     if (((i % 7) == 0) && (i != 0)) {
