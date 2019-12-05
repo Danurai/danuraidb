@@ -2,6 +2,7 @@
   (:require
     [clojure.java.io :as io]
     [clojure.data.json :as json]
+    [clojure.string :as string]
     [cemerick.friend :as friend]
     [octet.core :as buf]
     [clj-http.client :as http]
@@ -63,16 +64,25 @@
   64 99 ; PoD
 })
 ;; Function
-(defn- normalize-name [ name ]
+(defn normalise [ name ]
   (-> name
-    clojure.string/lower-case
-    (clojure.string/replace #"\s" "-")
-    (clojure.string/replace #"\'|\!" "")
-    (clojure.string/replace #"[\u00e1-\u00e4]" "a")
-    (clojure.string/replace "\u00e9" "e")
-    (clojure.string/replace "\u00ed" "i")
-    (clojure.string/replace "\u00f3" "o")
-    (clojure.string/replace #"[\u00fa-\u00fb]" "u")))
+      (string/replace #"[\u00c0-\u00c5]" "A")
+      (string/replace #"[\u00c8-\u00cb]" "E")
+      (string/replace #"[\u00cc-\u00cf]" "I")
+      (string/replace #"[\u00d2-\u00d6]" "O")
+      (string/replace #"[\u00d9-\u00dc]" "U")
+      (string/replace #"[\u00e0-\u00e5]" "a")
+      (string/replace #"[\u00e8-\u00eb]" "e")
+      (string/replace #"[\u00ec-\u00ef]" "i")
+      (string/replace #"[\u00f2-\u00f6]" "o")
+      (string/replace #"[\u00f9-\u00fc]" "u")))
+      
+(defn normalise-name [ name ]
+  (-> name
+      string/lower-case
+      (string/replace #"\s" "-")
+      (string/replace #"\'|\!" "")
+      normalise))
     
 ;; ALL GET JSON FILES - API WRAPPER
 
@@ -100,21 +110,21 @@
     (cond
       (some #(= (:id pack) %) (set (apply merge (range 1 23) [37 38 39 61])))
         (str 
-          (normalize-name (:name card))
+          (normalise-name (:name card))
           "-"
           (cgdb-pack-name (:pack_code card) (clojure.string/lower-case (:pack_code card))))
       (= (:id pack) 23)
         (str 
-          (normalize-name (:name card))
+          (normalise-name (:name card))
           "_"
-          (normalize-name (:pack_name card))
+          (normalise-name (:pack_name card))
           "_"
           (:position card)) 
       (< 23 (:id pack) 26)
         (str 
-          (normalize-name (:name card))
+          (normalise-name (:name card))
           "-"
-          (normalize-name (:pack_name card))
+          (normalise-name (:pack_name card))
           "-"
           (:position card)) 
       (= (:id pack) 40)
@@ -230,7 +240,7 @@
             banned (= 1 (->> banlist :forsaken (filter #(= (:code %) (:code c))) count))
             restricted (= 1 (->> banlist :restricted (filter #(= (:code %) (:code c))) count))
             setcode (or (re-find #"^[A-Za-z]+" (:id c)) "S")
-            reprint (->> whuwcards (filter #(and (= (:name %) (:name c)) (not= (:set %) (:set c)))) (sort-by :set) last :set)
+            reprint (->> whuwcards (filter #(and (= (:name %) (:name c)) (not= (:set %) (:set c)))) (sort-by :set) last :set) 
             reprint-set (->> whuwdata :sets (filter #(= (:id %) reprint)) first)
             ]
       (assoc c
@@ -473,6 +483,14 @@
               (assoc new_deck :name id))
           (catch Exception e (assoc new_deck :name id))))))
 
+(defn get-fellowship-data [ req ]
+  (let [id (-> req :params :id)
+        new_f {:uid "" :name "" :d0 {:name "" :uid "" :data "{}"} :d1 {:name "" :uid "" :data "{}"}}]
+    (if (nil? id)
+        new_f
+        (let [dg (db/get-user-deckgroup id)]
+          (assoc dg :d0 (db/get-user-deck (-> dg :decks json/read-str first))
+                    :d1 (db/get-user-deck (-> dg :decks json/read-str last)))))))
 ;; Markdown
 
 
