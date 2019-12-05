@@ -228,7 +228,7 @@
   (j/delete! db  :decklists ["uid = ?" deckuid]))
   
 (defn get-user-deckgroups [ system uid ]
-  (j/query db ["SELECT * from deckgroups WHERE author = ? and system = ? ORDER BY UPDATED DESC" uid (str system)]))
+  (j/query db ["SELECT * from deckgroups WHERE author = ? and system = ? ORDER BY UPDATED DESC" (str uid) (str system)]))
   
 (defn save-deckgroup [ qry ]
   (let [row qry
