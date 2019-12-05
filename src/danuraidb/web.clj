@@ -36,6 +36,11 @@
   (alert "warning" [:span [:b name] " deleted."])
   (do-redirect req))
   
+(defn delete-group-handler [ uid name req ]
+  (db/delete-deck-group uid)
+  (alert "warning" [:span "Fellowship " [:b name] " deleted."])
+  (do-redirect req))
+  
 (defn- save-collection-handler [collectionjson filterjson req]
   (db/save-user-collection collectionjson (-> req model/get-authentications :uid))
   (alert "info" "Collection saved")
@@ -255,6 +260,10 @@
     #(let [uid (or id (db/unique-deckid))]
       (db/save-deck uid (or system 0) name data alliance (or tags "") (or notes"") (-> % model/get-authentications :uid))
       (response uid)))
+  (POST "/fellowship/delete" [uid name]
+    (friend/wrap-authorize
+      #(delete-group-handler uid name %)
+      #{::db/user}))
   (POST "/delete" [uid name] 
     (friend/wrap-authorize 
       #(delete-deck-handler uid name %)

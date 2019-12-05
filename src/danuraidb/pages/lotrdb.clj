@@ -35,6 +35,55 @@
           [:div.row
             [:a {:href "/lotrdb/decks"} "Login"] 
             [:span.ml-1 "to see your decks"]]]]]))
+            
+
+(defn- singletoast []
+  [:div {:aria-live "polite" :aria-atomic "true" :style "position: relative"}
+    [:div#toast.toast {:style "position: absolute; top: 10px; right: 10px; z-index: 1050; min-width: 200px;"}
+      [:div.toast-header
+        [:i.fas.fa-exclamation.text-warning.mr-2]
+        [:div.toast-title.mr-auto ]
+        [:button.ml-2.mb-2.close {:data-dismiss "toast" :type "button"} [:span {:aria-hidden "true"} "x"]]]
+      [:div.toast-body "Sample Text"]]])
+      
+(defn- modal []
+  [:div#cardmodal.modal {:tab-index -1 :role "dialog"}
+    [:div.modal-dialog {:role "document"}
+      [:div.modal-content
+        [:div.modal-header
+          [:h5.modal-title.w-100 ""]
+          [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
+            [:span {:aria-hidden "true"} "\u00d7"]]]
+        [:div.modal-body]]]])
+       
+(defn- loadmodal []
+  [:div#loadmodal.modal {:tab-index -1 :role "dialog"}
+    [:div.modal-dialog {:role "document"}
+      [:div.modal-content
+        [:div.modal-header
+          [:h5.modal-title "Load Deck"]
+          [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
+            [:span {:aria-hidden "true"} "\u00d7"]]]
+        [:div.modal-body
+          [:ul.list-group]]
+        [:div.modal-footer
+          [:button.btn.btn-outline-secondary {:data-dismiss "modal"} "Cancel"]]]]])     
+        
+(defn- deletegroupmodal []
+  [:div#deletegroupmodal.modal {:tabindex -1 :role "dialog"}
+    [:div.modal-dialog {:role "document"}
+      [:div.modal-content
+        [:div.modal-header
+          [:h5.modal-title "Confirm Delete"]
+          [:button {:type "button" :class "close" :data-dismiss "modal"} 
+            [:span "x"]]]
+        [:div.modal-body]
+        [:div.modal-footer
+          [:button.btn.btn-primary {:data-dismiss "modal"} "Cancel"]
+          [:form {:action "/decks/fellowship/delete" :method "post"}
+            [:input#deletemodalfname {:name "name" :hidden true}]
+            [:input#deletemodalfuid {:name "uid" :hidden true}]
+            [:button.btn.btn-danger {:submit "true"} "OK"]]]]]])
                 
 (defn lotrdb-packs-page [ req ]
 	(let [cards (model/get-cards-with-cycle)]
@@ -449,7 +498,6 @@
                                normalname
                                (str normalname packname))
               :dupesort (str normalname (:code crd)))))
-              
         
 (defn- table []
   [:table#dt.table.table-sm.table-hover.w-100
@@ -466,6 +514,7 @@
         [:th.text-center.d-none.d-sm-table-cell {:title "Health"} "H."]
         [:th "#2"]
         [:th.d-none "pack_code"]
+        [:th.d-none "traits"]
       ]]
     [:tbody
       (for [crd player-cards
@@ -512,18 +561,9 @@
           [:td {:data-code (:code crd) :data-deck 1}
             btns]
           [:td.d-none {:data-sort (:code crd) :data-filter (:pack_code crd)} (:pack_code crd)]
+          [:td.d-none {:data-filter (model/normalise (or (:traits crd) ""))} (model/normalise (or (:traits crd) ""))]
         ])
     ]])
-    
-(defn- modal []
-  [:div#cardmodal.modal {:tab-index -1 :role "dialog"}
-    [:div.modal-dialog {:role "document"}
-      [:div.modal-content
-        [:div.modal-header
-          [:h5.modal-title.w-100 ""]
-          [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
-            [:span {:aria-hidden "true"} "\u00d7"]]]
-        [:div.modal-body]]]])
     
 (defn- packsincycle [cycle-packs]
   [:div.my-2
@@ -553,7 +593,75 @@
               [:input.my-auto {:type "checkbox" :data-type "cycle" :data-code (:cycle_position cycle)}]]
             (packsincycle cycle-packs)]))])
             
-                         
+(defn fellowship [ req ]
+  (let [fdata (model/get-fellowship-data req)]
+    (h/html5 
+      (into 
+        lotrdb-pretty-head [
+          ;DataTables
+          [:link {
+            :rel "stylesheet" 
+            :type "text/css" 
+            :href "https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"}]
+          [:script {
+            :type "text/javascript" 
+            :src "https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"}]
+          [:script {
+            :type "text/javascript" 
+            :src "https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"}]])
+      [:body
+        (singletoast)
+        (lotrdb-navbar req)
+        [:div.container.my-3
+          [:div.row.mb-2
+            [:div.col-12
+              [:form#saveform.d-flex.mb-2
+                [:h5.my-auto.mr-2 "Fellowship"]
+                [:input#fellowshipname.form-control.mr-2 {:type "text" :name "name" :value (:name fdata) :required true}]  
+                [:input#fellowshipid {:hidden true :value (:uid fdata) :name "data"}]
+                [:button#savefellowship.btn.btn-warning.mr-2 {:role "submit" :title "Save Fellowship" :disabled true} [:i.fas.fa-feather]]
+                [:a.btn.btn-outline-secondary {:formnovalidate true :title "Cancel Edits" :href "/lotrdb/decks"} "Close"]]
+              [:div.row.mb-2 {:style "min-height: 50px;"}
+                [:div.col-sm-6 
+                  [:b.my-auto.mr-2 "Deck #1"]
+                  [:form#formdeck0.d-flex
+                    [:input#deckname0.form-control.mr-2 {:type "text" :name "name" :value (-> fdata :d0 :name) :required true}]  
+                    [:input#deckdata0 {:hidden true :value (-> fdata :d0 :data) :name "data"}]
+                    [:input#deckid0 {:hidden true :value (-> fdata :d0 :uid) :name "id"}]
+                    [:div.btn-group
+                      [:button.btn.btn-secondary {:formnovalidate true :type "button" :title "Import Deck" :data-deckno 0 :data-toggle "modal" :data-target "#loadmodal"} [:i.fas.fa-file-import]]
+                      [:button#savedeck0.btn.btn-warning {:role "submit" :title "Save Deck" :disabled true} [:i.fas.fa-feather]]]]
+                  [:div#decklist0.mt-2]]
+                [:div#deck2.col-sm-6
+                  [:b.my-auto.mr-2 "Deck #2"]
+                  [:form#formdeck1.d-flex
+                    [:input#deckname1.form-control.mr-2 {:type "text" :name "name" :value (-> fdata :d1 :name)  :required true}]  
+                    [:input#deckdata1 {:hidden true :value (-> fdata :d1 :data)  :name "data"}]
+                    [:input#deckid1 {:hidden true :value (-> fdata :d1 :uid) :name "id"}]
+                    [:div.btn-group
+                      [:button.btn.btn-secondary {:formnovalidate true :type "button" :title "Import Deck" :data-deckno 1 :data-toggle "modal" :data-target "#loadmodal"} [:i.fas.fa-file-import]]
+                      [:button#savedeck1.btn.btn-warning {:role "submit" :title "Save Deck" :disabled true} [:i.fas.fa-feather]]]]
+                  [:div#decklist1.mt-2]]]]]
+          [:div.row
+            [:div.col-12
+              [:ul.nav.nav-tabs
+                [:li.nav-item [:a.nav-link.active {:href "#" :data-target "#cardlist" :data-toggle "tab"} "Cards"]]
+                [:li.nav-item [:a.nav-link {:href "#" :data-target "#packlist" :data-toggle "tab"} "Packs"]]]
+              [:div.tab-content
+                [:div#cardlist.tab-pane.my-2.show.active {:role "tabpanel"}
+                  (filter-buttons)
+                  [:div [:input#search.form-control {:type "text" :placeholder "search"}]]
+                  (table)
+                ]
+                [:div#packlist.tab-pane.my-2 (packlist)]]]]]
+      (modal)
+      (loadmodal)]
+    (h/include-css  "/css/lotrdb-icomoon-style.css")
+    (h/include-js  "/js/externs/typeahead.js")
+    (h/include-js  "/js/lotrdb/lotrdb_tools.js")
+    (h/include-js  "/js/lotrdb/lotrdb_popover.js")
+    (h/include-js  "/js/lotrdb/lotrdb_fellowship.js"))))
+    
 (defn lotrdb-solo-page [ req ]
   (h/html5 
     lotrdb-pretty-head
