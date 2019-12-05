@@ -68,6 +68,7 @@
     
 (defroutes lotrdb-deck-routes 
   (GET "/fellowship" [] pages/fellowship)
+  (GET "/fellowship/new" [] pages/fellowship)
   (GET "/fellowship/:id" [] pages/fellowship)
   (GET "/" [] pages/lotrdb-decks)
   (GET "/new" [] pages/lotrdb-deckbuilder)
@@ -239,13 +240,21 @@
       :notes notes} %))
   (POST "/save" [id name system data alliance tags notes]
     #(save-deck-handler {
-      :id (or id (db/unique-deckid))
+      :id (or id (db/unique-deckid "decklists"))
       :system (read-string system)
       :decklist data 
       :name (if (empty? name) "Imported Deck" name) 
       :alliance alliance 
       :tags tags 
       :notes notes} %))
+  (POST "/fellowship/save" [id system name decks tags notes]
+    #(let [uid (or id (db/unique-deckgroupid))]
+      (db/save-deckgroup (hash-map :uid uid :system (or system 0) :name name :decks decks :tags tags :notes notes :author (-> % model/get-authentications :uid)))
+      (response uid)))
+  (POST "/fellowship/savedeck" [id system name data alliance tags notes uid]
+    #(let [uid (or id (db/unique-deckid))]
+      (db/save-deck uid (or system 0) name data alliance (or tags "") (or notes"") (-> % model/get-authentications :uid))
+      (response uid)))
   (POST "/delete" [uid name] 
     (friend/wrap-authorize 
       #(delete-deck-handler uid name %)

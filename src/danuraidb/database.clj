@@ -67,6 +67,15 @@
               [:updated     :bigint]
               ;["FOREIGN KEY (author) REFERENCES users(uid)"]
               ]
+   :deckgroups [[:uid       :text :primary :key]
+                [:system    :text]
+                [:name      :text]
+                [:author    :text]
+                [:decks     :text]
+                [:tags      :text]
+                [:notes     :text]
+                [:created   :bigint]
+                [:updated   :bigint]]
    :aosccollection [[:owner :integer] [:collection :text]] ; ["FOREIGN KEY (owner) REFERENCES users(uid)"]]
    :version [[:major :int] [:minor :int] [:note :text] [:released :bigint]]
 })
@@ -126,7 +135,7 @@
 (defn- create-tbl-custom [ tname schema ]
   (try
     (j/db-do-commands db
-      (j/create-table-ddl tname schema))
+      (j/create-table-ddl tname schema {:conditional? true}))
     (catch Exception e (str "Table create error: " tname e))))
 
                               
@@ -168,17 +177,31 @@
        repeatedly
        (take 6)
        (apply str)))
-(defn deck-ids []
-  (map (fn [x] (:uid x))(j/query db ["SELECT uid FROM decklists"])))      
-(defn unique-deckid []
+       
+(defn deck-ids [ tbl ]
+  (map :uid (j/query db [(str "SELECT uid FROM " tbl)])))
+  
+(defn unique-id [ tbl ]
 ; get all deck IDs to compare to
-  (let [uids (deck-ids)]
+  (let [uids (deck-ids tbl)]
     (loop []
       (let [uid (rnd-deckid)]
         (if (.contains uids uid)
           (recur)
           uid)))))
+          
+(defn unique-deckid []
+  (unique-id "decklists"))
+(defn unique-deckgroupid []
+  (unique-id "deckgroups"))
             
+(defn get-user-deck [ deckuid ]
+  (first (j/query db ["SELECT * FROM decklists WHERE uid = ?" deckuid])))  
+    
+(defn get-user-decks [ system uid ]
+  ;(j/query db [(str "SELECT * FROM decklists WHERE author = '" uid "' AND system = '" system "' ORDER BY UPDATED DESC" ) ]))
+  (j/query db ["SELECT * FROM decklists WHERE author = ? AND system = ? ORDER BY UPDATED DESC" uid (str system)]))
+  
 (defn save-deck [id system name decklist alliance tags notes uid]
 ;; TODO SYSTEM
   (let [deckid (if (clojure.string/blank? id) (unique-deckid) id)
@@ -196,18 +219,29 @@
     (j/with-db-transaction [t-con db]
       (let [result (j/update! t-con :decklists qry where-clause)]
         (if (zero? (first result))
-          (j/insert! t-con :decklists (assoc qry :created (c/to-long (t/now)) :updated (c/to-long (t/now))))
-          result)))))
-    
-(defn get-user-decks [ system uid ]
-  ;(j/query db [(str "SELECT * FROM decklists WHERE author = '" uid "' AND system = '" system "' ORDER BY UPDATED DESC" ) ]))
-  (j/query db ["SELECT * FROM decklists WHERE author = ? AND system = ? ORDER BY UPDATED DESC" uid (str system)]))
-  
-(defn get-user-deck [ deckuid ]
-  (first (j/query db ["SELECT * FROM decklists WHERE uid = ?" deckuid])))  
-  
+            (do
+              (j/insert! t-con :decklists (assoc qry :created (c/to-long (t/now)) :updated (c/to-long (t/now))))
+              id)
+            result)))))
+
 (defn delete-deck [ deckuid ]
   (j/delete! db  :decklists ["uid = ?" deckuid]))
+  
+(defn get-user-deckgroups [ system uid ]
+  (j/query db ["SELECT * from deckgroups WHERE author = ? and system = ? ORDER BY UPDATED DESC" uid (str system)]))
+  
+(defn save-deckgroup [ qry ]
+  (let [row qry
+        where-clause ["uid = ?" (:uid qry)]]
+    (j/with-db-transaction [t-con db]
+      (let [result (j/update! t-con :deckgroups row where-clause)]
+        (if (zero? (first result))
+          (j/insert! t-con :deckgroups row)
+          result)))))
+
+(defn get-user-deckgroup [ deckuid ]
+  (first (j/query db ["SELECT * FROM deckgroups WHERE uid = ?" deckuid])))  
+  
   
 ;;;;;;;;;;;;;;
 ; COLLECTION ;

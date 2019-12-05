@@ -8,11 +8,13 @@
   {:name "Ally" :code "ally" :symbol [:i {:class "fas fa-user-friends"}]}
   {:name "Attachment" :code "attachment" :symbol [:i {:class "fas fa-user-plus"}]}
   {:name "Event" :code "event" :symbol [:i {:class "fas fa-bolt"}]}])
+
+(def type-icon (apply merge (map #(hash-map (:code %) (:symbol %)) player_type_icons)))
   
 (def sphere_icons
   (map #(let [code (clojure.string/lower-case %)] 
           (hash-map :name % :code code :img  (str "/img/lotrdb/icons/sphere_" code ".png")))
-    ["Leadership","Lore","Spirit","Tactics","Neutral"]))  ;,"Baggins","Fellowship"
+    ["Leadership","Lore","Spirit","Tactics","Neutral"]))  ;,"Baggins","Fellowship","Boon"
   
               
 (defn lotrdb-navbar [req]
@@ -99,7 +101,6 @@
 													(if (not= (:name s) (:name e))
 														[:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]]])))
 
-
 (defn lotrdb-search-page [ req ]
   (let [q (or (-> req :params :q) "")
        view (or (-> req :params :view) "")
@@ -163,10 +164,13 @@
                         [:td (:sphere_name card)]
                         [:td.d-none.d-md-table-cell (str (:pack_name card) " #" (:position card))]
                         [:td.text-center (:quantity card)]])]]])]]
-      (h/include-js "/js/lotrdb_popover.js?v=1")
+      (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1")
       (h/include-css "/css/lotrdb-icomoon-style.css?v=1")
       ])))
       
+; CARD PAGE ;
+;;;;;;;;;;;;;
+
 (defn- prev-card [ cards code ]
   (->> cards  
       (sort-by :code)
@@ -174,7 +178,6 @@
       (take-last 2)
       last))
       
-  
 (defn- next-card [ cards code ]
   (->> cards 
       (sort-by :code #(compare %2  %1))
@@ -182,7 +185,7 @@
       (take-last 2)
       last))
              
-(defn lotrdb-markdown [ txt ]
+(defn- lotrdb-markdown [ txt ]
   (->> txt
       (re-seq #"\[\w+\]|\w+|." )
       (map #(model/convert "lotr-type-" %))
@@ -190,9 +193,9 @@
       
 (defn lotrdb-card-page [ id ]
   (let [cards  (model/get-cards-with-cycle)
-       card   (->> cards (filter #(= (:code %) id)) first)
-       prc    (prev-card cards id)
-       nxc    (next-card cards id)]
+        card   (->> cards (filter #(= (:code %) id)) first)
+        prc    (prev-card cards id)
+        nxc    (next-card cards id)]
     (h/html5
       lotrdb-pretty-head
       [:body
@@ -225,9 +228,12 @@
                   [:div [:small.text-muted (str (:pack_name card) " #" (:position card))]]]]]
             [:div.col-sm-6
               [:img {:src (or (:cgdbimgurl card) (model/get-card-image-url card))}]]]]
-      (h/include-js "/js/lotrdb_popover.js?v=1")
+      (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1")
       (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))                            
-                         
+ 
+; DECK LIST ;
+;;;;;;;;;;;;;
+ 
 (defn- code-to-name [ c ]
   (-> c
       (clojure.string/replace "_" " ")
@@ -284,32 +290,11 @@
           [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]
     ]))
           
-(defn lotrdb-decks [req]
-  (let [decks (db/get-user-decks 0 (-> req model/get-authentications (get :uid 1002)))
-        card-data (model/get-cards-with-cycle)]
-    (h/html5
-      lotrdb-pretty-head
-      [:body
-        (lotrdb-navbar req)
-        [:div.container.my-3
-          [:div.d-flex.justify-content-between
-            [:a.h3 {:href "/lotrdb/decks/fellowship"} "Fellowships"]
-            [:div.h3 (str "Saved Decks (" (count decks) ")")]
-            [:div 
-              [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
-              [:a.btn.btn-primary {:href "/lotrdb/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
-          [:div.d-flex
-            [:div#decklists.w-100
-              [:ul.list-group
-                (map (fn [d] (lotrdb-deck-card d card-data)) decks)]]]]
-        (deletemodal)
-        (importallmodal)
-        (importdeckmodal)
-        (exportdeckmodal)
-        (toaster)
-        (h/include-js "/js/lotrdb/lotrdb_decklist.js?v=1.0")])))
 
-   
+; Deckbuilder - single deck ;
+; Re-write using datatables ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (defn lotrdb-deckbuilder [ req ]
   (let [deckdata (model/get-deck-data req)]
 		(h/html5
@@ -419,22 +404,155 @@
               [:div.modal-body]]]]
 	  (h/include-css "/css/lotrdb-icomoon-style.css?v=1.0")
 	  (h/include-js "/js/externs/typeahead.js")
-	  (h/include-js "/js/lotrdb_tools.js?v=1.0")
-	  (h/include-js "/js/lotrdb_popover.js?v=1.0")
-    (h/include-js "/js/lotrdb_deckbuilder.js?v=1.1")])))
+	  (h/include-js "/js/lotrdb/lotrdb_tools.js?v=1.0")
+	  (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1.0")
+    (h/include-js "/js/lotrdb/lotrdb_deckbuilder.js?v=1.1")])))
     
     
+; FELLOWSHIP Builder ;
+;;;;;;;;;;;;;;;;;;;;;;
 
-(defn fellowship [ req ]  
-  (h/html5 
-    lotrdb-pretty-head
-    [:body
-      (lotrdb-navbar req)
-      [:div#fellowship]
-      (h/include-js "/js/compiled/fellowship.js")
-      (h/include-css "/css/lotrdb-icomoon-style.css")
-      (h/include-js "/js/lotrdb_popover.js?v=1")
-      ]))
+(def player-cards 
+  (filter #(and (contains? #{"hero" "ally" "attachment" "event"} (:type_code %))
+               (nil? (:encounter_name %))
+               (not= "Starter" (:pack_code %)))
+          (model/get-cards)))
+(def packs (model/get-packs))
+(def cycles (model/get-cycles))
+
+(defn- filter-buttons []
+  [:div.d-flex.justify-content-between.mb-2
+    [:div#typefilter.btn-group.btn-group-sm.btn-group-toggle {:data-toggle "buttons"}
+      (for [type player_type_icons]
+        [:label.btn.btn-outline-secondary {:key (gensym (:code type)) :title (:name type)}
+          [:input {:type "checkbox" :name (:code type)} (:symbol type)]])]
+    [:div#spherefilter.btn-group.btn-group-sm.btn-group-toggle {:data-toggle "buttons"}
+      (for [sphere sphere_icons]
+        [:label.btn.btn-outline-secondary {:key (gensym (:code sphere)) :title (:name sphere)}
+          [:input {:type "checkbox" :name (:code sphere)}
+            [:img.icon-xs {:src (:img sphere)}]]])]])
+
+(defn- buttons [ crd ]
+  (let [maxindeck (if (= (:type_code crd) "hero") 2 4)]
+    [:div.btn-group.btn-group-xs.btn-group-toggle {:key (gensym)}
+      (for [x (range maxindeck)]
+        [:button.btn.btn-outline-secondary {:class (if (zero? x) "active") :value x} x])]))
+        
+(defn- get-dupe-name [ crd player-cards ]
+  (let [dupes (filter #(= (:name %) (:name crd)) player-cards)
+        normalname (model/normalise (:name crd))
+        packname (str " (" (:pack_code crd) ")")]
+    (hash-map :dupename    (if (= 1 (count dupes))
+                               (:name crd) 
+                               (str (:name crd) packname))
+              :dupefilter (if (= 1 (count dupes))
+                               normalname
+                               (str normalname packname))
+              :dupesort (str normalname (:code crd)))))
+              
+        
+(defn- table []
+  [:table#dt.table.table-sm.table-hover.w-100
+    [:thead
+      [:tr
+        [:th "#1"]
+        [:th "Name"]
+        [:th.text-center {:title "Sphere"} "Sp."]
+        [:th.text-center {:title "Type"} "Ty."]
+        [:th.text-center.d-none.d-sm-table-cell {:title "Cost/Threat"} "C."]
+        [:th.text-center.d-none.d-sm-table-cell {:title "Attack"} "A."]
+        [:th.text-center.d-none.d-sm-table-cell {:title "Defense"} "D."]
+        [:th.text-center.d-none.d-sm-table-cell {:title "Willpower"} "W."]
+        [:th.text-center.d-none.d-sm-table-cell {:title "Health"} "H."]
+        [:th "#2"]
+        [:th.d-none "pack_code"]
+      ]]
+    [:tbody
+      (for [crd player-cards
+        :let [cost (or (:cost crd) (:threat crd))
+              btns (buttons crd)
+              {:keys [dupename dupefilter dupesort]} (get-dupe-name crd player-cards)]]
+        [:tr {:key (:code crd)}
+          [:td {:data-code (:code crd) :data-deck 0}
+            btns]
+          [:td {
+            :data-sort dupesort
+            :data-filter dupefilter}
+            [:a {:href "#" :data-target "#cardmodal" :data-toggle "modal" :data-code (:code crd)} dupename]]
+          [:td.text-center {
+            :data-sort (:sphere_code crd) 
+            :data-filter (:sphere_code crd) 
+            :title (:sphere_name crd)} 
+            [:img.icon-sm {:src (str "/img/lotrdb/icons/sphere_" (:sphere_code crd) ".png")}]]
+          [:td.text-center.text-secondary {
+            :data-sort (:type_code crd) 
+            :data-filter (:type_code crd)
+            :title (:type_name crd)}
+            (get type-icon (:type_code crd) (:type_name crd))]
+          [:td.text-center.d-none.d-sm-table-cell {
+            :data-sort (or cost -1)
+            :data-filter (or cost -1)}
+            cost]
+          [:td.text-center.d-none.d-sm-table-cell {
+            :data-sort (or (:attack crd) -1)
+            :data-filter (or (:attack crd) -1)}
+            (:attack crd)]
+          [:td.text-center.d-none.d-sm-table-cell {
+            :data-sort (or (:defense crd) -1)
+            :data-filter (or (:defense crd) -1)}
+            (:defense crd)]
+          [:td.text-center.d-none.d-sm-table-cell {
+            :data-sort (or (:willpower crd) -1)
+            :data-filter (or (:willpower crd) -1)}
+            (:willpower crd)]
+          [:td.text-center.d-none.d-sm-table-cell {
+            :data-sort (or (:health crd) -1)
+            :data-filter (or (:health crd) -1)}
+            (:health crd)]
+          [:td {:data-code (:code crd) :data-deck 1}
+            btns]
+          [:td.d-none {:data-sort (:code crd) :data-filter (:pack_code crd)} (:pack_code crd)]
+        ])
+    ]])
+    
+(defn- modal []
+  [:div#cardmodal.modal {:tab-index -1 :role "dialog"}
+    [:div.modal-dialog {:role "document"}
+      [:div.modal-content
+        [:div.modal-header
+          [:h5.modal-title.w-100 ""]
+          [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
+            [:span {:aria-hidden "true"} "\u00d7"]]]
+        [:div.modal-body]]]])
+    
+(defn- packsincycle [cycle-packs]
+  [:div.my-2
+    (for [pack cycle-packs]
+      [:div.d-flex.justify-content-between {:key (gensym "pack")}
+        (if (= 1 (count cycle-packs)) [:b (:name pack)] [:span  (:name pack)])
+        [:input.my-auto {:type "checkbox" :data-type "pack" :data-code (:code pack)}]])])
+    
+(defn- packlist []
+  [:div#packlist.list-group
+    [:li.list-group-item
+      [:div.d-flex.justify-content-between
+        [:b "Core Sets"]
+        [:div#coresets.btn-group.btn-group-sm.btn-group-toggle {:data-toggle "buttons"}
+            [:label.btn.btn-outline-secondary.active [:input {:type "radio" :name "coresets" :value 1 :checked true}] 1]
+            [:label.btn.btn-outline-secondary [:input {:type "radio" :name "coresets" :value 2}] 2]
+            [:label.btn.btn-outline-secondary [:input {:type "radio" :name "coresets" :value 3}] 3]]]]
+    
+    (for [cycle (sort-by :cycle_position (rest cycles))
+          :let [cycle-packs (->> packs (filter #(= (:cycle_position %) (:cycle_position cycle))) (sort-by :position))]]
+      (if (= 1 (count cycle-packs))
+          [:li.list-group-item {:key (gensym "cyc")}
+            (packsincycle cycle-packs)]
+          [:li.list-group-item {:key (gensym "cyc")}
+            [:div.d-flex.justify-content-between
+              [:b (:name cycle)]
+              [:input.my-auto {:type "checkbox" :data-type "cycle" :data-code (:cycle_position cycle)}]]
+            (packsincycle cycle-packs)]))])
+            
                          
 (defn lotrdb-solo-page [ req ]
   (h/html5 
@@ -444,5 +562,5 @@
       [:div#lotrsolo]
       (h/include-js "/js/compiled/lotrsolo.js")
       (h/include-css "/css/lotrdb-icomoon-style.css")
-      (h/include-js "/js/lotrdb_popover.js?v=1")
+      (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1")
       ]))
