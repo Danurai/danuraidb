@@ -234,15 +234,16 @@
   (let [row qry
         where-clause ["uid = ?" (:uid qry)]]
     (j/with-db-transaction [t-con db]
-      (let [result (j/update! t-con :deckgroups row where-clause)]
+      (let [result (j/update! t-con :deckgroups (assoc row :updated (c/to-long (t/now))) where-clause)]
         (if (zero? (first result))
-          (j/insert! t-con :deckgroups row)
+          (j/insert! t-con :deckgroups (assoc row :created (c/to-long (t/now)) :updated (c/to-long (t/now))))
           result)))))
 
 (defn get-user-deckgroup [ deckuid ]
   (first (j/query db ["SELECT * FROM deckgroups WHERE uid = ?" deckuid])))  
   
-  
+(defn delete-deck-group [ uid ]
+  (j/delete! db :deckgroups ["uid = ?" uid]))
 ;;;;;;;;;;;;;;
 ; COLLECTION ;
 ;;;;;;;;;;;;;;
