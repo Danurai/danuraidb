@@ -22,7 +22,7 @@
     "/img/lotrdb/icons/sphere_fellowship.png" 
     "LotR DB" 
     "lotrdb"
-    ["decks" "packs" "scenarios" "search" "solo"]
+    ["decks" "packs" "scenarios" "search" "folders" "solo"]
     req))
     
 (defn lotrdb-home [ req ]
@@ -661,6 +661,53 @@
     (h/include-js  "/js/lotrdb/lotrdb_tools.js")
     (h/include-js  "/js/lotrdb/lotrdb_popover.js")
     (h/include-js  "/js/lotrdb/lotrdb_fellowship.js"))))
+
+(defn lotrdb-decks [req]
+  (let [decks (db/get-user-decks 0 (-> req model/get-authentications (get :uid 1002)))
+        fellowships (db/get-user-deckgroups 0 (-> req model/get-authentications (get :uid 1002)))
+        card-data (model/get-cards-with-cycle)]
+    (h/html5
+      lotrdb-pretty-head
+      [:body
+        (lotrdb-navbar req)
+        [:div.container.my-3
+          [:ul.nav.nav-tabs.nav-fill {:role "tablist"}
+            [:li.h4.nav-item [:a.nav-link.active {:href "#decktab" :data-toggle "tab" :role "tab"} "Decks"]]
+            [:li.h4.nav-item [:a.nav-link {:href "#fellowshiptab" :data-toggle "tab" :role "tab"} "Fellowships"]]]
+          [:div.tab-content
+            [:div#decktab.tab-pane.fade.show.active.my-3 {:role "tabpanel"}
+              [:div.d-flex.justify-content-between
+                [:div.h3 (str "Saved Decks (" (count decks) ")")]
+                [:div 
+                  [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
+                  [:a.btn.btn-primary {:href "/lotrdb/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
+              [:div.d-flex
+                [:div#decklists.w-100
+                  [:ul.list-group
+                    (map (fn [d] (lotrdb-deck-card d card-data)) decks)]]]]
+            [:div#fellowshiptab.tab-pane.fade.my-3 {:role "tabpanel"}
+              [:div.d-flex.justify-content-between
+                [:div.h3 (str "Saved Fellowships (" (count fellowships) ")")]
+                [:div 
+                  [:a.btn.btn-primary {:href "/lotrdb/decks/fellowship/new" :title "New Fellowship"} [:i.fas.fa-plus]]]]
+              [:div.d-flex
+                [:ul#fellowshiplist.list-group.w-100
+                  (for [f fellowships]
+                    [:li.list-group-item {:key (:uid f)}
+                      [:div.d-flex.justify-content-between
+                        [:h5 (:name f)]
+                        [:span  
+                          [:button.btn.btn-sm.btn-danger.mr-1 {:data-name (:name f) :data-target "#deletegroupmodal" :data-toggle "modal" :data-uid (:uid f)} [:i.fas.fa-times.mr-1] "Delete"]
+                          [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/fellowship/" (:uid f))} [:i.fas.fa-edit.mr-1] "Edit"]
+                          ]]])
+                  ]]]]]
+        (deletemodal)
+        (deletegroupmodal)
+        (importallmodal)
+        (importdeckmodal)
+        (exportdeckmodal)
+        (toaster)
+        (h/include-js "/js/lotrdb/lotrdb_decklist.js?v=1.0")])))    
     
 (defn lotrdb-solo-page [ req ]
   (h/html5 

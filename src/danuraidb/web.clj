@@ -97,6 +97,8 @@
     pages/lotrdb-scenarios-page)
   (GET "/search" []
     pages/lotrdb-search-page)
+  (GET "/folders" []
+    pages/lotrdb-folders)
   (GET "/solo" []
     pages/lotrdb-solo-page)
   (GET "/cycle/:id" [ id ]

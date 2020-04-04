@@ -13,52 +13,51 @@
 (load "pages/common")
 (load "pages/lotrdb")
 
-(defn lotrdb-decks [req]
-  (let [decks (db/get-user-decks 0 (-> req model/get-authentications (get :uid 1002)))
-        fellowships (db/get-user-deckgroups 0 (-> req model/get-authentications (get :uid 1002)))
-        card-data (model/get-cards-with-cycle)]
+(defn lotrdb-folders [ req ]
+  (let [card_types ["hero" "ally" "attachment" "event"]
+        cycles (drop-last (model/get-cycles))
+        packs  (model/get-packs)
+        cards  (model/get-cards) ;(filter #(contains (set card_types) (:type_code %) (model/get-cards)))
+        spheres [{:name "Leadership" :col "purple"}{:name "Lore" :col "green"}{:name "Spirit" :col "blue"}{:name "Tactics" :col "darkred"}{:name "Neutral" :col "slategrey"}]]
     (h/html5
       lotrdb-pretty-head
       [:body
         (lotrdb-navbar req)
         [:div.container.my-3
-          [:ul.nav.nav-tabs.nav-fill {:role "tablist"}
-            [:li.h4.nav-item [:a.nav-link.active {:href "#decktab" :data-toggle "tab" :role "tab"} "Decks"]]
-            [:li.h4.nav-item [:a.nav-link {:href "#fellowshiptab" :data-toggle "tab" :role "tab"} "Fellowships"]]]
-          [:div.tab-content
-            [:div#decktab.tab-pane.fade.show.active.my-3 {:role "tabpanel"}
-              [:div.d-flex.justify-content-between
-                [:div.h3 (str "Saved Decks (" (count decks) ")")]
-                [:div 
-                  [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
-                  [:a.btn.btn-primary {:href "/lotrdb/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
-              [:div.d-flex
-                [:div#decklists.w-100
-                  [:ul.list-group
-                    (map (fn [d] (lotrdb-deck-card d card-data)) decks)]]]]
-            [:div#fellowshiptab.tab-pane.fade.my-3 {:role "tabpanel"}
-              [:div.d-flex.justify-content-between
-                [:div.h3 (str "Saved Fellowships (" (count fellowships) ")")]
-                [:div 
-                  [:a.btn.btn-primary {:href "/lotrdb/decks/fellowship/new" :title "New Fellowship"} [:i.fas.fa-plus]]]]
-              [:div.d-flex
-                [:ul#fellowshiplist.list-group.w-100
-                  (for [f fellowships]
-                    [:li.list-group-item {:key (:uid f)}
-                      [:div.d-flex.justify-content-between
-                        [:h5 (:name f)]
-                        [:span  
-                          [:button.btn.btn-sm.btn-danger.mr-1 {:data-name (:name f) :data-target "#deletegroupmodal" :data-toggle "modal" :data-uid (:uid f)} [:i.fas.fa-times.mr-1] "Delete"]
-                          [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/fellowship/" (:uid f))} [:i.fas.fa-edit.mr-1] "Edit"]
-                          ]]])
-                  ]]]]]
-        (deletemodal)
-        (deletegroupmodal)
-        (importallmodal)
-        (importdeckmodal)
-        (exportdeckmodal)
-        (toaster)
-        (h/include-js "/js/lotrdb/lotrdb_decklist.js?v=1.0")])))
+          [:div.row
+            [:div.col-lg-7 
+              [:div.row
+                [:ol.breadcrumb
+                  (for [s spheres]
+                    [:li.breadcrumb-item {:style (str "color: " (:col s) "; cursor: pointer;") } (:name s)] ;:color (str (:col s))
+                    )]]] 
+            [:div.col-lg-5
+              [:div.list-group
+                [:div.h4.text-center "Packs Owned"]
+                (for [c cycles]
+                  (if (= 1 (:cycle_position c)) ; Core
+                    [:div.list-group-item
+                      [:div.d-flex
+                        [:span.h5.my-auto (:name c)]
+                        [:div.ml-auto.btn-group.btn-group-sm.btn-group-toggle {:data-toggle "buttons"}
+                          [:label.btn.btn-outline-secondary.active
+                            [:input#core1 {:name "corecount" :type "radio" :checked true}] "1"]
+                          [:label.btn.btn-outline-secondary
+                            [:input#core2 {:name "corecount" :type "radio"}] "2"]
+                          [:label.btn.btn-outline-secondary
+                            [:input#core3 {:name "corecount" :type "radio"}] "3"]
+                          ]]]
+                    (let [pcks (->> packs (filter #(= (:cycle_position %) (:cycle_position c))))]
+                      [:div.list-group-item 
+                        [:div.d-flex
+                          [:span.h5 (:name c)]
+                          [:span.ml-auto [:input {:type "checkbox" :id (str "cyc_" (:cycle_position c))}]]]
+                        (if (< 1 (count pcks))
+                          (for [p pcks]                          
+                            [:div.d-flex
+                              [:span (:name p)]
+                              [:span.ml-auto [:input {:type "checkbox" :id (str "pck_" (:id p))}]]]))])))]]]
+          ]])))
       
 (load "pages/aosc")    
 (load "pages/whuw")
