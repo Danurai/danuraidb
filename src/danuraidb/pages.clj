@@ -18,7 +18,7 @@
         cycles (drop-last (model/get-cycles))
         packs  (model/get-packs)
         cards  (model/get-cards) ;(filter #(contains (set card_types) (:type_code %) (model/get-cards)))
-        spheres [{:name "Leadership" :col "purple"}{:name "Lore" :col "green"}{:name "Spirit" :col "blue"}{:name "Tactics" :col "darkred"}{:name "Neutral" :col "slategrey"}]]
+        spheres [{:name "Leadership" :col "purple"}{:name "Lore" :col "green"}{:name "Spirit" :col "blue"}{:name "Tactics" :col "darkred"}{:name "Neutral" :col "slategrey"}{:name "Baggins" :col "goldenrod"}]]
     (h/html5
       lotrdb-pretty-head
       [:body
@@ -27,37 +27,55 @@
           [:div.row
             [:div.col-lg-7 
               [:div.row
-                [:ol.breadcrumb
-                  (for [s spheres]
-                    [:li.breadcrumb-item {:style (str "color: " (:col s) "; cursor: pointer;") } (:name s)] ;:color (str (:col s))
-                    )]]] 
+                [:nav
+                  [:ol#spheres.breadcrumb
+                    (for [s spheres]
+                      [:li.breadcrumb-item {:data-code (-> s :name clojure.string/lower-case)  :style (str "cursor: pointer; color: " (:col s) ";") } (:name s)])]]]
+              [:div.row
+                [:nav [:ol#types.breadcrumb
+                  (for [t card_types]
+                    [:li.breadcrumb-item {:style "cursor: pointer;"} (clojure.string/capitalize t)])]]]
+              [:div.row.d-flex.justify-content-between
+                [:div#pagetype] 
+                [:div#pageno]
+                [:div#pager.btn-group.btn-group-sm
+                  [:button.btn.btn-outline-secondary {:value -1} "<<"]
+                  [:button.btn.btn-outline-secondary {:value 1} ">>"]]]
+              [:div#page.row.mb-3
+                [:span "Loading..."]]]
             [:div.col-lg-5
-              [:div.list-group
+              [:div#packs.list-group
                 [:div.h4.text-center "Packs Owned"]
-                (for [c cycles]
+                (for [c cycles :let [cycle_id (str "cyc_" (:cycle_position c))]]
                   (if (= 1 (:cycle_position c)) ; Core
                     [:div.list-group-item
                       [:div.d-flex
                         [:span.h5.my-auto (:name c)]
-                        [:div.ml-auto.btn-group.btn-group-sm.btn-group-toggle {:data-toggle "buttons"}
-                          [:label.btn.btn-outline-secondary.active
-                            [:input#core1 {:name "corecount" :type "radio" :checked true}] "1"]
-                          [:label.btn.btn-outline-secondary
-                            [:input#core2 {:name "corecount" :type "radio"}] "2"]
-                          [:label.btn.btn-outline-secondary
-                            [:input#core3 {:name "corecount" :type "radio"}] "3"]
+                        [:div#coresets.ml-auto.btn-group.btn-group-sm.btn-group-toggle {:data-toggle "buttons"}
+                          [:label#core1.btn.btn-outline-secondary.active
+                            [:input {:name "corecount" :value "1" :type "radio" :checked true}] "1"]
+                          [:label#core2.btn.btn-outline-secondary
+                            [:input {:name "corecount" :value "2" :type "radio"}] "2"]
+                          [:label#core3.btn.btn-outline-secondary
+                            [:input {:name "corecount" :value "3" :type "radio"}] "3"]
                           ]]]
                     (let [pcks (->> packs (filter #(= (:cycle_position %) (:cycle_position c))))]
-                      [:div.list-group-item 
-                        [:div.d-flex
-                          [:span.h5 (:name c)]
-                          [:span.ml-auto [:input {:type "checkbox" :id (str "cyc_" (:cycle_position c))}]]]
-                        (if (< 1 (count pcks))
+                      (if (= 1 (count pcks))
+                        [:div.list-group-item 
+                          [:div.d-flex
+                            [:span.h5 (:name c)]
+                            [:span.ml-auto [:input.pack {:type "checkbox" :id (str "pck_" (-> pcks first :id)) :data-code (-> pcks first :code)}]]]]
+                        [:div.list-group-item 
+                          [:div.d-flex
+                            [:span.h5 (:name c)]
+                            [:span.ml-auto [:input.cycle {:type "checkbox" :id cycle_id}]]]
                           (for [p pcks]                          
                             [:div.d-flex
                               [:span (:name p)]
-                              [:span.ml-auto [:input {:type "checkbox" :id (str "pck_" (:id p))}]]]))])))]]]
-          ]])))
+                              [:span.ml-auto [:input.pack {:type "checkbox" :id (str "pck_" (:id p)) :data-code (:code p)}]]])]))))]]
+          ]]]
+    (h/include-js "/js/lotrdb/lotrdb_folders.js?v=1")
+    )))
       
 (load "pages/aosc")    
 (load "pages/whuw")

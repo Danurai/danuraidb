@@ -118,7 +118,7 @@
     (try
       (if (= sp :postgresql) (j/db-do-commands db ["create sequence user_uid_seq minvalue 1000"]))
       (j/db-do-commands db 
-        (j/create-table-ddl :users (-> tcreate :users sp)))
+        (j/create-table-ddl :users (-> tcreate :users sp) {:conditional? true}))
       (if (= sp :sqlite) (j/insert! db :sqlite_sequence {:name "users" :seq 1000}))
       (j/insert! db :users {:username "root" :password (creds/hash-bcrypt "admin") :active true :admin true  :created timestamp})
       (j/insert! db :users {:username "dan"  :password (creds/hash-bcrypt "user")  :active true :admin false :created timestamp})
@@ -128,7 +128,7 @@
   (let [sp (keyword (get db :subprotocol "postgresql"))]
     (try
       (if (= sp :postgresql) (j/db-do-commands db ["create sequence staging_uid_seq minvalue 1000"]))
-      (j/db-do-commands db   (j/create-table-ddl :staging (-> tcreate :staging sp)))
+      (j/db-do-commands db   (j/create-table-ddl :staging (-> tcreate :staging sp) {:conditional? true}))
       (if (= sp :sqlite)     (j/insert! db :sqlite_sequence {:name "staging" :seq 1000}))
       (catch Exception e (println (str "DB Error - Staging: " e ))))))
       
