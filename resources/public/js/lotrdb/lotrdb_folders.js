@@ -34,6 +34,14 @@ $('#spheres').on('click','li',function () {
   setpacks();
 });
 
+$('#types').on('click','li',function () {
+  _pageno = Math.max(
+    1,
+    ((_pages.findIndex(c => c.type_code == $(this).data('code')))/9)+1
+  )
+  writepage(); 
+})
+
 $('#coresets').on('change', function () {
   corecount = (parseInt($('input[type=radio]:checked', this).val()));
   localStorage.setItem('lotrdb_corecount',corecount);

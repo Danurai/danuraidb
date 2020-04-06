@@ -34,8 +34,8 @@
               [:div.row
                 [:nav [:ol#types.breadcrumb
                   (for [t card_types]
-                    [:li.breadcrumb-item {:style "cursor: pointer;"} (clojure.string/capitalize t)])]]]
-              [:div.row.d-flex.justify-content-between
+                    [:li.breadcrumb-item {:data-code (clojure.string/lower-case t):style "cursor: pointer;"} (clojure.string/capitalize t)])]]]
+              [:div.row.d-flex.justify-content-between.mb-2
                 [:div#pagetype] 
                 [:div#pageno]
                 [:div#pager.btn-group.btn-group-sm
