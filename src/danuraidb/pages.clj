@@ -72,9 +72,20 @@
                           (for [p pcks]                          
                             [:div.d-flex
                               [:span (:name p)]
-                              [:span.ml-auto [:input.pack {:type "checkbox" :id (str "pck_" (:id p)) :data-code (:code p)}]]])]))))]]
-          ]]]
+                              [:span.ml-auto [:input.pack {:type "checkbox" :id (str "pck_" (:id p)) :data-code (:code p)}]]])]))))]]]]
+      [:div#cardmodal.modal {:tabindex -1 :role "dialog"}
+        [:div.modal-dialog {:role "document"}
+          [:div.modal-content
+            [:div.modal-header
+              [:h5#cardname.modal-title]
+              [:button.close {:type "button" :data-dismiss "modal"} [:span "&times;"]]]
+            [:div.modal-body
+              [:div.row
+                [:div#carddata.col-8]
+                [:div.col-4 [:img#cardimg.img-fluid]]]]]]]
+      ]
     (h/include-js "/js/lotrdb/lotrdb_folders.js?v=1")
+    (h/include-css "/css/lotrdb-icomoon-style.css?v=1")
     )))
       
 (load "pages/aosc")    

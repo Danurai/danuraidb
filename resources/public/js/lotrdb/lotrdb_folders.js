@@ -104,9 +104,32 @@ function writepage() {
               + '</span>'
             : '')
       +   (typeof c.name == 'undefined'
-            ? '<img class="img-fluid rounded" src="/img/lotrdb/player_back.jpg" style="opacity: 0.3;" />'
-            : '<img class="img-fluid" src="' + c.cgdbimgurl + '" title="'+c.pack_code+'" />')
+            ? '<img class="img-fluid rounded " src="/img/lotrdb/player_back.jpg" style="opacity: 0.3;" />'
+            : '<img class="img-fluid rounded cardlink" data-toggle="modal" data-target="#cardmodal" src="' + c.cgdbimgurl + '" title="'+c.pack_code+'" data-code="' + c.code + '" />')
       +   '</div>'
       + '</div>').join('')
    )
 }
+function lortdb_markdown (str) {
+  var rtn;
+  // Icons
+  rtn = str.replace(/\[(\w+)\]/g,(($0,$1) => '<i class="lotr-type-' + $1.toLowerCase() + '"></i>'));
+  return rtn;
+}
+
+$('#cardmodal').on('show.bs.modal',function (e) {
+  var code = $(e.relatedTarget).data('code');
+  var c = _db_cards({"code":code.toString()}).first();
+  $('#cardname').html(
+    '<span>' 
+    + (c.is_unique == true ? '<i class="lotr-type-unique unique-icon mr-1" />' : '')
+    + c.name
+    + '</span>');
+  $('#carddata').html(
+    (typeof c.traits != 'undefined' ? '<div class="text-center"><b>' + c.traits + '</b></div>' : '')
+    + '<div style="white-space: pre-wrap">' + lortdb_markdown(c.text) + '</span>'
+    + (typeof c.flavor != 'undefined' ? '<div style="white-space: pre-wrap"><i>' + c.flavor + '</i></span>' : '')
+    // + '<img class="icon-sm" src="/img/lotrdb/icons/sphere_' + c.sphere_code + '.png">')
+    );
+  $('#cardimg').prop('src',c.cgdbimgurl);
+});
