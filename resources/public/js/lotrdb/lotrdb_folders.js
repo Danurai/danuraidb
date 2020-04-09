@@ -105,7 +105,7 @@ function writepage() {
             : '')
       +   (typeof c.name == 'undefined'
             ? '<img class="img-fluid rounded " src="/img/lotrdb/player_back.jpg" style="opacity: 0.3;" />'
-            : '<img class="img-fluid rounded cardlink" data-toggle="modal" data-target="#cardmodal" src="' + c.cgdbimgurl + '" title="'+c.pack_code+'" data-code="' + c.code + '" />')
+            : '<img class="img-fluid rounded cardlink" data-toggle="modal" data-target="#cardmodal" src="' + c.cgdbimgurl + '" title="'+c.name + ' - '+c.pack_name+' #'+c.position+'" data-code="' + c.code + '" />')
       +   '</div>'
       + '</div>').join('')
    )
@@ -121,15 +121,16 @@ $('#cardmodal').on('show.bs.modal',function (e) {
   var code = $(e.relatedTarget).data('code');
   var c = _db_cards({"code":code.toString()}).first();
   $('#cardname').html(
-    '<span>' 
+    '<div>' 
     + (c.is_unique == true ? '<i class="lotr-type-unique unique-icon mr-1" />' : '')
     + c.name
-    + '</span>');
+    + '</div>');
   $('#carddata').html(
     (typeof c.traits != 'undefined' ? '<div class="text-center"><b>' + c.traits + '</b></div>' : '')
     + '<div style="white-space: pre-wrap">' + lortdb_markdown(c.text) + '</span>'
-    + (typeof c.flavor != 'undefined' ? '<div style="white-space: pre-wrap"><i>' + c.flavor + '</i></span>' : '')
-    // + '<img class="icon-sm" src="/img/lotrdb/icons/sphere_' + c.sphere_code + '.png">')
-    );
+    + (typeof c.flavor != 'undefined' ? '<div class="mt-1"><em style="white-space: pre-wrap">' + c.flavor + '</em></span>' : ''));
+  $('#cardfooter').html(
+    '<div class="muted">' + c.pack_name + ' #' + c.position + '</div>'
+    + '<img class="icon-sm mr-2" src="/img/lotrdb/icons/sphere_' + c.sphere_code + '.png">')
   $('#cardimg').prop('src',c.cgdbimgurl);
 });
