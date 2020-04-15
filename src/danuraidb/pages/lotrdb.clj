@@ -186,7 +186,7 @@
             (if (= view "cards")
               (for [card results]
                 [:div.col-auto
-                  [:img.img-fluid.card-link {:data-code (:code card) :src (or (:cgdbimgurl card) (model/get-card-image-url card))}]])
+                  [:img.img-fluid.card-link {:data-code (:code card) :src (:cgdbimgurl card)}]]) ;(or (:cgdbimgurl card) (model/get-card-image-url card))}]])
               [:div.col
                 [:table#tblresults.table.table-sm.table-hover
                   [:thead [:tr  
@@ -276,7 +276,7 @@
                   [:div.mt-1	 [:em {:style "white-space: pre-wrap;"} (:flavor card)]]
                   [:div [:small.text-muted (str (:pack_name card) " #" (:position card))]]]]]
             [:div.col-sm-6
-              [:img {:src (or (:cgdbimgurl card) (model/get-card-image-url card))}]]]]
+              [:img {:src (:cgdbimgurl card)}]]]] ;(or (:cgdbimgurl card) (model/get-card-image-url card))}]]]]
       (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1")
       (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))                            
  
@@ -317,7 +317,8 @@
         [:div.d-flex.justify-content-between
           [:div
             [:div.h4.mt-2 (:name d)]
-            [:div (map (fn [x] [:a.badge.badge-secondary.text-light.mr-1 x]) (re-seq #"\w+" (:tags d)))]]
+            ;[:div (map (fn [x] [:a.badge.badge-secondary.text-light.mr-1 x]) (re-seq #"\w+" (get d :tags "")))]
+            ]
           [:div.d-none.d-sm-flex
             (for [h heroes] 
               [:span 
@@ -444,13 +445,14 @@
                                     [:span.font-weight-bold (:name c)]]]))
                         ))])]]]]]]
         [:div#cardmodal.modal {:tab-index -1 :role "dialog"}
-          [:div.modal-dialog.modal-sm {:role "document"}
+          [:div.modal-dialog {:role "document"}
             [:div.modal-content
               [:div.modal-header
                 [:h5.modal-title]
                 [:span.buttons]
                 [:button.close {:data-dismiss "modal"} "x"]]
-              [:div.modal-body]]]]
+              [:div.modal-body]
+              [:div.modal-footer]]]]
 	  (h/include-css "/css/lotrdb-icomoon-style.css?v=1.0")
 	  (h/include-js "/js/externs/typeahead.js")
 	  (h/include-js "/js/lotrdb/lotrdb_tools.js?v=1.0")

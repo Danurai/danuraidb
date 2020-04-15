@@ -77,12 +77,17 @@
       (string/replace #"[\u00f2-\u00f6]" "o")
       (string/replace #"[\u00f9-\u00fc]" "u")))
       
-(defn normalise-name [ name ]
-  (-> name
-      string/lower-case
-      (string/replace #"\s" "-")
-      (string/replace #"\'|\!" "")
-      normalise))
+;(defn normalise-name [ name ]
+;  (-> name
+;      string/lower-case
+;      (string/replace #"\s" "-")
+;      (string/replace #"\'|\!|\,|\." "")
+;      normalise
+;      (string/replace "herald-of-anorien","hearld-of-anorien")
+;      (string/replace "defender-of-the-naith","defender-of-naith")
+;      (string/replace "warden-of-arnor","warden-of-anor")
+;      (string/replace "the-fall-of-gil-galad","the-fall-of-gil--galad")
+;      ))
     
 ;; ALL GET JSON FILES - API WRAPPER
 
@@ -105,42 +110,42 @@
               (assoc p :sku (str "MEC" (format "%02d" (get sku-code (:id p)))))))))
               
 
-(defn- cgdb-card-name [ card ]
-  (let [pack (->> (get-packs-with-sku) (filter #(= (:code %) (:pack_code card))) first)]
-    (cond
-      (some #(= (:id pack) %) (set (apply merge (range 1 23) [37 38 39 61])))
-        (str 
-          (normalise-name (:name card))
-          "-"
-          (cgdb-pack-name (:pack_code card) (clojure.string/lower-case (:pack_code card))))
-      (= (:id pack) 23)
-        (str 
-          (normalise-name (:name card))
-          "_"
-          (normalise-name (:pack_name card))
-          "_"
-          (:position card)) 
-      (< 23 (:id pack) 26)
-        (str 
-          (normalise-name (:name card))
-          "-"
-          (normalise-name (:pack_name card))
-          "-"
-          (:position card)) 
-      (= (:id pack) 40)
-        (str (:sku pack) "_" (format "%03d" (:position card)))
-      :else ;(< 25 (:id pack))
-        (str (:sku pack) "_" (:position card))
-      )))
-          
-(defn get-card-image-url 
-  ([ card size ]
-      (str "http://www.cardgamedb.com/forums/uploads/lotr/"
-          (if (= size :small) "tn_" "ffg_")
-          (cgdb-card-name card)
-          ".jpg"))
-  ([ card ] 
-    (get-card-image-url card :normal)))
+;(defn- cgdb-card-name [ card ]
+;  (let [pack (->> (get-packs-with-sku) (filter #(= (:code %) (:pack_code card))) first)]
+;    (cond
+;      (some #(= (:id pack) %) (set (apply merge (range 1 23) [37 38 39 61])))
+;        (str 
+;          (normalise-name (:name card))
+;          "-"
+;          (cgdb-pack-name (:pack_code card) (clojure.string/lower-case (:pack_code card))))
+;      (= (:id pack) 23)
+;        (str 
+;          (normalise-name (:name card))
+;          "_"
+;          (normalise-name (:pack_name card))
+;          "_"
+;          (:position card)) 
+;      (< 23 (:id pack) 26)
+;        (str 
+;          (normalise-name (:name card))
+;          "-"
+;          (normalise-name (:pack_name card))
+;          "-"
+;          (:position card)) 
+;      (= (:id pack) 40)
+;        (str (:sku pack) "_" (format "%03d" (:position card)))
+;      :else ;(< 25 (:id pack))
+;        (str (:sku pack) "_" (:position card))
+;      )))
+;          
+;(defn get-card-image-url 
+;  ([ card size ]
+;      (str "http://www.cardgamedb.com/forums/uploads/lotr/"
+;          ;(if (= size :small) "tn_" "ffg_")
+;          (cgdb-card-name card)
+;          ".jpg"))
+;  ([ card ] 
+;    (get-card-image-url card :normal)))
 							
 (defn get-cards-with-cycle []
   (let [positions (reduce merge (map #(hash-map (:code %) (:cycle_position %)) (get-packs)))
@@ -150,7 +155,7 @@
 								cycle (->> cycles (filter #(= (:cycle_position %) pos)) first)]
 						(assoc c :cycle_position pos
 										 :cycle_name (:name cycle)
-                     :cgdbimgurl (or (:cgdbimgurl c) (get-card-image-url c))
+                     ;:cgdbimgurl (get-card-image-url c)
 										 )))
       (get-cards))))
 	

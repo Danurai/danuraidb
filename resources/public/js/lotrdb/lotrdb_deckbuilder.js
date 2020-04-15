@@ -51,7 +51,9 @@ function tblrow (c) {
     + '<td>' + deck_buttons(c) + '</td>'
     + '<td><a class="card-link" data-toggle="modal" data-target="#cardmodal" href="/lotrdb/card/' + c.code + '" data-code="' + c.code + '">' 
       + (c.is_unique ? '&bull;&nbsp;' : '')
-      + c.name + '</a></td>'
+      + c.name 
+      + (_db_cards({"name":c.name}).count()>1 ? ' (' + c.pack_code +')' : '')
+      + '</a></td>'
     + '<td class="text-center">' + c.type_name + '</td>'
     + '<td class="text-center" title="' + c.sphere_name + '"><img class="icon-xs" src="/img/lotrdb/icons/sphere_' + c.sphere_code + '.png"</img></td>'
     + '<td class="text-center">' + (c.threat != -1 ? c.threat : (c.cost != -1 ? c.cost : "-"))+ '</td>'
@@ -99,7 +101,7 @@ function write_deck () {
       + 'href="lotrdb/card/' + c.code + '" '
       + 'data-code="' + c.code + '">'
       + '<div class="deckhero" '
-      + 'style = "background-image: url(' + getcgdbImageUrl(c) + '); position: relative;">'
+      + 'style = "background-image: url(' + c.cgdbimgurl + '); position: relative;">'
       + '<span style="position: absolute; right: 2px; bottom: 2px;">'
       + '<image src="/img/lotrdb/icons/sphere_' + c.sphere_code + '.png" style="width: 35px;" />'
       + '</span>'
@@ -172,7 +174,7 @@ $('body').on('click','.card-link',function (e) {
 
 $('#cardmodal')
   .on('show.bs.modal', function (event) {
-    var code = $(event.relatedTarget).data("code"); // Button that triggered the modal
+    var code = $(event.relatedTarget).data("code").toString(); // Button that triggered the modal
     var crd = _db_cards({"code":code}).first();
     if (typeof crd.code !== 'undefined') {setModalHtml($(this),crd);}
   })
@@ -201,10 +203,10 @@ function setModalHtml(modal,crd) {
       + '<button class="close" type="button" data-dismiss="modal"><span>&times;</span></button>');
   modal
     .find('.modal-body')
-    .html('<div class="row">'
-      + '<div class="col-sm-9">'
-      + '<img src="' + getcgdbImageUrl(crd) + '" style="width: 100%;"></img>'
-      + '</div></div>');
+    .html('<img src="' + crd.cgdbimgurl + '" class="img-fluid" />');
+  modal
+    .find('.modal-footer')
+    .html('<span>' + crd.pack_name + ' #' + crd.position + '</span>');
 }  
 function modalButtonGroup(crd) {
   var count = (_deck[crd.code] || 0);

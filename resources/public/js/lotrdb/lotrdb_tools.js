@@ -1,3 +1,6 @@
+/*
+use card.cgdbimgurl
+
 function getcgdbImageUrl ( card ) {
   return "http://www.cardgamedb.com/forums/uploads/lotr/ffg_" + cgdbCardName(card) + ".jpg";
 }
@@ -30,6 +33,8 @@ function cgdbCardName (card) {
   }
   return cardname;
 }
+
+*/
 
 function normalizeName ( name ) {
   return name
@@ -204,15 +209,3 @@ function shuffle(array) {
 
   return array;
 }
-
-/*
-function add_toast(msg) {
-  var $toast = $('<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true">'
-    + '<div class="toast-header"><i class="fas fa-exclamation text-primary mr-2"></i><b class="mr-auto">AoSC DB</b></div>'
-    + '<div class="toast-body">'
-    + msg
-    + '</div></div>');
-  $('#toaster').append($toast);
-  $toast.toast({delay: 3000}).toast("show");
-}
-*/

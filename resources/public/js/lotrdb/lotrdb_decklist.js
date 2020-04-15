@@ -39,7 +39,8 @@ $('#exportdeck').on('show.bs.modal',function (ev) {
 
 $('#importdeck')
   .on('show.bs.modal', function() {
-    $('#decksystem').val(3);
+    $('#decksystem').val(0);
+    $('#deckdata').val("{}");
   });
 $('#importdeckname').on('input',function() {
   $('#deckname').val($(this).val())

@@ -87,7 +87,35 @@
     (h/include-js "/js/lotrdb/lotrdb_folders.js?v=1")
     (h/include-css "/css/lotrdb-icomoon-style.css?v=1")
     )))
-      
+   
+(defn testpage [ req ]
+; lotr card img urls
+  (let [crds (model/get-cards)]
+    (h/html5
+      lotrdb-pretty-head
+      [:style ".card {width: 200px;}"]
+      [:body 
+        (lotrdb-navbar req)
+        [:div.container.my-3
+          [:div.row.mb-2
+            [:div.col
+              [:div#types.btn-group.btn-group-toggle {:data-toggle "buttons"}
+                (for [t (->> crds (map :type_code) distinct sort)]
+                  [:label.btn.btn-outline-primary {:class (if (= t "quest") "active")}
+                    [:input {:type "radio" :data-type_code t :name "typecode" }]
+                    t])]]]
+          [:div#cards.row.mb-2]
+        ]
+        [:div#cardmodal.modal.fade {:tabindex -1 :role "dialog"}
+          [:div.modal-dialog.modal-lg {:role "document"}
+            [:div.modal-content
+              [:div.modal-header
+                [:h4#cardname.modal-title]
+                [:button.close {:type "button" :data-dismiss "modal"} [:span "&times;"]]]
+              [:div#cardimg.modal-body]]]]
+      (h/include-js "/js/lotrdb/cardurltest.js?v=1")
+      ])))
+   
 (load "pages/aosc")    
 (load "pages/whuw")
 (load "pages/whconq")
@@ -96,23 +124,12 @@
 (defn home [req]
   (h/html5
     pretty-head
-    [:body
+    [:body;
       (navbar req)
       [:div.container.my-3
         [:div.h5 "Deckbuilders"]
         (map (fn [{:keys [code desc icon]}]
           [:div [:a {:href (str "/" code "/decks") } [:img.mr-2 {:src icon :style "width: 1em"}] desc]]) model/systems)]]))
-          
-(defn testpage [req]
-  (h/html5
-    pretty-head
-    [:body
-      (navbar req)
-      [:div.container.my-3
-        (toaster)
-        [:div.row
-          [:div.col-12
-            [:div (str @model/alert)]]]]]))
             
 (defn staging-page [req]
   (h/html5
