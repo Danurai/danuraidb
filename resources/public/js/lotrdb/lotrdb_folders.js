@@ -4,6 +4,49 @@ var _filter = {"pack_code":["Core"],"sphere_code":"leadership","type_code":["her
 var _pageno = 1;
 var _pages = Array(9).fill({});
 
+document.addEventListener('touchstart', handleTouchStart, false);        
+document.addEventListener('touchmove', handleTouchMove, false);
+var xDown = null;                                                        
+var yDown = null;  
+
+function handleTouchStart(evt) {                                         
+    xDown = evt.touches[0].clientX;                                      
+    yDown = evt.touches[0].clientY;                                      
+}; 
+
+function turnpage ( val ) {
+ _pageno = Math.min(
+    (_pages.length / 9),
+    Math.max(
+      1, 
+      (_pageno + parseInt(val))));
+  writepage();
+}
+
+function handleTouchMove(evt) {
+    if ( ! xDown || ! yDown ) {
+        return;
+    }
+    var xUp = evt.touches[0].clientX;                                    
+    var yUp = evt.touches[0].clientY;
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+        turnpage( xDiff > 0 ? 1 : -1)
+    } 
+    //else {
+    //    if ( yDiff > 0 ) {
+    //    /* up swipe */ 
+    //    } else { 
+    //    /* down swipe */
+    //    }                                                                 
+    //}
+    /* reset values */
+    xDown = null;
+    yDown = null;                                             
+};
+
 
 corecount = (localStorage.getItem('lotrdb_corecount') || 1);
 packs = localStorage.getItem('lotrdb_packs');
@@ -15,14 +58,29 @@ if (packs != null) {
   });
   $('#packs').find('.list-group-item').each(function(id,e) {
     var packcount = $(e).find('input[type=checkbox].pack:checked').length;
-    $(e).find('input[type=checkbox].cycle').prop('checked',(packcount == 6));
+    var checkcount = $(e).find('input[type=checkbox].pack').length;
+    $(e).find('input[type=checkbox].cycle').prop('checked',(packcount == checkcount));
   });
+}
+
+function normalisename (name) {
+  return name
+      .replace(/[\u00c0-\u00c5]/, "A")
+      .replace(/[\u00c8-\u00cb]/, "E")
+      .replace(/[\u00cc-\u00cf]/, "I")
+      .replace(/[\u00d2-\u00d6]/, "O")
+      .replace(/[\u00d9-\u00dc]/, "U")
+      .replace(/[\u00e0-\u00e5]/, "a")
+      .replace(/[\u00e8-\u00eb]/, "e")
+      .replace(/[\u00ec-\u00ef]/, "i")
+      .replace(/[\u00f2-\u00f6]/, "o")
+      .replace(/[\u00f9-\u00fc]/, "u")
 }
 
 $.getJSON('/lotrdb/api/data/cards',function (data) {
   data = data
     .filter(c => -1 < $.inArray(c.type_code, _filter.type_code))
-    .map(c => $.extend(c,{"normalname": c.name}));
+    .map(c => $.extend(c,{"normalname": normalisename(c.name)}));
   //normalise names
   _db_cards = TAFFY(data);
   
@@ -54,18 +112,14 @@ $('#packs')
     setpacks();
   })
   .on('change','input[type=checkbox].pack',function() {
-    var packcount = $(this).closest('div.list-group-item').find('input[type=checkbox].pack:checked').length;
-    $(this).closest('div.list-group-item').find('input[type=checkbox].cycle').prop('checked',(packcount == 6));
+    var packcount = $(this).closest('div.list-group-item').find('input[type=checkbox].pack').length;
+    var checkcount = $(this).closest('div.list-group-item').find('input[type=checkbox].pack:checked').length;
+    $(this).closest('div.list-group-item').find('input[type=checkbox].cycle').prop('checked',(packcount == checkcount));
     setpacks();
   });
   
 $('#pager').on('click','button',function() {
-  _pageno = Math.min(
-    (_pages.length / 9),
-    Math.max(
-      1, 
-      (_pageno + parseInt($(this).val()))));
-  writepage();
+  turnpage(parseInt($(this).val()));
 });
   
 function setpacks() {
@@ -110,6 +164,7 @@ function writepage() {
       + '</div>').join('')
    )
 }
+
 function lortdb_markdown (str) {
   var rtn;
   // Icons

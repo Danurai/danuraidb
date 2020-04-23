@@ -99,7 +99,7 @@ function write_deck () {
   $.each(deckcards.filter(c=>c.type_code == "hero"),function (i, c) {
     outp += '<a class="card-link" '
       + 'href="lotrdb/card/' + c.code + '" '
-      + 'data-code="' + c.code + '">'
+      + 'data-code="' + c.code + '" data-toggle="modal" data-target="#cardmodal">'
       + '<div class="deckhero" '
       + 'style = "background-image: url(' + c.cgdbimgurl + '); position: relative;">'
       + '<span style="position: absolute; right: 2px; bottom: 2px;">'

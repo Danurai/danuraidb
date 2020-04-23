@@ -11,111 +11,7 @@
     [danuraidb.model :as model]))
                   
 (load "pages/common")
-(load "pages/lotrdb")
-
-(defn lotrdb-folders [ req ]
-  (let [card_types ["hero" "ally" "attachment" "event"]
-        cycles (drop-last (model/get-cycles))
-        packs  (model/get-packs)
-        cards  (model/get-cards) ;(filter #(contains (set card_types) (:type_code %) (model/get-cards)))
-        spheres [{:name "Leadership" :col "purple"}{:name "Lore" :col "green"}{:name "Spirit" :col "blue"}{:name "Tactics" :col "darkred"}{:name "Neutral" :col "slategrey"}{:name "Baggins" :col "goldenrod"}]]
-    (h/html5
-      lotrdb-pretty-head
-      [:body
-        (lotrdb-navbar req)
-        [:div.container.my-3
-          [:div.row
-            [:div.col-lg-7 
-              [:div.row
-                [:nav
-                  [:ol#spheres.breadcrumb
-                    (for [s spheres]
-                      [:li.breadcrumb-item {:data-code (-> s :name clojure.string/lower-case)  :style (str "cursor: pointer; color: " (:col s) ";") } (:name s)])]]]
-              [:div.row
-                [:nav [:ol#types.breadcrumb
-                  (for [t card_types]
-                    [:li.breadcrumb-item {:data-code (clojure.string/lower-case t):style "cursor: pointer;"} (clojure.string/capitalize t)])]]]
-              [:div.row.d-flex.justify-content-between.mb-2
-                [:div#pagetype] 
-                [:div#pageno]
-                [:div#pager.btn-group.btn-group-sm
-                  [:button.btn.btn-outline-secondary {:value -1} "<<"]
-                  [:button.btn.btn-outline-secondary {:value 1} ">>"]]]
-              [:div#page.row.mb-3
-                [:span "Loading..."]]]
-            [:div.col-lg-5
-              [:div#packs.list-group
-                [:div.h4.text-center "Packs Owned"]
-                (for [c cycles :let [cycle_id (str "cyc_" (:cycle_position c))]]
-                  (if (= 1 (:cycle_position c)) ; Core
-                    [:div.list-group-item
-                      [:div.d-flex
-                        [:span.h5.my-auto (:name c)]
-                        [:div#coresets.ml-auto.btn-group.btn-group-sm.btn-group-toggle {:data-toggle "buttons"}
-                          [:label#core1.btn.btn-outline-secondary.active
-                            [:input {:name "corecount" :value "1" :type "radio" :checked true}] "1"]
-                          [:label#core2.btn.btn-outline-secondary
-                            [:input {:name "corecount" :value "2" :type "radio"}] "2"]
-                          [:label#core3.btn.btn-outline-secondary
-                            [:input {:name "corecount" :value "3" :type "radio"}] "3"]
-                          ]]]
-                    (let [pcks (->> packs (filter #(= (:cycle_position %) (:cycle_position c))))]
-                      (if (= 1 (count pcks))
-                        [:div.list-group-item 
-                          [:div.d-flex
-                            [:span.h5 (:name c)]
-                            [:span.ml-auto [:input.pack {:type "checkbox" :id (str "pck_" (-> pcks first :id)) :data-code (-> pcks first :code)}]]]]
-                        [:div.list-group-item 
-                          [:div.d-flex
-                            [:span.h5 (:name c)]
-                            [:span.ml-auto [:input.cycle {:type "checkbox" :id cycle_id}]]]
-                          (for [p pcks]                          
-                            [:div.d-flex
-                              [:span (:name p)]
-                              [:span.ml-auto [:input.pack {:type "checkbox" :id (str "pck_" (:id p)) :data-code (:code p)}]]])]))))]]]]
-      [:div#cardmodal.modal.fade {:tabindex -1 :role "dialog"}
-        [:div.modal-dialog {:role "document"}
-          [:div.modal-content
-            [:div.modal-header
-              [:h4#cardname.modal-title]
-              [:button.close {:type "button" :data-dismiss "modal"} [:span "&times;"]]]
-            [:div.modal-body
-              [:div.row
-                [:div#carddata.col-8]
-                [:div.col-4 [:img#cardimg.img-fluid]]]]
-            [:div#cardfooter.modal-footer.bg-light.p-1]]]]]
-    (h/include-js "/js/lotrdb/lotrdb_folders.js?v=1")
-    (h/include-css "/css/lotrdb-icomoon-style.css?v=1")
-    )))
-   
-(defn testpage [ req ]
-; lotr card img urls
-  (let [crds (model/get-cards)]
-    (h/html5
-      lotrdb-pretty-head
-      [:style ".card {width: 200px;}"]
-      [:body 
-        (lotrdb-navbar req)
-        [:div.container.my-3
-          [:div.row.mb-2
-            [:div.col
-              [:div#types.btn-group.btn-group-toggle {:data-toggle "buttons"}
-                (for [t (->> crds (map :type_code) distinct sort)]
-                  [:label.btn.btn-outline-primary {:class (if (= t "quest") "active")}
-                    [:input {:type "radio" :data-type_code t :name "typecode" }]
-                    t])]]]
-          [:div#cards.row.mb-2]
-        ]
-        [:div#cardmodal.modal.fade {:tabindex -1 :role "dialog"}
-          [:div.modal-dialog.modal-lg {:role "document"}
-            [:div.modal-content
-              [:div.modal-header
-                [:h4#cardname.modal-title]
-                [:button.close {:type "button" :data-dismiss "modal"} [:span "&times;"]]]
-              [:div#cardimg.modal-body]]]]
-      (h/include-js "/js/lotrdb/cardurltest.js?v=1")
-      ])))
-   
+(load "pages/lotrdb")   
 (load "pages/aosc")    
 (load "pages/whuw")
 (load "pages/whconq")
@@ -179,4 +75,31 @@
     ]))
                   
                   
-                  
+
+   
+(defn testpage [ req ]
+; lotr card img urls
+  (let [crds (model/get-cards)]
+    (h/html5
+      lotrdb-pretty-head
+      [:style ".card {width: 200px;}"]
+      [:body 
+        (lotrdb-navbar req)
+        [:div.container.my-3
+          [:div.row.mb-2
+            [:div.col
+              [:div#types.btn-group.btn-group-toggle {:data-toggle "buttons"}
+                (for [t (->> crds (map :type_code) distinct sort)]
+                  [:label.btn.btn-outline-primary {:class (if (= t "quest") "active")}
+                    [:input {:type "radio" :data-type_code t :name "typecode" }]
+                    t])]]]
+          [:div#cards.row.mb-2]
+        ]
+        [:div#cardmodal.modal.fade {:tabindex -1 :role "dialog"}
+          [:div.modal-dialog.modal-lg {:role "document"}
+            [:div.modal-content
+              [:div.modal-header
+                [:h4#cardname.modal-title]
+                [:button.close {:type "button" :data-dismiss "modal"} [:span "&times;"]]]
+              [:div#cardimg.modal-body]]]]
+      (h/include-js "/js/lotrdb/cardurltest.js?v=1")])))
