@@ -3,15 +3,32 @@ var _db_packs;
 var _filter = {"pack_code":["Core"],"type_code":["hero","ally","attachment","event"]};  //treasure, player-side-quest 'objective ally'
 var _filter_custom = {};
 var _corecount = 1;
-var _sort = "name asec";
+var _sort = "normalname asec";
 var _deck = {};
 
 var converter = new showdown.Converter();
 
+// MOVE TO TOOLS
+function normalisename (name) {
+  return name
+      .replace(/[\u00c0-\u00c5]/, "A")
+      .replace(/[\u00c8-\u00cb]/, "E")
+      .replace(/[\u00cc-\u00cf]/, "I")
+      .replace(/[\u00d2-\u00d6]/, "O")
+      .replace(/[\u00d9-\u00dc]/, "U")
+      .replace(/[\u00e0-\u00e5]/, "a")
+      .replace(/[\u00e8-\u00eb]/, "e")
+      .replace(/[\u00ec-\u00ef]/, "i")
+      .replace(/[\u00f2-\u00f6]/, "o")
+      .replace(/[\u00f9-\u00fc]/, "u")
+}
+
 $.getJSON('/lotrdb/api/data/cards',function (data) {
   data = data.filter(c => -1 < $.inArray(c.type_code, _filter.type_code));
   data = addzeroes(data,["attack","defense","willpower","threat"])
-  data = data.map(c => (c.threat != -1 ? $.extend({cost: c.threat},c) : c)); 
+  data = data
+    .map(c => (c.threat != -1 ? $.extend({cost: c.threat},c) : c))
+    .map(c => $.extend(c,{"normalname": normalisename(c.name)}));
   _db_cards = data;
   
   $.getJSON('/lotrdb/api/data/packs',function (data) {
@@ -93,7 +110,7 @@ function addzeroes (data, fields) {
 
 
 function write_deck () {
-  var deckcards = _db_cards({"code": Object.keys(_deck)}).map(c=>$.extend({"qty": _deck[c.code]},c))
+  var deckcards = _db_cards({"code": Object.keys(_deck)}).order("normalname").map(c=>$.extend({"qty": _deck[c.code]},c))
   var outp = '';
   outp = '<div class="d-flex mb-2">';
   $.each(deckcards.filter(c=>c.type_code == "hero"),function (i, c) {
@@ -108,8 +125,8 @@ function write_deck () {
       + '</div></a>';
   });
   outp+='<div class="p-3">' 
-    + '<div>' + deckcards.filter(c=>c.type_code != "hero").reduce((t,c)=>t+=parseInt(c.qty),0) + '/50 cards</div>'
     + '<div>Threat: ' + deckcards.filter(c=>c.type_code == "hero").reduce((t,c)=>t+=(c.threat),0) + '</div>'
+    + '<div>' + deckcards.filter(c=>c.type_code != "hero").reduce((t,c)=>t+=parseInt(c.qty),0) + '/50 cards</div>'
     + '</div>';
   outp+='</div>';
   outp += '<div style="-webkit-column-gap: 20px; -webkit-column-count: 2; -moz-column-gap: 20px; -moz-column-count: 2; column-gap: 20px; column-count: 2;">';

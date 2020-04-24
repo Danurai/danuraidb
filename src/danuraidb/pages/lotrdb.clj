@@ -389,7 +389,7 @@
                       [:thead
                         [:tr 
                           [:th "Qty."]
-                          [:th.sortable {:data-field "name"} "Name"]
+                          [:th.sortable {:data-field "normalname"} "Name"]
                           [:th.sortable.text-center {:data-field "type_code"} "Type"]
                           [:th.sortable.text-center {:data-field "sphere_code"} "Sphere"]
                           [:th.sortable.text-center {:data-field "cost" :title "Cost/Threat"} "C."]
