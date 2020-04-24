@@ -107,7 +107,10 @@ function write_deck () {
       + '</span>'
       + '</div></a>';
   });
-  outp+='<div class="p-3">' + deckcards.filter(c=>c.type_code != "hero").reduce((t,c)=>t+=parseInt(c.qty),0) + '/50 cards</div>';
+  outp+='<div class="p-3">' 
+    + '<div>' + deckcards.filter(c=>c.type_code != "hero").reduce((t,c)=>t+=parseInt(c.qty),0) + '/50 cards</div>'
+    + '<div>Threat: ' + deckcards.filter(c=>c.type_code == "hero").reduce((t,c)=>t+=(c.threat),0) + '</div>'
+    + '</div>';
   outp+='</div>';
   outp += '<div style="-webkit-column-gap: 20px; -webkit-column-count: 2; -moz-column-gap: 20px; -moz-column-count: 2; column-gap: 20px; column-count: 2;">';
   $.each(["Ally","Attachment","Event"],function (n, t) {
@@ -115,7 +118,7 @@ function write_deck () {
     if (cardsOfType.length > 0) {
       outp += '<div style="break-inside: avoid;"><span class="font-weight-bold">' + t + ' (' + cardsOfType.reduce((t,c)=>t+=parseInt(c.qty),0) + ')</span>';
       $.each(deckcards.filter(c=>c.type_name == t), function (i, c) {
-        outp += '<div>' + c.qty + 'x <a class="card-link" data-toggle="modal" data-target="#cardmodal" data-code="' + c.code + '" href="/lotrdb/card/' + c.code + '">' + c.name + '</a></div>';
+        outp += '<div>' + c.qty + 'x <a class="card-link" data-toggle="modal" data-target="#cardmodal" data-code="' + c.code + '" href="/lotrdb/card/' + c.code + '">' + c.name + '<span class="lotr-type-'+c.sphere_code+' ml-1"></a></div>';
       });
       outp+='</div>';
     }
@@ -183,7 +186,10 @@ $('#cardmodal')
     $(this).find('.modal-body').html('');
   })
   .on('change','input[type=radio]',function () {
-    updateDeckCount($(this).data("code"), $(this).attr("value"));
+    var code = $(this).data("code");
+    var val = $(this).attr("value");
+    updateDeckCount(code, parseInt(val));
+    $('#cardtbl').find('input[name="'+code+'"][val="'+val+'"]').closest('label').button('toggle');
     $('#cardmodal').modal('hide');
   })
   .on('keypress',function (ev)  {
