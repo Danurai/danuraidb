@@ -11,7 +11,48 @@
     [danuraidb.model :as model]))
                   
 (load "pages/common")
-(load "pages/lotrdb")   
+(load "pages/lotrdb")  
+
+(defn lotrdb-score-page [ req ]
+  (h/html5
+    lotrdb-pretty-head
+    [:body
+      (lotrdb-navbar req)
+      [:div.container.my-3
+        [:form
+          [:div.form-row
+            [:div.form-group.col-2
+              [:label "Deck"]
+              [:input.form-control {:type "text" :name "deck" :required true}]]
+            [:div.form-group.col-2
+              [:label "Scenario"]
+              [:input.form-control {:type "text" :name "scenario" :required true}]]
+            [:div.form-group.col-1
+              [:label "Final Threat"]
+              [:input#threat.form-control {:type "number" :name "threat" :required true}]]
+            [:div.form-group.col-1
+              [:label.small "Threat of all Dead Heros"]
+              [:input#dthreat.form-control {:type "number" :name "dthreat" :required true}]]
+            [:div.form-group.col-1
+              [:label.small "Damage on all Heros"]
+              [:input#dmg.form-control {:type "number" :name "dmg" :required true}]]
+            [:div.form-group.col-1
+              [:label "- Victory Points"]
+              [:input#vps.form-control {:type "number" :name "vps" :required true}]]
+            [:div.form-group.col-1
+              [:label.h5 "Player Subtotal"]
+              [:label#p1sub ]]
+            [:div.form-group.col-1
+              [:label "Turns (x10)"]
+              [:input#turns.form-control {:type "number" :name "turns" :required true}]]
+            [:div.form-group.col-1
+              [:label.h5 "Total Score"]
+              [:label#total]]
+            ]]
+        
+          
+      ]]))
+      
 (load "pages/aosc")    
 (load "pages/whuw")
 (load "pages/whconq")

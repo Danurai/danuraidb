@@ -99,6 +99,8 @@
     pages/lotrdb-search-page)
   (GET "/folders" []
     pages/lotrdb-folders)
+  (GET "/score" []
+    pages/lotrdb-score-page)
   (GET "/solo" []
     pages/lotrdb-solo-page)
   (GET "/cycle/:id" [ id ]

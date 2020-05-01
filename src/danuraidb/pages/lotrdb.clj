@@ -22,7 +22,7 @@
     "/img/lotrdb/icons/sphere_fellowship.png" 
     "LotR DB" 
     "lotrdb"
-    ["decks" "packs" "scenarios" "search" "folders" "solo"]
+    ["decks" "packs" "scenarios" "search" "folders" "score" "solo"]
     req))
     
 (defn lotrdb-home [ req ]
@@ -120,6 +120,7 @@
                   (str "pack_" (:pack_code card)))
               ".png")}])
                               
+; SCENARIOS ;
 (defn lotrdb-scenarios-page [ req ]
 	(let [cards (model/get-cards-with-cycle)]
 		(h/html5
@@ -143,12 +144,16 @@
 												(for [q quests]
 													[:div [:a.card-link {:href (str "/lotrdb/card/" (:code q)) :data-code (:code q)} (:name q)]])]
 											[:div.col-sm-6 
-												[:h5 "Encounter Sets"]
+												[:h5
+                          [:a {:href (str "/lotrdb/search?q=n:" (->> s :encounters (map :name) (clojure.string/join "|")))}
+                          "Encounter Sets"]]
 												; assumed Encounter set always includes encounter pack with a matching name
 												[:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name s) " " "+"))} (:name s)]]
 												(for [e (sort-by :id (:encounters s))]
 													(if (not= (:name s) (:name e))
-														[:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]]])))
+														[:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]]]))) 
+
+; SEARCH PAGE ;
 
 (defn lotrdb-search-page [ req ]
   (let [q (or (-> req :params :q) "")

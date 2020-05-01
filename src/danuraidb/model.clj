@@ -383,7 +383,7 @@
     (sort-by :code
       (reduce
         (fn [data {:keys [id val op]}]
-          (prn (re-matches (re-pattern (str "(?i)" (get-in filter-synonyms [id val] val))) "dark_eldar"))
+          ;(prn (re-matches (re-pattern (str "(?i)" (get-in filter-synonyms [id val] val))) "dark_eldar"))
           (case id
             (:name :text :traits :alliance) 
               (filter #(some? (re-find (re-pattern (str "(?i)" val)) (id % ""))) data) ; partial match
@@ -412,6 +412,8 @@
                   (if (= val "true") (some #(= "Unique" %) (:tags c)) (not-any? #(= "Unique" %) (:tags c))))
                 data)
             (:category :class) (filter #(= (-> % id :en) val) data)
+          ; Match Text (and Case) using |  
+            :encounter_name (filter #(-> val (clojure.string/split #"\|") set (contains? (id %))) data)
             :effect   (filter #(some? (re-find (re-pattern (str "(?i)" val)) (-> % id :en))) data)
             (filter #(op (id %) val) data)))
         cards
