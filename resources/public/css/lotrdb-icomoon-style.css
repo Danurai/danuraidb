@@ -24,6 +24,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.lotr-type-neutral:before {
+  content: "\e90e";
+}
+.lotr-type-health:before {
+  content: "\e90d";
+}
+.lotr-type-ally:before {
+  content: "\e909";
+}
+.lotr-type-attachment:before {
+  content: "\e90a";
+}
+.lotr-type-hero:before {
+  content: "\e90b";
+}
+.lotr-type-event:before {
+  content: "\e90c";
+}
 .lotr-type-spirit:before {
   content: "\e900";
   color: cyan;

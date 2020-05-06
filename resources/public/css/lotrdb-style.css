@@ -19,13 +19,18 @@ a {
 }
 
 .deckhero {
-  width: 75px;
-  height: 100px;
+  width: 100px;
+  height: 140px;
   border: 1px solid darkslategrey;
   border-radius: 4px;
   background-repeat: no-repeat;
-  background-size: 125px;
+  background-size: 185px;
   background-position: 90% 5%;
+}
+
+.deckcard {
+    width: 100px;
+    height: 140px;
 }
 
 .herosphere {

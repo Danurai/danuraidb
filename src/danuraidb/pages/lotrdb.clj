@@ -4,16 +4,16 @@
   (into pretty-head (h/include-css "/css/lotrdb-style.css?v=1.0")))
   
 (def player_type_icons [
-  {:name "Hero" :code "hero" :symbol [:i {:class "fas fa-user"}]}
-  {:name "Ally" :code "ally" :symbol [:i {:class "fas fa-user-friends"}]}
-  {:name "Attachment" :code "attachment" :symbol [:i {:class "fas fa-user-plus"}]}
-  {:name "Event" :code "event" :symbol [:i {:class "fas fa-bolt"}]}])
+  {:name "Hero" :code "hero" :symbol [:span.lotr-type-hero]}
+  {:name "Ally" :code "ally" :symbol [:span.lotr-type-ally]}
+  {:name "Attachment" :code "attachment" :symbol [:span.lotr-type-attachment]}
+  {:name "Event" :code "event" :symbol [:span.lotr-type-event]}])
 
 (def type-icon (apply merge (map #(hash-map (:code %) (:symbol %)) player_type_icons)))
   
 (def sphere_icons
   (map #(let [code (clojure.string/lower-case %)] 
-          (hash-map :name % :code code :img  (str "/img/lotrdb/icons/sphere_" code ".png")))
+          (hash-map :name % :code code :symbol [:span {:class (str "lotr-type-" code)}]))
     ["Leadership","Lore","Spirit","Tactics","Neutral"]))  ;,"Baggins","Fellowship","Boon"
   
               
@@ -287,7 +287,10 @@
  
 ; DECK LIST ;
 ;;;;;;;;;;;;;
- 
+
+
+
+
 (defn- code-to-name [ c ]
   (-> c
       (clojure.string/replace "_" " ")
@@ -306,13 +309,19 @@
           )) ["hero" "ally" "attachment" "event" "player-side-quest"]))))
 
 (defn- lotrdb-deck-card-list-by-type [type_code cards-in-deck]
-  (let [cid-by-type (filter #(= (:type_code %) type_code) cards-in-deck)]
-    [:div.decklist-section
-      [:div [:b (str (-> cid-by-type first :type_name) " (" (->> cid-by-type (map :qty) (reduce +)) ")")]]
-      (map (fn [r] 
-            [:div (str (:qty r) "x ")
-              [:a.card-tooltip {:href (str "/lotrdb/card/" (:code r)) :data-code (:code r) :class (:faction_code r)} (if (:unique r) [:i.fas.fa-skull.fa-xs.mr-1]) (:name r)]
-            ]) cid-by-type)]))
+  (let [cid-by-type (->> cards-in-deck (filter #(= (:type_code %) type_code)) (sort-by :normalname))
+        cid-qty (->> cid-by-type (map :qty) (reduce +))]
+    (if (< 0 cid-qty)
+      [:div.decklist-section
+        [:div [:b (str (-> cid-by-type first :type_name) " (" cid-qty ")")]]
+        (map (fn [r] 
+              [:div (str (:qty r) "x ")
+                [:a.card-tooltip {:href (str "/lotrdb/card/" (:code r)) :data-code (:code r) :class (:faction_code r)}
+                  [:span 
+                    (if (:is_unique r) [:span.lotr-type-unique.fa-xs.mr-1]) 
+                    (:name r)]
+                  [:span {:class (str "lotr-type-" (:sphere_code r) " fa-xs ml-1")}]]]
+              ) cid-by-type)])))
             
 (defn- lotrdb-deck-card [d card-data]
   (let [deck-cards (map (fn [[k v]] (assoc (first (filter #(= (:code %) k) card-data)) :qty v)) (json/read-str (:data d)))
@@ -321,7 +330,9 @@
       [:div.py-1 {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} 
         [:div.d-flex.justify-content-between
           [:div
-            [:div.h4.mt-2 (:name d)]
+            [:div.h4.mt-2 (:name d)] 
+            [:div.text-muted.mb-2
+              (str "Cards " (->> deck-cards (filter #(not= "hero" (:type_code %))) (map :qty) (reduce +)) "/50")]
             ;[:div (map (fn [x] [:a.badge.badge-secondary.text-light.mr-1 x]) (re-seq #"\w+" (get d :tags "")))]
             ]
           [:div.d-none.d-sm-flex
@@ -331,9 +342,7 @@
                   [:span {:style "position: absolute; right: 2px; bottom: 2px;"}
                     [:img {:style "width: 35px" :src (str "/img/lotrdb/icons/sphere_" (:sphere_code h) ".png")}]]]]
                 )]]]
-      [:div.collapse.mb-2 {:id (str "deck_" (:uid d))}   
-        [:div.text-muted.mb-2
-          (str "Cards " (->> deck-cards (filter #(not= "hero" (:type_code %))) (map :qty) (reduce +)) "/50")]
+      [:div.collapse.mb-2 {:id (str "deck_" (:uid d))}  
         [:div.mb-2.decklist
           (map #(lotrdb-deck-card-list-by-type % deck-cards) ["hero" "ally" "attachment" "event" "player-side-quest"])]
         [:div.mb-2
@@ -344,12 +353,61 @@
           [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (lotrdb-export-string d deck-cards) :data-deckname (:name d)} [:i.fas.fa-file-export.mr-1] "Export"]
           [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]
     ]))
-          
+       
+
+
+(defn lotrdb-decks [req]
+  (let [decks (db/get-user-decks 0 (-> req model/get-authentications (get :uid 1002)))
+        fellowships (db/get-user-deckgroups 0 (-> req model/get-authentications (get :uid 1002)))
+        card-data (model/get-cards-with-cycle)]
+    (h/html5
+      lotrdb-pretty-head
+      [:body
+        (lotrdb-navbar req)
+        [:div.container.my-3
+          [:ul.nav.nav-tabs.nav-fill {:role "tablist"}
+            [:li.h4.nav-item [:a.nav-link.active {:href "#decktab" :data-toggle "tab" :role "tab"} "Decks"]]
+            [:li.h4.nav-item [:a.nav-link {:href "#fellowshiptab" :data-toggle "tab" :role "tab"} "Fellowships"]]]
+          [:div.tab-content
+            [:div#decktab.tab-pane.fade.show.active.my-3 {:role "tabpanel"}
+              [:div.d-flex.justify-content-between
+                [:div.h3 (str "Saved Decks (" (count decks) ")")]
+                [:div 
+                  [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
+                  [:a.btn.btn-primary {:href "/lotrdb/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
+              [:div.d-flex
+                [:div#decklists.w-100
+                  [:ul.list-group
+                    (map (fn [d] (lotrdb-deck-card d card-data)) decks)]]]]
+            [:div#fellowshiptab.tab-pane.fade.my-3 {:role "tabpanel"}
+              [:div.d-flex.justify-content-between
+                [:div.h3 (str "Saved Fellowships (" (count fellowships) ")")]
+                [:div 
+                  [:a.btn.btn-primary {:href "/lotrdb/decks/fellowship/new" :title "New Fellowship"} [:i.fas.fa-plus]]]]
+              [:div.d-flex
+                [:ul#fellowshiplist.list-group.w-100
+                  (for [f fellowships]
+                    [:li.list-group-item {:key (:uid f)}
+                      [:div.d-flex.justify-content-between
+                        [:h5 (:name f)]
+                        [:span  
+                          [:button.btn.btn-sm.btn-danger.mr-1 {:data-name (:name f) :data-target "#deletegroupmodal" :data-toggle "modal" :data-uid (:uid f)} [:i.fas.fa-times.mr-1] "Delete"]
+                          [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/fellowship/" (:uid f))} [:i.fas.fa-edit.mr-1] "Edit"]
+                          ]]])
+                  ]]]]]
+        (deletemodal)
+        (deletegroupmodal)
+        (importallmodal)
+        (importdeckmodal)
+        (exportdeckmodal)
+        (toaster)
+        (h/include-js "/js/lotrdb/lotrdb_decklist.js?v=1.0")
+        (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))    
+               
 
 ; Deckbuilder - single deck ;
-; Re-write using datatables ;
+; Re-write using datatables...? Performance? ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
- 
 (defn lotrdb-deckbuilder [ req ]
   (let [deckdata (model/get-deck-data req)]
 		(h/html5
@@ -358,7 +416,7 @@
 				(lotrdb-navbar req)
         [:div.container.my-3
           [:div.row.my-1
-            [:div.col-sm-6
+            [:div.col-lg-6
               [:div.sticky-top.pt-2
                 [:form.form.w-100 {:action "/decks/save" :method "post"}
                   [:div.row.py-1.mr-1
@@ -371,17 +429,19 @@
                       [:input#decksystem {:name "system" :hidden true :value 0}]
                       [:input#decktags   {:name "tags"   :hidden true :value (:tags deckdata)}]
                       [:input#decknotes  {:name "notes"  :hidden true :value (:notes deckdata)}]
-                      [:button.btn.btn-warning.mr-2 {:submit "true"} 
+                      [:button.btn.btn-warning.mr-2 {:submit "true" :title "Save"} 
                         [:i.fas.fa-bookmark.mr-1] 
-                        [:span.ml-1.d-none.d-sm-inline-block"Save"]]
-                      [:a.btn.btn-light.mr-2 {:href "/lotrdb/decks"} "Cancel"]]]]
+                        [:span.ml-1.d-none.d-xl-inline-block "Save"]]
+                      [:a.btn.btn-light.mr-2 {:href "/lotrdb/decks" :title "Cancel"}
+                        [:i.fas.fa-times]
+                        [:span.ml-1.d-none.d-xl-inline-block "Cancel"]]]]]
                 [:div#decklist]]]
-            [:div.col-sm-6
+            [:div.col-lg-6
               [:div.row
                 [:ul.nav.nav-tabs.nav-fill.w-100 {:role "tablist"}
                   [:li.nav-item [:a.nav-link.active {:href "#buildtab" :data-toggle "tab" :role "tab" } "Build"]]
                   [:li.nav-item [:a.nav-link {:href "#notestab" :data-toggle "tab" :role "tab"} "Notes"]]
-                  [:li.nav-item [:a.nav-link {:href "#statstab" :data-toggle "tab" :role "tab"} "Stats"]]
+                  [:li.nav-item [:a.nav-link {:href "#testtab" :data-toggle "tab" :role "tab"} "Test"]]
                   [:li.nav-item [:a.nav-link {:href "#collectiontab" :data-toggle "tab" :role "tab"} "Collection"]]]
                 [:div.tab-content.w-100
                   [:div#buildtab.tab-pane.fade.show.active.mt-2 {:role "tabpanel"} 
@@ -395,12 +455,13 @@
                         [:tr 
                           [:th "Qty."]
                           [:th.sortable {:data-field "normalname"} "Name"]
-                          [:th.sortable.text-center {:data-field "type_code"} "Type"]
-                          [:th.sortable.text-center {:data-field "sphere_code"} "Sphere"]
-                          [:th.sortable.text-center {:data-field "cost" :title "Cost/Threat"} "C."]
-                          [:th.sortable.text-center {:data-field "attack" :title "Attack"} "A."]
-                          [:th.sortable.text-center {:data-field "defense" :title "Defense"} "D."]
-                          [:th.sortable.text-center {:data-field "willpower" :title "Willpower"} "W."]
+                          [:th.sortable.text-center {:data-field "type_code" :title "Type"} "T."]
+                          [:th.sortable.text-center {:data-field "sphere_code" :title "Sphere"} "S."]
+                          [:th.sortable.text-center {:data-field "cost" :title "Cost/Threat"} [:span.lotr-type-threat]]
+                          [:th.sortable.text-center {:data-field "willpower" :title "Willpower"} [:span.lotr-type-willpower]]
+                          [:th.sortable.text-center {:data-field "attack" :title "Attack"} [:span.lotr-type-attack]]
+                          [:th.sortable.text-center {:data-field "defense" :title "Defense"} [:span.lotr-type-defense]]
+                          [:th.sortable.text-center {:data-field "health" :title "Health"} [:span.lotr-type-health]]
                           ]]
                       [:tbody#cardtbl]]]
                   [:div#notestab.tab-pane.fade.p-2 {:role "tabpanel"}
@@ -417,8 +478,16 @@
                     [:div.row-fluid.mb-2
                       [:textarea#notes.form-control {:rows 10}]]
                     [:div#notesmarkdown.p-3 {:style "background-color: lightgrey;"}]]
-                  [:div#statstab.tab-pane.fade.mt-2 {:role "tabpanel"}
-                  ]
+                  [:div#testtab.tab-pane.fade.mt-2 {:role "tabpanel"}
+                    [:div.row
+                      [:div.col
+                        [:div [:h5 "Test Draw"]]
+                        [:div.btn-group
+                          [:button#draw1.btn.btn-outline-secondary {:value 1 :title "Draw 1"} "1"]
+                          [:button#draw1.btn.btn-outline-secondary {:value 2 :title "Draw 2"} "2"]
+                          [:button#draw1.btn.btn-outline-secondary {:value 6 :title "Draw 6"} "6"]
+                          [:button#reset.btn.btn-outline-secondary {:title "Reset"} "Reset"]]
+                        [:div#drawcards.my-2]]]]
                   [:div#collectiontab.tab-pane.fade.mt-2 {:role "tabpanel"}
                     (let [cycles (model/get-cycles) packs (model/get-packs)]
                       [:ul.list-group
@@ -458,11 +527,11 @@
                 [:button.close {:data-dismiss "modal"} "x"]]
               [:div.modal-body]
               [:div.modal-footer]]]]
-	  (h/include-css "/css/lotrdb-icomoon-style.css?v=1.0")
+	  (h/include-css "/css/lotrdb-icomoon-style.css?v=1.1")
 	  (h/include-js "/js/externs/typeahead.js")
 	  (h/include-js "/js/lotrdb/lotrdb_tools.js?v=1.0")
 	  (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1.0")
-    (h/include-js "/js/lotrdb/lotrdb_deckbuilder.js?v=1.1")])))
+    (h/include-js "/js/lotrdb/lotrdb_deckbuilder.js?v=1.2")])))
     
     
 ; FELLOWSHIP Builder ;
@@ -668,54 +737,6 @@
     (h/include-js  "/js/lotrdb/lotrdb_tools.js")
     (h/include-js  "/js/lotrdb/lotrdb_popover.js")
     (h/include-js  "/js/lotrdb/lotrdb_fellowship.js"))))
-
-(defn lotrdb-decks [req]
-  (let [decks (db/get-user-decks 0 (-> req model/get-authentications (get :uid 1002)))
-        fellowships (db/get-user-deckgroups 0 (-> req model/get-authentications (get :uid 1002)))
-        card-data (model/get-cards-with-cycle)]
-    (h/html5
-      lotrdb-pretty-head
-      [:body
-        (lotrdb-navbar req)
-        [:div.container.my-3
-          [:ul.nav.nav-tabs.nav-fill {:role "tablist"}
-            [:li.h4.nav-item [:a.nav-link.active {:href "#decktab" :data-toggle "tab" :role "tab"} "Decks"]]
-            [:li.h4.nav-item [:a.nav-link {:href "#fellowshiptab" :data-toggle "tab" :role "tab"} "Fellowships"]]]
-          [:div.tab-content
-            [:div#decktab.tab-pane.fade.show.active.my-3 {:role "tabpanel"}
-              [:div.d-flex.justify-content-between
-                [:div.h3 (str "Saved Decks (" (count decks) ")")]
-                [:div 
-                  [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
-                  [:a.btn.btn-primary {:href "/lotrdb/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
-              [:div.d-flex
-                [:div#decklists.w-100
-                  [:ul.list-group
-                    (map (fn [d] (lotrdb-deck-card d card-data)) decks)]]]]
-            [:div#fellowshiptab.tab-pane.fade.my-3 {:role "tabpanel"}
-              [:div.d-flex.justify-content-between
-                [:div.h3 (str "Saved Fellowships (" (count fellowships) ")")]
-                [:div 
-                  [:a.btn.btn-primary {:href "/lotrdb/decks/fellowship/new" :title "New Fellowship"} [:i.fas.fa-plus]]]]
-              [:div.d-flex
-                [:ul#fellowshiplist.list-group.w-100
-                  (for [f fellowships]
-                    [:li.list-group-item {:key (:uid f)}
-                      [:div.d-flex.justify-content-between
-                        [:h5 (:name f)]
-                        [:span  
-                          [:button.btn.btn-sm.btn-danger.mr-1 {:data-name (:name f) :data-target "#deletegroupmodal" :data-toggle "modal" :data-uid (:uid f)} [:i.fas.fa-times.mr-1] "Delete"]
-                          [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/fellowship/" (:uid f))} [:i.fas.fa-edit.mr-1] "Edit"]
-                          ]]])
-                  ]]]]]
-        (deletemodal)
-        (deletegroupmodal)
-        (importallmodal)
-        (importdeckmodal)
-        (exportdeckmodal)
-        (toaster)
-        (h/include-js "/js/lotrdb/lotrdb_decklist.js?v=1.0")])))    
-        
 
 
 (defn lotrdb-folders [ req ]

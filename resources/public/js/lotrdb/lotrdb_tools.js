@@ -1,40 +1,4 @@
-/*
-use card.cgdbimgurl
 
-function getcgdbImageUrl ( card ) {
-  return "http://www.cardgamedb.com/forums/uploads/lotr/ffg_" + cgdbCardName(card) + ".jpg";
-}
-
-function cgdbCardName (card) {
-  var pack = _db_packs({"code":card.pack_code}).first();
-  var cardname;
-  switch (true) {
-    case (pack.id < 24):
-    case (pack.id < 37):
-    case (pack.id < 38):
-    case (pack.id < 39):
-    case (pack.id < 61):
-      cardname = 
-        normalizeName(card.name).toLowerCase() 
-        + "-" 
-        + (cgdbPackName[card.pack_code] ? cgdbPackName[card.pack_code] : card.pack_code.toLowerCase());
-      break;
-    case (pack.id < 23):
-      cardname = normalizeName(card.name) + "_" + normalizeName(card.pack_name) + "_" + card.position;
-        break;
-    case (23 < pack.id <26):
-      cardname = normalizeName(card.name) + "-" + normalizeName(card.pack_name) + "-" + card.position;
-      break;
-    case (pack.id < 40):
-      cardname = pack.sku + "_" + right( "000" + card.position ,3);
-      break;
-    default: 
-      pack.sku + "_" + card.position;
-  }
-  return cardname;
-}
-
-*/
 
 function normalizeName ( name ) {
   return name

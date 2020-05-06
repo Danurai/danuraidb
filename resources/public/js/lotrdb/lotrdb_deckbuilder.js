@@ -5,30 +5,17 @@ var _filter_custom = {};
 var _corecount = 1;
 var _sort = "normalname asec";
 var _deck = {};
+var _test_deck = [];
 
 var converter = new showdown.Converter();
 
-// MOVE TO TOOLS
-function normalisename (name) {
-  return name
-      .replace(/[\u00c0-\u00c5]/, "A")
-      .replace(/[\u00c8-\u00cb]/, "E")
-      .replace(/[\u00cc-\u00cf]/, "I")
-      .replace(/[\u00d2-\u00d6]/, "O")
-      .replace(/[\u00d9-\u00dc]/, "U")
-      .replace(/[\u00e0-\u00e5]/, "a")
-      .replace(/[\u00e8-\u00eb]/, "e")
-      .replace(/[\u00ec-\u00ef]/, "i")
-      .replace(/[\u00f2-\u00f6]/, "o")
-      .replace(/[\u00f9-\u00fc]/, "u")
-}
 
 $.getJSON('/lotrdb/api/data/cards',function (data) {
   data = data.filter(c => -1 < $.inArray(c.type_code, _filter.type_code));
-  data = addzeroes(data,["attack","defense","willpower","threat"])
+  data = addzeroes(data,["attack","defense","willpower","threat","health"])
   data = data
-    .map(c => (c.threat != -1 ? $.extend({cost: c.threat},c) : c))
-    .map(c => $.extend(c,{"normalname": normalisename(c.name)}));
+    .map(c => (c.threat != -1 ? $.extend({cost: c.threat},c) : c));
+    //.map(c => $.extend(c,{"normalname": normalizeName(c.name)}));
   _db_cards = data;
   
   $.getJSON('/lotrdb/api/data/packs',function (data) {
@@ -49,13 +36,23 @@ $.getJSON('/lotrdb/api/data/cards',function (data) {
         $('#collectiontab').find('input[data-id=' + p + ']').prop('checked',true);
       });
       $('#collectiontab li').each(function (id, e) {
-        $(e).find('input[data-type=cycle]').prop('checked',($(e).find('input[data-type=pack]:checked').length == 6));
+        $(e).find('input[data-type=cycle]').prop('checked',($(e).find('input[data-type=pack]:checked').length == $(e).find('input[data-type=pack]').length));
       });
     }
     write_table();
     write_deck();
+    make_test_deck();
   });
 });
+
+function addzeroes (data, fields) {
+  var z = [];
+  $.each(fields, function(k,v) {
+    z[v]=-1
+    data = data.map(c => $.extend({}, z, c));
+  });
+  return data;
+}
 
 function write_table () {
   var cardtbl = $('#cardtbl')
@@ -67,16 +64,17 @@ function tblrow (c) {
   return '<tr>'
     + '<td>' + deck_buttons(c) + '</td>'
     + '<td><a class="card-link" data-toggle="modal" data-target="#cardmodal" href="/lotrdb/card/' + c.code + '" data-code="' + c.code + '">' 
-      + (c.is_unique ? '&bull;&nbsp;' : '')
+      + (c.is_unique ? '<span class="lotr-type-unique fa-xs mr-1" />' : '')
       + c.name 
-      + (_db_cards({"name":c.name}).count()>1 ? ' (' + c.pack_code +')' : '')
+      + (_db_cards({"name":c.name,"pack_code":_filter.pack_code}).count()>1 ? '  <small>(' + c.pack_code +')</small>' : '')
       + '</a></td>'
-    + '<td class="text-center">' + c.type_name + '</td>'
-    + '<td class="text-center" title="' + c.sphere_name + '"><img class="icon-xs" src="/img/lotrdb/icons/sphere_' + c.sphere_code + '.png"</img></td>'
+    + '<td class="text-center"><span class="lotr-type-' + c.type_code + ' text-muted fa-sm" /></td>'
+    + '<td class="text-center" title="' + c.sphere_name + '"><span class="lotr-type-' + c.sphere_code + ' fa-sm" /></td>'
     + '<td class="text-center">' + (c.threat != -1 ? c.threat : (c.cost != -1 ? c.cost : "-"))+ '</td>'
+    + '<td class="text-center">' + (c.willpower != -1 ? c.willpower : "-")+ '</td>'
     + '<td class="text-center">' + (c.attack != -1 ? c.attack : "-")+ '</td>'
     + '<td class="text-center">' + (c.defense != -1 ? c.defense : "-")+ '</td>'
-    + '<td class="text-center">' + (c.willpower != -1 ? c.willpower : "-")+ '</td>'
+    + '<td class="text-center">' + (c.health != -1 ? c.health : "-")+ '</td>'
     + '</tr>';
 }  
 
@@ -99,50 +97,58 @@ function maxAllowedInDeck (c) {
   return Math.min(c.deck_limit, c.quantity * (c.pack_code == "Core" ? _corecount : 1))
 }
 
-function addzeroes (data, fields) {
-  var z = [];
-  $.each(fields, function(k,v) {
-    z[v]=-1
-    data = data.map(c => $.extend({}, z, c));
-  });
-  return data;
-}
 
 
 function write_deck () {
   var deckcards = _db_cards({"code": Object.keys(_deck)}).order("normalname").map(c=>$.extend({"qty": _deck[c.code]},c))
   var outp = '';
+  
+  $('#decklist').empty();
+  
+  var numcards = deckcards.filter(c=>c.type_code != "hero").reduce((t,c)=>t+=parseInt(c.qty),0);
+  var numheros = deckcards.filter(c=>c.type_code == "hero").reduce((t,c)=>t+=parseInt(c.qty),0);
+  
+  $('#decklist')
+    .append('<div class="mt-2"><b>Starting Threat: </b>' + deckcards.filter(c=>c.type_code == "hero").reduce((t,c)=>t+=(c.threat),0) + '</div>');
+  $('#decklist')
+    .append('<div>Heros: ' + (numheros > 3 ? '<span class="text-warning">' : '<span class="text-primary">') + numheros + '/3 </span><small>(max)</small>');
+  $('#decklist')
+    .append('<div class="mb-2">Cards: ' + (numcards < 50 ? '<span class="text-warning">' : '<span class="text-primary">') + numcards + '/50</span>');
+  
   outp = '<div class="d-flex mb-2">';
   $.each(deckcards.filter(c=>c.type_code == "hero"),function (i, c) {
     outp += '<a class="card-link" '
       + 'href="lotrdb/card/' + c.code + '" '
       + 'data-code="' + c.code + '" data-toggle="modal" data-target="#cardmodal">'
-      + '<div class="deckhero" '
-      + 'style = "background-image: url(' + c.cgdbimgurl + '); position: relative;">'
-      + '<span style="position: absolute; right: 2px; bottom: 2px;">'
-      + '<image src="/img/lotrdb/icons/sphere_' + c.sphere_code + '.png" style="width: 35px;" />'
-      + '</span>'
-      + '</div></a>';
+      + '<img class="img-fluid deckcard" src="' + c.cgdbimgurl + '" />'
+      //+ '<div class="deckhero" '
+      //+ 'style = "background-image: url(' + c.cgdbimgurl + '); position: relative;">'
+      //+ '<span style="position: absolute; right: 2px; bottom: 2px;">'
+      //+ '<image src="/img/lotrdb/icons/sphere_' + c.sphere_code + '.png" style="width: 35px;" />'
+      //+ '</span>'
+      //+ '</div>
+      + '</a>';
   });
-  outp+='<div class="p-3">' 
-    + '<div>Threat: ' + deckcards.filter(c=>c.type_code == "hero").reduce((t,c)=>t+=(c.threat),0) + '</div>'
-    + '<div>' + deckcards.filter(c=>c.type_code != "hero").reduce((t,c)=>t+=parseInt(c.qty),0) + '/50 cards</div>'
-    + '</div>';
   outp+='</div>';
+  
   outp += '<div style="-webkit-column-gap: 20px; -webkit-column-count: 2; -moz-column-gap: 20px; -moz-column-count: 2; column-gap: 20px; column-count: 2;">';
   $.each(["Ally","Attachment","Event"],function (n, t) {
     var cardsOfType = deckcards.filter(c=>c.type_name == t);
     if (cardsOfType.length > 0) {
       outp += '<div style="break-inside: avoid;"><span class="font-weight-bold">' + t + ' (' + cardsOfType.reduce((t,c)=>t+=parseInt(c.qty),0) + ')</span>';
       $.each(deckcards.filter(c=>c.type_name == t), function (i, c) {
-        outp += '<div>' + c.qty + 'x <a class="card-link" data-toggle="modal" data-target="#cardmodal" data-code="' + c.code + '" href="/lotrdb/card/' + c.code + '">' + c.name + '<span class="lotr-type-'+c.sphere_code+' ml-1"></a></div>';
+        outp += '<div>' + c.qty + 'x '
+          + '<a class="card-link" data-toggle="modal" data-target="#cardmodal" data-code="' + c.code + '" href="/lotrdb/card/' + c.code + '">' 
+          + c.name 
+          + (_db_cards({"name":c.name,"pack_code":_filter.pack_code}).count()>1 ? ' <small>(' + c.pack_code +')</small>' : '')
+          + '<span class="lotr-type-'+c.sphere_code+' ml-1 fa-sm"></a></div>';
       });
       outp+='</div>';
     }
   });
   outp+='</div>';
     
-  $('#decklist').html(outp);
+  $('#decklist').append(outp);
 }
 
 // Filters //
@@ -185,6 +191,7 @@ function updateDeckCount(code, qty) {
   }
   $('#deckdata').val(JSON.stringify(_deck));
   write_deck();
+  make_test_deck();
 }
 
 // Modal
@@ -306,3 +313,33 @@ $('#collectiontab')
     window.localStorage.setItem('lotrpacks_owned',JSON.stringify(_filter.pack_code));
     write_table();
   });
+  
+  
+// TEST TAB
+
+// Make deck
+function make_test_deck() {
+  var deckcards = _db_cards({"code": Object.keys(_deck)}).order("normalname").map(c=>$.extend({"qty": _deck[c.code]},c));
+  var td = [];
+  $.each(deckcards, function (id, dc) {
+    for (i=1; i<dc.qty; i++) {td.push(dc);}
+  })
+  _test_deck = shuffle(td);
+}
+
+$('[id^=draw]').on('click',function (e) {
+  var draw;
+  for (i=0; i<parseInt($(this).val()); i++) {
+    draw = _test_deck.pop();
+    $('#drawcards').append('<img class="m-1 deckcard" title="' + draw.name + '" data-code="' + draw.code + '" src="' + draw.cgdbimgurl + '" />');
+  }
+});
+
+$('#reset').on('click',function () {
+  make_test_deck();
+  $('#drawcards').empty();
+});
+
+$('#drawcards').on('click','.deckcard',function() {
+  $(this).css('opacity', 1.5 - parseFloat($(this).css('opacity')));
+});
