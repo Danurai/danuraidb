@@ -1,6 +1,6 @@
 var _db_cards;
 var _db_packs;
-var _filter = {"pack_code":["Core"],"type_code":["hero","ally","attachment","event"]};  //treasure, player-side-quest 'objective ally'
+var _filter = {"pack_code":["Core"],"type_code":["hero","attachment","ally","event"]};  //treasure, player-side-quest 'objective ally'
 var _filter_custom = {};
 var _corecount = 1;
 var _sort = "normalname asec";
@@ -11,7 +11,7 @@ var converter = new showdown.Converter();
 
 
 $.getJSON('/lotrdb/api/data/cards',function (data) {
-  data = data.filter(c => -1 < $.inArray(c.type_code, _filter.type_code));
+  data = data.filter(c => -1 < $.inArray(c.type_code, ["hero","attachment","ally","event"])); //treasure, player-side-quest 'objective ally'
   data = addzeroes(data,["attack","defense","willpower","threat","health"])
   data = data
     .map(c => (c.threat != -1 ? $.extend({cost: c.threat},c) : c));
@@ -39,6 +39,18 @@ $.getJSON('/lotrdb/api/data/cards',function (data) {
         $(e).find('input[data-type=cycle]').prop('checked',($(e).find('input[data-type=pack]:checked').length == $(e).find('input[data-type=pack]').length));
       });
     }
+  // Select Hero
+    _filter.type_code="hero";
+    $('#type_code').find('input[data-code="hero"]').closest('label').button('toggle');
+  // Select sphere(s)
+    var deckspheres = _db_cards({"code": Object.keys(_deck)}).distinct("sphere_code");
+    if (deckspheres.length > 0) {
+      _filter.sphere_code = deckspheres;
+      $.each(deckspheres,function(id, s) {
+        $('#sphere_code').find('input[data-code="'+s+'"]').closest('label').button('toggle');
+      });
+    }
+    $('#filtertext').focus();
     write_table();
     write_deck();
     make_test_deck();
@@ -105,16 +117,17 @@ function write_deck () {
   
   $('#decklist').empty();
   
+// Deck Stats
   var numcards = deckcards.filter(c=>c.type_code != "hero").reduce((t,c)=>t+=parseInt(c.qty),0);
   var numheros = deckcards.filter(c=>c.type_code == "hero").reduce((t,c)=>t+=parseInt(c.qty),0);
-  
   $('#decklist')
-    .append('<div class="mt-2"><b>Starting Threat: </b>' + deckcards.filter(c=>c.type_code == "hero").reduce((t,c)=>t+=(c.threat),0) + '</div>');
+    .append('<div><b>Starting Threat: </b>' + deckcards.filter(c=>c.type_code == "hero").reduce((t,c)=>t+=(c.threat),0) + '</div>');
   $('#decklist')
     .append('<div>Heros: ' + (numheros > 3 ? '<span class="text-warning">' : '<span class="text-primary">') + numheros + '/3 </span><small>(max)</small>');
   $('#decklist')
     .append('<div class="mb-2">Cards: ' + (numcards < 50 ? '<span class="text-warning">' : '<span class="text-primary">') + numcards + '/50</span>');
   
+// Heroes
   outp = '<div class="d-flex mb-2">';
   $.each(deckcards.filter(c=>c.type_code == "hero"),function (i, c) {
     outp += '<a class="card-link" '
@@ -130,12 +143,14 @@ function write_deck () {
       + '</a>';
   });
   outp+='</div>';
+  $('#decklist').append(outp);
   
-  outp += '<div style="-webkit-column-gap: 20px; -webkit-column-count: 2; -moz-column-gap: 20px; -moz-column-count: 2; column-gap: 20px; column-count: 2;">';
+// Decklist
+  outp = '<div style="-webkit-column-gap: 20px; -webkit-column-count: 2; -moz-column-gap: 20px; -moz-column-count: 2; column-gap: 20px; column-count: 2;">';
   $.each(["Ally","Attachment","Event"],function (n, t) {
     var cardsOfType = deckcards.filter(c=>c.type_name == t);
     if (cardsOfType.length > 0) {
-      outp += '<div style="break-inside: avoid;"><span class="font-weight-bold">' + t + ' (' + cardsOfType.reduce((t,c)=>t+=parseInt(c.qty),0) + ')</span>';
+      outp += '<div class="mb-2" style="break-inside: avoid;"><span class="font-weight-bold">' + t + ' (' + cardsOfType.reduce((t,c)=>t+=parseInt(c.qty),0) + ')</span>';
       $.each(deckcards.filter(c=>c.type_name == t), function (i, c) {
         outp += '<div>' + c.qty + 'x '
           + '<a class="card-link" data-toggle="modal" data-target="#cardmodal" data-code="' + c.code + '" href="/lotrdb/card/' + c.code + '">' 
@@ -147,7 +162,6 @@ function write_deck () {
     }
   });
   outp+='</div>';
-    
   $('#decklist').append(outp);
 }
 

@@ -7,11 +7,11 @@ var _pages = Array(9).fill({});
 document.addEventListener('touchstart', handleTouchStart, false);        
 document.addEventListener('touchmove', handleTouchMove, false);
 var xDown = null;                                                        
-var yDown = null;  
+//var yDown = null;  
 
 function handleTouchStart(evt) {                                         
     xDown = evt.touches[0].clientX;                                      
-    yDown = evt.touches[0].clientY;                                      
+    //yDown = evt.touches[0].clientY;                                      
 }; 
 
 function turnpage ( val ) {
@@ -24,16 +24,20 @@ function turnpage ( val ) {
 }
 
 function handleTouchMove(evt) {
-    if ( ! xDown || ! yDown ) {
+    if ( ! xDown ) { //|| ! yDown ) {
         return;
     }
     var xUp = evt.touches[0].clientX;                                    
-    var yUp = evt.touches[0].clientY;
+    //var yUp = evt.touches[0].clientY;
     var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
+    //var yDiff = yDown - yUp;
 
-    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+    if (xDiff > 200) {
+    //if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
         turnpage( xDiff > 0 ? 1 : -1)
+      /* reset values */
+      xDown = null;
+    //  yDown = null;         
     } 
     //else {
     //    if ( yDiff > 0 ) {
@@ -41,10 +45,7 @@ function handleTouchMove(evt) {
     //    } else { 
     //    /* down swipe */
     //    }                                                                 
-    //}
-    /* reset values */
-    xDown = null;
-    yDown = null;                                             
+    //}                                    
 };
 
 
@@ -63,25 +64,10 @@ if (packs != null) {
   });
 }
 
-function normalisename (name) {
-  return name
-      .replace(/[\u00c0-\u00c5]/, "A")
-      .replace(/[\u00c8-\u00cb]/, "E")
-      .replace(/[\u00cc-\u00cf]/, "I")
-      .replace(/[\u00d2-\u00d6]/, "O")
-      .replace(/[\u00d9-\u00dc]/, "U")
-      .replace(/[\u00e0-\u00e5]/, "a")
-      .replace(/[\u00e8-\u00eb]/, "e")
-      .replace(/[\u00ec-\u00ef]/, "i")
-      .replace(/[\u00f2-\u00f6]/, "o")
-      .replace(/[\u00f9-\u00fc]/, "u")
-}
-
 $.getJSON('/lotrdb/api/data/cards',function (data) {
   data = data
-    .filter(c => -1 < $.inArray(c.type_code, _filter.type_code))
-    .map(c => $.extend(c,{"normalname": normalisename(c.name)}));
-  //normalise names
+    .filter(c => -1 < $.inArray(c.type_code, _filter.type_code));
+  //  .map(c => $.extend(c,{"normalname": normalisename(c.name)}));
   _db_cards = TAFFY(data);
   
   setpacks();

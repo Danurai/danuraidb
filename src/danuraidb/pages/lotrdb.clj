@@ -418,24 +418,26 @@
           [:div.row.my-1
             [:div.col-lg-6
               [:div.sticky-top.pt-2
-                [:form.form.w-100 {:action "/decks/save" :method "post"}
-                  [:div.row.py-1.mr-1
-                    [:div.col-7 
-                      [:input#deckname.form-control {:name "name" :placeholder "Deckname" :required true :value (:name deckdata)}]
-                      [:div.invalid-feedback "You must name your fellowship"]]
-                    [:div.col-5
-                      [:input#deckdata   {:name "data"   :hidden true :value (:data deckdata)}]
-                      [:input#deckuid    {:name "id"     :hidden true :value (:uid deckdata)}]
-                      [:input#decksystem {:name "system" :hidden true :value 0}]
-                      [:input#decktags   {:name "tags"   :hidden true :value (:tags deckdata)}]
-                      [:input#decknotes  {:name "notes"  :hidden true :value (:notes deckdata)}]
-                      [:button.btn.btn-warning.mr-2 {:submit "true" :title "Save"} 
-                        [:i.fas.fa-bookmark.mr-1] 
-                        [:span.ml-1.d-none.d-xl-inline-block "Save"]]
-                      [:a.btn.btn-light.mr-2 {:href "/lotrdb/decks" :title "Cancel"}
-                        [:i.fas.fa-times]
-                        [:span.ml-1.d-none.d-xl-inline-block "Cancel"]]]]]
-                [:div#decklist]]]
+                [:div.row.mb-2
+                  [:div.col
+                    [:form {:action "/decks/save" :method "post"}
+                      [:div.d-flex
+                        [:input#deckname.form-control {:name "name" :placeholder "Deckname" :required true :value (:name deckdata)}]
+                        [:button.btn.btn-warning.ml-1 {:submit "true" :title "Save"} 
+                          [:div.d-flex
+                            [:i.fas.fa-feather.my-auto] 
+                            [:span.ml-1.d-none.d-xl-inline "Save"]]]
+                        [:a.btn.btn-light.ml-1 {:href "/lotrdb/decks" :title "Cancel"}
+                          [:div.d-flex
+                            [:i.fas.fa-times.my-auto]
+                            [:span.ml-1.d-none.d-xl-inline "Cancel"]]]]
+                      [:div
+                        [:input#deckdata   {:name "data"   :hidden true :value (:data deckdata)}]
+                        [:input#deckuid    {:name "id"     :hidden true :value (:uid deckdata)}]
+                        [:input#decksystem {:name "system" :hidden true :value 0}]
+                        [:input#decktags   {:name "tags"   :hidden true :value (:tags deckdata)}]
+                        [:input#decknotes  {:name "notes"  :hidden true :value (:notes deckdata)}]]]]]
+                [:div.row [:div.col [:div#decklist]]]]]
             [:div.col-lg-6
               [:div.row
                 [:ul.nav.nav-tabs.nav-fill.w-100 {:role "tablist"}
