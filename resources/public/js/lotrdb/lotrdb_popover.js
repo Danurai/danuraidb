@@ -52,10 +52,10 @@ $.getJSON("/lotrdb/api/data/cards", function (data) {
             + '</span>',
           content: 					
             // statbar
-            '<div><span class="mr-2 border rounded border-dark px-2">'
-              + (typeof crd.cost !== 'undefined' ?  crd.cost : '')
-              + (typeof crd.threat !== 'undefined' ? crd.threat : '')
+            '<div>'
+              + (typeof crd.cost !== 'undefined' ? '<span class="mr-2 border rounded border-dark px-2">' + crd.cost + '</span>': '')
               + '</span>'
+              + (typeof crd.threat !== 'undefined' ? '<span class="mr-2"><span class="lotr-type-threat mr-1"></span>' + crd.threat + '</span>' : '')
               + (typeof crd.willpower !== 'undefined' ? '<span class="mr-2"><span class="lotr-type-willpower mr-1"></span>' + crd.willpower + '</span>' : '')
               + (typeof crd.attack !== 'undefined' ? '<span class="mr-2"><span class="lotr-type-attack mr-1"></span>' + crd.attack + '</span>' : '')
               + (typeof crd.defense !== 'undefined' ? '<span class="mr-2"><span class="lotr-type-defense mr-1"></span>' + crd.defense + '</span>' : '')

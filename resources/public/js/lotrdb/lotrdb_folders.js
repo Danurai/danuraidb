@@ -32,7 +32,7 @@ function handleTouchMove(evt) {
     var xDiff = xDown - xUp;
     //var yDiff = yDown - yUp;
 
-    if (xDiff > 200) {
+    if (Math.abs(xDiff) > 150) {
     //if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
         turnpage( xDiff > 0 ? 1 : -1)
       /* reset values */

@@ -156,6 +156,7 @@
 						(assoc c :cycle_position pos
 										 :cycle_name (:name cycle)
                      :normalname (-> c :name normalise)
+                     :normaltraits (if (:traits c) (-> c :traits normalise))
                      ;:cgdbimgurl (get-card-image-url c)
 										 )))
       (get-cards))))

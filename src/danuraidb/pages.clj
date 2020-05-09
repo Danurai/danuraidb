@@ -13,6 +13,84 @@
 (load "pages/common")
 (load "pages/lotrdb")  
 
+(defn lotrdb-search-page [ req ]
+  (let [q (or (-> req :params :q) "")
+       view (or (-> req :params :view) "")
+       sort (or (-> req :params :sort) "code")
+       sortfield (case sort
+                  "sphere" :sphere_code
+                  "type"   :type_code
+                  (keyword sort))
+       sortfn (case sort
+                ("sphere" "type" "code" "name") #(compare %1 %2)
+                #(compare %2 %1))
+       results (sort-by sortfield sortfn (model/cardfilter q (model/get-cards-with-cycle) :lotrdb))]
+    (h/html5
+      lotrdb-pretty-head
+      [:body
+        (lotrdb-navbar req)
+        [:div.container.my-3
+          [:form {:action "/lotrdb/search" :method "GET"}
+            [:div.row
+              [:div.col-sm-4.mb-2
+                [:div.input-group
+                  [:input.form-control.search-info {:type "text" :name "q" :value q}]
+                  [:div.input-group-append
+                    [:button.btn.btn-primary.mr-2 {:role "submit"} "Search"]]]]
+              [:div.col-sm-4.mb-2
+                [:select.form-control {:type "select" :name "view"}
+                  [:option {:selected (= view "list") :value "list"} "View as list"]
+                  [:option {:selected (= view "cards") :value "cards"} "View as cards"]]]
+              [:div.col-sm-4.mb-2
+                [:select.form-control {:type "select" :name "sort"}
+                  (for [s ["code" "name" "type" "sphere" "threat" "willpower" "attack" "defense" "health"]]
+                    [:option {:value s :selected (= (name sort) s)} (str "Sort by " s)])]]]]
+          [:div.row
+            (if (= view "cards")
+              (for [card results :let [q (:quantity card) d (:difficulty card 0)]]
+                [:div.col-4
+                  [:div.mb-2 {:style "position: relative; display: inline-block;" :title "Quantity (normal/difficulty)"}
+                    [:img.img-fluid.card-link {:data-code (:code card) :src (:cgdbimgurl card)}]
+                    [:div.px-2 {:style "font-size: 1.25em; color: black; position: absolute; right: 5%; bottom: 5%; opacity: 0.7; background-color: white; border-radius: 15%;"}
+                      (if (contains? #{"enemy" "treachery" "location"} (:type_code card))
+                          (str (- q d) "/" d)
+                          q)]
+                    ]]) ;(or (:cgdbimgurl card) (model/get-card-image-url card))}]])
+              [:div.col
+                [:table#tblresults.table.table-sm.table-hover
+                  [:thead [:tr  
+                    [:th.sortable.d-none.d-md-table-cell "Code"]
+                    [:th.sortable "Name"]
+                    [:th.sortable.text-center {:title "Threat/Cost"} [:span.lotr-type-threat] "/C." ]
+                    [:th.sortable.text-center {:title "Willpower"} [:span.lotr-type-willpower]]
+                    [:th.sortable.text-center {:title "Attack"} [:span.lotr-type-attack]]
+                    [:th.sortable.text-center {:title "Defense"} [:span.lotr-type-defense]]
+                    [:th.sortable.text-center {:title "Health"} [:span.lotr-type-health]]
+                    [:th.sortable "Type"]
+                    [:th.sortable "Sphere"]
+                    [:th.sortable.d-none.d-md-table-cell "Set"]
+                    [:th.text-center {:title "Quantity (Normal/Difficulty)"} "Qty."]]]
+                  [:tbody#bodyresults
+                    (for [card results]
+                      [:tr
+                        [:td.d-none.d-md-table-cell (:code card)]
+                        [:td [:a.card-link {:data-code (:code card) :href (str "/lotrdb/card/" (:code card))} (:name card)]]
+                        [:td.text-center (or (:threat card) (:cost card))]
+                        [:td.text-center (:willpower card)]
+                        [:td.text-center (:attack card)]
+                        [:td.text-center (:defense card)]
+                        [:td.text-center (:health card)]
+                        [:td (:type_name card)]
+                        [:td (:sphere_name card)]
+                        [:td.d-none.d-md-table-cell (str (:pack_name card) " #" (:position card))]
+                        [:td.text-center 
+                          (if (contains? #{"enemy" "treachery" "location"} (:type_code card))
+                              (let [q (:quantity card) d (:difficulty card 0)]
+                                (str (- q d) "/" d))
+                              (:quantity card))]])]]])]]
+      (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1")
+      (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))
+
 (defn lotrdb-score-page [ req ]
   (h/html5
     lotrdb-pretty-head
