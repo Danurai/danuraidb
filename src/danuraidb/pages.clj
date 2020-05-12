@@ -57,13 +57,18 @@
                 [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
                   [:span {:aria-hidden "true"} "\u00d7"]]]
               [:div.modal-body
-                [:h5 "Normal Difficulty"]
+                [:div.d-flex.mb-3
+                  [:h5.my-auto "Difficulty:"
+                    [:span#difftxt.mx-2 "Normal"]]
+                  [:div.ml-2.btn-group.btn-group-sm 
+                    [:button#diffdown.btn.btn-outline-secondary {:style "line-height: 1em;"} [:i.fas.fa-caret-left.fa-xs]]
+                    [:button#diffup.btn.btn-outline-secondary {:style "line-height: 1em;"} [:i.fas.fa-caret-right.fa-xs]]]]
                 [:div.row
                   [:div.col-6
-                    [:canvas#normalpiechart {:width "200" :height "200"}]
+                    [:canvas#piechart {:width "200" :height "200"}]
                     ]
                   [:div.col-6
-                    [:canvas#normalbarchart {:width "200" :height "200"}]
+                    [:canvas#barchart {:width "200" :height "200"}]
                     ]]]]]]
         (h/include-js "https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js")
         (h/include-js "https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0")
@@ -71,44 +76,33 @@
 
 
 (defn lotrdb-score-page [ req ]
-  (h/html5
-    lotrdb-pretty-head
-    [:body
-      (lotrdb-navbar req)
-      [:div.container.my-3
-        [:form
-          [:div.form-row
-            [:div.form-group.col-2
-              [:label "Deck"]
-              [:input.form-control {:type "text" :name "deck" :required true}]]
-            [:div.form-group.col-2
-              [:label "Scenario"]
-              [:input.form-control {:type "text" :name "scenario" :required true}]]
-            [:div.form-group.col-1
-              [:label "Final Threat"]
-              [:input#threat.form-control {:type "number" :name "threat" :required true}]]
-            [:div.form-group.col-1
-              [:label.small "Threat of all Dead Heros"]
-              [:input#dthreat.form-control {:type "number" :name "dthreat" :required true}]]
-            [:div.form-group.col-1
-              [:label.small "Damage on all Heros"]
-              [:input#dmg.form-control {:type "number" :name "dmg" :required true}]]
-            [:div.form-group.col-1
-              [:label "- Victory Points"]
-              [:input#vps.form-control {:type "number" :name "vps" :required true}]]
-            [:div.form-group.col-1
-              [:label.h5 "Player Subtotal"]
-              [:label#p1sub ]]
-            [:div.form-group.col-1
-              [:label "Turns (x10)"]
-              [:input#turns.form-control {:type "number" :name "turns" :required true}]]
-            [:div.form-group.col-1
-              [:label.h5 "Total Score"]
-              [:label#total]]
-            ]]
-        
+  (let [scenarios (model/get-scenarios)]
+    (h/html5
+      lotrdb-pretty-head
+      [:body
+        (lotrdb-navbar req)
+        [:div.container.my-3
+          [:form.mb-3
+            [:div.form-row
+              [:div.form-group.mr-1
+                [:label "Scenario"]
+                [:select#scenario.form-control
+                  (for [s scenarios]
+                    [:option (:name s)])]]
+              [:div.form-group.mr-1
+                [:label "Difficulty"]
+                [:select#difficulty.form-control {:val "Normal"}
+                  [:option "Easy"][:option "Normal"][:option "Nightmare"]]]
+              [:div.form-group.mr-1
+                [:label "Turns Taken"]
+                [:input#turns.form-control {:value 1 :type "number"}]]
+              [:div.form-group
+                [:label "Notes"]
+                [:input.form-control {:type "text"}]]
+                  ]]
           
-      ]]))
+            
+        ]])))
       
 (load "pages/aosc")    
 (load "pages/whuw")
