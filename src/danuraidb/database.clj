@@ -52,6 +52,33 @@
                  [:tags     :text]
                  [:notes    :text]
                  [:uploaded :bigint]]}
+  :questlog {
+    :sqlite     [[:uid      :integer :primary :key :AUTOINCREMENT]
+                 [:questid  :integer]
+                 [:difficulty :text]
+                 [:players  :integer]
+                 [:date     :date]
+                 [:vp       :integer]
+                 [:turns    :integer]
+                 [:progressive :boolean]
+                 [:score    :integer]]
+    :postgresql [[:uid      :integer :default "nextval ('quest_id_seq')"]
+                 [:questid  :integer]
+                 [:difficulty :text]
+                 [:players  :integer]
+                 [:date     :bigint]
+                 [:vp       :integer]
+                 [:turns    :integer]
+                 [:progressive :boolean]
+                 [:score    :integer]]}
+  :questplyrs   [[:questid  :integer]
+                 [:deckname :text]
+                 [:decklist :text]
+                 [:deadh    :integer]
+                 [:dmgh     :integer]
+                 [:threat   :integer]
+                 [:score    :integer]]
+                 
    :systems [[:id   :integer :primary :key]
             [:code :text]
             [:desc :text]]
@@ -124,12 +151,20 @@
       (j/insert! db :users {:username "dan"  :password (creds/hash-bcrypt "user")  :active true :admin false :created timestamp})
       (catch Exception e (println (str "DB Error - Users: " e ))))))
       
+(defn- create-tbl-questlog []
+  (let [sp (keyword (get db :subprotocol "postgresql"))]
+    (try
+      (if (= sp :postgresql) (j/db-do-commands db ["create sequence staging_uid_seq minvalue 100"]))
+      (j/db-do-commands db   (j/create-table-ddl :questlog (-> tcreate :questlog sp) {:conditional? true}))
+      ; let sqlite create an entry in sqlite_sequence
+      (catch Exception e (println (str "DB Error - Questlog: " e ))))))
+      
 (defn- create-tbl-staging []
   (let [sp (keyword (get db :subprotocol "postgresql"))]
     (try
-      (if (= sp :postgresql) (j/db-do-commands db ["create sequence staging_uid_seq minvalue 1000"]))
+      (if (= sp :postgresql) (j/db-do-commands db ["create sequence quest_id_seq minvalue 1000"]))
       (j/db-do-commands db   (j/create-table-ddl :staging (-> tcreate :staging sp) {:conditional? true}))
-      (if (= sp :sqlite)     (j/insert! db :sqlite_sequence {:name "staging" :seq 1000}))
+      ; let sqlite create an entry in sqlite_sequence
       (catch Exception e (println (str "DB Error - Staging: " e ))))))
       
 (defn- create-tbl-custom [ tname schema ]
@@ -144,7 +179,8 @@
     (j/db-do-commands db ["PRAGMA foreign_keys = ON;"]))
   (create-tbl-users)
   (create-tbl-staging)
-  (doseq [[tname schema] (dissoc tcreate :users :staging)]
+  (create-tbl-questlog)
+  (doseq [[tname schema] (dissoc tcreate :users :staging :questlog)]
     (create-tbl-custom tname schema)))
   
 ;;;;;;;;

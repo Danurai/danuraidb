@@ -1,10 +1,12 @@
 (in-ns 'danuraidb.pages)
 
-(defn- nav-link [ req uri title ]
-  [:li.nav-item 
-    [:a.nav-link {
-      :href uri
-      :class (if (= uri (:uri req)) "active")}  title]])
+(defn- nav-link [ req root link ]
+  (let [uri (str "/" root "/" (-> link (clojure.string/lower-case) (clojure.string/replace #"\s" "")))]
+    [:li.nav-item 
+      [:a.nav-link {
+        :href uri
+        :style "text-transform: capitalize;"
+        :class (if (= uri (:uri req)) "active")}  link]]))
 ;; TODO Match part of URI for sub-menus e.g. decks/new
 
 (defn navbar 
@@ -28,7 +30,7 @@
       ;; List of Links
           [:ul.navbar-nav.mr-auto
             (for [link links]
-              (nav-link req (str "/" root "/" (clojure.string/lower-case link)) (clojure.string/capitalize link)))]
+              (nav-link req root (clojure.string/lower-case link)))]
       ;; Login Icon
             [:span.nav-item.dropdown
               [:a#userDropdown.nav-link.dropdown-toggle.text-white {:href="#" :role "button" :data-toggle "dropdown" :aria-haspopup "true" :aria-expanded "false"}

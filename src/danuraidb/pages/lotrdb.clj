@@ -22,7 +22,7 @@
     "/img/lotrdb/icons/sphere_fellowship.png" 
     "LotR DB" 
     "lotrdb"
-    ["decks" "packs" "scenarios" "search" "folders" "score" "solo"]
+    ["decks" "packs" "scenarios" "search" "folders" "quest log" "solo"]
     req))
     
 (defn lotrdb-home [ req ]

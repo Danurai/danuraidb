@@ -6,13 +6,13 @@
     [cemerick.friend :as friend]
     [hiccup.page :as h]
     [clj-time.core :as time]
+    [clj-time.format :as tf]
     [clj-time.coerce :as tc]
     [danuraidb.database :as db]
     [danuraidb.model :as model]))
                   
 (load "pages/common")
 (load "pages/lotrdb")  
-
 
 (defn lotrdb-scenarios-page [ req ]
 	(let [cards (model/get-cards-with-cycle)]
@@ -75,8 +75,8 @@
         (h/include-js "/js/lotrdb/lotrdb_scenarios.js?v=0.1")]))) 
 
 
-(defn lotrdb-score-page [ req ]
-  (let [scenarios (model/get-scenarios)]
+(defn lotrdb-quest-page [ req ]
+  (let [scenarios (model/get-scenarios) dateformatter (tf/formatter "yyyy-MM-dd")]
     (h/html5
       lotrdb-pretty-head
       [:body
@@ -84,25 +84,60 @@
         [:div.container.my-3
           [:form.mb-3
             [:div.form-row
-              [:div.form-group.mr-1
-                [:label "Scenario"]
+              [:input#questid {:hidden true :readonly true :value 1}]
+              [:div.form-group.col-lg-4
+                [:label "Quest"]
                 [:select#scenario.form-control
                   (for [s scenarios]
                     [:option (:name s)])]]
-              [:div.form-group.mr-1
+              [:div.form-group.col-lg-2
                 [:label "Difficulty"]
-                [:select#difficulty.form-control {:val "Normal"}
-                  [:option "Easy"][:option "Normal"][:option "Nightmare"]]]
-              [:div.form-group.mr-1
-                [:label "Turns Taken"]
-                [:input#turns.form-control {:value 1 :type "number"}]]
-              [:div.form-group
-                [:label "Notes"]
-                [:input.form-control {:type "text"}]]
-                  ]]
-          
-            
-        ]])))
+                [:select#difficulty.form-control
+                  [:option "Easy"][:option {:selected true} "Normal"][:option "Nightmare"]]]
+              [:div.form-group.col-lg-1
+                [:label "# Players"]
+                [:select#players.form-control (for [n (range 1 5)] [:option (str n)])]]
+              [:div.form-group.col-lg-1
+                [:label "VP"]
+                [:input#vp.form-control {:value 0 :min 0 :type "number"}]]
+              [:div.form-group.col-lg-1
+                [:label "# Turns"]
+                [:input#turns.form-control {:value 1 :min 1 :type "number"}]]
+              [:div.form-group.col-lg-2
+                [:label "Date"]
+                [:input#date.form-control {:type "Date" :value (tf/unparse dateformatter (time/now))}]]
+              [:div.form-group.col-lg-1
+                [:h5.text-center "Score"]
+                [:h4#score.pt-2.text-center "40"]]]
+            [:div#plyrstats
+              [:datalist#decklists] ;(for [dl decklists] [:option {:value (:name dl)}])]
+              (for [n (range 1 5) :let [p (str "p" n)]]
+                [:div.form-row {:hidden (> n 1) :id (str p "stats")}
+                  [:div.form-group.col-lg-3
+                    [:label (str "Player " (last p) " Deck Name")]
+                    [:input.form-control {:type "text" :list "decklists" :id (str p "deckname")}]
+                    [:input {:hidden true :readonly true :id (str p "decklist")}]]
+                  [:div.form-group.col-lg-1
+                    [:label "Spheres"]
+                    [:div.pt-2 {:id (str p "spheres")}]]
+                  [:div.form-group.col-lg-2
+                    [:label "Dead Hero Threat"]
+                    [:input.form-control {:type "number" :value 0 :min 0 :id (str p "deadh")}]]
+                  [:div.form-group.col-lg-2
+                    [:label "Damage on Heroes"]
+                    [:input.form-control {:type "number" :value 0 :min 0 :id (str p "dmgh")}]]
+                  [:div.form-group.col-lg-2
+                    [:label "Final Threat"]
+                    [:input.form-control {:type "number" :value 30 :min 0 :max 50 :id (str p "threat")}]]
+                  [:div.form-group.col-lg-1.offset-lg-1
+                    [:h5.text-center "Subtotal"]
+                    [:h5.text-center {:id (str p "subtotal")} "30"]]
+                ])]
+            [:div.form-row
+              [:button#savequest.btn.ml-auto.btn-primary [:i.fas.fa-feather.mr-1] "Save"]]]]
+        (h/include-css "/css/lotrdb-icomoon-style.css?v=1")
+        (h/include-js "/js/lotrdb/lotrdb_questlog.js?v=0.1")
+      ])))
       
 (load "pages/aosc")    
 (load "pages/whuw")

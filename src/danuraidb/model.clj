@@ -167,7 +167,7 @@
 		"packs"     (get-packs-with-sku)
 		"cycles"    (get-cycles)
 		"scenarios" (get-scenarios)
-    "userdecks" (db/get-user-decks 0 (-> req get-authentications :uid))
+    "decks"     (db/get-user-decks 0 (-> req get-authentications :uid))
     {:status "Not Found"}))
 		
     
