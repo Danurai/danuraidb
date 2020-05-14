@@ -55,44 +55,48 @@ function recalc() {
     sub = parseInt($('#p'+i+'deadh').val())
         + parseInt($('#p'+i+'dmgh').val())
         + parseInt($('#p'+i+'threat').val());
-    $('#p'+i+'subtotal').html(sub);
+    $('#p'+i+'score').val(sub);
+    $('#p'+i+'scoreshown').html(sub);
     tot += sub;
   }
   
   tot += parseInt($('#turns').val()) * 10;
   tot -= parseInt($('#vp').val());
-  $('#score').html(tot);
+  $('#score').val(tot);
+  $('#scoreshown').html(tot);
   
 }
 
 // SAVE
 
-$('form').on('submit',function (e) { 
-  e.preventDefault() }
-  );
-$('#savequest').on('click',function () {
-  // Build data
-  var savedata = {};
-  var pstats = {};
-  savedata.questid = parseInt($('#questid').val());
-  savedata.difficulty = $('#difficulty').val();
-  savedata.players = parseInt($('#players').val());
-  savedata.vp = parseInt($('#vp').val());
-  savedata.turns = parseInt($('#turns').val());
-  savedata.date = new Date($('#date').val()).getTime();
-  savedata.score = parseInt($('#score').html());
-  savedata.plyrstats = [];
-  
-  for (i=1; i<=parseInt($('#players').val()); i++) {
-    pstats = {};
-    pstats.deckname = $('#p'+i+'deckname').val();
-    pstats.decklist = $('#p'+i+'decklist').val();
-    pstats.deadh = parseInt($('#p'+i+'deadh').val());
-    pstats.dmgh = parseInt($('#p'+i+'dmgh').val());
-    pstats.threat = parseInt($('#p'+i+'threat').val());
-    pstats.score = parseInt($('#p'+i+'subtotal').html());
-    savedata.plyrstats.push(pstats);
-  }
-  
-  console.log(savedata);
-});
+//$('form').on('submit',function (e) { 
+//  e.preventDefault() 
+//  savequest();
+//});
+//
+//function savequest() {
+//  // Build data
+//  var savedata = {};
+//  var pstats = {};
+//  savedata.questid = parseInt($('#questid').val());
+//  savedata.difficulty = $('#difficulty').val();
+//  savedata.players = parseInt($('#players').val());
+//  savedata.vp = parseInt($('#vp').val());
+//  savedata.turns = parseInt($('#turns').val());
+//  savedata.date = new Date($('#date').val()).getTime();
+//  savedata.score = parseInt($('#score').html());
+//  
+//  for (i=1; i<=parseInt($('#players').val()); i++) {
+//    pstats = {};
+//    pstats.deckname = $('#p'+i+'deckname').val();
+//    pstats.decklist = $('#p'+i+'decklist').val();
+//    pstats.deadh = parseInt($('#p'+i+'deadh').val());
+//    pstats.dmgh = parseInt($('#p'+i+'dmgh').val());
+//    pstats.threat = parseInt($('#p'+i+'threat').val());
+//    pstats.score = parseInt($('#p'+i+'subtotal').html());
+//    savedata.plyrstats["p"+i] = pstats;
+//  }
+//  
+//  console.log(savedata);
+//  $.post("/lotrdb/questlog/save",savedata);
+//}

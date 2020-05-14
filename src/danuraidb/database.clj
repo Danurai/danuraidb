@@ -52,48 +52,40 @@
                  [:tags     :text]
                  [:notes    :text]
                  [:uploaded :bigint]]}
-  :questlog {
-    :sqlite     [[:uid      :integer :primary :key :AUTOINCREMENT]
-                 [:questid  :integer]
-                 [:difficulty :text]
-                 [:players  :integer]
-                 [:date     :date]
-                 [:vp       :integer]
-                 [:turns    :integer]
-                 [:progressive :boolean]
-                 [:score    :integer]]
-    :postgresql [[:uid      :integer :default "nextval ('quest_id_seq')"]
-                 [:questid  :integer]
-                 [:difficulty :text]
-                 [:players  :integer]
-                 [:date     :bigint]
-                 [:vp       :integer]
-                 [:turns    :integer]
-                 [:progressive :boolean]
-                 [:score    :integer]]}
-  :questplyrs   [[:questid  :integer]
-                 [:deckname :text]
-                 [:decklist :text]
-                 [:deadh    :integer]
-                 [:dmgh     :integer]
-                 [:threat   :integer]
-                 [:score    :integer]]
-                 
-   :systems [[:id   :integer :primary :key]
-            [:code :text]
-            [:desc :text]]
+  :questlog   [[:id          :integer :primary :key]
+               [:uid         :integer]
+               [:questid     :integer]
+               [:difficulty  :text]
+               [:players     :integer]
+               [:date        :bigint]
+               [:vp          :integer]
+               [:turns       :integer]
+               [:progressive :boolean]
+               [:score       :integer]
+               [:created     :bigint]
+               [:updated     :bigint]]
+  :questplyrs [[:questid     :integer]
+               [:deckname    :text]
+               [:decklist    :text]
+               [:deadh       :integer]
+               [:dmgh        :integer]
+               [:threat      :integer]
+               [:score       :integer]]
+   :systems   [[:id          :integer :primary :key]
+               [:code        :text]
+               [:desc        :text]]
    :decklists [[:uid         :text :primary :key]
-              [:system      :text]
-              [:name        :text]
-              [:author      :integer]
-              [:data        :text]
-              [:alliance    :text]
-              [:tags        :text]
-              [:notes       :text]
-              [:created     :bigint]
-              [:updated     :bigint]
-              ;["FOREIGN KEY (author) REFERENCES users(uid)"]
-              ]
+               [:system      :text]
+               [:name        :text]
+               [:author      :integer]
+               [:data        :text]
+               [:alliance    :text]
+               [:tags        :text]
+               [:notes       :text]
+               [:created     :bigint]
+               [:updated     :bigint]
+               ;["FOREIGN KEY (author) REFERENCES users(uid)"]
+               ] 
    :deckgroups [[:uid       :text :primary :key]
                 [:system    :text]
                 [:name      :text]
@@ -151,14 +143,6 @@
       (j/insert! db :users {:username "dan"  :password (creds/hash-bcrypt "user")  :active true :admin false :created timestamp})
       (catch Exception e (println (str "DB Error - Users: " e ))))))
       
-(defn- create-tbl-questlog []
-  (let [sp (keyword (get db :subprotocol "postgresql"))]
-    (try
-      (if (= sp :postgresql) (j/db-do-commands db ["create sequence staging_uid_seq minvalue 100"]))
-      (j/db-do-commands db   (j/create-table-ddl :questlog (-> tcreate :questlog sp) {:conditional? true}))
-      ; let sqlite create an entry in sqlite_sequence
-      (catch Exception e (println (str "DB Error - Questlog: " e ))))))
-      
 (defn- create-tbl-staging []
   (let [sp (keyword (get db :subprotocol "postgresql"))]
     (try
@@ -179,8 +163,7 @@
     (j/db-do-commands db ["PRAGMA foreign_keys = ON;"]))
   (create-tbl-users)
   (create-tbl-staging)
-  (create-tbl-questlog)
-  (doseq [[tname schema] (dissoc tcreate :users :staging :questlog)]
+  (doseq [[tname schema] (dissoc tcreate :users :staging)]
     (create-tbl-custom tname schema)))
   
 ;;;;;;;;
@@ -306,3 +289,8 @@
   
 (defn delete-staged-data [ uid ]
   (j/delete! db :staging ["uid = ?" (read-string uid)]))
+
+
+(defn savequest [ data ]
+  (let [datestamp (if (= "sqlite" (:subprotocol db)) (t/now) (c/to-long (t/now)))]
+    (j/insert! db :questlog (assoc data :created datestamp :updated datestamp))))

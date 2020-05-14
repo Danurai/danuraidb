@@ -82,56 +82,58 @@
       [:body
         (lotrdb-navbar req)
         [:div.container.my-3
-          [:form.mb-3
+          [:form.mb-3 {:action "/lotrdb/questlog/save" :method "POST"}
             [:div.form-row
-              [:input#questid {:hidden true :readonly true :value 1}]
               [:div.form-group.col-lg-4
                 [:label "Quest"]
+                [:input#questid {:name "questid" :hidden true :readonly true :value 1}]
                 [:select#scenario.form-control
                   (for [s scenarios]
                     [:option (:name s)])]]
               [:div.form-group.col-lg-2
                 [:label "Difficulty"]
-                [:select#difficulty.form-control
+                [:select#difficulty.form-control {:name "difficulty"}
                   [:option "Easy"][:option {:selected true} "Normal"][:option "Nightmare"]]]
               [:div.form-group.col-lg-1
                 [:label "# Players"]
-                [:select#players.form-control (for [n (range 1 5)] [:option (str n)])]]
+                [:select#players.form-control {:name "players"} (for [n (range 1 5)] [:option (str n)])]]
               [:div.form-group.col-lg-1
                 [:label "VP"]
-                [:input#vp.form-control {:value 0 :min 0 :type "number"}]]
+                [:input#vp.form-control {:name "vp" :value 0 :min 0 :type "number"}]]
               [:div.form-group.col-lg-1
                 [:label "# Turns"]
-                [:input#turns.form-control {:value 1 :min 1 :type "number"}]]
+                [:input#turns.form-control {:name "turns" :value 1 :min 1 :type "number"}]]
               [:div.form-group.col-lg-2
                 [:label "Date"]
-                [:input#date.form-control {:type "Date" :value (tf/unparse dateformatter (time/now))}]]
+                [:input#date.form-control {:name "date"   :type "Date" :value (tf/unparse dateformatter (time/now))}]]
               [:div.form-group.col-lg-1
                 [:h5.text-center "Score"]
-                [:h4#score.pt-2.text-center "40"]]]
+                [:input#score {:name "score" :hidden true :readonly true}]
+                [:h4#scoreshown.pt-2.text-center "40"]]]
             [:div#plyrstats
               [:datalist#decklists] ;(for [dl decklists] [:option {:value (:name dl)}])]
               (for [n (range 1 5) :let [p (str "p" n)]]
                 [:div.form-row {:hidden (> n 1) :id (str p "stats")}
                   [:div.form-group.col-lg-3
                     [:label (str "Player " (last p) " Deck Name")]
-                    [:input.form-control {:type "text" :list "decklists" :id (str p "deckname")}]
-                    [:input {:hidden true :readonly true :id (str p "decklist")}]]
+                    [:input.form-control {:name (str p "deckname") :type "text" :list "decklists" :id (str p "deckname")}]
+                    [:input {:name (str p "decklist") :hidden true :readonly true :id (str p "decklist")}]]
                   [:div.form-group.col-lg-1
                     [:label "Spheres"]
-                    [:div.pt-2 {:id (str p "spheres")}]]
+                    [:div.pt-2 {:name (str p "spheres") :id (str p "spheres")}]]
                   [:div.form-group.col-lg-2
                     [:label "Dead Hero Threat"]
-                    [:input.form-control {:type "number" :value 0 :min 0 :id (str p "deadh")}]]
+                    [:input.form-control {:name (str p "deadh") :type "number" :value 0 :min 0 :id (str p "deadh")}]]
                   [:div.form-group.col-lg-2
                     [:label "Damage on Heroes"]
-                    [:input.form-control {:type "number" :value 0 :min 0 :id (str p "dmgh")}]]
+                    [:input.form-control {:name (str p "dmgh") :type "number" :value 0 :min 0 :id (str p "dmgh")}]]
                   [:div.form-group.col-lg-2
                     [:label "Final Threat"]
-                    [:input.form-control {:type "number" :value 30 :min 0 :max 50 :id (str p "threat")}]]
+                    [:input.form-control {:name (str p "threat") :type "number" :value 30 :min 0 :max 50 :id (str p "threat")}]]
                   [:div.form-group.col-lg-1.offset-lg-1
                     [:h5.text-center "Subtotal"]
-                    [:h5.text-center {:id (str p "subtotal")} "30"]]
+                    [:input {:name (str p "score") :id (str p "score") :hidden true :readonly true :value 30}]
+                    [:h5.text-center {:id (str p "scoreshown")} "30"]]
                 ])]
             [:div.form-row
               [:button#savequest.btn.ml-auto.btn-primary [:i.fas.fa-feather.mr-1] "Save"]]]]

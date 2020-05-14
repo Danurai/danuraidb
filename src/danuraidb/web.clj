@@ -70,6 +70,27 @@
     )
     
 ;; LOTRDB ;;
+
+(defn lotrdb-save-quest [ req ]
+  ; Main Save
+  (let [uid (-> req model/get-authentications :uid)
+        questdata (assoc 
+                    (-> req :form-params 
+                      (select-keys ["questid" "difficulty" "players" "date" "vp" "turns" "progressive" "score"])
+                      clojure.walk/keywordize-keys)
+                    :id 1
+                    :uid uid
+                    )]
+      
+    (prn questdata)
+    (db/savequest questdata)
+        
+      
+    (redirect "/lotrdb/questlog")))
+  
+  ;(prn (db/save-deck id system name decklist alliance tags notes (-> req model/get-authentications :uid)))
+  ;(alert "info" [:span [:b name] " saved."])
+  ;(do-redirect req))
     
 (defroutes lotrdb-deck-routes 
   (GET "/fellowship" [] pages/fellowship)
@@ -79,6 +100,13 @@
   (GET "/new" [] pages/lotrdb-deckbuilder)
   (GET "/edit" [] pages/lotrdb-deckbuilder)
   (GET "/edit/:id" [] pages/lotrdb-deckbuilder))
+  
+  
+(defroutes lotrdb-quest-routes
+  (GET "/" []
+    pages/lotrdb-quest-page)
+  (POST "/save" []
+    lotrdb-save-quest))
 
 (defroutes lotrdb-routes
   (GET "/" [req]
@@ -99,8 +127,9 @@
     pages/lotrdb-search-page)
   (GET "/folders" []
     pages/lotrdb-folders)
-  (GET "/questlog" []
-    pages/lotrdb-quest-page)
+  (context "/questlog" []
+    ;lotrdb-quest-routes)
+    (friend/wrap-authorize lotrdb-quest-routes #{::db/user}))
   (GET "/solo" []
     pages/lotrdb-solo-page)
   (GET "/cycle/:id" [ id ]
@@ -315,8 +344,8 @@
 (def app
   (-> app-routes
     (friend/authenticate friend-authentication-hash)
-    (wrap-keyword-params)
     (wrap-params)
+    (wrap-keyword-params)
     (wrap-session)
     (wrap-cors :access-control-allow-origin [#"https://api.jquery.com"]
                :access-control-allow-methods [:get :post] )
