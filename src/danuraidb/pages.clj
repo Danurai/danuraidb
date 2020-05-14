@@ -137,6 +137,11 @@
                 ])]
             [:div.form-row
               [:button#savequest.btn.ml-auto.btn-primary [:i.fas.fa-feather.mr-1] "Save"]]]]
+        [:div.row
+          [:div.col
+            [:div.list-group
+              (for [q (db/get-quests (-> req model/get-authentications :uid))]
+                [:li.list-group-item (str q)])]]]
         (h/include-css "/css/lotrdb-icomoon-style.css?v=1")
         (h/include-js "/js/lotrdb/lotrdb_questlog.js?v=0.1")
       ])))

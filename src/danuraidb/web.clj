@@ -93,13 +93,17 @@
         savedate (->> (-> req :form-params (get "date"))
                       (tf/parse dtformatter)
                       tc/to-long)
-        questdata (assoc 
-                    (-> req :form-params 
-                      (select-keys ["questid" "difficulty" "players" "vp" "turns" "progressive" "score"])
-                      clojure.walk/keywordize-keys)
+        fp (-> req :form-params clojure.walk/keywordize-keys)
+        questdata (hash-map 
+                    :questid    (-> fp :questid read-string)
+                    :difficulty (-> fp :difficulty)
+                    :player     (-> fp :players read-string)
+                    :vp         (-> fp :vp read-string)
+                    :turns      (-> fp :turns read-string)
+                    :progressive (-> fp :progressive read-string)
+                    :score      (-> fp :score read-string)
                     :uid uid
-                    :date savedate
-                    )
+                    :date savedate)
         deckdata (parsedeckdata (:form-params req))]
       
     (prn questdata)

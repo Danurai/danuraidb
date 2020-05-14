@@ -308,3 +308,6 @@
     (j/insert! db :questlog (assoc questdata :id qid :created datestamp :updated datestamp))
     (doseq [pndata playerdata]
       (j/insert! db :questplyrs (assoc pndata :questid qid)))))
+      
+(defn get-quests [ uid ]
+  (j/query db ["SELECT * FROM questlog WHERE uid = ?" uid]))
