@@ -73,26 +73,38 @@
     )
     
 ;; LOTRDB ;;
-
+(defn- parsedeckdata [ data ] 
+; (questid) deckname decklist deadh dmgh threat score
+  (mapv (fn [n]
+    (let [pid (str "p" n)]
+      (hash-map 
+        :deckname (get data (str pid "deckname"))
+        :decklist (get data (str pid "decklist"))
+        :deadh (read-string (get data (str pid "deadh")))
+        :dmgh (read-string (get data (str pid "dmgh")))
+        :threat (read-string (get data (str pid "threat")))
+        :score (read-string (get data (str pid "score"))))))
+    (range 1 (-> data (get "players") read-string inc))))
+    
 (defn lotrdb-save-quest [ req ]
   ; Main Save
   (let [uid (-> req model/get-authentications :uid)
         dtformatter (tf/formatter "yyyy-MM-dd")
         savedate (->> (-> req :form-params (get "date"))
                       (tf/parse dtformatter)
-                      );tc/to-long)
+                      tc/to-long)
         questdata (assoc 
                     (-> req :form-params 
                       (select-keys ["questid" "difficulty" "players" "vp" "turns" "progressive" "score"])
                       clojure.walk/keywordize-keys)
                     :uid uid
                     :date savedate
-                    )]
+                    )
+        deckdata (parsedeckdata (:form-params req))]
       
     (prn questdata)
-    (db/savequest questdata)
-        
-      
+    (prn deckdata)
+    (db/savequest questdata deckdata)
     (redirect "/lotrdb/questlog")))
   
   ;(prn (db/save-deck id system name decklist alliance tags notes (-> req model/get-authentications :uid)))

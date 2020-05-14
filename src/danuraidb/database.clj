@@ -302,7 +302,9 @@
             (recur (inc i))
             id)))))
 
-(defn savequest [ data ]
-  (let [datestamp (if (= "sqlite" (:subprotocol db)) (t/now) (c/to-long (t/now)))
-        qid (questid data)]
-    (j/insert! db :questlog (assoc data :id qid :created datestamp :updated datestamp))))
+(defn savequest [ questdata playerdata ]
+  (let [datestamp (c/to-long (t/now))
+        qid (questid questdata)]
+    (j/insert! db :questlog (assoc questdata :id qid :created datestamp :updated datestamp))
+    (doseq [pndata playerdata]
+      (j/insert! db :questplyrs (assoc pndata :questid qid)))))
