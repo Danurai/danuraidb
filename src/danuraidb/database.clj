@@ -291,6 +291,18 @@
   (j/delete! db :staging ["uid = ?" (read-string uid)]))
 
 
+(defn get-user-questlogs [ uid ]
+  (j/query db ["SELECT id FROM questlog WHERE uid = ?" uid]))
+
+(defn questid [ data ]
+  (let [qids (map :id (get-user-questlogs (:uid data)))]
+    (loop [i 1]
+      (let [id (read-string (str (:uid data) (format "%04d" i)))]
+        (if (.contains qids id)
+            (recur (inc i))
+            id)))))
+
 (defn savequest [ data ]
-  (let [datestamp (if (= "sqlite" (:subprotocol db)) (t/now) (c/to-long (t/now)))]
-    (j/insert! db :questlog (assoc data :created datestamp :updated datestamp))))
+  (let [datestamp (if (= "sqlite" (:subprotocol db)) (t/now) (c/to-long (t/now)))
+        qid (questid data)]
+    (j/insert! db :questlog (assoc data :id qid :created datestamp :updated datestamp))))

@@ -4,6 +4,9 @@
     [clojure.data.json :as json]
     [compojure.core :refer [context defroutes GET ANY POST]]
     [compojure.route :refer [resources]]
+    [clj-time.core :as time]
+    [clj-time.coerce :as tc]
+    [clj-time.format :as tf]
     [ring.util.response :refer [response content-type redirect]]
     [ring.middleware.keyword-params :refer [wrap-keyword-params]]
     [ring.middleware.params :refer [wrap-params]]
@@ -74,12 +77,16 @@
 (defn lotrdb-save-quest [ req ]
   ; Main Save
   (let [uid (-> req model/get-authentications :uid)
+        dtformatter (tf/formatter "yyyy-MM-dd")
+        savedate (->> (-> req :form-params (get "date"))
+                      (tf/parse dtformatter)
+                      );tc/to-long)
         questdata (assoc 
                     (-> req :form-params 
-                      (select-keys ["questid" "difficulty" "players" "date" "vp" "turns" "progressive" "score"])
+                      (select-keys ["questid" "difficulty" "players" "vp" "turns" "progressive" "score"])
                       clojure.walk/keywordize-keys)
-                    :id 1
                     :uid uid
+                    :date savedate
                     )]
       
     (prn questdata)
