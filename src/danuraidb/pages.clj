@@ -60,7 +60,7 @@
                     [:div.input-group
                       [:input.form-control {:name (str p "deckname") :type "text" :list "decklists" :id (str p "deckname")}]
                       [:div.input-group-append
-                        [:button.btn.btn-outline-secondary {:type "button" :data-plyr-id n :data-toggle "modal" :data-target "#modaldecklist"} [:i.fas.fa-plus]]]]
+                        [:button.btn.btn-secondary {:type "button" :data-plyr-id n :data-toggle "modal" :data-target "#modaldecklist"} [:i.fas.fa-plus]]]]
                     [:input {:name (str p "decklist") :hidden true :readonly true :id (str p "decklist")}]]
                   [:div.form-group.col-lg-1
                     [:label "Spheres"]
@@ -75,7 +75,7 @@
                     [:label "Final Threat"]
                     [:input.form-control {:name (str p "threat") :type "number" :value 30 :min 0 :max 50 :id (str p "threat")}]]
                   [:div.form-group.col-lg-1
-                    [:h5.text-center "Subtotal"]
+                    [:div.text-center "Subtotal"]
                     [:input {:name (str p "score") :id (str p "score") :hidden true :readonly true :value 30}]
                     [:h5.text-center {:id (str p "scoreshown")} "30"]]
                 ])]
@@ -84,17 +84,27 @@
           [:div.row
             [:div.col
               [:div.list-group
-                (for [q (db/get-quests (-> req model/get-authentications :uid))]
+                (for [q (->> (-> req model/get-authentications :uid) db/get-quests (sort-by :id >) (sort-by :date >))]
                   [:li.list-group-item 
-                    [:small.text-muted (tf/unparse (tf/formatter "dd-MMM-yyyy") (tc/from-long (:date q)))]
+                    [:div.d-flex 
+                      [:small.text-muted.mr-2 (tf/unparse (tf/formatter "dd-MMM-yyyy") (tc/from-long (:date q)))]
+                      [:small.text-muted (:id q)]]
                     [:div.d-flex
                       [:h4.mr-2 (->> scenarios (filter #(= (:id %) (:questid q))) first :name)]
                       [:span.mt-1 (str (:players q) " Player, " (:difficulty q) " difficulty.")]
                       [:h4.ml-auto [:h4 (:score q)]]]
                     [:div.d-flex 
                       (for [d (db/get-quest-decks (:id q))] 
-                        [:div.mr-3 (:deckname d)])]])]]]]
-        
+                        [:div.mr-3 
+                          {:data-decklist (:decklist d) :data-toggle "modal" :data-target "#qlmodal" :style "cursor: pointer;"}
+                          (:deckname d) ])]])]]]]
+        [:div#qlmodal.modal.fade {:tab-index -1 :role "dialog"}
+          [:div.modal-dialog {:role "document"}
+            [:div.modal-content
+              [:div.modal-header
+                [:h4.modal-title ""]
+                [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"} [:span {:aria-hidden "true"} "\u00d7"]]]
+              [:div.modal-body]]]]
         [:div#modaldecklist.modal.fade {:tab-index -1 :role "dialog"}
           [:div.modal-dialog.modal-lg {:role "document"}
             [:div.modal-content
@@ -106,24 +116,22 @@
                 [:div.row.mb-2
                   [:div.col
                     [:label.mr-1 "Deck Name"]
-                    [:input#mdeckname.form-control {:type "text"}]]]
-                [:div.row
-                  [:div.col-6
-                    [:div.mb-2 "Decklist"]
-                    [:div#mdecklistpretty]]
-                  [:div.col-6
+                    [:input#mdeckname.form-control.mb-2 {:type "text"}]
                     [:label "Add cards"]
                     [:div.d-flex.mb-2
-                      [:input#mcardname.form-control.mr-2 {:type "text"}]
-                      [:div#mcardqty.btn-group.btn-group-sm
+                      [:input#mcardname.typeahead.form-control {:type "text"}]
+                      [:div#mcardqty.btn-group.btn-group-sm.ml-2
                         (for [n (range 1 4)] [:button.btn.btn-outline-secondary.mqtybtn {:value n} n])]]
-                    [:textarea#mdecklist.form-control {:rows 20}]
-                    [:input#mparsedecklist {:hidden false :readonly false}]]]]
+                    ;[:textarea#mdecklist.form-control {:rows 10}]
+                    [:div#mdecklistpretty {:style "min-height:200px;"}]
+                    [:input#mparsedecklist {:hidden true :readonly true}]]]]
               [:div.modal-footer
+                [:input#mpnum {:hidden true :readonly true :value 0}]
                 [:button.btn.btn-secondary {:data-dismiss "modal"} "Close"]
                 ;[:button.btn.btn-Danger "Update Saved Deck"]
-                [:button.btn.btn-primary "Save"]]]]]
+                [:button#mdecksave.btn.btn-primary "Save"]]]]]
 
+        (h/include-js "/js/externs/typeahead.js")
         (h/include-css "/css/lotrdb-icomoon-style.css?v=1")
         (h/include-js "/js/lotrdb/lotrdb_questlog.js?v=0.1")
       ])))

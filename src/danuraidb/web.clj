@@ -360,8 +360,8 @@
 (def app
   (-> app-routes
     (friend/authenticate friend-authentication-hash)
-    (wrap-params)
     (wrap-keyword-params)
+    (wrap-params)
     (wrap-session)
     (wrap-cors :access-control-allow-origin [#"https://api.jquery.com"]
                :access-control-allow-methods [:get :post] )
