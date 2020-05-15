@@ -89,31 +89,24 @@
 (defn lotrdb-save-quest [ req ]
   ; Main Save
   (let [uid (-> req model/get-authentications :uid)
-        dtformatter (tf/formatter "yyyy-MM-dd")
         savedate (->> (-> req :form-params (get "date"))
-                      (tf/parse dtformatter)
+                      (tf/parse (tf/formatter "yyyy-MM-dd"))
                       tc/to-long)
         fp (-> req :form-params clojure.walk/keywordize-keys)
         questdata (hash-map 
                     :questid    (-> fp :questid read-string)
                     :difficulty (-> fp :difficulty)
-                    :player     (-> fp :players read-string)
+                    :players    (-> fp :players read-string)
                     :vp         (-> fp :vp read-string)
                     :turns      (-> fp :turns read-string)
-                    :progressive (-> fp :progressive read-string)
+                    ;:progressive (-> fp :progressive read-string)
                     :score      (-> fp :score read-string)
                     :uid uid
-                    :date savedate)
+                    :date savedate
+                  )
         deckdata (parsedeckdata (:form-params req))]
-      
-    (prn questdata)
-    (prn deckdata)
     (db/savequest questdata deckdata)
     (redirect "/lotrdb/questlog")))
-  
-  ;(prn (db/save-deck id system name decklist alliance tags notes (-> req model/get-authentications :uid)))
-  ;(alert "info" [:span [:b name] " saved."])
-  ;(do-redirect req))
     
 (defroutes lotrdb-deck-routes 
   (GET "/fellowship" [] pages/fellowship)

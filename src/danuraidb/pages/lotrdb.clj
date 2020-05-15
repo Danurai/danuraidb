@@ -123,9 +123,70 @@
 ;;;;;;;;;;;;;             
 ; SCENARIOS ;
 ;;;;;;;;;;;;;
+
+(defn lotrdb-scenarios-page [ req ]
+	(let [cards (model/get-cards-with-cycle)]
+		(h/html5
+			lotrdb-pretty-head
+			[:body  
+				(lotrdb-navbar req)
+        [:div.container.my-3
+          [:ul.list-group
+            (for [s (model/get-scenarios)]
+              (let [quests (->> cards (filter #(= (:type_code %) "quest")) (filter #(= (:encounter_name %) (:name s))))] 
+                [:li.list-group-item 
+                  [:div.row.justify-content-between
+                    [:span.h4 (:name s)
+                      [:i.fas.fa-chart-pie.ml-2.fa-xs.text-secondary {
+                        :style "cursor: pointer;" 
+                        :data-target "#modaldata" :data-toggle "modal"
+                        :data-quest-id (:id s)
+                        }]] ;quests}]]
+                    [:span
+                      [:span.mr-2.align-middle (-> quests first :pack_name)]
+                      (lotrdb-card-icon (first quests))]]
+                  [:div.row
+                    [:div.col-sm-6
+                      [:h5 "Quests"]
+                      (for [q quests]
+                        [:div [:a.card-link {:href (str "/lotrdb/card/" (:code q)) :data-code (:code q)} (:name q)]])]
+                    [:div.col-sm-6 
+                      [:h5
+                        [:a {:href (str "/lotrdb/search?q=n:" (->> s :encounters (map :name) (clojure.string/join "|")))}
+                        "Encounter Sets"]]
+                      ; assumed Encounter set always includes encounter pack with a matching name
+                      [:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name s) " " "+"))} (:name s)]]
+                      (for [e (sort-by :id (:encounters s))]
+                        (if (not= (:name s) (:name e))
+                          [:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]
+        [:div#modaldata.modal.fade {:tab-index -1 :role "dialog"}
+          [:div.modal-dialog.modal-lg {:role "document"}
+            [:div.modal-content
+              [:div.modal-header
+                [:h4.modal-title.w-100 ""]
+                [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
+                  [:span {:aria-hidden "true"} "\u00d7"]]]
+              [:div.modal-body
+                [:div.d-flex.mb-3
+                  [:h5.my-auto "Difficulty:"
+                    [:span#difftxt.mx-2 "Normal"]]
+                  [:div.ml-2.btn-group.btn-group-sm 
+                    [:button#diffdown.btn.btn-outline-secondary {:style "line-height: 1em;"} [:i.fas.fa-caret-left.fa-xs]]
+                    [:button#diffup.btn.btn-outline-secondary {:style "line-height: 1em;"} [:i.fas.fa-caret-right.fa-xs]]]]
+                [:div.row
+                  [:div.col-6
+                    [:canvas#piechart {:width "200" :height "200"}]
+                    ]
+                  [:div.col-6
+                    [:canvas#barchart {:width "200" :height "200"}]
+                    ]]]]]]
+        (h/include-js "https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js")
+        (h/include-js "https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0")
+        (h/include-js "/js/lotrdb/lotrdb_scenarios.js?v=0.1")]))) 
+        
+        
 ; SEARCH PAGE ;
 ;;;;;;;;;;;;;;;
-
 
 (defn lotrdb-search-page [ req ]
   (let [q (or (-> req :params :q) "")

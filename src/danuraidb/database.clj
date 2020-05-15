@@ -293,6 +293,9 @@
 
 (defn get-user-questlogs [ uid ]
   (j/query db ["SELECT id FROM questlog WHERE uid = ?" uid]))
+  
+(defn get-quest-decks [ qid ]
+  (j/query db ["SELECT * FROM questplyrs WHERE questid = ?" qid]))
 
 (defn questid [ data ]
   (let [qids (map :id (get-user-questlogs (:uid data)))]
@@ -304,8 +307,11 @@
 
 (defn savequest [ questdata playerdata ]
   (let [datestamp (c/to-long (t/now))
-        qid (questid questdata)]
+        qid (or (:id questdata) (questid questdata))]
+    (prn (assoc questdata :id qid :created datestamp :updated datestamp))
     (j/insert! db :questlog (assoc questdata :id qid :created datestamp :updated datestamp))
+    
+    (j/delete! db :questplyrs ["questid=?" qid])
     (doseq [pndata playerdata]
       (j/insert! db :questplyrs (assoc pndata :questid qid)))))
       
