@@ -121,29 +121,6 @@ $('#mcardqty')
     $('#mcardname').val('');
   });
 
-
-//$('#mdecklist').on('input',function() {
-//  $(this).val()
-//  var decklist = {};
-//  var c = {};
-//  var card;
-//  $.each($(this).val().split('\n'), function (i,l) {
-//    re.exec(l);
-//    if (RegExp.$1=="") {
-//      c.qty = 1;
-//      c.nname = RegExp.$4;
-//      c.pack_code = RegExp.$5;
-//    } else {
-//      c.qty = RegExp.$1
-//      c.nname = RegExp.$2;
-//      c.pack_code = RegExp.$3;
-//    }
-//    if (typeof card !== 'undefined') {decklist[card.code]=c.qty;}
-//  });
-//  $('#mparsedecklist').val(JSON.stringify(decklist));
-//  $('#mdecklistpretty').html(pretty_decklist(decklist));
-//});
-
 $('#mdecklistpretty').on('click','.removecard',function() {
   var dl = ($('#mparsedecklist').val() != '' ? JSON.parse($('#mparsedecklist').val()) : '')
   delete dl[$(this).data('code')];
@@ -163,7 +140,7 @@ function pretty_decklist (decklist, remove=false) {
         outp += '<div class="mb-1" style="text-transform: capitalize"><b>' + t + ' (' + deck.filter(c=>c.type_code==t).length + ')</b></div>';
         $.each(deck.filter(c=>c.type_code==t), function (id, c) {
           outp += '<div>' 
-            + (remove ? '<button class="btn btn-outline-danger btn-sm removecard mr-2" style="line-height: 0.5 !important" data-code="' + c.code + '" ><i class="fas fa-times fa-xs" /></button>' : '')
+            + (remove ? '<button class="btn btn-outline-danger removecard mr-2" style="line-height: 0.5 !important" data-code="' + c.code + '" ><i class="fas fa-times fa-xs" /></button>' : '')
             + '<span>' + c.qty + 'x ' + c.name + ' (' + c.pack_code + ')</span>'
             + '</div>';
         });
@@ -174,11 +151,45 @@ function pretty_decklist (decklist, remove=false) {
   return outp;
 }
 
-// quest list decklist modal
-$('#qlmodal').on('show.bs.modal',function (e) {
-  var dl = $(e.relatedTarget).data('decklist')
-  var dn = $(e.relatedTarget).html();
-  
-  $('#qlmodal').find('.modal-title').html(dn);
-  $('#qlmodal').find('.modal-body').html(pretty_decklist(dl))
+$('#qlmodal')
+  .on('show.bs.modal',function (e) {
+    var rt = e.relatedTarget;
+    var dh, db, df = '';
+    if ($(rt).hasClass('btn-delete')) {
+      var qid = $(rt).data('qid');
+      dh = 'Delete Quest: #' + qid;
+      db = 'Are you sure you want to delete quest id #' + qid + '?'
+      df = '<button class="btn btn-secondary" data-dismiss="modal">Cancel</button>'
+        + '<form action="/lotrdb/questlog/delete" method="post">'
+        + '<input name="qid" readonly hidden value=' + qid + '>'
+        + '<button class="btn btn-danger">OK</button>'
+        + '</form>';
+    } else {
+  // quest list decklist modal
+      dh = $(rt).html();
+      db = pretty_decklist($(e.relatedTarget).data('decklist'));
+      df = '<button class="btn btn-secondary" data-dismiss="modal">Close</button>';
+    }
+      $('#qlmodal').find('.modal-title').html(dh);
+      $('#qlmodal').find('.modal-body').html(db);
+      $('#qlmodal').find('.modal-footer').html(df);
+  })
+  .on('hide.bs.modal', function () {
+    $('#qlmodal').find('.modal-title').html('');
+    $('#qlmodal').find('.modal-body').html('');
+    $('#qlmodal').find('.modal-footer').html('');
+  });
+
+$('li.btn-edit').on('click', function () {
+  resetquest();
 });
+
+$('#resetquest').on('click',function () {
+  resetquest();
+});
+
+function resetquest() {
+  var form = $(this).closest('form');
+  $(form).find('input[type="text"]').val('');
+  $(form).find('input[type="number"]').val(0);
+}

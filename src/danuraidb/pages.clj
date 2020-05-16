@@ -25,6 +25,7 @@
         [:div.container.my-3
           [:form.mb-3 {:action "/lotrdb/questlog/save" :method "POST"}
             [:div.form-row
+              [:input#id {:name "id" :hidden true :readonly true}]
               [:div.form-group.col-lg-4
                 [:label "Quest"]
                 [:input#questid {:name "questid" :hidden true :readonly true :value 1}]
@@ -79,32 +80,43 @@
                     [:input {:name (str p "score") :id (str p "score") :hidden true :readonly true :value 30}]
                     [:h5.text-center {:id (str p "scoreshown")} "30"]]
                 ])]
-            [:div.form-row
-              [:button#savequest.btn.ml-auto.btn-primary [:i.fas.fa-feather.mr-1] "Save"]]]
+            [:div.d-flex.justify-content-end
+              [:button#resetquest.btn.btn-secondary.mr-2 {:type "button"} [:i.fas.fa-eraser.mr-1] "New/Reset"]
+              [:button#savequest.btn.btn-warning [:i.fas.fa-feather.mr-1] "Save"]]]
           [:div.row
             [:div.col
-              [:div.list-group
-                (for [q (->> (-> req model/get-authentications :uid) db/get-quests (sort-by :id >) (sort-by :date >))]
+              [:div#savedquests.list-group
+                (for [q (->> (-> req model/get-authentications :uid) db/get-quests (sort-by :id >) (sort-by :date >))
+                      :let [questdecks (db/get-quest-decks (:id q))]]
                   [:li.list-group-item 
                     [:div.d-flex 
                       [:small.text-muted.mr-2 (tf/unparse (tf/formatter "dd-MMM-yyyy") (tc/from-long (:date q)))]
-                      [:small.text-muted (:id q)]]
+                      [:small.text-muted {:style "position: absolute;bottom: 5px;"} (str "#" (:id q))]]
                     [:div.d-flex
-                      [:h4.mr-2 (->> scenarios (filter #(= (:id %) (:questid q))) first :name)]
-                      [:span.mt-1 (str (:players q) " Player, " (:difficulty q) " difficulty.")]
+                      [:h4.mr-3 (->> scenarios (filter #(= (:id %) (:questid q))) first :name)]
+                      [:span.mt-1 
+                        [:i.fas.fa-mountain.mr-1] [:span.mr-2 (:difficulty q)]
+                        [:i.far.fa-clock.mr-1] [:span.mr-2 (:turns q)]
+                        [:i.far.fa-star.mr-1] [:span (:vp q)]]
                       [:h4.ml-auto [:h4 (:score q)]]]
                     [:div.d-flex 
-                      (for [d (db/get-quest-decks (:id q))] 
+                      (for [d questdecks] 
                         [:div.mr-3 
-                          {:data-decklist (:decklist d) :data-toggle "modal" :data-target "#qlmodal" :style "cursor: pointer;"}
-                          (:deckname d) ])]])]]]]
+                          [:span.mr-2 
+                            {:data-decklist (:decklist d) :data-toggle "modal" :data-target "#qlmodal" :style "cursor: pointer;"}
+                            (:deckname d)]
+                          [:span (str "(" (:score d) ")")]])]
+                    [:div.d-flex.justify-content-end
+                      [:button.btn.btn-primary.btn-sm.mr-1.btn-edit {:data-quest (str q) :data-questdecks (str questdecks) } [:i.fas.fa-edit.mr-1] "Edit"]
+                      [:button.btn.btn-danger.btn-sm.mr-2.btn-delete {:data-qid (:id q) :data-toggle "modal" :data-target "#qlmodal"} [:i.fas.fa-times.mr-1] "Delete"]]])]]]]
         [:div#qlmodal.modal.fade {:tab-index -1 :role "dialog"}
           [:div.modal-dialog {:role "document"}
             [:div.modal-content
               [:div.modal-header
                 [:h4.modal-title ""]
                 [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"} [:span {:aria-hidden "true"} "\u00d7"]]]
-              [:div.modal-body]]]]
+              [:div.modal-body]
+              [:div.modal-footer]]]]
         [:div#modaldecklist.modal.fade {:tab-index -1 :role "dialog"}
           [:div.modal-dialog.modal-lg {:role "document"}
             [:div.modal-content

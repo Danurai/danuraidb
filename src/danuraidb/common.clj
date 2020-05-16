@@ -66,7 +66,7 @@
     [:link {:rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.8/css/bootstrap-select.css" :integrity "sha256-OejstTtgpWqwtX/gwUbICEQz8wbdVWpVrCwqZ29apg4=" :crossorigin "anonymous"}]
     [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.8/js/bootstrap-select.js" :integrity "sha256-/X1l5JQfBqlJ1nW6V8EhZJsnDycL6ocQDWd531nF2EI=" :crossorigin "anonymous"}]
   ;; Font Awesome
-    [:script {:defer true :src "https://use.fontawesome.com/releases/v5.4.0/js/all.js"}]
+    [:script {:defer true :src "https://use.fontawesome.com/releases/v5.10.0/js/all.js"}]
   ;; TAFFY JQuery database
     [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/taffydb/2.7.2/taffy-min.js"}]
   ;; Showdown markup 

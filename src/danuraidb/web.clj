@@ -122,7 +122,10 @@
   (GET "/" []
     pages/lotrdb-quest-page)
   (POST "/save" []
-    lotrdb-save-quest))
+    lotrdb-save-quest)
+  (POST "/delete" [qid]
+    (db/delete-quest qid)
+    (redirect "/lotrdb/questlog")))
 
 (defroutes lotrdb-routes
   (GET "/" [req]
