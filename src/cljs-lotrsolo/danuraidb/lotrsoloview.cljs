@@ -3,7 +3,7 @@
     [reagent.core :as r]
     [danuraidb.lotrsolomodel :refer 
       [ad data init! startsolo! selectscenario! selectpdeck! movecard!
-       shuffle-deck! draw-card! select-deck! select-card! set-counter!]]))
+       shuffle-deck! draw-cards! select-deck! select-card! set-counter!]]))
 
 
 (defn get-cards-by-location [ deck location ]
@@ -30,10 +30,12 @@
         [:div.row
           [:div.col-sm-6
             [:h4 (-> @ad :scenario :name)] 
-            [:div (-> @ad :edeck str)]]
+            (for [crd (->> @ad :edeck (map :name))]
+              [:div {:key (gensym)} crd])]
           [:div.col-sm-6
             [:h4 (-> @ad :pdeck :name)]
-            [:div (-> @ad :p1deck str)]]]]]))
+            (for [crd (->> @ad :p1deck (map :name))]
+              [:div {:key (gensym)} crd])]]]]))
     
   
 (defn exhaust-selected! []
@@ -44,13 +46,13 @@
   
 (defn showcards! []
   (if (contains? #{:edeck :p1deck} (-> @ad :selected first))
-    (swap! ad assoc :state :showcards)))
-    
+    (swap! ad assoc-in [:temp :state] :showcards)))
    
 (def commandbuttons (r/atom [
   {:active true :title "show" :fn #(showcards!)}
   {:active true :title "Shuffle" :fn #(shuffle-deck!)}
-  {:active true :title "Draw"   :fn #(draw-card!)}
+  {:active true :title "Draw"   :fn #(draw-cards! 1)}
+  {:active true :title "Draw 6"   :fn #(draw-cards! 6)}
   {:active true :title "Exhaust" :fn #(exhaust-selected!)}
   {:active true :title "Discard" :fn #(discard-selected!)}
   {:active true :title "+ Dmg"  :fn #(set-counter! :damage inc)}
@@ -66,8 +68,7 @@
     (for [itm @commandbuttons]
       ^{:key (gensym)}[:button.btn.btn-dark.mr-1 {
         :on-click (:fn itm)
-        :class (if (false? (:active itm)) "disabled")
-        } 
+        :class (if (false? (:active itm)) "disabled")} 
         (:title itm)])])
 
     
@@ -79,16 +80,16 @@
     [:img.img-fluid {:src (:cgdbimgurl c)}]
     (if (= (:type_code c) "location") 
       [:div.counter.counter-prg 
-        [:span.text-center (if (>= (:progress c 0) (:quest_points c)) "Y" (:progress c))]])
-    (if (= (:type_code c) "enemy") [:div.counter.counter-dmg [:span.text-center.my-auto (if (>= (:damage c 0) (:health c)) "X" (:damage c))]])])
+        [:span.text-center (if (>= (:progress c 0) (:quest_points c 0)) "Y" (:progress c 0))]])
+    (if (= (:type_code c) "enemy") [:div.counter.counter-dmg [:span.text-center.my-auto (if (>= (:damage c 0) (:health c)) "X" (:damage c 0))]])])
     
 (defn hero-card-component [ c ]
   ^{:key (gensym)}[:div.small-hero {
+    :title (:id c) 
     :data-code (:code c)
     :class (if (contains? (:selected @ad) (:id c)) "selected")
     :on-click (fn [e] (select-card! e (:id c)))
-    :style {:background-image (str "URL(" (:cgdbimgurl c) ")")}
-    }
+    :style {:background-image (str "URL(" (:cgdbimgurl c) ")")}}
     [:span.counter.counter-res [:span (:resource c)]]
     [:span {:style {:position "absolute" :bottom "2px" :right "2px"}}
       [:img {:style {:width "35px"} :src (str "/img/lotrdb/icons/sphere_" (:sphere_code c) ".png")}]]])
@@ -96,77 +97,106 @@
   
   
 (defn setup []
-  [:div 
+  [:div ;{:on-click #(swap! ad assoc :selected #{})}
     [commandbar]
-    [:div.row {:on-click #(swap! ad assoc :selected #{})}
-  ; Deck and discard      
-      (let [deck (get-cards-by-location (:edeck @ad) :deck)
-            discard (get-cards-by-location (:edeck @ad) :discard)]
-        [:div.col-sm-2
-          [:div.d-flex
-            [:span.mx-auto.mb-2 "Encounter Deck"]]
-          [:div.d-flex
-            [:div.small-card {
-              :class (if (contains? (:selected @ad) :edeck) "selected")
-              :on-click (fn [e] (.stopPropagation e) (select-deck! :edeck))}
-              [:img.img-fluid {:src "/img/lotrdb/encounter_back.jpg"}]
-              [:div.counter.counter-count [:span (count deck)]]]
-            [:div.small-card
-                [:img.img-fluid {:style {:opacity 0.4} :src "/img/lotrdb/encounter_back.jpg"}]
-                [:div.counter.counter-count (count discard)]]]])
-  ; Staging
-      (let [staging (get-cards-by-location (:edeck @ad) :stage)]
-        [:div.col-sm-6
-          [:div.d-flex.justify-content-center.mb-2
-            [:span.mr-2 "Staging"]
-            [:i.lotr-type-threat.mr-1]
-            [:span (->> @ad :edeck (filter #(= (:loc %) :stage)) (map :threat) (apply +))]]
-          [:div.d-flex
-            (doall (for [c staging]
-              (card-component c)))]])
-      
-      [:div.col-sm-4
-        [:div.d-flex [:span.mx-auto "P1"]]
-        [:div.d-flex
-          (doall (for [h (get-cards-by-location (:p1deck @ad) :hero)]
-             (hero-card-component h)))]
-    ; Deck and discard      
-        [:div.d-flex
-          [:div.small-card {
-            :class (if (contains? (:selected @ad) :p1deck) "selected")
-            :on-click (fn [e] (.stopPropagation e) (select-deck! :p1deck))}
-            [:img.img-fluid {:src "/img/lotrdb/player_back.jpg"}]
-            [:div.counter.counter-count [:span (->> @ad :p1deck (filter #(= (:loc %) :deck)) count)]]]
-          [:div.small-card
-            [:img.img-fluid {:style {:opacity 0.4} :src "/img/lotrdb/player_back.jpg"}]
-            [:div.counter.counter-count (count [])]]]]
-    ]])
+    [:div.row
+      [:div.col-10
+        [:div.row 
+      ; Deck and discard      
+          (let [deck (get-cards-by-location (:edeck @ad) :deck)
+                discard (get-cards-by-location (:edeck @ad) :discard)]
+            [:div.col-sm-2
+              [:div.d-flex
+                [:span.mx-auto.mb-2 "Encounter Deck"]]
+              [:div.d-flex
+                [:div.small-card {
+                  :class (if (contains? (:selected @ad) :edeck) "selected")
+                  :on-click (fn [e] (.stopPropagation e) (select-deck! :edeck))}
+                  [:img.img-fluid {:src "/img/lotrdb/encounter_back.jpg"}]
+                  [:div.counter.counter-count [:span (count deck)]]]
+                [:div.small-card
+                    [:img.img-fluid {:style {:opacity 0.4} :src "/img/lotrdb/encounter_back.jpg"}]
+                    [:div.counter.counter-count (count discard)]]]])
+      ; Staging
+          (let [staging (get-cards-by-location (:edeck @ad) :stage)]
+            [:div.col-sm-9
+              [:div.d-flex.justify-content-center.mb-2
+                [:span.mr-2 "Staging"]
+                [:i.lotr-type-threat.mr-1]
+                [:span (->> @ad :edeck (filter #(= (:loc %) :stage)) (map :threat) (apply +))]]
+              [:div.d-flex
+                (doall (for [c staging]
+                  (card-component c)))]])]
+        [:div.row {:style {:min-height "50px"}}]  
+        [:div.row 
+          [:div.col-sm-2
+            [:div.d-flex
+        ; Deck and discard 
+              [:div.small-card {
+                :class (if (contains? (:selected @ad) :p1deck) "selected")
+                :on-click (fn [e] (.stopPropagation e) (select-deck! :p1deck))}
+                [:img.img-fluid {:src "/img/lotrdb/player_back.jpg"}]
+                [:div.counter.counter-count [:span (->> @ad :p1deck (filter #(= (:loc %) :deck)) count)]]]
+              [:div.small-card
+                [:img.img-fluid {:style {:opacity 0.4} :src "/img/lotrdb/player_back.jpg"}]
+                [:div.counter.counter-count (count [])]]]]
+      ; Cards
+          [:div.col-sm-9
+            [:div.d-flex
+              (doall (for [h (get-cards-by-location (:p1deck @ad) :hero)]
+                 (hero-card-component h)))
+              (doall (for [h (get-cards-by-location (:p1deck @ad) :area)]
+                 (card-component h)))]]]]
+      [:div.col-2
+        [:div.border {:style {:height "100%"}}]]]])
+    
+(defn toggle-select-shown [ id ]
+  (if (nil? (-> @ad :temp :selected))
+      (swap! ad assoc-in [:temp :selected] #{}))
+  (if (contains? (-> @ad :temp :selected) id)
+      (swap! ad update-in [:temp :selected] disj id)
+      (swap! ad update-in [:temp :selected] conj id)))
+       
+(defn- close-modal []
+  (swap! ad dissoc :temp))
+  
+  
+               
+(defn- show-select-modal []
+  [:div.modal {
+    :style {:display "block" :background-color "rgba(0,0,0,0.3)" :overflow-x "hidden" :overflow-y "auto"} 
+    :on-click #(close-modal)}
+    [:div.modal-dialog.modal-lg {:on-click (fn [e] (.stopPropagation e) nil)}
+      [:div.modal-content
+        [:div.modal-body
+          [:div.row-fluid 
+            (doall (for [c (filter #(= :deck (:loc %)) (get @ad (-> @ad :selected first))) :let [selected (-> @ad :temp :selected)]]
+              [:img.small-card {
+                :key (gensym)
+                :class (if (contains? selected (:id c)) "selected") 
+                :title (:id c) 
+                :src (:cgdbimgurl c) 
+                :on-click #(toggle-select-shown (:id c))}]))]]
+        [:div.modal-footer
+          [:button.btn.btn-secondary {:on-click (fn [e] (-> @ad :temp :selected draw-cards!) (close-modal) ) } "Stage"]
+          [:button.btn.btn-secondary {:on-click #(close-modal)} "Aside"]
+          [:button.btn.btn-primary {:on-click #(close-modal)} "Close"]
+          [:button.btn.btn-success {:on-click (fn [e] (close-modal)(shuffle-deck!) )} "Shuffle and Close"]]]]])
               
 (defn Page []
   (init!)
   (fn []
     [:div.container-fluid.my-3
-      (if (= (:state @ad) :showcards)
-        [:div.modal {:style {:display "block" :background-color "rgba(0,0,0,0.3)" :overflow-x "hidden" :overflow-y "auto"} :on-click #(swap! ad dissoc :state)}
-          [:div.modal-dialog.modal-lg {:on-click (fn [e] (.stopPropagation e) nil)}
-            [:div.modal-content
-              [:div.modal-body
-                [:div.row-fluid 
-                  (for [c (filter #(= :deck (:loc %)) (get @ad (-> @ad :selected first)))]
-                    ^{:key (gensym)}[:img.small-card {:src (:cgdbimgurl c)}])]]
-              [:div.modal-footer
-                [:button.btn.btn-secondary {:on-click #(swap! ad dissoc :state)} "Stage"]
-                [:button.btn.btn-secondary {:on-click #(swap! ad dissoc :state)} "Aside"]
-                [:button.btn.btn-primary {:on-click #(swap! ad dissoc :state)} "Close"]
-                [:button.btn.btn-success {:on-click (fn [e] (swap! ad dissoc :state)(shuffle-deck!) )} "Shuffle and Close"]]]]])
+      (if (= (-> @ad :temp :state) :showcards) [show-select-modal])
       (case (:screen @ad)
         :setup (setup)
         (scenariosetup))
   ; Debug
       [:button.btn.btn-dark {:on-click #(reset! ad {:screen :scenarioselect})} "Reset!"]
       [:div (-> @ad :selected str)]
-      ;[:div (->> @ad :edeck (map :id) str)]
+      [:div (->> @ad :edeck (map :loc) str)]
       ;[:div (->> @ad :edeck (filter #(= (:loc %) :stage)) (map #(select-keys % [:id :name :loc :damage :progress])) str)]
       ;[:div (->> @ad :p1deck (map :resource))]
       [:div (-> @ad (dissoc :pdeck :p1deck :edeck :qdeck :scenario) str)]
+      
       ]))

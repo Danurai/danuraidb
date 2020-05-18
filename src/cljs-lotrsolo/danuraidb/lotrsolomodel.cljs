@@ -94,8 +94,12 @@
 ; Utility ;
 ;=========;
 
-(defn- log [ msg ]
-  (prn msg))
+(def deckmap {
+  :edeck "Encounter Deck"
+  :p1deck "Player Deck"})
+
+(defn- log [ deck & msg ]
+  (prn (apply str (deck deckmap) msg)))
   
 (defn cards-by-location [ loc ]
   (->> @ad
@@ -112,22 +116,37 @@
           p1 (filter #(= (:loc %) :deck) (deck-key @ad))
           p2 (filter #(not= (:loc %) :deck) (deck-key @ad))]
       (swap! ad assoc deck-key (concat p2 (shuffle p1)))
-      (log (str deck-key " Shuffled")))))
+      (log deck-key " Shuffled"))))
     
-(defn draw-card! []
-  (if (deckselected?)
-    (let [deck-key (-> @ad :selected first)
-          p1 (filter #(= (:loc %) :deck) (deck-key @ad))
-          p2 (filter #(not= (:loc %) :deck) (deck-key @ad))]
-      (case deck-key
-        :edeck 
-          (swap! ad assoc :edeck (concat [(assoc (first p1) :loc :stage)] p2 (rest p1)))
-        (:p1deck :p2deck)
-          (swap! ad assoc deck-key (concat [(assoc (first p1) :loc :area)] p2 (rest p1))))
-      (log (str deck-key " draw")) )))
+; draw-cards[ #set ]
+; draw-cards[ number of cards ]
+; draw-cards[] 
+(defn draw-cards!
+"draw-cards []  Draw 1 card from the selected deck
+ draw-cards [#{set}] Draw cards with ids in the set
+ draw-cards [n] Draw n cards"
+  ([] 
+    (draw-cards! 1))
+  ([ cards ]
+    (if (deckselected?)
+      (let [deck-key (-> @ad :selected first)
+            target (if (= deck-key :edeck) :stage :area)]
+        (if (set? cards)
+          (swap! ad assoc deck-key
+            (map #(if (contains? cards (:id %))
+                      (assoc % :loc target)
+                      %) (-> @ad deck-key)))
+          (let [p1 (filter #(= (:loc %) :deck) (deck-key @ad))
+                p2 (filter #(not= (:loc %) :deck) (deck-key @ad))]
+                  (swap! ad assoc deck-key 
+                    (concat 
+                      (mapv #(assoc % :loc target) (take cards p1))
+                      p2 (nthrest p1 cards)))))
+        (log deck-key " Draw Cards " cards)))))
         
 (defn set-counter! [ param func ]
   (doseq [deck [:edeck :p1deck :p2deck]]
+    (prn param func)
     (swap! ad assoc deck
       (map 
         #(if (contains? (:selected @ad) (:id %))

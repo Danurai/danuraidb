@@ -42,6 +42,7 @@ a {
 }
 
 /* APP */
+
 .small-card {
   width: 110px;
   position: relative;
@@ -102,11 +103,16 @@ a {
 .selected {
   background-color: "rgba(0,0,0,0)";
   border-radius: 8px;
-  border-color: blue;
+  border-color: red;
   box-radius: 8px;
-  box-shadow: 0 0 10px blue;
+  box-shadow: 0 0 10px red;
 }
 
-.selected img {
-  padding: 2px;
+#.selected img {
+#  padding: 2px;
+#}
+
+.small-card.selected {
+  border: 2px solid red;
+  border-radius: 8px;
 }
