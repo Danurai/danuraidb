@@ -318,5 +318,5 @@
   (j/query db ["SELECT * FROM questlog WHERE uid = ?" uid]))
   
 (defn delete-quest [ qid ]
-  (j/delete! db :questlog ["id = ?" qid])
-  (j/delete! db :questplyrs ["questid = ?" qid]))
+  (j/delete! db :questlog ["id = ?" (read-string qid)])
+  (j/delete! db :questplyrs ["questid = ?" (read-string qid)]))
