@@ -71,10 +71,10 @@ function recalc() {
 // Mini Deckbuilder
 
 $('#modaldecklist').on('show.bs.modal',function (e) {
-  var fg = $(e.relatedTarget).closest('.form-group');
-  var dn = $(fg).find('input[name$="deckname"]').val();
-  var dl = $(fg).find('input[name$="decklist"]').val();
-  var pn = $(fg).find('input[name$="deckname"]').attr('name').substr(1,1);
+  var dg = $(e.relatedTarget).closest('.form-row');
+  var dn = $(dg).find('input[name$="deckname"]').val();
+  var dl = $(dg).find('input[name$="decklist"]').val();
+  var pn = $(dg).find('input[name$="deckname"]').attr('name').substr(1,1);
   
   $('#mdeckname').val(dn);
   $('#mparsedecklist').val(dl);

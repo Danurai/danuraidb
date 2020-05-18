@@ -2,53 +2,38 @@
   (:require
     [reagent.core :as r]
     [danuraidb.lotrsolomodel :refer 
-      [ad data init! startsolo! selectscenario! movecard!
-       shuffle-edeck! draw-card! select-deck! select-card! set-counter!]]))
+      [ad data init! startsolo! selectscenario! selectpdeck! movecard!
+       shuffle-deck! draw-card! select-deck! select-card! set-counter!]]))
 
 
 (defn get-cards-by-location [ deck location ]
   (filter #(= (:loc %) location) deck))       
  
-(defn scenarioselect []
+(defn scenariosetup []
   (let [ec (->> @data :cards (filter #(= (:encounter_name %) (-> @ad :scenario :name))))
         qc (->> ec (filter #(= (:type_code %) "quest")) (sort-by :position) first)]
     [:div.row
       [:div.col-sm-3
         [:div.h5 "Select Scenario"]
-        [:select.form-control {:size 10 :value (or (-> @ad :scenario :name) "null")}
+        [:select.form-control {:size 10 :value (or (-> @ad :scenario :name) "null") :on-change #() }
           (for [s (:scenarios @data)]
             ^{:key (gensym)}[:option {:on-click #(selectscenario! s)} (:name s)])]]
-      [:div.col-sm-9
-        [:div.d-flex.mb-2
-          [:div.h5 (:name qc)]
-          [:button.btn.btn-primary.ml-auto {:on-click #(startsolo!)} "Start"]]
+      [:div.col-sm-3 
+        [:div.h5 "Select Deck"]
+        [:select.form-control {:size 10 :value (or (-> @ad :pdeck :name) "null") :on-change #()}
+          (for [d (:pdecks @data)]
+            ^{:key (gensym)}[:option {:on-click #(selectpdeck! d)} (:name d)])]]
+      [:div.col-sm-6
         [:div.row
-          [:div.col-sm-3
-            [:img {:src (:cgdbimgurl qc)}]] 
-          [:div.col-sm-4
-            [:div.mb-2 (:text qc)]
-            [:cite (:flavor qc)]]
-          [:div.col-sm-5
-            [:ul#edeck.list-group.mb-2 {:style {:maxHeight "300px" :overflow-y "scroll"}}
-              (for [c (:edeck @ad)]
-                ^{:key (gensym)}[:li.list-group-item
-                  [:div.d-flex
-                    [:span (:name c)]
-                    [:div.btn-group.btn-group-sm.ml-auto {:data-toggle "buttons"}
-                      (for [loc ["deck" "stage" "aside"]]
-                        ^{:key (gensym)}[:button.btn.btn-outline-dark {
-                          :class (if (= (:loc c) (keyword loc)) "active") 
-                          :on-click #(movecard! ad (:id c) (keyword loc))}
-                          (-> loc (subs 0 2) clojure.string/capitalize) ])]]])]
-            [:div.row
-              [:div.col-sm-6
-                [:div.text-center [:b "Staged"]]
-                (for [c (get-cards-by-location (:edeck @ad) :stage)]
-                  ^{:key (gensym)}[:div (:name c)])]
-              [:div.col-sm-6
-                [:div.text-center [:b "Aside"]]
-                (for [c (get-cards-by-location (:edeck @ad) :aside)]
-                  ^{:key (gensym)}[:div (:name c)])]]]]]]))
+          [:div.col.d-flex
+            [:button.btn.btn-primary.ml-auto {:on-click #(startsolo!)} "Start"]]]
+        [:div.row
+          [:div.col-sm-6
+            [:h4 (-> @ad :scenario :name)] 
+            [:div (-> @ad :edeck str)]]
+          [:div.col-sm-6
+            [:h4 (-> @ad :pdeck :name)]
+            [:div (-> @ad :p1deck str)]]]]]))
     
   
 (defn exhaust-selected! []
@@ -56,10 +41,15 @@
     
 (defn discard-selected! []
   nil)
+  
+(defn showcards! []
+  (if (contains? #{:edeck :p1deck} (-> @ad :selected first))
+    (swap! ad assoc :state :showcards)))
     
    
 (def commandbuttons (r/atom [
-  {:active true :title "Shuffle" :fn #(shuffle-edeck!)}
+  {:active true :title "show" :fn #(showcards!)}
+  {:active true :title "Shuffle" :fn #(shuffle-deck!)}
   {:active true :title "Draw"   :fn #(draw-card!)}
   {:active true :title "Exhaust" :fn #(exhaust-selected!)}
   {:active true :title "Discard" :fn #(discard-selected!)}
@@ -156,12 +146,27 @@
   (init!)
   (fn []
     [:div.container-fluid.my-3
+      (if (= (:state @ad) :showcards)
+        [:div.modal {:style {:display "block" :background-color "rgba(0,0,0,0.3)" :overflow-x "hidden" :overflow-y "auto"} :on-click #(swap! ad dissoc :state)}
+          [:div.modal-dialog.modal-lg {:on-click (fn [e] (.stopPropagation e) nil)}
+            [:div.modal-content
+              [:div.modal-body
+                [:div.row-fluid 
+                  (for [c (filter #(= :deck (:loc %)) (get @ad (-> @ad :selected first)))]
+                    ^{:key (gensym)}[:img.small-card {:src (:cgdbimgurl c)}])]]
+              [:div.modal-footer
+                [:button.btn.btn-secondary {:on-click #(swap! ad dissoc :state)} "Stage"]
+                [:button.btn.btn-secondary {:on-click #(swap! ad dissoc :state)} "Aside"]
+                [:button.btn.btn-primary {:on-click #(swap! ad dissoc :state)} "Close"]
+                [:button.btn.btn-success {:on-click (fn [e] (swap! ad dissoc :state)(shuffle-deck!) )} "Shuffle and Close"]]]]])
       (case (:screen @ad)
         :setup (setup)
-        (scenarioselect))
+        (scenariosetup))
+  ; Debug
       [:button.btn.btn-dark {:on-click #(reset! ad {:screen :scenarioselect})} "Reset!"]
       [:div (-> @ad :selected str)]
       ;[:div (->> @ad :edeck (map :id) str)]
       ;[:div (->> @ad :edeck (filter #(= (:loc %) :stage)) (map #(select-keys % [:id :name :loc :damage :progress])) str)]
-      [:div (->> @ad :p1deck (map :resource))]
+      ;[:div (->> @ad :p1deck (map :resource))]
+      [:div (-> @ad (dissoc :pdeck :p1deck :edeck :qdeck :scenario) str)]
       ]))
