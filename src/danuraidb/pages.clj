@@ -20,66 +20,68 @@
   (let [scenarios (model/get-scenarios) dateformatter (tf/formatter "yyyy-MM-dd")]
     (h/html5
       lotrdb-pretty-head
-      [:body
+      [:body {:style "color: maroon"}
         (lotrdb-navbar req)
         [:div.container.my-3
           [:form.mb-3 {:action "/lotrdb/questlog/save" :method "POST"}
             [:div.form-row
               [:input#id {:name "id" :hidden true :readonly true}]
-              [:div.form-group.col-lg-4
+              [:div.form-group.col-4
                 [:label "Quest"]
                 [:input#questid {:name "questid" :hidden true :readonly true :value 1}]
                 [:select#scenario.form-control
                   (for [s scenarios]
                     [:option (:name s)])]]
-              [:div.form-group.col-lg-2
-                [:label "Difficulty"]
+              [:div.form-group.col-2
+                [:div [:label.mr-1 "Difficulty"] [:i.fas.fa-mountain]]
                 [:select#difficulty.form-control {:name "difficulty"}
                   [:option "Easy"][:option {:selected true} "Normal"][:option "Nightmare"]]]
-              [:div.form-group.col-lg-1
+              [:div.form-group.col-1
                 [:label "# Players"]
                 [:select#players.form-control {:name "players"} (for [n (range 1 5)] [:option (str n)])]]
-              [:div.form-group.col-lg-1
-                [:label "VP"]
-                [:input#vp.form-control {:name "vp" :value 0 :min 0 :type "number"}]]
-              [:div.form-group.col-lg-1
-                [:label "# Turns"]
-                [:input#turns.form-control {:name "turns" :value 1 :min 1 :type "number"}]]
-              [:div.form-group.col-lg-2
+              [:div.form-group.col-2
                 [:label "Date"]
-                [:input#date.form-control {:name "date"   :type "Date" :value (tf/unparse dateformatter (time/now))}]]
-              [:div.form-group.col-lg-1
-                [:h5.text-center "Score"]
-                [:input#score {:name "score" :hidden true :readonly true :value 40}]
-                [:h4#scoreshown.pt-2.text-center "40"]]]
+                [:input#date.form-control {:name "date"   :type "Date" :value (tf/unparse dateformatter (time/now))}]]]
+            [:div.form-row
+              [:div.col-4 [:label "Player Deck Name"]]
+              [:div.col-1 [:label "Spheres"]]
+              [:div.col-2 [:label "Final Threat"]]
+              [:div.col-2 [:label "Threat of Dead Heroes"]]
+              [:div.col-2 [:label "Damage on Heroes"]]
+              [:div.col-1 [:label "Subtotal"]]]
             [:div#plyrstats
               [:datalist#decklists] ;(for [dl decklists] [:option {:value (:name dl)}])]
               (for [n (range 1 5) :let [p (str "p" n)]]
-                [:div.form-row {:hidden (> n 1) :id (str p "stats")}
-                  [:div.form-group.col-lg-4
-                    [:label (str "Player " (last p) " Deck Name")]
+                [:div.form-row.mb-1 {:hidden (> n 1) :id (str p "stats")}
+                  [:div.col-4
                     [:div.input-group
                       [:input.form-control {:name (str p "deckname") :type "text" :list "decklists" :id (str p "deckname")}]
                       [:div.input-group-append
                         [:button.btn.btn-secondary {:type "button" :data-plyr-id n :data-toggle "modal" :data-target "#modaldecklist"} [:i.fas.fa-plus]]]]
                     [:input {:name (str p "decklist") :hidden true :readonly true :id (str p "decklist")}]]
-                  [:div.form-group.col-lg-1
-                    [:label "Spheres"]
+                  [:div..col-1
                     [:div.pt-2 {:name (str p "spheres") :id (str p "spheres")}]]
-                  [:div.form-group.col-lg-2
-                    [:label "Dead Hero Threat"]
-                    [:input.form-control {:name (str p "deadh") :type "number" :value 0 :min 0 :id (str p "deadh")}]]
-                  [:div.form-group.col-lg-2
-                    [:label "Damage on Heroes"]
-                    [:input.form-control {:name (str p "dmgh") :type "number" :value 0 :min 0 :id (str p "dmgh")}]]
-                  [:div.form-group.col-lg-2
-                    [:label "Final Threat"]
+                  [:div.col-2
                     [:input.form-control {:name (str p "threat") :type "number" :value 30 :min 0 :max 50 :id (str p "threat")}]]
-                  [:div.form-group.col-lg-1
-                    [:div.text-center "Subtotal"]
+                  [:div.col-2
+                    [:input.form-control {:name (str p "deadh") :type "number" :value 0 :min 0 :id (str p "deadh")}]]
+                  [:div.col-2
+                    [:input.form-control {:name (str p "dmgh") :type "number" :value 0 :min 0 :id (str p "dmgh")}]]
+                  [:div.col-1
                     [:input {:name (str p "score") :id (str p "score") :hidden true :readonly true :value 30}]
                     [:h5.text-center {:id (str p "scoreshown")} "30"]]
                 ])]
+            [:div.form-row
+              [:div.form-group.col-2.offset-7
+                [:div [:label.mr-2 "VP"] [:i.far.fa-star]]
+                [:input#vp.form-control {:name "vp" :value 0 :min 0 :type "number"}]]
+              [:div.form-group.col-2
+                [:span [:label.mr-2 "# Turns"] [:i.far.fa-clock]]
+                [:input#turns.form-control {:name "turns" :value 1 :min 1 :type "number"}]]
+              [:div.form-group.col-1
+                [:h5.text-center "Score"]
+                [:input#score {:name "score" :hidden true :readonly true :value 40}]
+                [:h3#scoreshown.pt-2.text-center "40"]]]
             [:div.d-flex.justify-content-end
               [:button#resetquest.btn.btn-secondary.mr-2 {:type "button"} [:i.fas.fa-eraser.mr-1] "New/Reset"]
               [:button#savequest.btn.btn-warning [:i.fas.fa-feather.mr-1] "Save"]]]
@@ -89,9 +91,6 @@
                 (for [q (->> (-> req model/get-authentications :uid) db/get-quests (sort-by :id >) (sort-by :date >))
                       :let [questdecks (db/get-quest-decks (:id q))]]
                   [:li.list-group-item 
-                    [:div.d-flex 
-                      [:small.text-muted.mr-2 (tf/unparse (tf/formatter "dd-MMM-yyyy") (tc/from-long (:date q)))]
-                      [:small.text-muted {:style "position: absolute;bottom: 5px;"} (str "#" (:id q))]]
                     [:div.d-flex
                       [:h4.mr-3 (->> scenarios (filter #(= (:id %) (:questid q))) first :name)]
                       [:span.mt-1 
@@ -106,9 +105,13 @@
                             {:data-decklist (:decklist d) :data-toggle "modal" :data-target "#qlmodal" :style "cursor: pointer;"}
                             (:deckname d)]
                           [:span (str "(" (:score d) ")")]])]
-                    [:div.d-flex.justify-content-end
-                      [:button.btn.btn-primary.btn-sm.mr-1.btn-edit {:data-quest (str q) :data-questdecks (str questdecks) } [:i.fas.fa-edit.mr-1] "Edit"]
-                      [:button.btn.btn-danger.btn-sm.mr-2.btn-delete {:data-qid (:id q) :data-toggle "modal" :data-target "#qlmodal"} [:i.fas.fa-times.mr-1] "Delete"]]])]]]]
+                    [:div.d-flex.justify-content-between
+                      [:div.text-muted.mt-auto
+                        [:small.mr-2 (tf/unparse (tf/formatter "dd-MMM-yyyy") (tc/from-long (:date q)))]
+                        [:small (str "#" (:id q))]]
+                      [:div 
+                        [:button.btn.btn-primary.btn-sm.mr-1.btn-edit {:data-quest (str q) :data-questdecks (str questdecks) } [:i.fas.fa-edit.mr-1] "Edit"]
+                        [:button.btn.btn-danger.btn-sm.mr-2.btn-delete {:data-qid (:id q) :data-toggle "modal" :data-target "#qlmodal"} [:i.fas.fa-times.mr-1] "Delete"]]]])]]]]
         [:div#qlmodal.modal.fade {:tab-index -1 :role "dialog"}
           [:div.modal-dialog {:role "document"}
             [:div.modal-content

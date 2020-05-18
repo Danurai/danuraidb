@@ -31,22 +31,20 @@ $('#scenario').on('change',function () {
 
 $('[id$="deckname"]').on('change',function () {
   var deckname = $(this).val();
-  var decklist = _decklists.filter(d=>d.name==deckname)[0];
-  var spherebox = $('#p'+this.id[1]+'spheres');
-    
-  spherebox.empty();
-  $('#p'+this.id[1]+'decklist').val('');
+  var decklist = (_decklists.filter(d=>d.name==deckname)[0] || "[]");
   
-  if (typeof decklist !== 'undefined') {
-    $('#p'+this.id[1]+'decklist').val(decklist.data);
-    var codes = Object.keys(JSON.parse(decklist.data));
-    var spheres = _cards({"code":codes}).distinct("sphere_code");
-    
-    $.each(spheres.filter(s=>s!="neutral"),function (id, sp) {
-      spherebox.append('<span class="fa-lg mr-1 lotr-type-'+sp+'" />');
-    });
-  }
+  set_decklist( $(this).attr('id')[1], decklist.data);
 });
+
+function set_decklist ( pn, dl ) {
+  var spherebox = $('#p'+pn+'spheres');
+  var codes = Object.keys(JSON.parse(dl));
+  $('#p'+pn+'decklist').val(dl);
+  spherebox.empty();  
+  $.each(_cards({"code":codes,"sphere_code":{"!=":"neutral"}}).distinct("sphere_code"),function (id, sp) {
+    spherebox.append('<span class="fa-lg mr-1 lotr-type-'+sp+'" />');
+  }); 
+};
 
 $('[id$="deadh"],[id$="dmgh"],[id$="threat"],#vp,#turns').on('change',function () { recalc(); });
 
@@ -84,14 +82,6 @@ $('#modaldecklist').on('show.bs.modal',function (e) {
   $('#mpnum').val(pn);
 });
 
-$('#mdecksave').on('click',function () {
-  var pn = "p" + $('#mpnum').val();
-  $('#'+pn+'deckname').val($('#mdeckname').val());
-  $('#'+pn+'decklist').val($('#mparsedecklist').val());
-  $('#modaldecklist').modal('hide');
-  
-});
-
 // TYPEAHEAD
 
 $('#mcardname').typeahead({
@@ -111,11 +101,11 @@ $('#mcardqty')
     re.exec($('#mcardname').val());
     c.nname = RegExp.$1;
     c.pack_code = RegExp.$2;
-    c.qty = $(this).val();
+    c.qty = parseInt($(this).val());
     
     var card = _cards({"normalname":{"isnocase":c.nname},"pack_code":{"isnocase":c.pack_code}}).first()
     
-    dl[card.code] = c.qty;
+    dl[card.code] = (card.type_code == "hero" ? 1 : c.qty);
     $('#mparsedecklist').val(JSON.stringify(dl));
     $('#mdecklistpretty').html(pretty_decklist(dl,true));
     $('#mcardname').val('');
@@ -127,27 +117,37 @@ $('#mdecklistpretty').on('click','.removecard',function() {
   $('#mparsedecklist').val(JSON.stringify(dl));
   $('#mdecklistpretty').html(pretty_decklist(dl,true));
 });
+
+
+$('#mdecksave').on('click',function () {
+  var pn = "p" + $('#mpnum').val();
+  $('#'+pn+'deckname').val($('#mdeckname').val());
+  set_decklist($('#mpnum').val(), $('#mparsedecklist').val())
+  $('#modaldecklist').modal('hide');
+});
+
   
 function pretty_decklist (decklist, remove=false) {
   var outp = '';
-  //if (decklist.len > 0) {
-    var deck = _cards({"code":Object.keys(decklist)}).order("normalname").map(c=>$.extend(c,{"qty":decklist[c.code]}));
-    outp += '<div class="decklist">';
-    
-    $.each(["hero","ally","attachment","event"], function (id, t) { //deck.map(c=>c.type_code).filter((v, i, s)=>s.indexOf(v)===i).sort()
-      if (deck.filter(c=>c.type_code==t).length>0) {
-        outp += '<div class="decklist-section mb-2">'
-        outp += '<div class="mb-1" style="text-transform: capitalize"><b>' + t + ' (' + deck.filter(c=>c.type_code==t).length + ')</b></div>';
-        $.each(deck.filter(c=>c.type_code==t), function (id, c) {
-          outp += '<div>' 
-            + (remove ? '<button class="btn btn-outline-danger removecard mr-2" style="line-height: 0.5 !important" data-code="' + c.code + '" ><i class="fas fa-times fa-xs" /></button>' : '')
-            + '<span>' + c.qty + 'x ' + c.name + ' (' + c.pack_code + ')</span>'
-            + '</div>';
-        });
-        outp += '</div>';
-      }
-    });
-  //}
+  var deck = _cards({"code":Object.keys(decklist)}).order("normalname").map(c=>$.extend(c,{"qty":decklist[c.code]}));
+  outp += '<div class="decklist">';
+  
+  $.each(["hero","ally","attachment","event"], function (id, t) { //deck.map(c=>c.type_code).filter((v, i, s)=>s.indexOf(v)===i).sort()
+    if (deck.filter(c=>c.type_code==t).length>0) {
+      outp += '<div class="decklist-section mb-2">'
+      outp += '<div class="mb-1" style="text-transform: capitalize"><b>' + t + ' (' + deck.filter(c=>c.type_code==t).reduce((s,c)=>s+=c.qty,0) + ')</b></div>';
+      $.each(deck.filter(c=>c.type_code==t), function (id, c) {
+        outp += '<div>' 
+          + (remove ? '<button class="btn btn-xs btn-outline-danger removecard mr-2" style="line-height: 0.5 !important" data-code="' + c.code + '" ><i class="fas fa-times fa-xs" /></button>' : '')
+          + '<span>' + c.qty + 'x ' 
+          + (c.is_unique ? '<span class="mr-1 lotr-type-unique" />' : '')
+          + c.name + ' (' + c.pack_code + ')</span>'
+          + '<span class="ml-2 lotr-type-' + c.sphere_code + '" />'
+          + '</div>';
+      });
+      outp += '</div>';
+    }
+  });
   return outp;
 }
 
@@ -170,15 +170,17 @@ $('#qlmodal')
       db = pretty_decklist($(e.relatedTarget).data('decklist'));
       df = '<button class="btn btn-secondary" data-dismiss="modal">Close</button>';
     }
-      $('#qlmodal').find('.modal-title').html(dh);
-      $('#qlmodal').find('.modal-body').html(db);
-      $('#qlmodal').find('.modal-footer').html(df);
+    $('#qlmodal').find('.modal-title').html(dh);
+    $('#qlmodal').find('.modal-body').html(db);
+    $('#qlmodal').find('.modal-footer').html(df);
   })
   .on('hide.bs.modal', function () {
     $('#qlmodal').find('.modal-title').html('');
     $('#qlmodal').find('.modal-body').html('');
     $('#qlmodal').find('.modal-footer').html('');
   });
+  
+// Edit & Reset
 
 $('li.btn-edit').on('click', function () {
   resetquest();
