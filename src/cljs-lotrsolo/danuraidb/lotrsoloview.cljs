@@ -47,14 +47,20 @@
 (defn showcards! []
   (if (contains? #{:edeck :p1deck} (-> @ad :selected first))
     (swap! ad assoc-in [:temp :state] :showcards)))
+    
+(defn show-card! [ c ]
+  (swap! ad assoc :showcard c))
    
 (def commandbuttons (r/atom [
-  {:active true :title "show" :fn #(showcards!)}
+  {:active true :title "Test" :fn #(draw-cards! #{0} :aside)}
+  {:active true :title "Show" :fn #(showcards!)}
   {:active true :title "Shuffle" :fn #(shuffle-deck!)}
   {:active true :title "Draw"   :fn #(draw-cards! 1)}
   {:active true :title "Draw 6"   :fn #(draw-cards! 6)}
+  {:active true :title "Aside"   :fn #(draw-cards! (-> @ad :selected) :aside)}
   {:active true :title "Exhaust" :fn #(exhaust-selected!)}
   {:active true :title "Discard" :fn #(discard-selected!)}
+  
   {:active true :title "+ Dmg"  :fn #(set-counter! :damage inc)}
   {:active true :title "- Dmg"  :fn #(set-counter! :damage dec)}
   {:active true :title "+ Prog" :fn #(set-counter! :progress inc)}
@@ -77,7 +83,7 @@
     :data-code (:code c)
     :class (if (contains? (:selected @ad) (:id c)) "selected")
     :on-click (fn [e] (select-card! e (:id c))) }
-    [:img.img-fluid {:src (:cgdbimgurl c)}]
+    [:img.img-fluid {:src (:cgdbimgurl c) :on-mouse-over #(show-card! c)  :on-mouse-out #(swap! ad dissoc :showcard)}]
     (if (= (:type_code c) "location") 
       [:div.counter.counter-prg 
         [:span.text-center (if (>= (:progress c 0) (:quest_points c 0)) "Y" (:progress c 0))]])
@@ -100,7 +106,14 @@
   [:div ;{:on-click #(swap! ad assoc :selected #{})}
     [commandbar]
     [:div.row
-      [:div.col-10
+      [:div.col-9
+        (let [aside (->> @ad :edeck (filter #(= (:loc %) :aside)))] ;(get-cards-by-location (:edeck @ad) :aside)]
+          [:div.row
+            [:div.col
+              [:div "Aside"]
+              [:div.d-flex
+                (doall (for [c aside]
+                  (card-component c)))]]])
         [:div.row 
       ; Deck and discard      
           (let [deck (get-cards-by-location (:edeck @ad) :deck)
@@ -144,13 +157,17 @@
           [:div.col-sm-9
             [:div.d-flex
               (doall (for [h (get-cards-by-location (:p1deck @ad) :hero)]
-                 (hero-card-component h)))
+                 (card-component h)))
+                 ;(hero-card-component h)))
               (doall (for [h (get-cards-by-location (:p1deck @ad) :area)]
                  (card-component h)))]]]]
-      [:div.col-2
+      [:div.col-3
+        [:div {:style {:width "100%" :height "60%"}} (if (:showcard @ad) [:img.img-fluid {:src (-> @ad :showcard :cgdbimgurl)}])]
         [:div.border {:style {:height "100%"}}]]]])
+        
+; MODAL ;
     
-(defn toggle-select-shown [ id ]
+(defn- toggle-select-shown [ id ]
   (if (nil? (-> @ad :temp :selected))
       (swap! ad assoc-in [:temp :selected] #{}))
   (if (contains? (-> @ad :temp :selected) id)
@@ -159,8 +176,6 @@
        
 (defn- close-modal []
   (swap! ad dissoc :temp))
-  
-  
                
 (defn- show-select-modal []
   [:div.modal {
@@ -178,8 +193,8 @@
                 :src (:cgdbimgurl c) 
                 :on-click #(toggle-select-shown (:id c))}]))]]
         [:div.modal-footer
-          [:button.btn.btn-secondary {:on-click (fn [e] (-> @ad :temp :selected draw-cards!) (close-modal) ) } "Stage"]
-          [:button.btn.btn-secondary {:on-click #(close-modal)} "Aside"]
+          [:button.btn.btn-secondary {:on-click (fn [e] (-> @ad :temp :selected draw-cards!)  (swap! ad update :temp dissoc :selected)) } "Stage"]
+          [:button.btn.btn-secondary {:on-click (fn [e] (-> @ad :temp :selected (draw-cards! :aside)) (swap! ad update :temp dissoc :selected))} "Aside"]
           [:button.btn.btn-primary {:on-click #(close-modal)} "Close"]
           [:button.btn.btn-success {:on-click (fn [e] (close-modal)(shuffle-deck!) )} "Shuffle and Close"]]]]])
               

@@ -118,19 +118,17 @@
       (swap! ad assoc deck-key (concat p2 (shuffle p1)))
       (log deck-key " Shuffled"))))
     
-; draw-cards[ #set ]
-; draw-cards[ number of cards ]
+; draw-cards[ #set target-location ]
+; draw-cards[ number-of-cards ]
 ; draw-cards[] 
 (defn draw-cards!
 "draw-cards []  Draw 1 card from the selected deck
  draw-cards [#{set}] Draw cards with ids in the set
  draw-cards [n] Draw n cards"
-  ([] 
-    (draw-cards! 1))
-  ([ cards ]
+  ([ cards tgt ]
     (if (deckselected?)
       (let [deck-key (-> @ad :selected first)
-            target (if (= deck-key :edeck) :stage :area)]
+            target (if (= tgt :draw) (if (= deck-key :edeck) :stage :area) tgt)]
         (if (set? cards)
           (swap! ad assoc deck-key
             (map #(if (contains? cards (:id %))
@@ -142,7 +140,11 @@
                     (concat 
                       (mapv #(assoc % :loc target) (take cards p1))
                       p2 (nthrest p1 cards)))))
-        (log deck-key " Draw Cards " cards)))))
+        (log deck-key " Draw Cards " cards))))
+  ([] 
+    (draw-cards! 1 :draw))
+  ([ cards ]
+    (draw-cards! cards :draw)))
         
 (defn set-counter! [ param func ]
   (doseq [deck [:edeck :p1deck :p2deck]]
