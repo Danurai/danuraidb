@@ -213,9 +213,6 @@
       (h/include-js "/js/staging.js?v=0.1")
     ]))
                   
-                  
-
-   
 (defn testpage [ req ]
 ; lotr card img urls
   (let [crds (model/get-cards)]

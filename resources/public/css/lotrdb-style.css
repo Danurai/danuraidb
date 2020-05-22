@@ -44,7 +44,7 @@ a {
 /* APP */
 
 .small-card {
-  width: 110px;
+  width: 75px;
   position: relative;
   margin: 2px;
 }
@@ -70,19 +70,18 @@ a {
   color: white;
 }
 .counter.counter-prg {
-  background-color: rgba(0,92,0,0.8);
+  background-color: rgba(0,92,0,0.6);
 }
 .counter.counter-dmg {
-  background-color: rgba(92,0,0,0.8);
-  right: unset;
-  left: 5px;
+  background-color: rgba(92,0,0,0.6);
 }
 .counter.counter-count {
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0,0,0,0.6);
   color: #CCC;
 }
 .counter.counter-res {
-  background-color: rgba(0,0,92,0.8);
+  background-color: rgba(0,0,92,0.6);
+  top: 35px;
 }
   
 
@@ -102,17 +101,8 @@ a {
 
 .selected {
   background-color: "rgba(0,0,0,0)";
-  border-radius: 8px;
+  border-radius: 0px;
   border-color: red;
-  box-radius: 8px;
+  box-radius: 0px;
   box-shadow: 0 0 10px red;
-}
-
-#.selected img {
-#  padding: 2px;
-#}
-
-.small-card.selected {
-  border: 2px solid red;
-  border-radius: 8px;
 }

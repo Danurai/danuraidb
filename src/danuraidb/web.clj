@@ -150,7 +150,7 @@
     ;lotrdb-quest-routes)
     (friend/wrap-authorize lotrdb-quest-routes #{::db/user}))
   (GET "/solo" []
-    pages/lotrdb-solo-page)
+    (friend/wrap-authorize pages/lotrdb-solo-page #{::db/user}))
   (GET "/cycle/:id" [ id ]
     #(pages/lotrdb-search-page (assoc-in % [:params :q] (str "y:" id))))
   (GET "/pack/:id" [ id ]
@@ -335,7 +335,7 @@
 (defroutes app-routes
   (GET "/test" [] pages/testpage)
   (GET "/"     [] pages/home)
-  (GET "/login" [] pages/login)
+  (GET "/login"   [] pages/login)
   (context "/decks"   [] (friend/wrap-authorize deck-admin-routes #{::db/user}))
   (context "/lotrdb"  [] lotrdb-routes)
   (context "/aosc"    [] aosc-routes)
@@ -358,8 +358,16 @@
   :default-landing-uri "/"
   :unauthorised-handler (h/html5 [:body [:div.h5 "Access Denied " [:a {:href "/"} "Home"]]])
   :credential-fn #(creds/bcrypt-credential-fn (db/users) %)
-  :workflows [(workflows/interactive-form)]})
-  
+  :workflows [(workflows/interactive-form)]
+  })
+  ;(fn [req]
+  ;  (if (::friend/auth-config req)
+  ;   (let [result ((workflows/interactive-form) req)]
+  ;     (if (friend/auth? result)
+  ;       (vary-meta result into {::friend/redirect-on-auth? (-> req :headers (get "referer"))})
+  ;       result))
+  ;   ( req)))]})
+   
 (def app
   (-> app-routes
     (friend/authenticate friend-authentication-hash)

@@ -1,59 +1,60 @@
 (in-ns 'danuraidb.pages)
 
 (defn login [req]
-  (h/html5
-    pretty-head
-    [:body  
-      (if-let [unauth (-> req :session :cemerick.friend/unauthorized-uri)]
-        (case (re-find #"lotrdb|aosc|whuw|whconq" unauth)
-          "lotrdb" (lotrdb-navbar req)
-          "aosc" (aosc-navbar req)
-          "whuw" (whuw-navbar req)
-          "whconq" (whconq-navbar req)
+  (let [refer (or (-> req :session :cemerick.friend/unauthorized-uri) (-> req :headers (get "referer")))]
+    (h/html5
+      pretty-head
+      [:body  
+        (if refer
+          (case (re-find #"lotrdb|aosc|whuw|whconq" refer)
+            "lotrdb" (lotrdb-navbar req)
+            "aosc" (aosc-navbar req)
+            "whuw" (whuw-navbar req)
+            "whconq" (whconq-navbar req)
+            [:navbar.nav.nav-dark.bg-dark])
           [:navbar.nav.nav-dark.bg-dark])
-        [:navbar.nav.nav-dark.bg-dark])
-      ; TODO Failed Login
-      [:div.container
-        [:div.row.my-2
-          [:div.col-sm-6.mx-auto
-            [:ul.nav.nav-tabs.nav-fill {:role "tablist"}
-              [:li.nav-item [:a.nav-link.active {:data-toggle "tab" :role "tab" :href "#logintab"} "Login"]]
-              [:li.nav-item [:a.nav-link {:data-toggle "tab" :role "tab" :href "#registertab"} "Register"]]]
-            [:div.tab-content.my-2
-              [:div#logintab.tab-pane.fade.show.active {:role "tabpanel"}
-                [:form {:action "login" :method "post"}
-                  [:div.form-group
-                    [:label {:for "username"} "Name"]
-                    [:input.form-control {:type "text" :name "username" :placeholder "Username" :auto-focus true}]]
-                  [:div.form-group
-                    [:label {:for "password"} "Password"]
-                    [:input.form-control {:type "password" :name "password" :placeholder "Password"}]]
-                  [:button.btn.btn-warning.mr-2 {:type "submit"} "Login"]]]
-              [:div#registertab.tab-pane.fade {:role "tabpanel"}
-                [:form.needs-validation.was-validated {:action "register" :method "post" :novalidate true}
-                  [:div.form-group
-                    [:label {:for "username"} "User Name"]
-                    [:input#username.form-control {:type "text" :name "username" :placeholder "Username" :auto-focus true :required true}]
-                    [:div.invalid-feedback "Username is required"]]
-                  [:div.form-group
-                    [:labeltext-muted {:for "email"} "Email"]
-                    [:input#email.form-control {:type "text" :name "email" :placeholder "Email" :auto-focus true}]]
-                  [:div.form-group
-                    [:label {:for "password"} "Password"]
-                    [:div.input-group
-                      [:input#password.form-control {:type "password" :name "password" :placeholder "password" :auto-focus true :required true}]
-                      [:div.invalid-feedback "Password is required"]]
-                    [:small [:meter#pwdscoremeter.mr-1 {:value 0 :min 0 :max 5 :low 2 :high 4 :optimum 5}][:span#pwdscoretxt "Very Weak"]]]
-                  [:div.form-group
-                    [:label {:for "password1"} "Confirm Password"]
-                    [:input#password1.form-control {:type "password" :name "password1" :placeholder "password" :auto-focus true :required true}]
-                    [:div.invalid-feedback "Passwords required, passwords must match"]]
-                  [:button.btn.btn-warning.mr-2.disabled {:type "submit"} "Register"]]]]]]]
-      (h/include-js "/js/formvalidation.js?v=0.1")
-      [:script {
-        :src "https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js" 
-        :integrity "sha256-Znf8FdJF85f1LV0JmPOob5qudSrns8pLPZ6qkd/+F0o="
-        :crossorigin "anonymous"}]]))
+        ; TODO Failed Login
+        [:div.container
+          [:div.row.my-2
+            [:div.col-sm-6.mx-auto
+              [:ul.nav.nav-tabs.nav-fill {:role "tablist"}
+                [:li.nav-item [:a.nav-link.active {:data-toggle "tab" :role "tab" :href "#logintab"} "Login"]]
+                [:li.nav-item [:a.nav-link {:data-toggle "tab" :role "tab" :href "#registertab"} "Register"]]]
+              [:div.tab-content.my-2
+                [:div#logintab.tab-pane.fade.show.active {:role "tabpanel"}
+                  [:form {:action "login" :method "post"}
+                    [:div.form-group
+                      [:label {:for "username"} "Name"]
+                      [:input.form-control {:type "text" :name "username" :placeholder "Username" :auto-focus true}]]
+                    [:div.form-group
+                      [:label {:for "password"} "Password"]
+                      [:input.form-control {:type "password" :name "password" :placeholder "Password"}]]
+                    [:button.btn.btn-warning.mr-2 {:type "submit"} "Login"]]]
+                [:div#registertab.tab-pane.fade {:role "tabpanel"}
+                  [:form.needs-validation.was-validated {:action "register" :method "post" :novalidate true}
+                    [:div.form-group
+                      [:label {:for "username"} "User Name"]
+                      [:input#username.form-control {:type "text" :name "username" :placeholder "Username" :auto-focus true :required true}]
+                      [:div.invalid-feedback "Username is required"]]
+                    [:div.form-group
+                      [:labeltext-muted {:for "email"} "Email"]
+                      [:input#email.form-control {:type "text" :name "email" :placeholder "Email" :auto-focus true}]]
+                    [:div.form-group
+                      [:label {:for "password"} "Password"]
+                      [:div.input-group
+                        [:input#password.form-control {:type "password" :name "password" :placeholder "password" :auto-focus true :required true}]
+                        [:div.invalid-feedback "Password is required"]]
+                      [:small [:meter#pwdscoremeter.mr-1 {:value 0 :min 0 :max 5 :low 2 :high 4 :optimum 5}][:span#pwdscoretxt "Very Weak"]]]
+                    [:div.form-group
+                      [:label {:for "password1"} "Confirm Password"]
+                      [:input#password1.form-control {:type "password" :name "password1" :placeholder "password" :auto-focus true :required true}]
+                      [:div.invalid-feedback "Passwords required, passwords must match"]]
+                    [:button.btn.btn-warning.mr-2.disabled {:type "submit"} "Register"]]]]]]]
+        (h/include-js "/js/formvalidation.js?v=0.1")
+        [:script {
+          :src "https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js" 
+          :integrity "sha256-Znf8FdJF85f1LV0JmPOob5qudSrns8pLPZ6qkd/+F0o="
+          :crossorigin "anonymous"}]])))
         
 (defn user-admin []
   [:div.my-3

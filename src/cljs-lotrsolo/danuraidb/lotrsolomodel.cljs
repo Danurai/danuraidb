@@ -11,27 +11,6 @@
 (def data (r/atom nil))
 (defonce ad (r/atom {:selected #{}}))
 
-;(def questinfo
-;  [{:id 1 :name "Passage Through Mirkwood" :loc [{:code "01096" :qty 1 :loc :stage} {:code "01100" :qty 1 :loc :stage}]}])  
-;(def testdeck {:data  {"01005" 1 "02004" 3 "02098" 3 "02050" 1 "01006" 1 "01029" 3 "02075" 3 "08059" 3 "01014" 2 "01013" 3 "01073" 3 "01042" 1 "01040" 2 "01039" 2 "01027" 1 "01026" 2 "02010" 3 "01032" 2 "02005" 3 "01023" 2 "01035" 2 "02054" 2 "01020" 2 "02119" 2 "01016" 1})
-
-
-    
-
-; Scenario Setup ;
-;================;   
-
-;(defn initialise-encounter [ edeck questlocations ]
-;  (reduce 
-;    (fn [ed {:keys [code qty loc]} ]
-;      (let [p1 (take-while #(not= (:code %) code) ed)]
-;        (concat 
-;          p1 
-;          (map #(assoc % :loc loc) (take qty (nthrest ed (count p1))))
-;          (nthrest ed (+ qty (count p1))))))
-;    edeck 
-;    questlocations))
-
 (defn create-edeck! [ s ]
   (let [encounterset   (->> s :encounters (map :code) set)
         encountercards (->> @data :cards (filter #(contains? encounterset (:encounter_name %))))
@@ -44,6 +23,17 @@
     (swap! ad assoc :edeck encounterdeck
                     :qdeck (sort-by :position (filter #(= (:type_code %) "quest") encountercards)))))
                     
+(defn select-scenario! [ s ]
+  (swap! ad assoc :scenario s)
+  (create-edeck! s))
+  
+(defn select-scenario-by-name! [ n ]
+  (->> @data  
+        :scenarios
+        (filter #(= (:name %) n))
+        first
+        select-scenario!))
+        
 (defn create-pdeck! [ decklist ]
   (let [dl (js->clj (.parse js/JSON decklist))]
     (swap! ad assoc :p1deck 
@@ -54,15 +44,17 @@
         (apply concat
           (mapv (fn [[code qty]]
             (->> @data :cards (filter #(= (:code %) code)) first (repeat qty))) dl))))))
-          
-
-(defn selectscenario! [ s ]
-  (swap! ad assoc :scenario s)
-  (create-edeck! s))
         
-(defn selectpdeck! [ d ]
+(defn select-pdeck! [ d ]
   (swap! ad assoc :pdeck d)
   (create-pdeck! (:data d)))
+  
+(defn select-pdeck-by-name! [ n ]
+  (->> @data
+        :pdecks
+        (filter #(= (:name %) n))
+        first
+        select-pdeck!))
   
 ; Initialise ;
 ;============;
@@ -72,8 +64,8 @@
     (swap! data assoc :scenarios (:body (<! (http/get "/lotrdb/api/data/scenarios"))))
     (swap! data assoc :cards (:body (<! (http/get "/lotrdb/api/data/cards"))))
     (swap! data assoc :pdecks (:body (<! (http/get "/lotrdb/api/data/decks"))))
-    (selectscenario! (-> @data :scenarios first))
-    (selectpdeck! (-> @data :pdecks first))))
+    (select-scenario! (-> @data :scenarios first))
+    (select-pdeck! (-> @data :pdecks first))))
                    
                    
 (defn movecard! [ ad cardid location ]
@@ -83,14 +75,10 @@
 ; Scenario Start ;
 ;================;
   
-              
 (defn startsolo! []
-  (swap! ad assoc ;:edeck (-> @ad :scenario create-edeck!)
-                  :screen :setup
+  (swap! ad assoc :screen :game
                   :stage 1
-                  ;:p1deck (-> @ad :pdeck :data create-pdeck!)))
-                   ))    
-
+                  :log ["start"]))
 ; Utility ;
 ;=========;
 
@@ -99,12 +87,13 @@
   :p1deck "Player Deck"})
 
 (defn- log [ deck & msg ]
-  (prn (apply str (deck deckmap) msg)))
+  (swap! ad update :log conj (apply str (deck deckmap) msg)))
   
-(defn cards-by-location [ loc ]
-  (->> @ad
-      :edeck
-      (filter #(= (:loc %) loc))))
+
+(defn get-cards-by-location [ deck-key location ]
+  (->> @ad 
+       deck-key
+       (filter #(= (:loc %) location))))
       
 (defn- deckselected? []
   (contains? #{:edeck :p1deck} (-> @ad :selected first)))
@@ -128,7 +117,7 @@
   ([ cards tgt ]
     (if (deckselected?)
       (let [deck-key (-> @ad :selected first)
-            target (if (= tgt :draw) (if (= deck-key :edeck) :stage :area) tgt)]
+            target (if (= tgt :draw) (if (= deck-key :edeck) :stage :hand) tgt)]
         (if (set? cards)
           (swap! ad assoc deck-key
             (map #(if (contains? cards (:id %))
