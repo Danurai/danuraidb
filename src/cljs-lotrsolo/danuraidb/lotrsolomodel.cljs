@@ -87,7 +87,19 @@
   :p1deck "Player Deck"})
 
 (defn- log [ deck & msg ]
-  (swap! ad update :log conj (apply str (deck deckmap) msg)))
+  (swap! ad update :log conj (apply str (deckmap deck "") msg)))
+  
+  
+        
+(defn set-counter! [ param func ]
+  (doseq [deck [:edeck :p1deck :p2deck]]
+    (prn param func)
+    (swap! ad assoc deck
+      (map 
+        #(if (contains? (:selected @ad) (:id %))
+             (assoc % param (Math.max 0 (func (param % 0))))
+             %)
+        (deck @ad)))))
   
 
 (defn get-cards-by-location [ deck-key location ]
@@ -106,7 +118,17 @@
           p2 (filter #(not= (:loc %) :deck) (deck-key @ad))]
       (swap! ad assoc deck-key (concat p2 (shuffle p1)))
       (log deck-key " Shuffled"))))
-    
+
+(defn- get-deck [ selected ]
+  (if (deckselected?)
+      (first selected)
+      (cond
+        (contains? (->> @ad :p1deck (map :id) set) (first selected)) :p1deck
+        ;(contains? (->> @ad :edeck (map :id)) (first selected))
+        :else :edeck)))
+      
+
+      
 ; draw-cards[ #set target-location ]
 ; draw-cards[ number-of-cards ]
 ; draw-cards[] 
@@ -115,36 +137,40 @@
  draw-cards [#{set}] Draw cards with ids in the set
  draw-cards [n] Draw n cards"
   ([ cards tgt ]
-    (if (deckselected?)
-      (let [deck-key (-> @ad :selected first)
-            target (if (= tgt :draw) (if (= deck-key :edeck) :stage :hand) tgt)]
-        (if (set? cards)
-          (swap! ad assoc deck-key
-            (map #(if (contains? cards (:id %))
-                      (assoc % :loc target)
-                      %) (-> @ad deck-key)))
-          (let [p1 (filter #(= (:loc %) :deck) (deck-key @ad))
-                p2 (filter #(not= (:loc %) :deck) (deck-key @ad))]
-                  (swap! ad assoc deck-key 
-                    (concat 
-                      (mapv #(assoc % :loc target) (take cards p1))
-                      p2 (nthrest p1 cards)))))
-        (log deck-key " Draw Cards " cards))))
+    (let [deck-key (get-deck (:selected @ad))
+          target (if (= tgt :draw) (if (= deck-key :edeck) :stage :hand) tgt)]
+      (if (set? cards)
+        (swap! ad assoc deck-key
+          (map #(if (contains? cards (:id %))
+                    (assoc % :loc target)
+                    %) (-> @ad deck-key)))
+        (let [p1 (filter #(= (:loc %) :deck) (deck-key @ad))
+              p2 (filter #(not= (:loc %) :deck) (deck-key @ad))]
+                (swap! ad assoc deck-key 
+                  (concat 
+                    (mapv #(assoc % :loc target) (take cards p1))
+                    p2 (nthrest p1 cards)))))
+      (log deck-key " Draw Cards " cards)
+      (swap! ad assoc :selected #{})))
   ([] 
     (draw-cards! 1 :draw))
   ([ cards ]
     (draw-cards! cards :draw)))
-        
-(defn set-counter! [ param func ]
-  (doseq [deck [:edeck :p1deck :p2deck]]
-    (prn param func)
-    (swap! ad assoc deck
-      (map 
-        #(if (contains? (:selected @ad) (:id %))
-             (assoc % param (Math.max 0 (func (param % 0))))
-             %)
-        (deck @ad)))))
 
+(defn start-round! []
+  ; Ready all cards !?
+  (doseq [deck [:edeck :p1deck]]
+    (swap! ad assoc deck 
+      (map #(dissoc % :exhausted) (deck @ad))))
+  ; Add resources (Alive heroes)
+  (doseq [deck [:edeck :p1deck]]
+    (swap! ad assoc deck 
+      (map #(if (= (:type_code %) "hero")
+                (update % :resource inc)
+                %) (deck @ad))))
+  (swap! ad assoc :selected #{:p1deck})
+  (draw-cards!)
+  (log nil "Start of round"))
 ; UX ;
 ;====;
         

@@ -3,7 +3,7 @@
     [reagent.core :as r]
     [danuraidb.lotrsolomodel :refer 
       [ad data init! startsolo! get-cards-by-location
-       select-scenario-by-name! select-pdeck-by-name! 
+       select-scenario-by-name! select-pdeck-by-name! start-round!
         shuffle-deck! draw-cards! select-deck! select-card! set-counter!]]))
 
 
@@ -36,16 +36,16 @@
             (for [crd (->> @ad :p1deck (map :name))]
               [:div {:key (gensym)} crd])]]]]])
     
-  
-(defn exhaust-selected! []
-  nil)
-    
-(defn discard-selected! []
-  (doseq [deck [:edeck :p1deck]]
+
+(defn toggle-status! [ status ]
+  (doseq [deck [:edeck :p1deck] :let [selected (-> @ad :selected set)]]
     (swap! ad assoc deck 
-      (map #(if (contains? (:selected @ad) (:id %))
-                (assoc % :loc :discard)
-                %) (deck @ad)))))
+      (map #(if (contains? selected (:id %))
+                (if (status %)
+                    (dissoc % status)
+                    (assoc % status true))
+                %) (deck @ad))))
+  (swap! ad assoc :selected #{}))
                 
 (defn showcards! []
   (when (contains? #{:edeck :p1deck :ediscard :p1discard} (-> @ad :selected first))
@@ -62,8 +62,12 @@
   {:active true :title "Draw"    :fn #(draw-cards! 1)}
   {:active true :title "Draw 6"  :fn #(draw-cards! 6)}
   {:active true :title "Aside"   :fn #(draw-cards! (-> @ad :selected) :aside)}
-  {:active true :title "Exhaust" :fn #(exhaust-selected!)}
-  {:active true :title "Discard" :fn #(discard-selected!)}
+  {:active true :title "Exhaust" :fn #(toggle-status! :exhausted)}
+  {:active true :title "Engage"  :fn #(draw-cards! (-> @ad :selected) :engaged)}
+  {:active true :title "Active"  :fn #(draw-cards! (-> @ad :selected) :active)}
+  {:active true :title "Play"    :fn #(draw-cards! (-> @ad :selected) :play)}
+  {:active true :title "Discard" :fn #(draw-cards! (-> @ad :selected) :discard)}
+  {:active true :title "Deck"    :fn #(draw-cards! (-> @ad :selected) :deck)}
   
   {:active true :title "+ Dmg"   :fn #(set-counter! :damage inc)}
   {:active true :title "- Dmg"   :fn #(set-counter! :damage dec)}
@@ -71,6 +75,8 @@
   {:active true :title "- Prog"  :fn #(set-counter! :progress dec)}
   {:active true :title "+ Res"   :fn #(set-counter! :resource inc)}
   {:active true :title "- Res"   :fn #(set-counter! :resource dec)}
+  {:active true :title "Round"   :fn #(start-round!)}
+  
   ]))
     
 (defn commandbar []
@@ -86,30 +92,33 @@
   [:div.small-card {      ;.card-link
     :key (gensym)
     :data-code (:code c)
-    :class (if (contains? (:selected @ad) (:id c)) "selected")
+    :class (str 
+            (if (contains? (:selected @ad) (:id c)) "selected ")
+            (if (:exhausted c) "exhausted "))
     :on-click (fn [e] (select-card! e (:id c))) }
     [:img.img-fluid {:src (:cgdbimgurl c) :on-mouse-over #(show-card! c)  :on-mouse-out #(swap! ad dissoc :showcard)}]
-    (case (:type_code c)
-      "location" 
-        [:div.counter.counter-prg 
-          [:span.text-center (if (>= (:progress c 0) (:quest_points c 0)) "Y" (:progress c 0))]]
-      ("enemy" "ally")
-        [:div.counter.counter-dmg 
-          [:span.text-center (if (>= (:damage c 0) (:health c)) "X" (:damage c 0))]]
-      "hero"
-        [:span
+    (if (contains? #{:stage :active :engaged :play :hero} (:loc c))
+      (case (:type_code c)
+        "location" 
+          [:div.counter.counter-prg 
+            [:span.text-center (if (>= (:progress c 0) (:quest_points c 0)) "Y" (:progress c 0))]]
+        ("enemy" "ally")
           [:div.counter.counter-dmg 
             [:span.text-center (if (>= (:damage c 0) (:health c)) "X" (:damage c 0))]]
-          [:div.counter.counter-res 
-            [:span.text-center (:resource c 0)]]]
-      nil)])  
+        "hero"
+          [:span
+            [:div.counter.counter-dmg 
+              [:span.text-center (if (>= (:damage c 0) (:health c)) "X" (:damage c 0))]]
+            [:div.counter.counter-res 
+              [:span.text-center (:resource c 0)]]]
+        nil))])  
   
-(defn- deck [ key deck location image & params ]
+(defn- deck [ key deck location image ]
     [:div.small-card {
       :id key
-      :class (if (contains? (:selected @ad) key) "selected")
+      :class (if (contains? (:selected @ad) key) "selected ")
       :on-click (fn [e] (.stopPropagation e) (select-deck! key))}
-      [:img.img-fluid {:style (first params) :src (str "/img/lotrdb/" image)}]
+      [:img.img-fluid {:class (if (= location :discard) "exhausted") :src (str "/img/lotrdb/" image)}]
       [:div.counter.counter-count [:span (count (get-cards-by-location deck location))]]])
   
   
@@ -127,7 +136,7 @@
             [:div {:style {:position "absolute" :font-size "56pt" :color "lightgrey"}} "ENEMY"]
             [:div.d-flex
               (deck :edeck :edeck :deck "encounter_back.jpg" )
-              (deck :ediscard :edeck :discard "encounter_back.jpg" {:opacity 0.4})
+              (deck :ediscard :edeck :discard "encounter_back.jpg")
               [:div.mr-2]
               (doall (for [c (reverse (get-cards-by-location :edeck :aside))] (card-component c)))]]]
         [:div.row {:style {:min-height "105px"}}
@@ -136,17 +145,26 @@
             [:div.d-flex (doall (for [c (get-cards-by-location :edeck :stage)] (card-component c)))]]]
         [:div.row {:style {:min-height "105px"}}
           [:div.col
-            [:div {:style {:position "absolute" :font-size "56pt" :color "lightgrey"}} "ENGAGED"]]]
+            [:div {:style {:position "absolute" :font-size "56pt" :color "lightgrey"}} "ENGAGED"]
+            [:div {:style {:position "absolute" :right "15px" :font-size "56pt" :color "lightgrey"}} "ACTIVE"]
+            [:div.d-flex 
+              [:div.d-flex (doall (for [c (get-cards-by-location :edeck :engaged)] (card-component c)))]
+              [:div.d-flex.ml-auto (doall (for [c (get-cards-by-location :edeck :active)] (card-component c)))]
+              ]]]
         [:div.row {:style {:min-height "105px"}}
           [:div.col
             [:div {:style {:position "absolute" :font-size "56pt" :color "lightgrey"}} "PLAYER"]
-            [:div.d-flex (doall (for [c (get-cards-by-location :p1deck :hero)] (card-component c)))]]]
+            [:div.d-flex 
+              (doall (for [c (get-cards-by-location :p1deck :hero)] (card-component c)))
+              [:div.mr-2]
+              (doall (for [c (get-cards-by-location :p1deck :play)] (card-component c)))]
+            ]]
         [:div.row {:style {:min-height "105px"}}
           [:div.col
             [:div {:style {:position "absolute" :font-size "56pt" :color "lightgrey"}} "HAND"]
             [:div.d-flex
               (deck :p1deck :p1deck :deck "player_back.jpg" )
-              (deck :p1discard :p1deck :discard "player_back.jpg" {:opacity 0.4})
+              (deck :p1discard :p1deck :discard "player_back.jpg")
               [:div.mr-2]
               (doall (for [c (reverse (get-cards-by-location :p1deck :hand))] (card-component c)))]]]]
       [:div.col-3
@@ -255,7 +273,8 @@
   [:div.container
       [:button.btn.btn-dark {:on-click #((reset! ad {:selected #{}}) (init!))} "Reset!"]
       [:div (-> @ad :selected str)]
-      [:div (->> @ad :edeck (map :loc) str)]
+      ;[:div (->> @ad :edeck (map :id) str)]
+      [:div (->> @ad :p1deck (map :exhausted) str)]
       ;[:div (->> @ad :edeck (filter #(= (:loc %) :stage)) (map #(select-keys % [:id :name :loc :damage :progress])) str)]
       ;[:div (->> @ad :p1deck (map :resource))]
       [:div (-> @ad (dissoc :pdeck :p1deck :edeck :qdeck :scenario) str)]])

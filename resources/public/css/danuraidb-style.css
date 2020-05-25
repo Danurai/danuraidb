@@ -137,3 +137,7 @@ cite {
   page-break-inside: avoid;
   -webkit-column-break-inside: avoid;
 }
+
+.exhausted {
+  opacity: 0.6;
+}
