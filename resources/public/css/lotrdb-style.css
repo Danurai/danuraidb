@@ -58,6 +58,11 @@ a {
   background-size: 205px;
   background-position: 90% 2%;
 }
+.questcard {
+  width: 215px;
+  height: 154px;
+  background-size: 215px 308px;
+}
 .counter {
   position: absolute;
   border-radius: 50%;
@@ -70,20 +75,26 @@ a {
   color: white;
 }
 .counter.counter-prg {
-  background-color: rgba(0,92,0,0.6);
+  background-color: rgba(0,92,0,0.8);
 }
 .counter.counter-dmg {
-  background-color: rgba(92,0,0,0.6);
+  background-color: rgba(92,0,0,0.8);
 }
 .counter.counter-count {
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0,0,0,0.8);
   color: #CCC;
 }
 .counter.counter-res {
-  background-color: rgba(0,0,92,0.6);
+  background-color: rgba(0,0,92,0.8);
   top: 35px;
 }
   
+.counter-quest {
+  position: absolute;
+  bottom: 0px;
+  color: black;
+  right: 5px;
+}
 
 
 /* CommandBar */

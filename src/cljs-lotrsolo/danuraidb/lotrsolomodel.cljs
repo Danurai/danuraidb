@@ -21,7 +21,7 @@
                             (sort-by :name)
                             (map-indexed #(assoc %2 :id %1 :loc :deck)))]
     (swap! ad assoc :edeck encounterdeck
-                    :qdeck (sort-by :position (filter #(= (:type_code %) "quest") encountercards)))))
+                    :qdeck (map-indexed #(assoc %2 :id (str "q" %1)) (sort-by :position (filter #(= (:type_code %) "quest") encountercards))))))
                     
 (defn select-scenario! [ s ]
   (swap! ad assoc :scenario s)
@@ -35,18 +35,19 @@
         select-scenario!))
         
 (defn create-pdeck! [ decklist ]
-  (let [dl (js->clj (.parse js/JSON decklist))]
+  (let [dl (js->clj (.parse js/JSON decklist))
+        decklist 
+          (apply concat
+            (mapv (fn [[code qty]]
+              (->> @data :cards (filter #(= (:code %) code)) first (repeat qty))) dl))]
+    (swap! ad assoc :pthreat (->> decklist (filter #(= (:type_code %) "hero")) (map :threat) (apply +)))
     (swap! ad assoc :p1deck 
       (map-indexed (fn [id c]
         (if (= (:type_code c) "hero")
             (assoc c :id (str "p1" id) :loc :hero :resource 0)
-            (assoc c :id (str "p1" id) :loc :deck)))
-        (apply concat
-          (mapv (fn [[code qty]]
-            (->> @data :cards (filter #(= (:code %) code)) first (repeat qty))) dl))))))
+            (assoc c :id (str "p1" id) :loc :deck))) decklist))))
         
 (defn select-pdeck! [ d ]
-  (swap! ad assoc :pdeck d)
   (create-pdeck! (:data d)))
   
 (defn select-pdeck-by-name! [ n ]
@@ -77,8 +78,9 @@
   
 (defn startsolo! []
   (swap! ad assoc :screen :game
-                  :stage 1
-                  :log ["start"]))
+                  :stage 0
+                  :log ["start"]
+                  ))
 ; Utility ;
 ;=========;
 
@@ -100,7 +102,20 @@
              (assoc % param (Math.max 0 (func (param % 0))))
              %)
         (deck @ad)))))
-  
+
+(defn toggle-status! 
+  ([ status ]
+    (toggle-status! (:selected @ad) status))
+  ([ cardset status ]
+  ;Force effect?
+    (doseq [deck [:edeck :p1deck]]
+        (swap! ad assoc deck 
+          (map #(if (contains? cardset (:id %))
+                    (if (status %)
+                        (dissoc % status)
+                        (assoc % status true))
+                    %) (deck @ad))))
+    (swap! ad assoc :selected #{})))
 
 (defn get-cards-by-location [ deck-key location ]
   (->> @ad 
@@ -127,7 +142,10 @@
         ;(contains? (->> @ad :edeck (map :id)) (first selected))
         :else :edeck)))
       
-
+(defn get-card-back [ c ]
+  (if (= :edeck (get-deck #{(:id c)}))
+      "/img/lotrdb/encounter_back.jpg"
+      "/img/lotrdb/player_back.jpg"))
       
 ; draw-cards[ #set target-location ]
 ; draw-cards[ number-of-cards ]
@@ -143,7 +161,9 @@
         (swap! ad assoc deck-key
           (map #(if (contains? cards (:id %))
                     (assoc % :loc target)
-                    %) (-> @ad deck-key)))
+                    (if (and (= target :active) (= (:loc %) :active))
+                        (assoc % :loc :stage)
+                        %)) (-> @ad deck-key)))
         (let [p1 (filter #(= (:loc %) :deck) (deck-key @ad))
               p2 (filter #(not= (:loc %) :deck) (deck-key @ad))]
                 (swap! ad assoc deck-key 
@@ -151,7 +171,7 @@
                     (mapv #(assoc % :loc target) (take cards p1))
                     p2 (nthrest p1 cards)))))
       (log deck-key " Draw Cards " cards)
-      (swap! ad assoc :selected #{})))
+      (if (false? deckselected?) (swap! ad assoc :selected #{}))))
   ([] 
     (draw-cards! 1 :draw))
   ([ cards ]
@@ -189,3 +209,12 @@
     (if (contains? (:selected @ad) id)
         (swap! ad assoc :selected #{})
         (swap! ad assoc :selected #{id}))))
+        
+(defn update-threat! [ fun ]
+  (swap! ad update :pthreat fun))
+  
+(defn update-quest-stage! [ fun ]
+  (swap! ad assoc :stage 
+    (Math.max 0 
+      (Math.min (-> @ad :qdeck count dec)
+        (-> @ad :stage fun)))))
