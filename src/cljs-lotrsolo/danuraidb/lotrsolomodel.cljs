@@ -23,6 +23,10 @@
     (swap! ad assoc :edeck encounterdeck
                     :qdeck (map-indexed #(assoc %2 :id (str "q" %1)) (sort-by :position (filter #(= (:type_code %) "quest") encountercards))))))
                     
+
+
+              
+                    
 (defn select-scenario! [ s ]
   (swap! ad assoc :scenario s)
   (create-edeck! s))
@@ -78,8 +82,10 @@
   
 (defn startsolo! []
   (swap! ad assoc :screen :game
-                  :stage 0
+                  :stage {:id 0 :side :a}
                   :log ["start"]
+                  :turn -1
+                  :debug true
                   ))
 ; Utility ;
 ;=========;
@@ -95,7 +101,6 @@
         
 (defn set-counter! [ param func ]
   (doseq [deck [:edeck :p1deck :p2deck]]
-    (prn param func)
     (swap! ad assoc deck
       (map 
         #(if (contains? (:selected @ad) (:id %))
@@ -108,13 +113,15 @@
     (toggle-status! (:selected @ad) status))
   ([ cardset status ]
   ;Force effect?
-    (doseq [deck [:edeck :p1deck]]
-        (swap! ad assoc deck 
-          (map #(if (contains? cardset (:id %))
-                    (if (status %)
-                        (dissoc % status)
-                        (assoc % status true))
-                    %) (deck @ad))))
+    (if (and (some? (re-matches #"q.+" (first cardset))) (= status :flipped))
+      (swap! ad assoc-in [:stage :side] (if (= :a (-> @ad :stage :side)) :b :a))
+      (doseq [deck [:edeck :p1deck]]
+          (swap! ad assoc deck 
+            (map #(if (contains? cardset (:id %))
+                      (if (status %)
+                          (dissoc % status)
+                          (assoc % status true))
+                      %) (deck @ad)))))
     (swap! ad assoc :selected #{})))
 
 (defn get-cards-by-location [ deck-key location ]
@@ -147,16 +154,9 @@
       "/img/lotrdb/encounter_back.jpg"
       "/img/lotrdb/player_back.jpg"))
       
-; draw-cards[ #set target-location ]
-; draw-cards[ number-of-cards ]
-; draw-cards[] 
 (defn draw-cards!
-"draw-cards []  Draw 1 card from the selected deck
- draw-cards [#{set}] Draw cards with ids in the set
- draw-cards [n] Draw n cards"
-  ([ cards tgt ]
-    (let [deck-key (get-deck (:selected @ad))
-          target (if (= tgt :draw) (if (= deck-key :edeck) :stage :hand) tgt)]
+  ([ deck-key cards tgt ]
+    (let [target (if (= tgt :draw) (if (= deck-key :edeck) :stage :hand) tgt)]
       (if (set? cards)
         (swap! ad assoc deck-key
           (map #(if (contains? cards (:id %))
@@ -171,11 +171,15 @@
                     (mapv #(assoc % :loc target) (take cards p1))
                     p2 (nthrest p1 cards)))))
       (log deck-key " Draw Cards " cards)
-      (if (false? deckselected?) (swap! ad assoc :selected #{}))))
-  ([] 
-    (draw-cards! 1 :draw))
+      ;(if (false? deckselected?) 
+        (swap! ad assoc :selected #{})
+      ))
+  ([ cards tgt ]
+    (draw-cards! (get-deck (:selected @ad)) cards tgt))
   ([ cards ]
-    (draw-cards! cards :draw)))
+    (draw-cards! (get-deck (:selected @ad)) cards :draw))
+  ([] 
+    (draw-cards! (get-deck (:selected @ad)) 1 :draw)))
 
 (defn start-round! []
   ; Ready all cards !?
@@ -189,6 +193,7 @@
                 (update % :resource inc)
                 %) (deck @ad))))
   (swap! ad assoc :selected #{:p1deck})
+  (swap! ad update :turn inc)
   (draw-cards!)
   (log nil "Start of round"))
 ; UX ;
@@ -214,7 +219,32 @@
   (swap! ad update :pthreat fun))
   
 (defn update-quest-stage! [ fun ]
-  (swap! ad assoc :stage 
-    (Math.max 0 
-      (Math.min (-> @ad :qdeck count dec)
-        (-> @ad :stage fun)))))
+;(->> qdeck (map #(re-find #".+\:|.+" (:name %))) distinct)
+  (swap! ad assoc :stage {
+    :id (Math.max 0 (Math.min (-> @ad :qdeck count dec) (-> @ad :stage :id fun)))
+    :side :a})
+  (swap! ad assoc :selected #{}))
+  
+(defn mulligan! [ deck ]
+  (swap! ad assoc deck 
+    (->> @ad
+         deck
+         (map #(if (= :hand (:loc %))
+                   (assoc % :loc :deck)
+                   %))
+         shuffle))
+  (draw-cards! deck 6 :hand))
+  
+(defn toggle-debug! []
+  (swap! ad assoc :debug? (-> @ad :debug? nil?))) 
+  
+  
+(defn showcards! []
+  (when (contains? #{:edeck :p1deck :ediscard :p1discard} (-> @ad :selected first))
+    (swap! ad assoc-in [:temp :state] :showcards)
+    (swap! ad assoc-in [:temp :loc] (keyword (re-find #"deck|discard" (-> @ad :selected first name))))
+    ))
+    
+(defn show-card! [ c ]
+  (swap! ad assoc :showcard c))
+  

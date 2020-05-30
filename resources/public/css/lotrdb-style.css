@@ -59,9 +59,9 @@ a {
   background-position: 90% 2%;
 }
 .questcard {
-  width: 215px;
-  height: 154px;
-  background-size: 215px 308px;
+  width: 154px;
+  height: 110px;
+  background-size: 154px 220px;
 }
 .counter {
   position: absolute;
@@ -95,7 +95,6 @@ a {
   color: black;
   right: 5px;
 }
-
 
 /* CommandBar */
 
