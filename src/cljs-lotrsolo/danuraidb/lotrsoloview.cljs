@@ -212,11 +212,14 @@
         [:div.row {:style {:min-height "105px"}}
           [:div.col
             [:div {:style {:position "absolute" :font-size "56pt" :color "lightgrey"}} "PLAYER"]
-            [:div.d-flex 
-              (doall (for [c (sort-by :normalname (get-cards-by-location :p1deck :hero))] (card-component c)))
-              [:div.mr-2]
-              (doall (for [c (get-cards-by-location :p1deck :play)] (card-component c)))]
-            ]]
+            [:div.d-flex.mr-2
+              (doall 
+                (for [c (->> @ad :p1deck (filter #(and (= (:type_code %) "hero") (= (:loc %) :play))) (sort-by :normalname))]
+                  (card-component c)))]
+            [:div.d-flex
+              (doall 
+                (for [c (->> @ad :p1deck (filter #(and (not= (:type_code %) "hero") (= (:loc %) :play))))] 
+                  (card-component c)))]]]
         [:div.row {:style {:min-height "105px"}}
           [:div.col
             [:div {:style {:position "absolute" :font-size "56pt" :color "lightgrey"}} "HAND"]
@@ -241,6 +244,13 @@
        
 (defn- close-modal []
   (swap! ad dissoc :temp))
+  
+(def modal-commands [
+  {:id :stage :title ">Stage" :on-click #(-> @ad :temp :selected (draw-cards! :stage))}
+  {:id :aside :title ">Aside" :on-click #(-> @ad :temp :selected (draw-cards! :aside))}
+  {:id :draw  :title ">Draw"  :on-click #(-> @ad :temp :selected (draw-cards! :hand))}
+  {:id :close :title "Close"  :on-click #(close-modal)}
+  {:id :shuffleclose :title "Shuffle & Close" :on-click #((close-modal) (shuffle-deck!))}])
                
 (defn- show-select-modal []
   [:div.modal {
@@ -258,21 +268,16 @@
                 :src (:cgdbimgurl c) 
                 :on-click #(toggle-select-shown (:id c))}]))]]
         [:div.modal-footer
-          [:button.btn.btn-secondary {:on-click (fn [e] (-> @ad :temp :selected draw-cards!)  (swap! ad update :temp dissoc :selected)) } "Stage"]
-          [:button.btn.btn-secondary {:on-click (fn [e] (-> @ad :temp :selected (draw-cards! :aside)) (swap! ad update :temp dissoc :selected))} "Aside"]
-          [:button.btn.btn-primary {:on-click #(close-modal)} "Close"]
-          [:button.btn.btn-success {:on-click (fn [e] (close-modal)(shuffle-deck!) )} "Shuffle and Close"]]]]])
-          
+          (for [mc modal-commands]
+            [:button.btn.btn-secondary {:key (gensym) :on-click (:on-click mc)} (:title mc)])]]]])
+            
 (defn- debug [] 
   (if (:debug? @ad)
     [:div.container
         [:button.btn.btn-dark {:on-click #((reset! ad {:selected #{}}) (init!))} "Reset!"]
         [:div (-> @ad :selected str)]
         [:div "Stage " (-> @ad :stage)]
-        [:div "Quests " (-> @ad :qdeck str)]
-        [:div (->> @ad :p1deck (map :exhausted) str)]
-        ;[:div (->> @ad :edeck (filter #(= (:loc %) :stage)) (map #(select-keys % [:id :name :loc :damage :progress])) str)]
-        ;[:div (->> @ad :p1deck (map :resource))]
+        [:div (-> @ad :temp str)]
         [:div (-> @ad (dissoc :pdeck :p1deck :edeck :qdeck :scenario) str)]]))
               
 (defn Page []

@@ -6618,3 +6618,210 @@ notifying browser that file changed:  resources\public\js\compiled\soloout\danur
 [0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
 [32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.076 seconds.[0m
 notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[36m----  Compiler Warning on   src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs   line:146  column:14  ----[0m
+
+  [1mUse of undeclared Var danuraidb.lotrsolomodel/selected[0m
+
+  [36m142[0m  [36m      (log deck-key " Shuffled"))))[0m
+  [36m143[0m  [36m[0m
+  [36m144[0m  [36m(defn- get-card-deck [ card_id ][0m
+  [36m145[0m  [36m  (if (deckselected?)[0m
+  [33m146[0m  [1m      (first selected)[0m
+  [0m   [0m  [33m             ^--- Use of undeclared Var danuraidb.lotrsolomodel/selected[0m
+  [36m147[0m  [36m      (->> [:edeck :p1deck :qdeck][0m
+  [36m148[0m  [36m           (map #(if (contains? (->> @ad % (map :id) set) card_id) %))[0m
+  [36m149[0m  [36m           (remove nil?)[0m
+  [36m150[0m  [36m           first)))[0m
+
+[36m----  Compiler Warning : Please see src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.534 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/soloout/goog/deps.js
+notifying browser that file changed:  resources/public/js/compiled/soloout/cljs_deps.js
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[36m----  Compiler Warning on   src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs   line:146  column:14  ----[0m
+
+  [1mUse of undeclared Var danuraidb.lotrsolomodel/selected[0m
+
+  [36m142[0m  [36m      (log deck-key " Shuffled"))))[0m
+  [36m143[0m  [36m[0m
+  [36m144[0m  [36m(defn- get-card-deck [ card_id ][0m
+  [36m145[0m  [36m  (if (deckselected?)[0m
+  [33m146[0m  [1m      (first selected)[0m
+  [0m   [0m  [33m             ^--- Use of undeclared Var danuraidb.lotrsolomodel/selected[0m
+  [36m147[0m  [36m      (->> [:edeck :p1deck :qdeck][0m
+  [36m148[0m  [36m           (map #(if (contains? (->> @ad % (map :id) set) card_id) %))[0m
+  [36m149[0m  [36m           (remove nil?)[0m
+  [36m150[0m  [36m           first)))[0m
+
+[36m----  Compiler Warning : Please see src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 2.488 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.568 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.436 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.638 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[36m----  Compiler Warning on   src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs   line:245  column:2  ----[0m
+
+  [1mUse of undeclared Var danuraidb.lotrsoloview/def-[0m
+
+  [36m242[0m  [36m(defn- close-modal [][0m
+  [36m243[0m  [36m  (swap! ad dissoc :temp))[0m
+  [36m244[0m  [36m  [0m
+  [33m245[0m  [1m(def- modal-commands [[0m
+  [0m   [0m  [33m ^--- Use of undeclared Var danuraidb.lotrsoloview/def-[0m
+  [36m246[0m  [36m  {:id :stage :title ">Stage" :on-click #(-> @ad :temp :selected (draw-cards! :stage))}[0m
+  [36m247[0m  [36m  {:id :aside :title ">Aside" :on-click #(-> @ad :temp :selected (draw-cards! :aside))}[0m
+  [36m248[0m  [36m  {:id :draw  :title ">Draw"  :on-click #(-> @ad :temp :selected (draw-cards! :hand))}[0m
+  [36m249[0m  [36m  {:id :shuffleclose :title "Shuffle & Close" :on-click #((close-modal) (shuffle-deck!))}])[0m
+
+[36m----  Compiler Warning : Please see src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs   line:245  column:7  ----[0m
+
+  [1mUse of undeclared Var danuraidb.lotrsoloview/modal-commands[0m
+
+  [36m242[0m  [36m(defn- close-modal [][0m
+  [36m243[0m  [36m  (swap! ad dissoc :temp))[0m
+  [36m244[0m  [36m  [0m
+  [33m245[0m  [1m(def- modal-commands [[0m
+  [0m   [0m  [33m      ^--- Use of undeclared Var danuraidb.lotrsoloview/modal-commands[0m
+  [36m246[0m  [36m  {:id :stage :title ">Stage" :on-click #(-> @ad :temp :selected (draw-cards! :stage))}[0m
+  [36m247[0m  [36m  {:id :aside :title ">Aside" :on-click #(-> @ad :temp :selected (draw-cards! :aside))}[0m
+  [36m248[0m  [36m  {:id :draw  :title ">Draw"  :on-click #(-> @ad :temp :selected (draw-cards! :hand))}[0m
+  [36m249[0m  [36m  {:id :shuffleclose :title "Shuffle & Close" :on-click #((close-modal) (shuffle-deck!))}])[0m
+
+[36m----  Compiler Warning : Please see src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs  ----[0m
+[36m----  Compiler Warning on   src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs   line:267  column:20  ----[0m
+
+  [1mUse of undeclared Var danuraidb.lotrsoloview/modal-commands[0m
+
+  [36m263[0m  [36m                :title (:id c) [0m
+  [36m264[0m  [36m                :src (:cgdbimgurl c) [0m
+  [36m265[0m  [36m                :on-click #(toggle-select-shown (:id c))}]))]][0m
+  [36m266[0m  [36m        [:div.modal-footer[0m
+  [33m267[0m  [1m          (for [mc modal-commands][0m
+  [0m   [0m  [33m                   ^--- Use of undeclared Var danuraidb.lotrsoloview/modal-commands[0m
+  [36m268[0m  [36m            [:button.btn-secondary {:key (gensym) :on-click (:on-click mc)} (:title mc)])][0m
+  [36m269[0m  [36m;          [:button.btn.btn-secondary {:on-click (fn [e] (-> @ad :temp :selected draw-cards!)  (swap! ad update :temp dissoc :selected)) } "Stage"][0m
+  [36m270[0m  [36m;          [:button.btn.btn-secondary {:on-click (fn [e] (-> @ad :temp :selected (draw-cards! :aside)) (swap! ad update :temp dissoc :selected))} "Aside"][0m
+  [36m271[0m  [36m;          [:button.btn.btn-primary {:on-click #(close-modal)} "Close"][0m
+  [36m272[0m  [36m;          [:button.btn.btn-success {:on-click (fn [e] (close-modal)(shuffle-deck!) )} "Shuffle and Close"]]]]])[0m
+
+[36m----  Compiler Warning : Please see src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.622 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.428 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.377 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[31mFailed to compile "resources/public/js/compiled/lotrsolo.js" in 1.012 seconds.[0m
+[36m----  Could not Read  src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs   line:249 ----[0m
+
+  [1mD:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 249, col 56] Unmatched delimiter ).[0m
+
+  [36m247[0m  [36m  {:id :aside :title ">Aside" :on-click #(-> @ad :temp :selected (draw-cards! :aside))}[0m
+  [36m248[0m  [36m  {:id :draw  :title ">Draw"  :on-click #(-> @ad :temp :selected (draw-cards! :hand))}[0m
+  [33m249[0m  [1m  {:id :close :title "Close"  :on-click #(close-modal))}[0m
+  [0m   [0m  [33m  D:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 249, col 56] Unmatched delimiter ).[0m
+  [36m250[0m  [36m  {:id :shuffleclose :title "Shuffle & Close" :on-click #((close-modal) (shuffle-deck!))}])[0m
+  [36m251[0m  [36m               [0m
+  [36m252[0m  [36m(defn- show-select-modal [][0m
+
+[36m----  Reader Error : Please see src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.42 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 2.053 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.477 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[36m----  Compiler Warning on   src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+
+  [1mdraw-cards!: Can't have 2 overloads with same arity[0m
+
+[36m----  Compiler Warning : Please see src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+[31mFailed to compile "resources/public/js/compiled/lotrsolo.js" in 0.537 seconds.[0m
+[36m----  Could not Compile  src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+
+  [1mfailed compiling file:src\cljs-lotrsolo\danuraidb\lotrsolomodel.cljs[0m
+
+[36m----  Compiler Error : Please see src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[36m----  Compiler Warning on   src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+
+  [1mdraw-cards!: Can't have 2 overloads with same arity[0m
+
+[36m----  Compiler Warning : Please see src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+[31mFailed to compile "resources/public/js/compiled/lotrsolo.js" in 0.585 seconds.[0m
+[36m----  Could not Compile  src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+
+  [1mfailed compiling file:src\cljs-lotrsolo\danuraidb\lotrsolomodel.cljs[0m
+
+[36m----  Compiler Error : Please see src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[36m----  Compiler Warning on   src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+
+  [1mdraw-cards!: Can't have 2 overloads with same arity[0m
+
+[36m----  Compiler Warning : Please see src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+[31mFailed to compile "resources/public/js/compiled/lotrsolo.js" in 0.806 seconds.[0m
+[36m----  Could not Compile  src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+
+  [1mfailed compiling file:src\cljs-lotrsolo\danuraidb\lotrsolomodel.cljs[0m
+
+[36m----  Compiler Error : Please see src/cljs-lotrsolo/danuraidb/lotrsolomodel.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.593 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 0.975 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.529 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.511 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.5 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.68 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.394 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.546 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.437 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.311 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.389 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.638 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.754 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.532 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsolomodel.js

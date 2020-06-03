@@ -48,7 +48,7 @@
     (swap! ad assoc :p1deck 
       (map-indexed (fn [id c]
         (if (= (:type_code c) "hero")
-            (assoc c :id (str "p1" id) :loc :hero :resource 0)
+            (assoc c :id (str "p1" id) :loc :play :resource 0)
             (assoc c :id (str "p1" id) :loc :deck))) decklist))))
         
 (defn select-pdeck! [ d ]
@@ -121,8 +121,7 @@
                       (if (status %)
                           (dissoc % status)
                           (assoc % status true))
-                      %) (deck @ad)))))
-    (swap! ad assoc :selected #{})))
+                      %) (deck @ad)))))))
 
 (defn get-cards-by-location [ deck-key location ]
   (->> @ad 
@@ -141,6 +140,12 @@
       (swap! ad assoc deck-key (concat p2 (shuffle p1)))
       (log deck-key " Shuffled"))))
 
+;(defn- get-card-deck [ card_id ]
+;  (->> [:edeck :p1deck :qdeck]
+;       (map #(if (contains? (->> @ad % (map :id) set) card_id) %))
+;       (remove nil?)
+;       first))    
+      
 (defn- get-deck [ selected ]
   (if (deckselected?)
       (first selected)
@@ -155,8 +160,11 @@
       "/img/lotrdb/player_back.jpg"))
       
 (defn draw-cards!
-  ([ deck-key cards tgt ]
-    (let [target (if (= tgt :draw) (if (= deck-key :edeck) :stage :hand) tgt)]
+  "draw-cards n - Draw n cards from the selected deck
+   draw-cards #{set} :target - move cards from current :loc to target"
+  ([ cards tgt deck ]
+    (let [deck-key (if (some? deck) deck (if (set? cards) (get-deck cards) (get-deck (:selected @ad))))
+          target (if (= tgt :draw) (if (= deck-key :edeck) :stage :hand) tgt)]
       (if (set? cards)
         (swap! ad assoc deck-key
           (map #(if (contains? cards (:id %))
@@ -171,15 +179,11 @@
                     (mapv #(assoc % :loc target) (take cards p1))
                     p2 (nthrest p1 cards)))))
       (log deck-key " Draw Cards " cards)
-      ;(if (false? deckselected?) 
-        (swap! ad assoc :selected #{})
       ))
   ([ cards tgt ]
-    (draw-cards! (get-deck (:selected @ad)) cards tgt))
+    (draw-cards! cards tgt nil))
   ([ cards ]
-    (draw-cards! (get-deck (:selected @ad)) cards :draw))
-  ([] 
-    (draw-cards! (get-deck (:selected @ad)) 1 :draw)))
+    (draw-cards! cards :draw nil)))
 
 (defn start-round! []
   ; Ready all cards !?
@@ -189,12 +193,11 @@
   ; Add resources (Alive heroes)
   (doseq [deck [:edeck :p1deck]]
     (swap! ad assoc deck 
-      (map #(if (= (:type_code %) "hero")
-                (update % :resource inc)
-                %) (deck @ad))))
-  (swap! ad assoc :selected #{:p1deck})
+      (map #(dissoc (if (= (:type_code %) "hero")
+                        (update % :resource inc)
+                        %) 
+                  :questing :exhausted) (deck @ad))))
   (swap! ad update :turn inc)
-  (draw-cards!)
   (log nil "Start of round"))
 ; UX ;
 ;====;
@@ -233,7 +236,7 @@
                    (assoc % :loc :deck)
                    %))
          shuffle))
-  (draw-cards! deck 6 :hand))
+  (draw-cards! 6 :hand deck))
   
 (defn toggle-debug! []
   (swap! ad assoc :debug? (-> @ad :debug? nil?))) 
