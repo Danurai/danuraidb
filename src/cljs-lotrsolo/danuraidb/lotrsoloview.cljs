@@ -96,6 +96,14 @@
       (swap! ad dissoc :showcard)
       (swap! ad assoc :showcard c))
   (select-card! e (:id c)))
+  
+(defn- deck [ key deck location image ]
+    [:div.small-card {
+      :id key
+      :class (if (contains? (:selected @ad) key) "selected ")
+      :on-click (fn [e] (.stopPropagation e) (select-deck! key))}
+      [:img.img-fluid {:class (if (= location :discard) "exhausted") :src (str "/img/lotrdb/" image)}]
+      [:div.counter.counter-count [:span (count (get-cards-by-location deck location))]]])
     
 (defn card-component [ c ]
   [:div.small-card {
@@ -126,14 +134,20 @@
             [:div.counter.counter-res 
               [:span.text-center (:resource c 0)]]]
         nil))])  
-  
-(defn- deck [ key deck location image ]
-    [:div.small-card {
-      :id key
-      :class (if (contains? (:selected @ad) key) "selected ")
-      :on-click (fn [e] (.stopPropagation e) (select-deck! key))}
-      [:img.img-fluid {:class (if (= location :discard) "exhausted") :src (str "/img/lotrdb/" image)}]
-      [:div.counter.counter-count [:span (count (get-cards-by-location deck location))]]])
+        
+(defn quest-component [ q ]
+  [:div.d-flex {
+    :class (if (contains? (:selected @ad) (:id q)) "selected ")
+    :on-touch-start (fn [e] (touch-card! e q))
+    :on-click (fn [e] (.stopPropagation e) (select-card! e (:id q)))
+    :on-mouse-over #(show-card! q)  
+    :on-mouse-out #(swap! ad dissoc :showcard)
+    :style {:position "relative"}
+  }
+  [:img.questcard.ml-auto {:style {:background-image (str "url(" (:cgdbimgurl q) ")") :background-position-y (if (:flipped q) "100%" "0%")}}]
+  (if (:flipped q)
+    [:div.counter.counter-prg {:style {:width "3em" :height "3em" :line-height "2.8em"}}
+      [:span.text-center (str (:progress q 0) "/" (:quest_points q 0))]])])
   
   
 (defn game []
@@ -183,17 +197,7 @@
                   [:div.d-flex (doall (for [c (get-cards-by-location :edeck :stage)] (card-component c)))]]
                 [:div.d-flex 
                   [:div {:style {:position "absolute" :right "5px" :font-size "56pt" :color "lightgrey" :z-index -1}} "QUEST"]
-                  [:div.d-flex {
-                      :class (if (contains? (:selected @ad) (:id q)) "selected ")
-                      :on-click (fn [e] (select-card! e (:id q)))
-                      :on-mouse-over #(show-card! q)  
-                      :on-mouse-out #(swap! ad dissoc :showcard)
-                      :style {:position "relative"}
-                    }
-                    [:img.questcard.ml-auto {:style {:background-image (str "url(" (:cgdbimgurl q) ")") :background-position-y (if (:flipped q) "100%" "0%")}}]
-                    (if (:flipped q)
-                      [:div.counter.counter-prg {:style {:width "3em" :height "3em" :line-height "2.8em"}}
-                        [:span.text-center (str (:progress q 0) "/" (:quest_points q 0))]])]]]])]
+                  (quest-component q)]]])]
         [:div.row {:style {:min-height "105px"}}
           [:div.col
             [:div {:style {:position "absolute" :font-size "56pt" :color "lightgrey"}} "ENGAGED"]

@@ -8233,3 +8233,30 @@ notifying browser that file changed:  resources\public\js\compiled\soloout\danur
 [0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
 [32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.315 seconds.[0m
 notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.329 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/soloout/goog/deps.js
+notifying browser that file changed:  resources/public/js/compiled/soloout/cljs_deps.js
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[36m----  Compiler Warning on   src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs   line:141  column:30  ----[0m
+
+  [1mUse of undeclared Var danuraidb.lotrsoloview/touch-card[0m
+
+  [36m138[0m  [36m(defn quest-component [ q ][0m
+  [36m139[0m  [36m  [:div.d-flex {[0m
+  [36m140[0m  [36m    :class (if (contains? (:selected @ad) (:id q)) "selected ")[0m
+  [33m141[0m  [1m    :on-touch-start (fn [e] (touch-card e q))[0m
+  [0m   [0m  [33m                             ^--- Use of undeclared Var danuraidb.lotrsoloview/touch-card[0m
+  [36m142[0m  [36m    :on-click (fn [e] (.stopPropagation e) (select-card! e (:id q)))[0m
+  [36m143[0m  [36m    :on-mouse-over #(show-card! q)  [0m
+  [36m144[0m  [36m    :on-mouse-out #(swap! ad dissoc :showcard)[0m
+  [36m145[0m  [36m    :style {:position "relative"}[0m
+  [36m146[0m  [36m  }[0m
+
+[36m----  Compiler Warning : Please see src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs  ----[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.742 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.25 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
