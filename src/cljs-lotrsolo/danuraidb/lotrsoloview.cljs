@@ -10,35 +10,35 @@
        shuffle-deck! move-cards! draw-cards! select-deck! select-card! set-counter!]]))
         
 (def commandbuttons [
-  {:active? true :op :show    :title "Show"     :fn #(showcards!)}
-  {:active? true :op :shuffle :title "Shuffle"  :fn #(shuffle-deck!)}
-  {:active? true :op :draw    :title "Draw"     :fn #(draw-cards! 1)}
-  {:active? true :op :draw6   :title "Draw 6"   :fn #(draw-cards! 6)}
-  {:active? true :op :stage   :title "Stage"    :fn #(move-cards! (-> @ad :selected) :stage)}
-  {:active? true :op :aside   :title "Aside"    :fn #(move-cards! (-> @ad :selected) :aside)}
-  {:active? true :op :engage  :title "Engage"   :fn #(move-cards! (-> @ad :selected) :engaged)}
-  {:active? true :op :active  :title "Active"   :fn #(move-cards! (-> @ad :selected) :active)}
-  {:active? true :op :play    :title "Play"     :fn #(move-cards! (-> @ad :selected) :play)}
-  {:active? true :op :discard :title ">Discard" :fn #(move-cards! (-> @ad :selected) :discard)}
-  {:active? true :op :deck    :title ">Deck"    :fn #(move-cards! (-> @ad :selected) :deck)}
-  {:active? true :op :flip    :title "Flip"     :fn #(toggle-status! (-> @ad :selected) :flipped)}
-  {:active? true :op :exhaust :title "Exhaust"  :fn #(toggle-status! (-> @ad :selected) :exhausted)}
-  {:active? true :op :quest   :title "Quest"    :fn #(toggle-status! (-> @ad :selected) :questing :exhausted)}
-  {:active? true :op :attack  :title "Attack"   :fn #(toggle-status! (-> @ad :selected) :attacking :exhausted)}
-  {:active? true :op :dmg     :title "+ Dmg"    :fn #(set-counter! :damage inc)}
-  {:active? true :op :dmg     :title "- Dmg"    :fn #(set-counter! :damage dec)}
-  {:active? true :op :prg     :title "+ Prog"   :fn #(set-counter! :progress inc)}
-  {:active? true :op :prg     :title "- Prog"   :fn #(set-counter! :progress dec)}
-  {:active? true :op :res     :title "+ Res"    :fn #(set-counter! :resource inc)}
-  {:active? true :op :res     :title "- Res"    :fn #(set-counter! :resource dec)}
-  {:active? true :op :thr     :title "+ Thr"    :fn #(update-threat! inc)}
-  {:active? true :op :thr     :title "- Thr"    :fn #(update-threat! dec)}
-  {:active? true :op :que     :title "+ Quest"  :fn #(update-quest-stage! inc)}
-  {:active? true :op :que     :title "- Quest"  :fn #(update-quest-stage! dec)}
-  {:active? true :op :round   :title "Round"    :fn #(start-round!)}
-  {:active? true :op :mull    :title "Mulligan" :fn #(mulligan! :p1deck)}
-  {:active? true :op :debug   :title "Debug?"   :fn #(toggle-debug!)}
-  ])
+  {:op :show    :title "Show"     :fn #(showcards!)}
+  {:op :shuffle :title "Shuffle"  :fn #(shuffle-deck!)}
+  {:op :draw    :title "Draw"     :fn #(draw-cards! 1)}
+  {:op :draw6   :title "Draw 6"   :fn #(draw-cards! 6)}
+  {:op :stage   :title "Stage"    :fn #(move-cards! (-> @ad :selected) :stage)}
+  {:op :aside   :title "Aside"    :fn #(move-cards! (-> @ad :selected) :aside)}
+  {:op :engage  :title "Engage"   :fn #(move-cards! (-> @ad :selected) :engaged)}
+  {:op :active  :title "Active"   :fn #(move-cards! (-> @ad :selected) :active)}
+  {:op :play    :title "Play"     :fn #(move-cards! (-> @ad :selected) :play)}
+  {:op :discard :title ">Discard" :fn #(move-cards! (-> @ad :selected) :discard)}
+  {:op :deck    :title ">Deck"    :fn #(move-cards! (-> @ad :selected) :deck)}
+  {:op :flip    :title "Flip"     :fn #(toggle-status! (-> @ad :selected) :flipped)}
+  {:op :exhaust :title "Exhaust"  :fn #(toggle-status! (-> @ad :selected) :exhausted)}
+  {:op :quest   :title "Quest"    :fn #(toggle-status! (-> @ad :selected) :questing :exhausted)}
+  {:op :attack  :title "Attack"   :fn #(toggle-status! (-> @ad :selected) :attacking :exhausted)}
+  {:op :dmg     :title "+ Dmg"    :fn #(set-counter! :damage inc)}
+  {:op :dmg     :title "- Dmg"    :fn #(set-counter! :damage dec)}
+  {:op :prg     :title "+ Prog"   :fn #(set-counter! :progress inc)}
+  {:op :prg     :title "- Prog"   :fn #(set-counter! :progress dec)}
+  {:op :res     :title "+ Res"    :fn #(set-counter! :resource inc)}
+  {:op :res     :title "- Res"    :fn #(set-counter! :resource dec)}
+  {:op :thr     :title "+ Thr"    :fn #(update-threat! inc)}
+  {:op :thr     :title "- Thr"    :fn #(update-threat! dec)}
+  {:op :que     :title "+ Quest"  :fn #(update-quest-stage! inc)}
+  {:op :que     :title "- Quest"  :fn #(update-quest-stage! dec)}
+  {:op :round   :title "Round"    :fn #(start-round!)}
+  {:op :mull    :title "Mulligan" :fn #(mulligan! :p1deck)}
+  {:op :debug   :title "Debug?"   :fn #(toggle-debug!)}
+])
 
 (defn commandlist [ selected ]
   (cond
@@ -53,7 +53,7 @@
     
 (defn commandbar []
   (let [clist (-> @ad :selected first commandlist)]
-    [:div#commandbar
+    [:div#commandbar {:on-click (fn [e] (.stopPropagation e))}
       (for [itm (filter #(contains? clist (:op %)) commandbuttons)]
         [:button.btn.btn-dark.mr-1 {
           :key (gensym)
