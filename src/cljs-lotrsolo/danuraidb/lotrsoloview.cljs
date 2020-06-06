@@ -269,14 +269,14 @@
           (for [mc modal-commands]
             [:button.btn.btn-secondary {:key (gensym) :on-click (:fn mc)} (:title mc)])]]]])
             
-(defn- debug [] 
-  (if (:debug? @ad)
-    [:div.container
-        [:button.btn.btn-dark {:on-click #((reset! ad {:selected #{}}) (init!))} "Reset!"]
-        [:div (-> @ad :selected str)]
-        [:div "Stage " (-> @ad :stage)]
-        [:div (-> @ad :temp str)]
-        [:div (-> @ad (dissoc :pdeck :p1deck :edeck :qdeck :scenario) str)]]))
+(defn- debug []
+  [:div.container
+    [:button.btn.btn-dark {:on-click #((reset! ad {:selected #{}}) (init!))} "Reset!"]
+    [:div (-> @ad :selected str)]
+    [:div (-> @ad (dissoc :pdeck :p1deck :edeck :qdeck :scenario :showcard :log) str)]
+    [:div (-> @ad :log str)]
+    [:div {:style {:min-height "100px"}}]
+    ])
               
 (defn  Page []
   (init!)
@@ -286,4 +286,4 @@
         :game (game)
         (scenariosetup))
       (if (= (-> @ad :temp :state) :showcards) [show-select-modal])
-      [debug]]))
+      (if (:debug @ad) (debug))]))

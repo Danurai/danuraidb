@@ -94,7 +94,6 @@
   
 (defn set-counter! [ param func ]
   (let [deck-key (get-deck-key (-> @ad :selected first))]
-    (prn deck-key param func)
     (swap! ad assoc deck-key
       (map #(if (contains? (:selected @ad) (:id %))
                 (assoc % param (Math.max 0 (func (param % 0))))
@@ -103,7 +102,6 @@
         
 (defn toggle-status! [ cardset & tags ]
   (let [deck-key (-> cardset first get-deck-key)]
-    (prn cardset tags deck-key)
     (swap! ad assoc deck-key
       (map #(if (contains? cardset (:id %))
                 (if (-> tags first %)
