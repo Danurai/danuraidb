@@ -8307,3 +8307,73 @@ notifying browser that file changed:  resources\public\js\compiled\soloout\danur
 [0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
 [32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.943 seconds.[0m
 notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[31mFailed to compile "resources/public/js/compiled/lotrsolo.js" in 0.875 seconds.[0m
+[36m----  Could not Read  src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs   line:250 ----[0m
+
+  [1mD:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 250, col 56] Unmatched delimiter }.[0m
+
+  [36m248[0m  [36m  {:id :aside :title ">Aside" :fn (fn [] (-> @ad :temp :selected (move-cards! :aside)) (swap! ad assoc-in [:temp :selected] #{}))}[0m
+  [36m249[0m  [36m  {:id :draw  :title ">Draw"  :fn (fn [] (-> @ad :temp :selected (move-cards! :draw )) (swap! ad assoc-in [:temp :selected] #{}))}[0m
+  [33m250[0m  [1m  {:id :close :title "Close"  :fn (fn [] (close-modal)}[0m
+  [0m   [0m  [33m  D:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 250, col 56] Unmatched delimiter }.[0m
+  [36m251[0m  [36m  {:id :shuffleclose :title "Shuffle & Close" :fn #((close-modal) (shuffle-deck!))}])[0m
+  [36m252[0m  [36m               [0m
+  [36m253[0m  [36m(defn- show-select-modal [][0m
+
+[36m----  Reader Error : Please see src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[31mFailed to compile "resources/public/js/compiled/lotrsolo.js" in 1.043 seconds.[0m
+[36m----  Could not Read  src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs   line:247 ----[0m
+
+  [1mD:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 247, col 131] Unmatched delimiter ).[0m
+
+  [36m246[0m  [36m(def modal-commands [[0m
+  [33m247[0m  [1m  {:id :stage :title ">Stage" :fn (fn [] (move-cards! (-> @ad :temp :selected) :stage)) (swap! ad assoc-in [:temp :selected] #{}))}[0m
+  [0m   [0m  [33m  D:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 247, col 131] Unmatched delimiter ).[0m
+  [36m248[0m  [36m  {:id :aside :title ">Aside" :fn (fn [] (move-cards! (-> @ad :temp :selected) :aside)) (swap! ad assoc-in [:temp :selected] #{}))}[0m
+  [36m249[0m  [36m  {:id :draw  :title ">Draw"  :fn (fn [] (move-cards! (-> @ad :temp :selected) :draw )) (swap! ad assoc-in [:temp :selected] #{}))}[0m
+  [36m250[0m  [36m  {:id :close :title "Close"  :fn (fn [] (close-modal)}[0m
+
+[36m----  Reader Error : Please see src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[31mFailed to compile "resources/public/js/compiled/lotrsolo.js" in 0.918 seconds.[0m
+[36m----  Could not Read  src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs   line:250 ----[0m
+
+  [1mD:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 250, col 56] Unmatched delimiter }.[0m
+
+  [36m248[0m  [36m  {:id :aside :title ">Aside" :fn (fn [] (move-cards! (-> @ad :temp :selected) :aside) (swap! ad assoc-in [:temp :selected] #{}))}[0m
+  [36m249[0m  [36m  {:id :draw  :title ">Draw"  :fn (fn [] (move-cards! (-> @ad :temp :selected) :draw ) (swap! ad assoc-in [:temp :selected] #{}))}[0m
+  [33m250[0m  [1m  {:id :close :title "Close"  :fn (fn [] (close-modal)}[0m
+  [0m   [0m  [33m  D:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 250, col 56] Unmatched delimiter }.[0m
+  [36m251[0m  [36m  {:id :shuffleclose :title "Shuffle & Close" :fn #((close-modal) (shuffle-deck!))}])[0m
+  [36m252[0m  [36m               [0m
+  [36m253[0m  [36m(defn- show-select-modal [][0m
+
+[36m----  Reader Error : Please see src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[31mFailed to compile "resources/public/js/compiled/lotrsolo.js" in 0.949 seconds.[0m
+[36m----  Could not Read  src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs   line:250 ----[0m
+
+  [1mD:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 250, col 56] Unmatched delimiter }.[0m
+
+  [36m248[0m  [36m  {:id :aside :title ">Aside" :fn (fn [] (move-cards! (-> @ad :temp :selected) :aside) (swap! ad assoc-in [:temp :selected] #{}))}[0m
+  [36m249[0m  [36m  {:id :draw  :title ">Draw"  :fn (fn [] (move-cards! (-> @ad :temp :selected) :draw ) (swap! ad assoc-in [:temp :selected] #{}))}[0m
+  [33m250[0m  [1m  {:id :close :title "Close"  :fn (fn [] (close-modal)}[0m
+  [0m   [0m  [33m  D:\Projects\danuraidb\src\cljs-lotrsolo\danuraidb\lotrsoloview.cljs [line 250, col 56] Unmatched delimiter }.[0m
+  [36m251[0m  [36m  {:id :shuffleclose :title "Shuffle & Close" :fn #((close-modal) (shuffle-deck!))}])[0m
+  [36m252[0m  [36m               [0m
+  [36m253[0m  [36m(defn- show-select-modal [][0m
+
+[36m----  Reader Error : Please see src/cljs-lotrsolo/danuraidb/lotrsoloview.cljs  ----[0m
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.885 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/soloout/goog/deps.js
+notifying browser that file changed:  resources/public/js/compiled/soloout/cljs_deps.js
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.121 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js
+[0mCompiling "resources/public/js/compiled/lotrsolo.js" from ["src/cljs-lotrsolo"]...[0m
+[32mSuccessfully compiled "resources/public/js/compiled/lotrsolo.js" in 1.82 seconds.[0m
+notifying browser that file changed:  resources\public\js\compiled\soloout\danuraidb\lotrsoloview.js

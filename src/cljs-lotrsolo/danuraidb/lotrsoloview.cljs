@@ -244,9 +244,9 @@
   (swap! ad dissoc :temp))
   
 (def modal-commands [
-  {:id :stage :title ">Stage" :fn #((-> @ad :temp :selected (move-cards! :stage)) (swap! ad assoc-in [:temp :selected] #{}))}
-  {:id :aside :title ">Aside" :fn #((-> @ad :temp :selected (move-cards! :aside)) (swap! ad assoc-in [:temp :selected] #{}))}
-  {:id :draw  :title ">Draw"  :fn #((-> @ad :temp :selected (move-cards! :draw )) (swap! ad assoc-in [:temp :selected] #{}))}
+  {:id :stage :title ">Stage" :fn (fn [] (move-cards! (-> @ad :temp :selected) :stage) (swap! ad assoc-in [:temp :selected] #{}))}
+  {:id :aside :title ">Aside" :fn (fn [] (move-cards! (-> @ad :temp :selected) :aside) (swap! ad assoc-in [:temp :selected] #{}))}
+  {:id :draw  :title ">Draw"  :fn (fn [] (move-cards! (-> @ad :temp :selected) :draw ) (swap! ad assoc-in [:temp :selected] #{}))}
   {:id :close :title "Close"  :fn #(close-modal)}
   {:id :shuffleclose :title "Shuffle & Close" :fn #((close-modal) (shuffle-deck!))}])
                
