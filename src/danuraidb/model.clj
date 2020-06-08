@@ -2,6 +2,7 @@
   (:require
     [clojure.java.io :as io]
     [clojure.data.json :as json]
+    [clojure.xml :as xml]
     [clojure.string :as string]
     [cemerick.friend :as friend]
     [octet.core :as buf]
@@ -25,6 +26,7 @@
   (#(-> (friend/identity %) :authentications (get (:current (friend/identity %)))) req))
   
 (def ^:const aosc_icon_path "/img/aosc/icons/")
+
 
 ;;;;;;;;;;;;
 ; LOTRDB   ;
@@ -518,3 +520,97 @@
           (conj (-> %1 drop-last vec) (str (last %1) %2)) 
           (conj (vec %1) %2)) 
         (conj (vec %1) %2)) [""] res)))
+        
+        
+        
+        
+;; OCTGN Export
+
+
+(defn o8dname [ name ]
+  (str 
+    (-> name
+        (string/replace #"\s" "_")
+        (string/replace #"\!|\'" ""))
+    ".o8d"))
+    
+(def octgn-game-id [
+  ""
+  ""
+  ""
+  "af04f855-58c4-4db3-a191-45fe33381679"
+])
+  
+(def octgn-game-tags [
+  [[]]
+  [[]]
+  [[]]
+  [["Warlord" "warlord_unit"]["Armies" "army_unit"]["Attachments" "attachment"]["Events" "event"]["Supports" "support"]["Synapses" "synapse"]]
+])
+
+(defn- parse-deck-list [ decklist system ]
+  (let [cards   whconq-card-data
+        cardset (-> decklist keys set)]
+    (->> cards 
+         (filter #(contains? cardset (:code %)))
+         (map #(assoc % :qty (get cardset (:code %))))
+         (sort-by :name))))
+         
+(defn o8dcontent [ uid system ]
+  (let [cards     whconq-card-data
+        deck      (db/get-user-deck uid)
+        deckdata  (-> deck :data json/read-str)
+        deckset   (->> deckdata keys set)
+        deckcards (->> cards (filter #(contains? deckset (:code %))))]
+    {
+      :tag :deck
+      :attrs {:game (octgn-game-id system)}
+      :content 
+        (conj
+          (mapv
+            (fn [[name type]]
+              (let [tcards (filter #(= type (:type_code %)) deckcards)]
+                (assoc {
+                  :tag :section
+                  :attrs {
+                    :name name
+                    :shared "False"
+                  }}
+                  :content 
+                    (if (empty? tcards)
+                        nil
+                        (mapv 
+                          #(hash-map :tag :card :attrs {:id (:octgnid %) :qty (str (get deckdata (:code %)))} :content nil) 
+                          tcards)
+                        ))
+                ))
+            (octgn-game-tags system))
+          {:tag :notes :attrs nil :content [(str "<![CDATA[" (:notes deck) "]]>")]})
+    }))
+         
+(def o8d {
+  :tag :deck, 
+  :attrs {:game "af04f855-58c4-4db3-a191-45fe33381679"}, 
+  :content [
+    {:tag :section, :attrs {:shared "False", :name "Warlord"}, :content [
+      {:tag :card, :attrs {:id "87d27e71-9203-4bd1-b725-1b390ed73278", :qty "1"}, :content nil}]} 
+    {:tag :section, :attrs {:shared "False", :name "Armies"}, :content [
+      {:tag :card, :attrs {:id "71ee6eb9-8573-4599-80dd-93c385b7c84a", :qty "2"}, :content nil} 
+      {:tag :card, :attrs {:id "93fa9015-3435-42f4-8719-24a651de03a2", :qty "4"}, :content nil}]} 
+    {:tag :section, :attrs {:shared "False", :name "Attachments"}, :content [
+      {:tag :card, :attrs {:id "1960cb66-823d-4d30-b2ea-693cb8df58da", :qty "1"}, :content nil} 
+      {:tag :card, :attrs {:id "96f1fc06-13a1-4a29-8cf8-b8d3da9146d1", :qty "2"}, :content nil}]} 
+    {:tag :section, :attrs {:shared "False", :name "Events"}, :content [
+      {:tag :card, :attrs {:id "cd0cd7a5-440d-4740-97a0-dea43b384a52", :qty "3"}, :content nil} 
+      {:tag :card, :attrs {:id "4e23f8e5-fe6f-4d4f-8374-9841ddb9017a", :qty "2"}, :content nil} 
+      {:tag :card, :attrs {:id "21bb26cb-ccca-47f2-aa66-bd7c4e508632", :qty "2"}, :content nil}]} 
+    {:tag :section, :attrs {:shared "False", :name "Supports"}, :content [
+      {:tag :card, :attrs {:id "f961ee9e-2da5-42d9-a1c0-62269f8ede65", :qty "1"}, :content nil}]}
+    {:tag :section, :attrs {:shared "False", :name "Synapse"}, :content nil} 
+    {:tag :notes, :attrs nil, :content nil}]}
+)
+
+(defn o8dfile [ uid system ]
+  (let [f (o8dcontent uid system)]
+    (with-out-str (xml/emit f))))
+    

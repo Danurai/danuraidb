@@ -248,7 +248,8 @@
   (ANY "/new/"    [] pages/whconq-deckbuilder)
   (GET "/new/:id"  [] pages/whconq-deckbuilder)
   (GET "/edit/:id" [] pages/whconq-deckbuilder)
-  )
+  (GET "/download/:id" [id] (response (model/o8dfile id 3)))
+)
   
 (defroutes whconq-api-routes
   (GET "/deck/:id" [id]
@@ -271,6 +272,7 @@
   (GET "/" [] pages/whconq-home)
   (GET "/cards"      [] pages/whconq-cards)
   (GET "/collection" [] pages/whconq-collection)
+  (GET "/search"    []  (redirect "/whconq/find?q=e%3Acore"))
   (GET "/find"      [q] (pages/whconq-findcards q))
   (GET "/cycle/:id" [id]
     (let [cycle_code (->> model/whconq-cycle-data (filter #(= (:position %) (read-string id))) first :code)]
@@ -278,6 +280,7 @@
   (GET "/pack/:id" [id] (pages/whconq-findcards (str "e:" id)))
   (GET "/card/:code{[0-9]+}" [code] (pages/whconq-cardpage code))
   (context "/decks" [] 
+    ;whconq-deck-routes)
     (friend/wrap-authorize whconq-deck-routes #{::db/user}))
   (context "/api"   [] whconq-api-routes)
 )

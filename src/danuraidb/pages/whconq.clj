@@ -8,7 +8,7 @@
     "/img/whconq/icons/skull_white.png" 
     "WH40k DB" 
     "whconq"
-    ["decks" "cards" "collection"]
+    ["decks" "search" "cards" "collection"]
     req
     :style "background-color: teal !important;"))
                   
@@ -140,6 +140,7 @@
       
 ; DECKLIST      
 
+
 (defn- deck-card-list-by-type [type_code cards-in-deck]
   (let [cid-by-type (filter #(= (:type_code %) type_code) cards-in-deck)]
     [:div.decklist-section
@@ -169,7 +170,6 @@
             [(str "\n" (code-to-name tc))]
             (mapv #(str (:qty %) "x " (:name %) " (" (:pack %) ")") (filter #(= (:type_code %) tc) deck-cards)))
           ) ["army_unit" "attachment" "event" "support"])))))
-            
           
 (defn- whconq-deck-card [d card-data]
   (let [deck-cards (map (fn [[k v]] (assoc (first (filter #(= (:code %) k) card-data)) :qty v)) (json/read-str (:data d)))
@@ -180,8 +180,9 @@
           [:div.col-sm-9
             [:div.h4.mt-2 (:name d)]
             [:div.mt-2 [:span.h5.mr-2 (:name warlord)] [:span.text-muted (last (re-find #"^<b>(.+?)<\/b>" (:text warlord)))]]
-            [:div
-              (map (fn [x] [:a.badge.badge-secondary.text-light.mr-1 x]) (re-seq #"\w+" (:tags d)))]]
+            [:div 
+              (if (:tags d)
+                (map (fn [x] [:a.badge.badge-secondary.text-light.mr-1 x]) (re-seq #"\w+" (:tags d))))]]
           [:div.col-sm-3.d-none.d-sm-block
             [:div.warlord-thumb.ml-auto.border.border-secondary.rounded {:style (str "background-image: url(" (:img warlord) ");")}]]]]
       [:div.collapse.mb-2 {:id (str "deck_" (:uid d))}   
@@ -195,7 +196,11 @@
         [:div
           [:button.btn.btn-sm.btn-danger.mr-1 {:data-toggle "modal" :data-target "#deletemodal" :data-name (:name d) :data-uid (:uid d)} [:i.fas.fa-times.mr-1] "Delete"]
           [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (whconq-export-string d deck-cards) :data-deckname (:name d)} [:i.fas.fa-file-export.mr-1] "Export"]
-          [:a.btn.btn-sm.btn-primary {:href (str "/whconq/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]]))  
+          [:a.btn.btn-sm.btn-primary.mr-1 {:href (str "/whconq/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]
+          [:a.btn.btn-sm.btn-primary {:href (str "/whconq/decks/download/" (:uid d))
+            :download (-> d :name model/o8dname)
+            } [:i.fas.fa-download.mr-1] ".o8d Format"]
+        ]]]))  
           
 (defn whconq-decks [req]
   (let [decks (db/get-user-decks 3 (-> req model/get-authentications :uid))
