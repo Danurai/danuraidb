@@ -115,7 +115,8 @@
   (GET "/" [] pages/lotrdb-decks)
   (GET "/new" [] pages/lotrdb-deckbuilder)
   (GET "/edit" [] pages/lotrdb-deckbuilder)
-  (GET "/edit/:id" [] pages/lotrdb-deckbuilder))
+  (GET "/edit/:id" [] pages/lotrdb-deckbuilder)
+	(GET "/download/:id" [id] (response (model/o8dfile id 0))))
   
   
 (defroutes lotrdb-quest-routes

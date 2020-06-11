@@ -199,7 +199,7 @@
           [:a.btn.btn-sm.btn-primary.mr-1 {:href (str "/whconq/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]
           [:a.btn.btn-sm.btn-primary {:href (str "/whconq/decks/download/" (:uid d))
             :download (-> d :name model/o8dname)
-            } [:i.fas.fa-download.mr-1] ".o8d Format"]
+            } [:i.fas.fa-download.mr-1] "OCTG File"]
         ]]]))  
           
 (defn whconq-decks [req]

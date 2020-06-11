@@ -14,9 +14,9 @@
 (def alert (atom []))
 
 (def ^:const systems [
+  {:id 0 :code "lotrdb" :desc "Lord of the Rings LCG"         :icon "/img/lotrdb/icons/sphere_fellowship.png"}
   {:id 1 :code "aosc"   :desc "Age of Sigmar: Champions"      :icon "/img/aosc/icons/quest_ability.png"}
   {:id 2 :code "whuw"   :desc "Warhammer: Underworlds"        :icon "/img/whuw/icons/Shadespire-Library-Icons-Universal.png"}
-  {:id 0 :code "lotrdb" :desc "Lord of the Rings LCG"         :icon "/img/lotrdb/icons/sphere_fellowship.png"}
   {:id 3 :code "whconq" :desc "Warhammer 40,000: Conquest LCG" :icon "/img/whconq/icons/skull.png"}])
   
 (defn- load-json-file [ fname ] 
@@ -533,31 +533,36 @@
         (string/replace #"\s" "_")
         (string/replace #"\!|\'" ""))
     ".o8d"))
+		
+; 0 lotrdb
+; 1 aosc
+; 2 whuw
+; 3 whconq
     
 (def octgn-game-id [
-  ""
-  ""
-  ""
+  "a21af4e8-be4b-4cda-a6b6-534f9717391f"
+  "#na"
+  "#na"
   "af04f855-58c4-4db3-a191-45fe33381679"
 ])
   
 (def octgn-game-tags [
-  [[]]
-  [[]]
-  [[]]
+  [
+		["Hero" "hero"]
+		["Ally" "ally"]
+		["Event" "event"]
+		["Attachment" "attachment"]
+		["Quest" "quest"]
+		["Encounter" "encounter"]
+		["Special" "special"]
+		["Setup" "setup"]]
+  [["NA" "na"]]
+  [["NA" "na"]]
   [["Warlord" "warlord_unit"]["Armies" "army_unit"]["Attachments" "attachment"]["Events" "event"]["Supports" "support"]["Synapses" "synapse"]]
 ])
-
-(defn- parse-deck-list [ decklist system ]
-  (let [cards   whconq-card-data
-        cardset (-> decklist keys set)]
-    (->> cards 
-         (filter #(contains? cardset (:code %)))
-         (map #(assoc % :qty (get cardset (:code %))))
-         (sort-by :name))))
          
 (defn o8dcontent [ uid system ]
-  (let [cards     whconq-card-data
+  (let [cards     (get [(get-cards),nil,nil,whconq-card-data] system)
         deck      (db/get-user-deck uid)
         deckdata  (-> deck :data json/read-str)
         deckset   (->> deckdata keys set)
@@ -565,7 +570,7 @@
     {
       :tag :deck
       :attrs {:game (octgn-game-id system)}
-      :content 
+      :content
         (conj
           (mapv
             (fn [[name type]]
@@ -576,7 +581,7 @@
                     :name name
                     :shared "False"
                   }}
-                  :content 
+                  :content
                     (if (empty? tcards)
                         nil
                         (mapv 
@@ -612,5 +617,7 @@
 
 (defn o8dfile [ uid system ]
   (let [f (o8dcontent uid system)]
-    (with-out-str (xml/emit f))))
+    (str f)
+		(with-out-str (xml/emit f))
+		))
     

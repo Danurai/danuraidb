@@ -397,7 +397,8 @@
         [:div
           [:button.btn.btn-sm.btn-danger.mr-1 {:data-toggle "modal" :data-target "#deletemodal" :data-name (:name d) :data-uid (:uid d)} [:i.fas.fa-times.mr-1] "Delete"]
           [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (lotrdb-export-string d deck-cards) :data-deckname (:name d)} [:i.fas.fa-file-export.mr-1] "Export"]
-          [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"]]]
+          [:a.btn.btn-sm.btn-primary.mr-1 {:href (str "/lotrdb/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"
+          [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/download/" (:uid d)) :download (-> d :name model/o8dname)} [:i.fas.fa-download.mr-1] "OCTGN File"]]]]
     ]))
        
 
