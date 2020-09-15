@@ -27,6 +27,8 @@ $.getJSON("/whuw/api/data", function (data) {
 });
 
 function write_warbands() {
+  var blocked = false;
+  $.get(_warbands().first().icon.url).fail(blocked=true)
   var thead = $('#warbands').find("thead");
   var tbody = $('#warbands').find("tbody");
   
@@ -43,12 +45,14 @@ function write_warbands() {
       + '<td>' + obj.icon.filename + '</td>'
       + '<td><img style="width: 25px" src="' + WHUWICONPATH + obj.icon.filename + '"></td>'
       + '<td>' + obj.icon.url + '</td>'
-      + '<td><img style="width: 25px" src="' + obj.icon.url + '"></td>'
+      + (blocked ? '<td title="blocked">X</td>' : '<td><img style="width: 25px" src="' + obj.icon.url + '"></td>')
       );
   });
 }
 
 function write_sets() {
+  var blocked = false;
+  $.get(_sets().first().icon.url).fail(blocked=true)
   var thead = $('#sets').find("thead");
   var tbody = $('#sets').find("tbody");
   
@@ -65,12 +69,15 @@ function write_sets() {
       + '<td>' + obj.icon.filename + '</td>'
       + '<td><img style="width: 25px" src="' + WHUWICONPATH + obj.icon.filename + '"></td>'
       + '<td>' + obj.icon.url + '</td>'
-      + '<td><img style="width: 25px" src="' + obj.icon.url + '"></td>'
+      + (blocked ? '<td title="blocked">X</td>' : '<td><img style="width: 25px" src="' + obj.icon.url + '"></td>')
       );
   });
 }
 
 function write_cardtypes() {
+  var blocked = false;
+  $.get(_cardtypes().first().icon.url).fail(blocked=true)
+  
   var thead = $('#cardtypes').find("thead");
   var tbody = $('#cardtypes').find("tbody");
   
@@ -88,7 +95,7 @@ function write_cardtypes() {
       + '<td>' + obj.icon.filename + '</td>'
       + '<td><img style="width: 25px" src="' + WHUWICONPATH + obj.icon.filename + '"></td>'
       + '<td>' + obj.icon.url + '</td>'
-      + '<td><img src="' + obj.icon.url + '"></td>'
+      + (blocked ? '<td title="blocked">X</td>' : '<td><img src="' + obj.icon.url + '"></td>')
       );
   });
 }
@@ -97,13 +104,18 @@ function write_cards() {
   var tbody = $('#cards').find("tbody");
   tbody.empty();
   
-  _cards(_filter).order("code").each(function (c) {
-    tbody.append(cardrow(c))
-  });
-  updateCardImages(tbody)
+  var blocked = false;  
+  let firstresult = _cards(_filter).first();
+  if (firstresult) {
+    $.get(firstresult.url).fail(blocked=true);
+    _cards(_filter).order("code").each(function (c) {
+      tbody.append(cardrow(c,blocked))
+    });
+    //updateCardImages(tbody, blocked)
+  }
 }
 
-function cardrow (c) {
+function cardrow (c, b) {
   var rtn = "";
   
   rtn = '<tr>'
@@ -116,20 +128,19 @@ function cardrow (c) {
     + '<td>' + (typeof c.glory == 'undefined' ? '' : c.glory) + '</td>'
     + '<td>' + c.filename + '</td>'
     + '<td>' + c.url + '</td>'
-    + '<td><img class="icon-sm cardthumb" data-filename="' + c.filename + '" data-url="' + c.url + '"></td>'
+    + '<td><img class="icon-sm cardthumb" src="' + (b ? WHUWCARDPATH + c.filename : c.url) + '"></td>'
     + '</tr>';
   return rtn;
 }
 
-function updateCardImages (tbody) {
-  tbody.find('.cardthumb').each(function (id, ele) {
-    $.get(WHUWCARDPATH + $(ele).data("filename"), function (img) {
-      ele.src = WHUWCARDPATH + $(ele).data("filename");
-    }).fail( function () {
-      ele.src = $(ele).data("url");           
-    });
-  });
-}  
+
+//function updateCardImages (tbody, blocked) {
+//  tbody.find('.cardthumb').each(function (id, ele) {
+//    $.get(WHUWCARDPATH + $(ele).data("filename"), function (img) {
+//      ele.src = WHUWCARDPATH + $(ele).data("filename");
+//    }).fail(function () {if (!blocked) {ele.src = $(ele).data("url")} else {ele.html }})           
+//  });
+// }  
 
 $('#selectset').on('change', function () { update_filter("set_id",$(this).val()); });
 $('#selectwarband').on('change', function () { update_filter("warband_id",$(this).val()); });
