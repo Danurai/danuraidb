@@ -3,7 +3,7 @@ let $resultdata = $('<div>');
 let $table = $('<table class="table table-sm">');
 let $thead = $('<thead>');
 let $tbody = $('<tbody>');
-let _aoscfilter = {"setnumber":5}
+let _aoscfilter = {"setnumber":2.1}
 
 $('#results').append($resultdata);
 $('#results').append($table);
@@ -137,13 +137,19 @@ function write_table_alliances() {
 function write_icon_table(imgnames) {
   var iconpath = "https://assets.warhammerchampions.com/card-database/icons/";
   var fname = "";
+  var blocked = false;
+  
   $thead.html('<tr><th>Filename</th><th>Local</th><th>Server</th></tr>');
   $tbody.empty();
-  $.each(imgnames,function (id,t) {
-    $tbody.append('<tr>'
-      + '<td>' + t + '</td>'
-      + '<td><img src="/img/aosc/icons/' + t + '"></img></td>'
-      + '<td><img src="' + iconpath + t + '"></img></td>'
-      + '</tr>');
-  });
+  
+  if (imgnames.length > 0) {
+    $.get(imgnames[0].iconpath).fail(blocked = true);
+    $.each(imgnames,function (id,t) {
+      $tbody.append('<tr>'
+        + '<td>' + t + '</td>'
+        + '<td><img src="/img/aosc/icons/' + t + '"></img></td>'
+        + '<td>' + (blocked ? "X" : '<img src="' + iconpath + t + '"></img></td>')
+        + '</tr>');
+    });
+  }
 }

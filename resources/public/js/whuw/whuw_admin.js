@@ -27,8 +27,6 @@ $.getJSON("/whuw/api/data", function (data) {
 });
 
 function write_warbands() {
-  var blocked = false;
-  $.get(_warbands().first().icon.url).fail(blocked=true)
   var thead = $('#warbands').find("thead");
   var tbody = $('#warbands').find("tbody");
   
@@ -36,6 +34,9 @@ function write_warbands() {
   thead.append('<tr><th>id</th><th>name</th><th>slug</th><th>filename</th><th>icon</th><th>url</th><th>icon</th></tr>');
   
   tbody.empty();
+  
+  var blocked = false;
+  $.get(_warbands().first().icon.url).fail(blocked=true);
   _warbands().order("id").each(function (obj) {
     tbody.append (
       '<tr style="color: ' + obj.colour + ';">'
