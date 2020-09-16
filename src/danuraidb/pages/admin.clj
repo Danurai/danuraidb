@@ -133,7 +133,7 @@
           [:div#datasrcinfo]
           [:button#copydata.btn.btn-secondary.ml-auto {:title "Copy to Clipboard"} [:i.fas.fa-clipboard]]]
         [:textarea#aoscdata.form-control {:rows 20}]]]
-    (h/include-js "/js/aosc/aosc_admin.js?v=1")])
+    (h/include-js "/js/aosc/aosc_admin.js?v=2")])
     
 (defn whuw-site-admin []
   (let [carddata model/whuwdata]
@@ -184,7 +184,7 @@
                 ]]
             [:tbody]]]
             ]
-        (h/include-js "/js/whuw/whuw_admin.js?v=1") ;newdata.js
+        (h/include-js "/js/whuw/whuw_admin.js?v=2") ;newdata.js
         ]))
   
 (defn admin-page [ req ]
