@@ -217,8 +217,12 @@
 (defroutes whuw-deck-routes
   (GET "/"        [] pages/whuw-decks)
   (GET "/new"     [] pages/whuw-deckbuilder)
-  ;(GET "/new/:id"  [] pages/aosc-deckbuilder)
   (GET "/edit/:id" [] pages/whuw-deckbuilder))
+  
+(defroutes whuw-mortis-routes
+  (GET "/"         [] pages/whuw-mortis-decks)
+  (GET "/new"      [] pages/whuw-mortis-deckbuilder)
+  (GET "/edit/:id" [] pages/whuw-mortis-deckbuilder))
   
   
   
@@ -228,6 +232,7 @@
     (-> (->> (model/whuw_fullcards) (filter #(= (:id %) id)) first)
         json/write-str
         response (content-type "application/json")))
+  (GET "/champions" [] (-> model/whuwchamps json/write-str response (content-type "application/json")))
   (GET "/data"  [] (-> model/whuwdata json/write-str response (content-type "application/json")))
   (GET "/data/:id" [id]
     (-> (get model/whuwdata (keyword id)) json/write-str response (content-type "application/json")))
@@ -237,6 +242,9 @@
   (GET "/" [] pages/whuw-home)
   (context "/decks" [] 
     (friend/wrap-authorize whuw-deck-routes #{::db/user}))
+  (context "/mortis" []
+    whuw-mortis-routes)
+    ;(friend/wrap-authorize whuw-mortis-routes #{::db/user}))    
   (GET "/cards"     [] pages/whuw-cards)
   (GET "/boards"    [] pages/whuw-boards)
   (context "/api" [] whuw-api-routes))

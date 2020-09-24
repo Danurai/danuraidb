@@ -142,6 +142,7 @@
         [:li.nav-item [:a.nav-link {:data-toggle "tab" :href "#warbands"} "Warbands"]]
         [:li.nav-item [:a.nav-link {:data-toggle "tab" :href "#sets"} "Sets"]]
         [:li.nav-item [:a.nav-link {:data-toggle "tab" :href "#cardtypes"} "Card-types"]]
+        [:li.nav-item [:a.nav-link {:data-toggle "tab" :href "#champions"} "Champions"]]
         [:li.nav-item.active [:a.nav-link.active.show {:data-toggle "tab" :href "#cards"} "Cards"]]]
       [:div.tab-content.my-3
         [:div#warbands.tab-pane.fade {:role "tabpanel"}
@@ -153,6 +154,10 @@
             [:thead]
             [:tbody]]]
         [:div#cardtypes.tab-pane.fade {:role "tabpanel"}
+          [:table.table.table-sm
+            [:thead]
+            [:tbody]]]
+        [:div#champions.tab-pane.fade {:role "tabpanel"}
           [:table.table.table-sm
             [:thead]
             [:tbody]]]

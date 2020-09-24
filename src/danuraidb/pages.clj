@@ -15,6 +15,117 @@
 (load "pages/lotrdb") 
 (load "pages/aosc")    
 (load "pages/whuw")
+
+(defn whuw-mortis-decks [ req ]
+  (let [decks [] ;(db/get-user-decks 2 (-> req model/get-authentications (get :uid 1002)))
+        card-data (model/whuw_fullcards)]
+    (h/html5
+      whuw-pretty-head
+      [:body
+        (whuw-navbar req)
+        [:div.container-fluid.my-3
+          [:div.col
+            [:div.row-fluid.d-flex.justify-content-between.mb-2
+              [:div.h4 (str "Decks (" (count decks) ")")]
+              [:div 
+                [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
+                [:a.btn.btn-primary {:href "/whuw/mortis/new" :title "New Deck"} [:i.fas.fa-plus]]]]
+            ;[:div.row-fluid
+            ;  [:div#decklists.w-100
+            ;    [:ul.list-group
+            ;      (map (fn [d] (whuw-deck-card d card-data)) decks)]]]
+                  ]]
+        (deletemodal)
+        (importdeckmodal)
+        (exportdeckmodal)
+        (toaster)
+        (h/include-js "/js/whuw/whuw_mortis_decklist.js?v=1.0")])))
+  
+(defn whuw-mortis-deckbuilder [ req ]
+  (let [deck (model/get-deck-data req)]
+    (h/html5
+      whuw-pretty-head
+      [:body 
+        (whuw-navbar req)
+        [:div.container.my-2
+          [:div.col
+            [:div.row.my-1
+              [:div.col-sm-6
+                [:div.pt-3  ;.sticky-top
+                  [:div.row-fluid.mb-3
+                    [:form#save_form.form.needs-validation {:method "post" :action "/decks/save" :role "form" :novalidate true}
+                      [:div.d-flex.justify-content-around
+                        [:img#deckicon.icon-sm.my-auto.mr-2 {:src (str whuw_icon_path "Shadespire-Library-Icons-Universal.png")}]
+                        [:div.flex-grow-1.mr-2
+                          [:input#deck-name.form-control {:type "text" :name "name" :placeholder "New Deck" :required true :value (:name deck) :data-lpignore "true"}]
+                          [:div.invalid-feedback "You must name your deck"]]
+                        [:button.btn.btn-warning.mr-2 {:role "submit"} 
+                          [:i.far.fa-save]
+                          [:span.d-none.d-lg-inline.ml-2 "Save"]]
+                        [:a.btn.btn-secondary.mr-2 {:href "/whuw/decks" :title "Cancel"} [:i.fa.fa-times]]]
+                      [:input#deck-id      {:type "text" :name "id"      :value (:uid deck) :readonly true :hidden true}]
+                      [:input#deck-system  {:type "text" :name "system"   :value 2 :readonly true :hidden true}]
+                      [:input#deck-alliance {:type "text" :name "alliance" :value (:alliance deck) :readonly true :hidden true}]
+                      [:input#deck-content {:type "text" :name "data" :value (:data deck)  :readonly true :hidden true}]
+                      [:input#deck-tags    {:type "text" :name "tags"    :value (:tags deck) :readonly true :hidden true}]
+                      [:input#deck-notes   {:type "text" :name "notes"   :value (:notes deck) :readonly true :hidden true}]]]
+                  [:div.row-fluid.mb-2
+                    [:div.d-flex
+                      [:span.mr-2.my-auto "Champion"]
+                      [:select#selectchamp.selectpicker.flex-grow-1
+                        (for [champ model/whuwchamps]
+                          [:option {:key (gensym) :data-content (str "<div><img class=\"icon-sm mr-2\" src=\"" whuw_icon_path (:icon champ) "\">" (:name champ))} (:name champ)])
+                        ]]]
+                  [:div#decklist.row-fluid]
+              ]]
+              [:div.col-sm-6
+                [:div.row.mb-2
+                  [:div.mr-2.my-auto "Set filter"]
+                  [:select#selectset.selectpicker {:multiple true :data-width "auto"}
+                    (for [item (sorted_vec gw_sets (:sets ordered_lists))]
+                      (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                      ^{:key (gensym)}[:option {:data-content imgtag :data-subtext (:name item) } (:id item)]))]
+                  [:button#championstoggle.ml-auto.btn.btn-outline-warning.active {:data-toggle "button" :title "Championship Legal" :aria-pressed "true"} [:i.far.fa-bookmark]]
+                  ]
+                [:div.row.mb-2
+                  ;[:span.mr-2.my-auto "Warband"]
+                  ;[:select#selectwarband.selectpicker.mr-2 {:multiple true :data-width "fit"}
+                  ;  (for [item (sorted_vec gw_warbands (:warbands ordered_lists))]
+                  ;    (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                  ;    ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]
+                  [:span.mr-2.my-auto "Type filter"]
+                  [:select#selecttype.selectpicker {:multiple true :data-width "auto"}
+                    (for [item (sorted_vec gw_card-types (:card-types ordered_lists))]
+                      (let [imgtag (str "<img class=\"icon-sm\" src=\"" whuw_icon_path (-> item :icon :filename) "\" title=\"" (:name item) "\"></img>")]
+                      ^{:key (gensym)}[:option {:data-content imgtag} (:id item)]))]]                
+                [:div.row 
+                  [:div.col-md-12
+                    [:div.row 
+                      [:input#filtertext.form-control.w-100 {:type "text"}]]]]
+                [:div#info.row]
+                [:div.row
+                  [:table.table.table-sm.table-hover
+                    [:thead
+                      [:tr 
+                        [:td.sortable {:data-field "name"} "Name"]
+                        [:td.sortable.text-center {:data-field "card_type_id"} "Type"]
+                        [:td.sortable.text-center {:data-field "set_id"} "Set"]
+                        [:td.sortable.text-center {:data-field "warband_id"} "Warband"]
+                        [:td.sortable.text-center {:data-field "glory"} "Glory"]
+                        [:td]]]
+                    [:tbody#cardtbl]]]
+              ]]]]
+        [:div#cardmodal.modal {:tab-index -1 :role "dialog"}
+          [:div.modal-dialog.modal-sm {:role "document"}
+            [:div.modal-content
+              [:div.modal-header
+                [:h5.modal-title]
+                [:span.buttons]
+                [:button.close {:data-dismiss "modal"} "x"]]
+              [:div.modal-body]]]]
+      (h/include-js "/js/externs/typeahead.js")
+      (h/include-js "/js/whuw/whuw_mortisdb.js")])))
+
 (load "pages/whconq")
 (load "pages/admin")
 

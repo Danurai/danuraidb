@@ -235,6 +235,9 @@
 
 (def whuwdata
   (load-json-file "private/whuw/whuw_data_r2.json"))
+  
+(def whuwchamps 
+  (load-json-file "private/whuw/whuw_champions.json"))
 
 (def whuwcards
   (map #(whuw_fix_cards %) (load-json-file "private/whuw/whuw_cards_r2.json")))
@@ -269,6 +272,7 @@
         :reprint_set_name (:name reprint-set)
         :reprint_set_icon (-> reprint-set :icon :filename)
     ))) whuwcards)))
+    
 
 ;;;;;;;;;;
 ; WHCONQ ;
