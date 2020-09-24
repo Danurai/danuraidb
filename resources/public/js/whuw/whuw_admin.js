@@ -35,7 +35,7 @@ $.getJSON("/whuw/api/champions", function (data) {
   
   thead.html('<tr><th>id</th><th>warband_id</th><th>name</th><th>leader</th><th>img</th><th>img_ins</th></tr>');
   tbody.empty();
-  $.get(champs[0].cards[0].url).fail(blocked=true);
+  //$.get(champs[0].cards[0].url).fail(c=>blocked=true);
   
   $.each(champs,function (id,ch) {
     tbody.append('<tr>'
@@ -43,12 +43,11 @@ $.getJSON("/whuw/api/champions", function (data) {
       + '<td>' + ch.warband_id + '</td>'
       + '<td>' + ch.name + '</td>'
       + '<td>' + (ch.leader ? '<i class="fas fa-crown"></i>' : '-') + '</td>'
-      + '<td>' + (blocked ? 'X' : '<img src="' + ch.cards[0].url + '" class="img-fluid"></img>') + '</td>'
-      + '<td>' + (blocked ? 'X' : '<img src="' + ch.cards[1].url + '" class="img-fluid"></img>') + '</td>'
+      + '<td>' + (blocked ? 'X' : '<img src="' + ch.cards[0].url + '" style="width: 100px;"></img>') + '</td>'
+      + '<td>' + (blocked ? 'X' : '<img src="' + ch.cards[1].url + '" style="width: 100px;"></img>') + '</td>'
       + '</tr>')
   });
 });
-
 
 
 function write_warbands() {

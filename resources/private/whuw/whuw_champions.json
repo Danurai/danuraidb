@@ -17,7 +17,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek_ENG.png"
       },
       {
         "inspired":true,
@@ -52,7 +52,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Saek-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Saek_ENG.png"
       },
       {
         "inspired":true,
@@ -87,7 +87,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Karsus-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Karsus_ENG.png"
       },
       {
         "inspired":true,
@@ -122,7 +122,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Targor-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Targor_ENG.png"
       },
       {
         "inspired":true,
@@ -157,7 +157,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Arnulf-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Arnulf_ENG.png"
       },
       {
         "inspired":true,
@@ -192,7 +192,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Steelheart-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Steelheart_ENG.png"
       },
       {
         "inspired":true,
@@ -227,7 +227,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Obryn-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Obryn_ENG.png"
       },
       {
         "inspired":true,
@@ -247,7 +247,7 @@
   {
     "id":  342 ,
     "warband_id":  34 ,
-    "name": "Angharad",
+    "name": "Brightshield",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -262,7 +262,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Angharad-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Brightshield_ENG.png"
       },
       {
         "inspired":true,
@@ -275,7 +275,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Angharad-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Brighshield-INS_ENG.png"
       }
     ]
   },
@@ -297,7 +297,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Warden-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Warden_ENG.png"
       },
       {
         "inspired":true,
@@ -310,7 +310,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Warden-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Warden-Inspired_ENG.png"
       }
     ]
   },
@@ -332,7 +332,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Champion-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Champion_ENG.png"
       },
       {
         "inspired":true,
@@ -345,7 +345,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Champion-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Champion-Inspired_ENG.png"
       }
     ]
   },
@@ -367,7 +367,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Prince-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Prince_ENG.png"
       },
       {
         "inspired":true,
@@ -380,7 +380,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Prince-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Prince-Inspired_ENG.png"
       }
     ]
   },
@@ -402,7 +402,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Harvester-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Harvester_ENG.png"
       },
       {
         "inspired":true,
@@ -415,7 +415,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Harvester-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Harvester-Inspired_ENG.png"
       }
     ]
   },
@@ -437,7 +437,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Petitioner-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Petitioner_ENG.png"
       },
       {
         "inspired":true,
@@ -450,7 +450,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Petitioner-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Petitioner-Inspired_ENG.png"
       }
     ]
   },
@@ -472,7 +472,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gurzag-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironjawx-Gurzag_ENG.png"
       },
       {
         "inspired":true,
@@ -485,7 +485,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gurzag-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironjawz-Gurzak-Inspired_ENG.png"
       }
     ]
   },
@@ -507,7 +507,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bonekutta-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironjawx-Bonekutta_ENG.png"
       },
       {
         "inspired":true,
@@ -520,7 +520,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bonekutta-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironjawx-Bonekutta-Inspired_ENG.png"
       }
     ]
   },
@@ -542,7 +542,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hakka-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironjawz-Hakka_ENG.png"
       },
       {
         "inspired":true,
@@ -555,7 +555,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hakka-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironjawz-Hakka-Inspired_ENG.png"
       }
     ]
   },
@@ -577,7 +577,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Basha-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironjawz-Basha_ENG.png"
       },
       {
         "inspired":true,
@@ -590,7 +590,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Basha-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Inronjawz-Basha-Inspired_ENG.png"
       }
     ]
   },
@@ -612,7 +612,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grimnir-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grimnir_ENG.png"
       },
       {
         "inspired":true,
@@ -625,7 +625,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grimnir-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grimnir-Inspired_ENG.png"
       }
     ]
   },
@@ -647,7 +647,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tefk-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tefk_ENG.png"
       },
       {
         "inspired":true,
@@ -660,7 +660,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tefk-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tefk-Inspired_ENG.png"
       }
     ]
   },
@@ -682,7 +682,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vol-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vol_ENG.png"
       },
       {
         "inspired":true,
@@ -695,7 +695,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vol-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vol-Inspired_ENG.png"
       }
     ]
   },
@@ -717,7 +717,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Maegrim-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Maegrim_ENG.png"
       },
       {
         "inspired":true,
@@ -730,7 +730,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Maegrim-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Maegrim-Inspired_ENG.png"
       }
     ]
   },
@@ -752,7 +752,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skritch-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Skritch_ENG.png"
       },
       {
         "inspired":true,
@@ -765,7 +765,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skritch-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Skritch-Inspired_ENG.png"
       }
     ]
   },
@@ -787,7 +787,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Krrk-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Krrk_ENG.png"
       },
       {
         "inspired":true,
@@ -800,7 +800,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Krrk-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Krrk-Inspired_ENG.png"
       }
     ]
   },
@@ -822,7 +822,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lurking-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Lurking_ENG.png"
       },
       {
         "inspired":true,
@@ -835,7 +835,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lurking-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Lurking-Inspired_ENG.png"
       }
     ]
   },
@@ -857,7 +857,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Festering-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Featering_ENG.png"
       },
       {
         "inspired":true,
@@ -870,7 +870,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Festering-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Festering-Inspired_ENG.png"
       }
     ]
   },
@@ -892,7 +892,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hungering-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Hungering_ENG.png"
       },
       {
         "inspired":true,
@@ -905,7 +905,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hungering-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaven-Hungering-Inspired_ENG.png"
       }
     ]
   },
@@ -927,7 +927,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Magore-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fiends-Magore_ENG.png"
       },
       {
         "inspired":true,
@@ -940,7 +940,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Magore-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fiends-Magore-Inspired_ENG.png"
       }
     ]
   },
@@ -962,7 +962,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Riptooth-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fiends-Riptooth_ENG.png"
       },
       {
         "inspired":true,
@@ -975,7 +975,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Riptooth-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fiends-Riptooth-Inspired_ENG.png"
       }
     ]
   },
@@ -997,7 +997,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Zharkus-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fiends-Zharkus_ENG.png"
       },
       {
         "inspired":true,
@@ -1010,7 +1010,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Zharkus-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fiends-Zharkus-Inspired_ENG.png"
       }
     ]
   },
@@ -1032,7 +1032,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ghartok-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fiends-Ghartok_ENG.png"
       },
       {
         "inspired":true,
@@ -1045,7 +1045,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ghartok-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fiends-Ghartok-Inspired_ENG.png"
       }
     ]
   },
@@ -1067,7 +1067,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sanson-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Farstriders-Farstrider_ENG.png"
       },
       {
         "inspired":true,
@@ -1080,7 +1080,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sanson-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Farstriders-Farstrider-Inspired_ENG.png"
       }
     ]
   },
@@ -1102,7 +1102,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Almeric-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Farstriders-Eagle-Eye_ENG.png"
       },
       {
         "inspired":true,
@@ -1115,7 +1115,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Almeric-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Farstriders-Eagle-Eye-Inspired_ENG.png"
       }
     ]
   },
@@ -1137,7 +1137,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Elias-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Farstriders-Swiftblade_ENG.png"
       },
       {
         "inspired":true,
@@ -1150,7 +1150,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Elias-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Farstriders-Switblade-Inspired_ENG.png"
       }
     ]
   },
@@ -1172,7 +1172,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stormsire-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sacrosanct-Stormsire.png"
       },
       {
         "inspired":true,
@@ -1185,7 +1185,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stormsire-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sacrosanct-Stormsire-INS.png"
       }
     ]
   },
@@ -1207,7 +1207,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ammis-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sacrosanct-Dawnguard.png"
       },
       {
         "inspired":true,
@@ -1220,7 +1220,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ammis-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sacrosanct-Dawnguard-INS.png"
       }
     ]
   },
@@ -1242,7 +1242,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Rastus-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sacrosanct-Rastus.png"
       },
       {
         "inspired":true,
@@ -1255,7 +1255,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Rastus-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sacrosanct-Rastus-INS.png"
       }
     ]
   },
@@ -1277,7 +1277,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Briar Queen-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-BriarQueen.png"
       },
       {
         "inspired":true,
@@ -1290,7 +1290,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Briar Queen-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-BriarQueen-INS.png"
       }
     ]
   },
@@ -1312,7 +1312,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Varclav-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Varclav.png"
       },
       {
         "inspired":true,
@@ -1325,7 +1325,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Varclav-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Varclav-INS.png"
       }
     ]
   },
@@ -1347,7 +1347,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Ever-hanged-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-EverHanged.png"
       },
       {
         "inspired":true,
@@ -1360,7 +1360,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Ever-hanged-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-EverHanged-INS.png"
       }
     ]
   },
@@ -1382,7 +1382,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Chainrasp1.png"
       },
       {
         "inspired":true,
@@ -1395,7 +1395,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Chainrasp1-INS.png"
       }
     ]
   },
@@ -1417,7 +1417,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Chainrasp2.png"
       },
       {
         "inspired":true,
@@ -1430,7 +1430,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Chainrasp2-INS.png"
       }
     ]
   },
@@ -1452,7 +1452,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Chainrasp3.png"
       },
       {
         "inspired":true,
@@ -1465,7 +1465,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Chainrasp3-INS.png"
       }
     ]
   },
@@ -1487,7 +1487,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Chainrasp4.png"
       },
       {
         "inspired":true,
@@ -1500,7 +1500,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Nighthaunt-Chainrasp4-INS.png"
       }
     ]
   },
@@ -1522,7 +1522,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vortemis-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vortemis_ENG.png"
       },
       {
         "inspired":true,
@@ -1557,7 +1557,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/K'charik-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kcharik_ENG.png"
       },
       {
         "inspired":true,
@@ -1570,7 +1570,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/K'charik-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kcharic-INS_ENG.png"
       }
     ]
   },
@@ -1592,7 +1592,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Narvia-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Narvia_ENG.png"
       },
       {
         "inspired":true,
@@ -1627,7 +1627,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Turosh-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Turosh_ENG.png"
       },
       {
         "inspired":true,
@@ -1662,7 +1662,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Blue Horror-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Blue-Horror_ENG.png"
       },
       {
         "inspired":true,
@@ -1675,7 +1675,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Blue Horror-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Brimstone-Horrors_ENG.png"
       }
     ]
   },
@@ -1697,7 +1697,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Zarbag-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Zarbag_ENG.png"
       },
       {
         "inspired":true,
@@ -1732,7 +1732,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sourtongue-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sourtongue_ENG.png"
       },
       {
         "inspired":true,
@@ -1767,7 +1767,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Drizgit-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Drizgit_ENG.png"
       },
       {
         "inspired":true,
@@ -1802,7 +1802,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bonekrakka-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bonekrakka_ENG.png"
       },
       {
         "inspired":true,
@@ -1837,7 +1837,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gobbaluk-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gobbaluk_ENG.png"
       },
       {
         "inspired":true,
@@ -1872,7 +1872,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Prog-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Prog_ENG.png"
       },
       {
         "inspired":true,
@@ -1907,7 +1907,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stikkit-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stikkit_ENG.png"
       },
       {
         "inspired":true,
@@ -1942,7 +1942,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Redkap-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Redkap_ENG.png"
       },
       {
         "inspired":true,
@@ -1977,7 +1977,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Dibbz-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Dibbz_ENG.png"
       },
       {
         "inspired":true,
@@ -2012,7 +2012,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Theddra-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Theddra_ENG.png"
       },
       {
         "inspired":true,
@@ -2025,7 +2025,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Theddra-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Theddra-INS_ENG.png"
       }
     ]
   },
@@ -2047,7 +2047,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grundann-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Grundann_ENG.png"
       },
       {
         "inspired":true,
@@ -2060,7 +2060,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grundann-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Grundann-INS_ENG.png"
       }
     ]
   },
@@ -2082,7 +2082,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Jagathra-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Jagathra_ENG.png"
       },
       {
         "inspired":true,
@@ -2095,7 +2095,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Jagathra-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Jagathra-INS_ENG.png"
       }
     ]
   },
@@ -2117,7 +2117,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Shond-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Shond_ENG.png"
       },
       {
         "inspired":true,
@@ -2130,7 +2130,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Shond-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Shond-INS_ENG.png"
       }
     ]
   },
@@ -2152,7 +2152,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ollo-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Ollo_ENG.png"
       },
       {
         "inspired":true,
@@ -2165,7 +2165,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ollo-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Ollo-INS_ENG.png"
       }
     ]
   },
@@ -2187,7 +2187,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grawl-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Grawl_ENG.png"
       },
       {
         "inspired":true,
@@ -2200,7 +2200,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grawl-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Grawl-INS_ENG.png"
       }
     ]
   },
@@ -2222,7 +2222,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Mollog-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Mollog_ENG.png"
       },
       {
         "inspired":true,
@@ -2235,7 +2235,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Mollog-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Mollog-INS_ENG.png"
       }
     ]
   },
@@ -2257,7 +2257,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bat Squig-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Bat-Squig_ENG.png"
       },
       {
         "inspired":true,
@@ -2270,7 +2270,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bat Squig-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Bat-Squig-INS_ENG.png"
       }
     ]
   },
@@ -2292,7 +2292,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stalagsquig-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Stalasquig_ENG.png"
       },
       {
         "inspired":true,
@@ -2305,7 +2305,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stalagsquig-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Stalasquig-INS_ENG.png"
       }
     ]
   },
@@ -2327,7 +2327,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Spiteshroom-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Spiteshroom_ENG.png"
       },
       {
         "inspired":true,
@@ -2340,7 +2340,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Spiteshroom-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Spiteshroom-INS_ENG.png"
       }
     ]
   },
@@ -2362,7 +2362,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bjorgen-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Thundrik.png"
       },
       {
         "inspired":true,
@@ -2375,7 +2375,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bjorgen-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Bjorgen-INS.png"
       }
     ]
   },
@@ -2397,7 +2397,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Dead-Eye Lund-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Dead-Eye Lund.png"
       },
       {
         "inspired":true,
@@ -2410,7 +2410,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Dead-Eye Lund-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Dead-Eye Lund-INS.png"
       }
     ]
   },
@@ -2432,7 +2432,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Enrik-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Enrik.png"
       },
       {
         "inspired":true,
@@ -2445,7 +2445,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Enrik-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Enrik-INS.png"
       }
     ]
   },
@@ -2467,7 +2467,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Khazgan-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Khazgan.png"
       },
       {
         "inspired":true,
@@ -2480,7 +2480,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Khazgan-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Khazgan-INS.png"
       }
     ]
   },
@@ -2502,7 +2502,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garodd-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Garodd.png"
       },
       {
         "inspired":true,
@@ -2515,7 +2515,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garodd-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Garodd-INS.png"
       }
     ]
   },
@@ -2537,7 +2537,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ylthari-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Ylthari.png"
       },
       {
         "inspired":true,
@@ -2550,7 +2550,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ylthari-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Ylthari_INS.png"
       }
     ]
   },
@@ -2572,7 +2572,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ahnslaine-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Ahnslaine.png"
       },
       {
         "inspired":true,
@@ -2585,7 +2585,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ahnslaine-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Ahnslaine-INS.png"
       }
     ]
   },
@@ -2607,7 +2607,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gallanghann-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Gallanghann.png"
       },
       {
         "inspired":true,
@@ -2620,7 +2620,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gallanghann-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Gallanghann-INS.png"
       }
     ]
   },
@@ -2642,7 +2642,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skhathael-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Skhathael.png"
       },
       {
         "inspired":true,
@@ -2655,7 +2655,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skhathael-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Skhathael-INS.png"
       }
     ]
   },
@@ -2677,7 +2677,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironsoul-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Ironsoul.png"
       },
       {
         "inspired":true,
@@ -2690,7 +2690,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironsoul-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Ironsoul-INS.png"
       }
     ]
   },
@@ -2712,7 +2712,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Blightbane-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Blightbane.png"
       },
       {
         "inspired":true,
@@ -2725,7 +2725,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Blightbane-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Blightbane-INS.png"
       }
     ]
   },
@@ -2747,7 +2747,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tavian-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Tavian.png"
       },
       {
         "inspired":true,
@@ -2760,7 +2760,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tavian-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Tavian-INS.png"
       }
     ]
   },
@@ -2782,7 +2782,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lady Harrow-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Lady Harrow.png"
       },
       {
         "inspired":true,
@@ -2795,7 +2795,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lady Harrow-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Lady Harrow-INS.png"
       }
     ]
   },
@@ -2817,7 +2817,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Anguished One-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/The Anguished One.png"
       },
       {
         "inspired":true,
@@ -2830,7 +2830,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Anguished One-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/The Anguished One-INS.png"
       }
     ]
   },
@@ -2852,7 +2852,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Maiden-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/The Maiden.png"
       },
       {
         "inspired":true,
@@ -2865,7 +2865,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Maiden-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/The Maiden-INS.png"
       }
     ]
   },
@@ -2887,7 +2887,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Widow Caitha-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Widow Caitha.png"
       },
       {
         "inspired":true,
@@ -2900,7 +2900,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Widow Caitha-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/04/Widow Caitha-INS.png"
       }
     ]
   },
@@ -2922,7 +2922,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grashrak-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Grashrak.png"
       },
       {
         "inspired":true,
@@ -2935,7 +2935,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grashrak-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Grashrak-INS.png"
       }
     ]
   },
@@ -2957,7 +2957,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Draknar-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Draknar.png"
       },
       {
         "inspired":true,
@@ -2970,7 +2970,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Draknar-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Draknar-INS.png"
       }
     ]
   },
@@ -2992,7 +2992,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Murgroth-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Murgroth.png"
       },
       {
         "inspired":true,
@@ -3005,7 +3005,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Murgroth-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Murgroth-INS.png"
       }
     ]
   },
@@ -3027,7 +3027,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Korsh-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Korsh.png"
       },
       {
         "inspired":true,
@@ -3040,7 +3040,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Korsh-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Korsh-INS.png"
       }
     ]
   },
@@ -3062,7 +3062,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gnarl-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Gnarl.png"
       },
       {
         "inspired":true,
@@ -3075,7 +3075,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gnarl-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Gnarl-INS.png"
       }
     ]
   },
@@ -3097,7 +3097,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ushkor-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Ushkor.png"
       },
       {
         "inspired":true,
@@ -3110,7 +3110,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ushkor-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Ushkor-INS.png"
       }
     ]
   },
@@ -3132,7 +3132,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaeths-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Skaeths.png"
       },
       {
         "inspired":true,
@@ -3145,7 +3145,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaeths-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Skaeths-INS.png"
       }
     ]
   },
@@ -3167,7 +3167,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lighaen-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Lighaen.png"
       },
       {
         "inspired":true,
@@ -3180,7 +3180,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lighaen-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Lighaen-INS.png"
       }
     ]
   },
@@ -3202,7 +3202,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Karthaen-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Karthaen.png"
       },
       {
         "inspired":true,
@@ -3215,7 +3215,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Karthaen-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Karthaen-INS.png"
       }
     ]
   },
@@ -3237,7 +3237,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kurnoth4-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Kurnoth4.png"
       },
       {
         "inspired":true,
@@ -3250,7 +3250,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kurnoth4-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Kurnoth4-INS.png"
       }
     ]
   },
@@ -3272,7 +3272,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kurnoth5-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Kurnoth5.png"
       },
       {
         "inspired":true,
@@ -3285,7 +3285,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kurnoth5-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Kurnoth5-INS.png"
       }
     ]
   },
@@ -3307,7 +3307,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Duke Crakmarrow-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Duke Crakmarrow.png"
       },
       {
         "inspired":true,
@@ -3320,7 +3320,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Duke Crakmarrow-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Duke Crakmarrow-INS.png"
       }
     ]
   },
@@ -3342,7 +3342,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/.png"
       },
       {
         "inspired":true,
@@ -3355,7 +3355,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/-INS.png"
       }
     ]
   },
@@ -3377,7 +3377,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/.png"
       },
       {
         "inspired":true,
@@ -3390,7 +3390,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/-INS.png"
       }
     ]
   },
@@ -3412,7 +3412,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/.png"
       },
       {
         "inspired":true,
@@ -3425,7 +3425,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/-INS.png"
       }
     ]
   },
@@ -3447,7 +3447,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/.png"
       },
       {
         "inspired":true,
@@ -3460,7 +3460,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/-INS.png"
       }
     ]
   },
@@ -3482,7 +3482,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/.png"
       },
       {
         "inspired":true,
@@ -3495,7 +3495,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/-INS.png"
       }
     ]
   },
@@ -3517,7 +3517,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Rippa-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Rippa.png"
       },
       {
         "inspired":true,
@@ -3530,7 +3530,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Rippa-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Rippa-INS.png"
       }
     ]
   },
@@ -3552,7 +3552,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stabbit-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Stabbit.png"
       },
       {
         "inspired":true,
@@ -3565,7 +3565,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stabbit-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Stabbit-INS.png"
       }
     ]
   },
@@ -3587,7 +3587,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Mean-Eye-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Mean-Eye.png"
       },
       {
         "inspired":true,
@@ -3600,7 +3600,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Mean-Eye-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Mean-Eye-INS.png"
       }
     ]
   },
@@ -3622,7 +3622,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hrothgorn-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Hrothgorn.png"
       },
       {
         "inspired":true,
@@ -3635,7 +3635,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hrothgorn-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Hrothgorn-INS.png"
       }
     ]
   },
@@ -3657,7 +3657,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Thrafnir-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Thrafnir.png"
       },
       {
         "inspired":true,
@@ -3670,7 +3670,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Thrafnir-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Thrafnir-INS.png"
       }
     ]
   },
@@ -3692,7 +3692,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bushwakka-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Bushwakka.png"
       },
       {
         "inspired":true,
@@ -3705,7 +3705,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bushwakka-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Bushwakka-INS.png"
       }
     ]
   },
@@ -3727,7 +3727,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Quiv-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Quiv.png"
       },
       {
         "inspired":true,
@@ -3740,7 +3740,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Quiv-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Quiv-INS.png"
       }
     ]
   },
@@ -3762,7 +3762,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Luggit and Thwak-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Luggit and Thwak.png"
       },
       {
         "inspired":true,
@@ -3775,7 +3775,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Luggit and Thwak-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Luggit and Thwak-INS.png"
       }
     ]
   },
@@ -3797,7 +3797,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fecula-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Fecula.png"
       },
       {
         "inspired":true,
@@ -3810,7 +3810,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fecula-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Fecula-INS.png"
       }
     ]
   },
@@ -3832,7 +3832,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ghulgogh-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Ghulgogh.png"
       },
       {
         "inspired":true,
@@ -3845,7 +3845,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ghulgogh-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Ghulgogh-INS.png"
       }
     ]
   },
@@ -3867,7 +3867,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sepsimus-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Sepsimus.png"
       },
       {
         "inspired":true,
@@ -3880,7 +3880,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sepsimus-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Sepsimus-INS.png"
       }
     ]
   },
@@ -3902,7 +3902,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Morgwaeth-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Morgwaeth.png"
       },
       {
         "inspired":true,
@@ -3915,7 +3915,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Morgwaeth-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Morgwaeth-INS.png"
       }
     ]
   },
@@ -3937,7 +3937,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kyrae-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Kyrae.png"
       },
       {
         "inspired":true,
@@ -3950,7 +3950,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kyrae-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Kyrae-INS.png"
       }
     ]
   },
@@ -3972,7 +3972,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Khamyss-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Khamyss.png"
       },
       {
         "inspired":true,
@@ -3985,7 +3985,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Khamyss-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Khamyss-INS.png"
       }
     ]
   },
@@ -4007,7 +4007,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kyrssa-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Kyrssa.png"
       },
       {
         "inspired":true,
@@ -4020,7 +4020,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kyrssa-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Kyrssa-INS.png"
       }
     ]
   },
@@ -4042,7 +4042,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lethyr-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Lethyr.png"
       },
       {
         "inspired":true,
@@ -4055,7 +4055,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lethyr-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Lethyr-INS.png"
       }
     ]
   },
@@ -4077,7 +4077,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Morgok-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Morgok.png"
       },
       {
         "inspired":true,
@@ -4090,7 +4090,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Morgok-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Morgok-INS.png"
       }
     ]
   },
@@ -4112,7 +4112,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/’Ardskull-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/’Ardskull.png"
       },
       {
         "inspired":true,
@@ -4125,7 +4125,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/’Ardskull-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/’Ardskull-INS.png"
       }
     ]
   },
@@ -4147,7 +4147,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Thugg-ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Thugg.png"
       },
       {
         "inspired":true,
@@ -4160,7 +4160,7 @@
         "atk_type":"",
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
-        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Thugg-INS_ENG.png"
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Thugg-INS.png"
       }
     ]
   }

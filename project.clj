@@ -29,7 +29,7 @@
                 ; [com.taoensso/sente "1.12.0"]
                 ; page rendering
                 [hiccup "1.0.5"]
-								[reagent "0.7.0"]
+				[reagent "0.7.0"]
                 [cljs-http "0.1.46"]
                 ; user management
                 [com.cemerick/friend "0.2.3"]
@@ -96,12 +96,12 @@
                                [expectations "2.2.0-rc3"]
                                [binaryage/devtools "0.9.4"]
                                [figwheel-sidecar "0.5.14"]
-                               [com.cemerick/piggieback "0.2.2"]]
+                               [cider/piggieback "0.4.0"]]
                    ;; need to add dev source path here to get user.clj loaded
                    :source-paths ["src" "dev"]
                    ;; for CIDER
                    ;; :plugins [[cider/cider-nrepl "0.12.0"]]
-                   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
+                   :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
                    ;; need to add the compliled assets to the :clean-targets
                    :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                                      :target-path]}})
