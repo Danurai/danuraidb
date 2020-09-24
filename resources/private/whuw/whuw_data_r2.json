@@ -1,30 +1,15 @@
 {
-  "imagelist": [
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek-ENG.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek-INS_ENG.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/WHUW_BG_RS_Chac_Rippa_Deck1.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/WHUW_BG_RS_Chac_Rippa_Deck12.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/WHUW_BG_CoD_Lady_Harrow_Deck2.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/09/asChC7ZNQtcu7A3b.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/09/JRceUiI69PJfvyHn.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Grashraks-Despoilers.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Skaeths-Wild-Hunt.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/10/grymwatch-icon.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/snarlfangs-icon.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/ironsoul-icon.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/ladyharrow-icon.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/wurm-icon.png",
-    "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/horth-icon.png"],
   "warbands": [
     {
-      "id": 211,
-      "name": "Eyes of the Nine",
-      "slug": "tzeentch",
+      "id": 35,
+      "name": "Universal",
+      "slug": "universal",
       "icon": {
-        "filename": "WHUW-Library-Icons-Tzeentch.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/WHUW-Library-Icons-Tzeentch.png"
+        "filename": "Shadespire-Library-Icons-Universal.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2017/12/Shadespire-Library-Icons-Universal.png"
       },
-      "colour": "#1dc1ab"
+      "members": [],
+      "colour": "#005439"
     },
     {
       "id": 31,
@@ -34,47 +19,8 @@
         "filename": "Shadespire-Library-Icons-Bloodbound.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2017/12/Shadespire-Library-Icons-Bloodbound.png"
       },
+      "members": ["Garrek", "Saek", "Karsus", "Targor", "Arnulf"],
       "colour": "#7f1515"
-    },
-    {
-      "id": 32,
-      "name": "Ironskull\u2019s Boyz",
-      "slug": "ironskulls-boyz",
-      "icon": {
-        "filename": "Shadespire-Library-Icons-Ironjawz-1.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2017/12/Shadespire-Library-Icons-Ironjawz-1.png"
-      },
-      "colour": "#3d660c"
-    },
-    {
-      "id": 119,
-      "name": "Magore's Fiends",
-      "slug": "magores-fiends",
-      "icon": {
-        "filename": "Shadespire-Library-Icons-Fiends2.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/04/Shadespire-Library-Icons-Fiends2.png"
-      },
-      "colour": "#e20404"
-    },
-    {
-      "id": 33,
-      "name": "Sepulchral Guard",
-      "slug": "sepulchral-guard",
-      "icon": {
-        "filename": "Shadespire-Library-Icons-Sepulchral-1.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2017/12/Shadespire-Library-Icons-Sepulchral-1.png"
-      },
-      "colour": "#603b60"
-    },
-    {
-      "id": 107,
-      "name": "Spiteclaw's Swarm",
-      "slug": "spiteclaws-swarm",
-      "icon": {
-        "filename": "Shadespire-Library-Icons-Skaven.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/02/Shadespire-Library-Icons-Skaven.png"
-      },
-      "colour": "#914e01"
     },
     {
       "id": 34,
@@ -84,17 +30,30 @@
         "filename": "Shadespire-Library-Icons-Steelheart.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2017/12/Shadespire-Library-Icons-Steelheart.png"
       },
+      "members": ["Steelheart", "Obryn", "Angharad"],
       "colour": "#345991"
     },
     {
-      "id": 162,
-      "name": "Stormsire\u2019s Cursebreakers",
-      "slug": "cursebreakers",
+      "id": 33,
+      "name": "Sepulchral Guard",
+      "slug": "sepulchral-guard",
       "icon": {
-        "filename": "WHUW-Library-Icons-Sacrosanct.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/09/WHUW-Library-Icons-Sacrosanct.png"
+        "filename": "Shadespire-Library-Icons-Sepulchral-1.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2017/12/Shadespire-Library-Icons-Sepulchral-1.png"
       },
-      "colour": "#1db1d6"
+      "members": ["Warden", "Champion", "Prince", "Harvester", "Petitioner"],
+      "colour": "#603b60"
+    },
+    {
+      "id": 32,
+      "name": "Ironskull\u2019s Boyz",
+      "slug": "ironskulls-boyz",
+      "icon": {
+        "filename": "Shadespire-Library-Icons-Ironjawz-1.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2017/12/Shadespire-Library-Icons-Ironjawz-1.png"
+      },
+      "members": ["Gurzag", "Bonekutta", "Hakka", "Basha"],
+      "colour": "#3d660c"
     },
     {
       "id": 93,
@@ -104,7 +63,30 @@
         "filename": "Shadespire-Library-Icons-Fyreslayers.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/02/Shadespire-Library-Icons-Fyreslayers.png"
       },
+      "members": ["Grimnir", "Tefk", "Vol", "Maegrim"],
       "colour": "#ff7700"
+    },
+    {
+      "id": 107,
+      "name": "Spiteclaw's Swarm",
+      "slug": "spiteclaws-swarm",
+      "icon": {
+        "filename": "Shadespire-Library-Icons-Skaven.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/02/Shadespire-Library-Icons-Skaven.png"
+      },
+      "members": ["Skritch", "Krrk", "Lurking", "Festering", "Hungering"],
+      "colour": "#914e01"
+    },
+    {
+      "id": 119,
+      "name": "Magore's Fiends",
+      "slug": "magores-fiends",
+      "icon": {
+        "filename": "Shadespire-Library-Icons-Fiends2.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/04/Shadespire-Library-Icons-Fiends2.png"
+      },
+      "members": ["Magore", "Riptooth", "Zharkus", "Ghartok"],
+      "colour": "#e20404"
     },
     {
       "id": 120,
@@ -114,7 +96,19 @@
         "filename": "Shadespire-Library-Icons-Rangers.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/04/Shadespire-Library-Icons-Rangers.png"
       },
+      "members": ["Sanson", "Almeric", "Elias"],
       "colour": "#033f99"
+    },
+    {
+      "id": 162,
+      "name": "Stormsire\u2019s Cursebreakers",
+      "slug": "cursebreakers",
+      "icon": {
+        "filename": "WHUW-Library-Icons-Sacrosanct.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/09/WHUW-Library-Icons-Sacrosanct.png"
+      },
+      "members": ["Stormsire", "Ammis", "Rastus"],
+      "colour": "#1db1d6"
     },
     {
       "id": 168,
@@ -124,17 +118,19 @@
         "filename": "WHUW-Library-Icons-Nighthaunt.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/09/WHUW-Library-Icons-Nighthaunt.png"
       },
+      "members": ["Briar Queen", "Varclav", "The Ever-hanged", "Chainrasp", "Chainrasp", "Chainrasp", "Chainrasp"],
       "colour": "#21a06d"
     },
     {
-      "id": 35,
-      "name": "Universal",
-      "slug": "universal",
+      "id": 211,
+      "name": "Eyes of the Nine",
+      "slug": "tzeentch",
       "icon": {
-        "filename": "Shadespire-Library-Icons-Universal.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2017/12/Shadespire-Library-Icons-Universal.png"
+        "filename": "WHUW-Library-Icons-Tzeentch.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/WHUW-Library-Icons-Tzeentch.png"
       },
-      "colour": "#005439"
+      "members": ["Vortemis", "K'charik", "Narvia", "Turosh", "Blue Horror"],
+      "colour": "#1dc1ab"
     },
     {
       "id": 203,
@@ -144,17 +140,8 @@
         "filename": "WHUW-Library-Icons-Moonclan.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/WHUW-Library-Icons-Moonclan.png"
       },
+      "members":  ["Zarbag", "Sourtongue", "Drizgit", "Bonekrakka", "Gobbaluk", "Prog", "Stikkit", "Redkap", "Dibbz"],
       "colour": "#043318"
-    },
-    {
-      "id": 257,
-      "name": "Mollog's Mob",
-      "slug": "mollog",
-      "icon": {
-        "filename": "Shadespire-Library-Icons-mollog.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/WHUW-Library-Icons-Mollog.png"
-      },
-      "colour": "#000000"
     },
     {
       "id": 258,
@@ -164,6 +151,18 @@
         "filename": "WHUW-Library-Icons-Darkoath.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/WHUW-Library-Icons-Darkoath.png"
       },
+      "members": ["Theddra", "Grundann", "Jagathra", "Shond", "Ollo", "Grawl"],
+      "colour": "#000000"
+    },
+    {
+      "id": 257,
+      "name": "Mollog's Mob",
+      "slug": "mollog",
+      "icon": {
+        "filename": "Shadespire-Library-Icons-mollog.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/01/WHUW-Library-Icons-Mollog.png"
+      },
+      "members": ["Mollog", "Bat Squig", "Stalagsquig", "Spiteshroom"],
       "colour": "#000000"
     },
     {
@@ -174,6 +173,7 @@
         "filename": "Thundriks_Profiteer.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Thundriks_Profiteer.png"
       },
+      "members": ["Bjorgen", "Dead-Eye Lund", "Enrik", "Khazgan", "Garodd"],
       "colour": "#000000"
     },
     {
@@ -184,6 +184,7 @@
         "filename": "Yltharis_Guardians.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/08/Yltharis_Guardians.png"
       },
+      "members": ["Ylthari", "Ahnslaine", "Gallanghann", "Skhathael"],
       "colour": "#000000"
     },
     {
@@ -194,6 +195,7 @@
         "filename": "ironsoul-icon.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/ironsoul-icon.png"
       },
+      "members": ["Ironsoul", "Blightbane", "Tavian"],
       "colour": "#000000"
     },
     {
@@ -204,6 +206,7 @@
         "filename": "ladyharrow-icon.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/ladyharrow-icon.png"
       },
+      "members":  ["Lady Harrow", "The Anguished One", "The Maiden", "Widow Caitha"],
       "colour": "#000000"
     },
     {
@@ -214,6 +217,7 @@
         "filename": "Grashraks-Despoilers.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Grashraks-Despoilers.png"
       },
+      "members": ["Grashrak", "Draknar", "Murgroth", "Korsh", "Gnarl", "Ushkor"],
       "colour": "#000000"
     },
     {
@@ -224,6 +228,7 @@
         "filename": "Skaeths-Wild-Hunt.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/Skaeths-Wild-Hunt.png"
       },
+      "members": ["Skaeths","Lighaen","Karthaen","Kurnoth4","Kurnoth5"],
       "colour": "#000000"
     },
     {
@@ -234,6 +239,7 @@
         "filename": "grymwatch-icon.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/10/grymwatch-icon.png"
       },
+      "members": ["Duke Crakmarrow", "", "", "", "", ""],
       "colour": "#000000"
     },
     {
@@ -244,6 +250,51 @@
         "filename": "snarlfangs-icon.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/11/snarlfangs-icon.png"
       },
+      "members": ["Rippa", "Stabbit", "Mean-Eye"],
+      "colour": "#000000"
+    },
+    {
+      "id": 267,
+      "name": "Hrothgorns Mantrappers",
+      "slug": "horth",
+      "icon": {
+        "filename": "horth-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/horth-icon.png"
+      },
+      "members": ["Hrothgorn", "Thrafnir", "Bushwakka", "Quiv", "Luggit and Thwak"],
+      "colour": "#000000"
+    },
+    {
+      "id": 268,
+      "name": "The Wurmspat",
+      "slug": "wurm",
+      "icon": {
+        "filename": "wurm-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/wurm-icon.png"
+      },
+      "members": ["Fecula", "Ghulgogh", "Sepsimus"],
+      "colour": "#000000"
+    },
+    {
+      "id": 269,
+      "name": "Morgwaeth's Blade Coven",
+      "slug": "morgwaeth",
+      "icon": {
+        "filename": "morgwaeth-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/morgwaeth-icon.png"
+      },
+      "members": ["Morgwaeth", "Kyrae", "Khamyss", "Kyrssa", "Lethyr"],
+      "colour": "#000000"
+    },
+    {
+      "id": 270,
+      "name": "Morgok's Krushas",
+      "slug": "morgok",
+      "icon": {
+        "filename": "morgok-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/morgok-icon.png"
+      },
+      "members": ["Morgok", "’Ardskull", "Thugg"],
       "colour": "#000000"
     }
   ],
@@ -453,6 +504,42 @@
       "icon": {
         "filename": "WHUW_BG_icon.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2019/09/WHUW_BG_icon.png"
+      }
+    },
+    {
+      "id": 267,
+      "name": "Hrothgorns Mantrappers",
+      "slug": "horth",
+      "icon": {
+        "filename": "horth-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/horth-icon.png"
+      }
+    },
+    {
+      "id": 268,
+      "name": "The Wurmspat",
+      "slug": "wurm",
+      "icon": {
+        "filename": "wurm-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/wurm-icon.png"
+      }
+    },
+    {
+      "id": 269,
+      "name": "Morgwaeth's Blade Coven",
+      "slug": "morgwaeth",
+      "icon": {
+        "filename": "morgwaeth-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/morgwaeth-icon.png"
+      }
+    },
+    {
+      "id": 270,
+      "name": "Morgok's Krushas",
+      "slug": "morgok",
+      "icon": {
+        "filename": "morgok-icon.png",
+        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/morgok-icon.png"
       }
     }
   ],

@@ -1,0 +1,4167 @@
+{"champions": [
+  {
+    "id":  310 ,
+    "warband_id":  31 ,
+    "name": "Garrek",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  311 ,
+    "warband_id":  31 ,
+    "name": "Saek",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Saek-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Saek-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  312 ,
+    "warband_id":  31 ,
+    "name": "Karsus",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Karsus-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Karsus-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  313 ,
+    "warband_id":  31 ,
+    "name": "Targor",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Targor-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Targor-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  314 ,
+    "warband_id":  31 ,
+    "name": "Arnulf",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Arnulf-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Arnulf-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  340 ,
+    "warband_id":  34 ,
+    "name": "Steelheart",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Steelheart-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Steelheart-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  341 ,
+    "warband_id":  34 ,
+    "name": "Obryn",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Obryn-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Obryn-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  342 ,
+    "warband_id":  34 ,
+    "name": "Angharad",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Angharad-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Angharad-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  330 ,
+    "warband_id":  33 ,
+    "name": "Warden",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Warden-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Warden-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  331 ,
+    "warband_id":  33 ,
+    "name": "Champion",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Champion-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Champion-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  332 ,
+    "warband_id":  33 ,
+    "name": "Prince",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Prince-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Prince-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  333 ,
+    "warband_id":  33 ,
+    "name": "Harvester",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Harvester-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Harvester-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  334 ,
+    "warband_id":  33 ,
+    "name": "Petitioner",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Petitioner-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Petitioner-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  320 ,
+    "warband_id":  32 ,
+    "name": "Gurzag",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gurzag-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gurzag-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  321 ,
+    "warband_id":  32 ,
+    "name": "Bonekutta",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bonekutta-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bonekutta-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  322 ,
+    "warband_id":  32 ,
+    "name": "Hakka",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hakka-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hakka-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  323 ,
+    "warband_id":  32 ,
+    "name": "Basha",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Basha-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Basha-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  930 ,
+    "warband_id":  93 ,
+    "name": "Grimnir",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grimnir-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grimnir-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  931 ,
+    "warband_id":  93 ,
+    "name": "Tefk",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tefk-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tefk-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  932 ,
+    "warband_id":  93 ,
+    "name": "Vol",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vol-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vol-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  933 ,
+    "warband_id":  93 ,
+    "name": "Maegrim",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Maegrim-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Maegrim-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1070 ,
+    "warband_id":  107 ,
+    "name": "Skritch",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skritch-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skritch-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1071 ,
+    "warband_id":  107 ,
+    "name": "Krrk",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Krrk-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Krrk-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1072 ,
+    "warband_id":  107 ,
+    "name": "Lurking",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lurking-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lurking-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1073 ,
+    "warband_id":  107 ,
+    "name": "Festering",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Festering-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Festering-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1074 ,
+    "warband_id":  107 ,
+    "name": "Hungering",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hungering-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hungering-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1190 ,
+    "warband_id":  119 ,
+    "name": "Magore",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Magore-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Magore-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1191 ,
+    "warband_id":  119 ,
+    "name": "Riptooth",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Riptooth-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Riptooth-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1192 ,
+    "warband_id":  119 ,
+    "name": "Zharkus",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Zharkus-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Zharkus-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1193 ,
+    "warband_id":  119 ,
+    "name": "Ghartok",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ghartok-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ghartok-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1200 ,
+    "warband_id":  120 ,
+    "name": "Sanson",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sanson-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sanson-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1201 ,
+    "warband_id":  120 ,
+    "name": "Almeric",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Almeric-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Almeric-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1202 ,
+    "warband_id":  120 ,
+    "name": "Elias",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Elias-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Elias-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1620 ,
+    "warband_id":  162 ,
+    "name": "Stormsire",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stormsire-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stormsire-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1621 ,
+    "warband_id":  162 ,
+    "name": "Ammis",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ammis-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ammis-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1622 ,
+    "warband_id":  162 ,
+    "name": "Rastus",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Rastus-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Rastus-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1680 ,
+    "warband_id":  168 ,
+    "name": "Briar Queen",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Briar Queen-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Briar Queen-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1681 ,
+    "warband_id":  168 ,
+    "name": "Varclav",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Varclav-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Varclav-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1682 ,
+    "warband_id":  168 ,
+    "name": "The Ever-hanged",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Ever-hanged-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Ever-hanged-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1683 ,
+    "warband_id":  168 ,
+    "name": "Chainrasp",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1684 ,
+    "warband_id":  168 ,
+    "name": "Chainrasp",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1685 ,
+    "warband_id":  168 ,
+    "name": "Chainrasp",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  1686 ,
+    "warband_id":  168 ,
+    "name": "Chainrasp",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Chainrasp-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2110 ,
+    "warband_id":  211 ,
+    "name": "Vortemis",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vortemis-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Vortemis-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2111 ,
+    "warband_id":  211 ,
+    "name": "K'charik",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/K'charik-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/K'charik-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2112 ,
+    "warband_id":  211 ,
+    "name": "Narvia",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Narvia-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Narvia-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2113 ,
+    "warband_id":  211 ,
+    "name": "Turosh",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Turosh-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Turosh-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2114 ,
+    "warband_id":  211 ,
+    "name": "Blue Horror",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Blue Horror-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Blue Horror-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2030 ,
+    "warband_id":  203 ,
+    "name": "Zarbag",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Zarbag-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Zarbag-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2031 ,
+    "warband_id":  203 ,
+    "name": "Sourtongue",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sourtongue-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sourtongue-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2032 ,
+    "warband_id":  203 ,
+    "name": "Drizgit",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Drizgit-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Drizgit-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2033 ,
+    "warband_id":  203 ,
+    "name": "Bonekrakka",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bonekrakka-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bonekrakka-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2034 ,
+    "warband_id":  203 ,
+    "name": "Gobbaluk",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gobbaluk-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gobbaluk-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2035 ,
+    "warband_id":  203 ,
+    "name": "Prog",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Prog-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Prog-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2036 ,
+    "warband_id":  203 ,
+    "name": "Stikkit",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stikkit-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stikkit-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2037 ,
+    "warband_id":  203 ,
+    "name": "Redkap",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Redkap-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Redkap-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2038 ,
+    "warband_id":  203 ,
+    "name": "Dibbz",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Dibbz-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Dibbz-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2580 ,
+    "warband_id":  258 ,
+    "name": "Theddra",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Theddra-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Theddra-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2581 ,
+    "warband_id":  258 ,
+    "name": "Grundann",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grundann-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grundann-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2582 ,
+    "warband_id":  258 ,
+    "name": "Jagathra",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Jagathra-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Jagathra-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2583 ,
+    "warband_id":  258 ,
+    "name": "Shond",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Shond-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Shond-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2584 ,
+    "warband_id":  258 ,
+    "name": "Ollo",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ollo-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ollo-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2585 ,
+    "warband_id":  258 ,
+    "name": "Grawl",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grawl-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grawl-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2570 ,
+    "warband_id":  257 ,
+    "name": "Mollog",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Mollog-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Mollog-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2571 ,
+    "warband_id":  257 ,
+    "name": "Bat Squig",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bat Squig-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bat Squig-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2572 ,
+    "warband_id":  257 ,
+    "name": "Stalagsquig",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stalagsquig-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stalagsquig-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2573 ,
+    "warband_id":  257 ,
+    "name": "Spiteshroom",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Spiteshroom-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Spiteshroom-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2590 ,
+    "warband_id":  259 ,
+    "name": "Bjorgen",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bjorgen-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bjorgen-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2591 ,
+    "warband_id":  259 ,
+    "name": "Dead-Eye Lund",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Dead-Eye Lund-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Dead-Eye Lund-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2592 ,
+    "warband_id":  259 ,
+    "name": "Enrik",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Enrik-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Enrik-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2593 ,
+    "warband_id":  259 ,
+    "name": "Khazgan",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Khazgan-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Khazgan-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2594 ,
+    "warband_id":  259 ,
+    "name": "Garodd",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garodd-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garodd-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2600 ,
+    "warband_id":  260 ,
+    "name": "Ylthari",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ylthari-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ylthari-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2601 ,
+    "warband_id":  260 ,
+    "name": "Ahnslaine",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ahnslaine-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ahnslaine-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2602 ,
+    "warband_id":  260 ,
+    "name": "Gallanghann",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gallanghann-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gallanghann-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2603 ,
+    "warband_id":  260 ,
+    "name": "Skhathael",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skhathael-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skhathael-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2610 ,
+    "warband_id":  261 ,
+    "name": "Ironsoul",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironsoul-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ironsoul-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2611 ,
+    "warband_id":  261 ,
+    "name": "Blightbane",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Blightbane-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Blightbane-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2612 ,
+    "warband_id":  261 ,
+    "name": "Tavian",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tavian-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Tavian-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2620 ,
+    "warband_id":  262 ,
+    "name": "Lady Harrow",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lady Harrow-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lady Harrow-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2621 ,
+    "warband_id":  262 ,
+    "name": "The Anguished One",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Anguished One-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Anguished One-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2622 ,
+    "warband_id":  262 ,
+    "name": "The Maiden",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Maiden-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/The Maiden-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2623 ,
+    "warband_id":  262 ,
+    "name": "Widow Caitha",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Widow Caitha-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Widow Caitha-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2630 ,
+    "warband_id":  263 ,
+    "name": "Grashrak",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grashrak-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Grashrak-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2631 ,
+    "warband_id":  263 ,
+    "name": "Draknar",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Draknar-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Draknar-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2632 ,
+    "warband_id":  263 ,
+    "name": "Murgroth",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Murgroth-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Murgroth-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2633 ,
+    "warband_id":  263 ,
+    "name": "Korsh",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Korsh-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Korsh-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2634 ,
+    "warband_id":  263 ,
+    "name": "Gnarl",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gnarl-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Gnarl-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2635 ,
+    "warband_id":  263 ,
+    "name": "Ushkor",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ushkor-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ushkor-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2640 ,
+    "warband_id":  264 ,
+    "name": "Skaeths",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaeths-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Skaeths-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2641 ,
+    "warband_id":  264 ,
+    "name": "Lighaen",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lighaen-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lighaen-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2642 ,
+    "warband_id":  264 ,
+    "name": "Karthaen",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Karthaen-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Karthaen-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2643 ,
+    "warband_id":  264 ,
+    "name": "Kurnoth4",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kurnoth4-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kurnoth4-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2644 ,
+    "warband_id":  264 ,
+    "name": "Kurnoth5",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kurnoth5-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kurnoth5-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2650 ,
+    "warband_id":  265 ,
+    "name": "Duke Crakmarrow",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Duke Crakmarrow-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Duke Crakmarrow-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2651 ,
+    "warband_id":  265 ,
+    "name": "",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2652 ,
+    "warband_id":  265 ,
+    "name": "",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2653 ,
+    "warband_id":  265 ,
+    "name": "",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2654 ,
+    "warband_id":  265 ,
+    "name": "",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2655 ,
+    "warband_id":  265 ,
+    "name": "",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2660 ,
+    "warband_id":  266 ,
+    "name": "Rippa",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Rippa-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Rippa-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2661 ,
+    "warband_id":  266 ,
+    "name": "Stabbit",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stabbit-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Stabbit-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2662 ,
+    "warband_id":  266 ,
+    "name": "Mean-Eye",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Mean-Eye-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Mean-Eye-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2670 ,
+    "warband_id":  267 ,
+    "name": "Hrothgorn",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hrothgorn-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Hrothgorn-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2671 ,
+    "warband_id":  267 ,
+    "name": "Thrafnir",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Thrafnir-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Thrafnir-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2672 ,
+    "warband_id":  267 ,
+    "name": "Bushwakka",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bushwakka-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Bushwakka-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2673 ,
+    "warband_id":  267 ,
+    "name": "Quiv",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Quiv-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Quiv-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2674 ,
+    "warband_id":  267 ,
+    "name": "Luggit and Thwak",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Luggit and Thwak-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Luggit and Thwak-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2680 ,
+    "warband_id":  268 ,
+    "name": "Fecula",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fecula-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Fecula-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2681 ,
+    "warband_id":  268 ,
+    "name": "Ghulgogh",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ghulgogh-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Ghulgogh-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2682 ,
+    "warband_id":  268 ,
+    "name": "Sepsimus",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sepsimus-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Sepsimus-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2690 ,
+    "warband_id":  269 ,
+    "name": "Morgwaeth",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Morgwaeth-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Morgwaeth-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2691 ,
+    "warband_id":  269 ,
+    "name": "Kyrae",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kyrae-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kyrae-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2692 ,
+    "warband_id":  269 ,
+    "name": "Khamyss",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Khamyss-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Khamyss-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2693 ,
+    "warband_id":  269 ,
+    "name": "Kyrssa",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kyrssa-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Kyrssa-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2694 ,
+    "warband_id":  269 ,
+    "name": "Lethyr",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lethyr-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Lethyr-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2700 ,
+    "warband_id":  270 ,
+    "name": "Morgok",
+    "leader": true,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Morgok-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Morgok-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2701 ,
+    "warband_id":  270 ,
+    "name": "’Ardskull",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/’Ardskull-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/’Ardskull-INS_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  2702 ,
+    "warband_id":  270 ,
+    "name": "Thugg",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Thugg-ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Thugg-INS_ENG.png"
+      }
+    ]
+  }
+]}
