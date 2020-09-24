@@ -26,6 +26,31 @@ $.getJSON("/whuw/api/data", function (data) {
   });
 });
 
+$.getJSON("/whuw/api/champions", function (data) {
+  let champs = data.champions;
+  let thead = $('#champions').find("thead");
+  let tbody = $('#champions').find("tbody");
+  
+  let blocked = false;
+  
+  thead.html('<tr><th>id</th><th>warband_id</th><th>name</th><th>leader</th><th>img</th><th>img_ins</th></tr>');
+  tbody.empty();
+  $.get(champs[0].cards[0].url).fail(blocked=true);
+  
+  $.each(champs,function (id,ch) {
+    tbody.append('<tr>'
+      + '<td>' + ch.id + '</td>'
+      + '<td>' + ch.warband_id + '</td>'
+      + '<td>' + ch.name + '</td>'
+      + '<td>' + (ch.leader ? '<i class="fas fa-crown"></i>' : '-') + '</td>'
+      + '<td>' + (blocked ? 'X' : '<img src="' + ch.cards[0].url + '" class="img-fluid"></img>') + '</td>'
+      + '<td>' + (blocked ? 'X' : '<img src="' + ch.cards[1].url + '" class="img-fluid"></img>') + '</td>'
+      + '</tr>')
+  });
+});
+
+
+
 function write_warbands() {
   var thead = $('#warbands').find("thead");
   var tbody = $('#warbands').find("tbody");
@@ -134,14 +159,6 @@ function cardrow (c, b) {
   return rtn;
 }
 
-
-//function updateCardImages (tbody, blocked) {
-//  tbody.find('.cardthumb').each(function (id, ele) {
-//    $.get(WHUWCARDPATH + $(ele).data("filename"), function (img) {
-//      ele.src = WHUWCARDPATH + $(ele).data("filename");
-//    }).fail(function () {if (!blocked) {ele.src = $(ele).data("url")} else {ele.html }})           
-//  });
-// }  
 
 $('#selectset').on('change', function () { update_filter("set_id",$(this).val()); });
 $('#selectwarband').on('change', function () { update_filter("warband_id",$(this).val()); });
