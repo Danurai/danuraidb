@@ -243,8 +243,8 @@
   (context "/decks" [] 
     (friend/wrap-authorize whuw-deck-routes #{::db/user}))
   (context "/mortis" []
-    whuw-mortis-routes)
-    ;(friend/wrap-authorize whuw-mortis-routes #{::db/user}))    
+    (friend/wrap-authorize whuw-mortis-routes #{::db/user})) 
+  (GET "/champions" [] pages/whuw-mortis-champs)
   (GET "/cards"     [] pages/whuw-cards)
   (GET "/boards"    [] pages/whuw-boards)
   (context "/api" [] whuw-api-routes))

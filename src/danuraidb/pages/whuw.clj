@@ -28,7 +28,7 @@
     (str whuw_icon_path "Shadespire-Library-Icons-Universal.png")
     "WHUW DB" 
     "whuw"
-    ["decks" "mortis" "cards" "boards"]
+    ["decks" "mortis" "champions" "cards" "boards"]
     req))
                   
 (defn whuw-home [ req ]
@@ -243,3 +243,33 @@
                     (if (:championship_legal b) 
                         [:i.fas.fa-check-circle.ml-1.text-success] 
                         [:i.fas.fa-times-circle.ml-1.text-danger])]]]])]]]))
+                        
+
+(defn getfilename [ url ]
+  (re-find #"[\w|\-]+\.png$" url))
+
+(defn whuw-mortis-champs [ req ]
+  (let [warbands (:warbands model/whuwdata)
+        champs   (:champions model/whuwchamps)]
+    (h/html5
+      whuw-pretty-head
+      [:body
+        (whuw-navbar req)
+        [:div.container-fluid.my-3            
+          [:div.row-fluid.mb-2 {:style "position: relative;"}
+            [:div#fullimg {:style "position: fixed; right: 10px; top: 10px; width: 300px; z-index: 1040;"}]
+            [:div.btn-group-toggle {:data-toggle "buttons"}
+              [:label.btn.btn-secondary
+                [:input#instoggle {:type "checkbox"}] "Inspired"]]]
+          [:div.list-group
+            (for [wb (filter #(-> % :members count (> 0)) warbands)]
+              [:div.list-group-item
+                [:div.d-flex.mb-2
+                  [:img.icon-sm.mr-2 {:src (str "/img/whuw/icons/" (-> wb :icon :filename))}]
+                  [:b (:name wb)]]
+                [:div.row-fluid
+                  (for [ch (filter #(= (:warband_id %) (:id wb)) champs)]
+                    [:span.mr-2 
+                      [:img.champ.normal {:style "width: 100px;" :src (str "/img/whuw/champs/" (-> ch :cards first :url getfilename))}]
+                      [:img.champ.inspired {:hidden true :style "width: 100px;" :src (str "/img/whuw/champs/" (-> ch :cards last :url getfilename))}]])]])]]]
+    (h/include-js "/js/whuw/whuw_champions.js"))))

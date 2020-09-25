@@ -16,6 +16,7 @@
 (load "pages/aosc")    
 (load "pages/whuw")
 
+
 (defn whuw-mortis-decks [ req ]
   (let [decks [] ;(db/get-user-decks 2 (-> req model/get-authentications (get :uid 1002)))
         card-data (model/whuw_fullcards)]
