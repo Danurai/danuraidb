@@ -180,7 +180,7 @@
 
 (defn aoscsearch [ size ]
   (try 
-    (http/post "https://carddatabase.warhammerchampions.com/warhammer-cards/_search" 
+    (http/post "https://carddatabase.warhammerchampions.com/warhammer-cards/_search"
                {:content-type :json
                 :body (json/write-str {:size size :from 0})})
     (catch Exception e nil)))
