@@ -2,7 +2,8 @@
   {
     "id":  310 ,
     "warband_id":  31 ,
-    "name": "Garrek",
+    "name": "Garrek Gorebeard",
+    "slug": "garrek",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -37,7 +38,8 @@
   {
     "id":  311 ,
     "warband_id":  31 ,
-    "name": "Saek",
+    "name": "Blooded Saek",
+    "slug": "saek",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -72,7 +74,8 @@
   {
     "id":  312 ,
     "warband_id":  31 ,
-    "name": "Karsus",
+    "name": "Karsus the Chained",
+    "slug": "karsus",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -108,6 +111,7 @@
     "id":  313 ,
     "warband_id":  31 ,
     "name": "Targor",
+    "slug": "targor",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -143,6 +147,7 @@
     "id":  314 ,
     "warband_id":  31 ,
     "name": "Arnulf",
+    "slug": "arnulf",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -177,7 +182,8 @@
   {
     "id":  340 ,
     "warband_id":  34 ,
-    "name": "Steelheart",
+    "name": "Severin Steelheart",
+    "slug": "steelheart",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -212,7 +218,8 @@
   {
     "id":  341 ,
     "warband_id":  34 ,
-    "name": "Obryn",
+    "name": "Obryn the Bold",
+    "slug": "obryn",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -247,7 +254,8 @@
   {
     "id":  342 ,
     "warband_id":  34 ,
-    "name": "Brightshield",
+    "name": "Angharad Brightshield",
+    "slug": "brightshield",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -282,7 +290,8 @@
   {
     "id":  330 ,
     "warband_id":  33 ,
-    "name": "Warden",
+    "name": "The Sepulchral Warden",
+    "slug": "warden",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -317,7 +326,8 @@
   {
     "id":  331 ,
     "warband_id":  33 ,
-    "name": "Champion",
+    "name": "The Champion",
+    "slug": "champion",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -352,7 +362,8 @@
   {
     "id":  332 ,
     "warband_id":  33 ,
-    "name": "Prince",
+    "name": "The Prince of Dust",
+    "slug": "prince",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -387,7 +398,8 @@
   {
     "id":  333 ,
     "warband_id":  33 ,
-    "name": "Harvester",
+    "name": "The Harvester",
+    "slug": "harvester",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -423,6 +435,79 @@
     "id":  334 ,
     "warband_id":  33 ,
     "name": "Petitioner",
+    "slug": "petitioner1",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Petitioner_ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Petitioner-Inspired_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  335 ,
+    "warband_id":  33 ,
+    "name": "Petitioner",
+    "slug": "petitioner2",
+    "leader": false,
+    "inspiration": "",
+    "cards": [
+      {
+        "inspired":false,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Petitioner_ENG.png"
+      },
+      {
+        "inspired":true,
+        "magic": 0 ,
+        "move": 0 ,
+        "deftype":"",
+        "defense": 0 ,
+        "wounds": 0 ,
+        "atk_rng": 0 ,
+        "atk_type":"",
+        "atk_dice": 0 ,
+        "atk_dmg": 0 ,
+        "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Deathrattle-Petitioner-Inspired_ENG.png"
+      }
+    ]
+  },
+  {
+    "id":  336 ,
+    "warband_id":  33 ,
+    "name": "Petitioner",
+    "slug": "petitioner3",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -457,7 +542,8 @@
   {
     "id":  320 ,
     "warband_id":  32 ,
-    "name": "Gurzag",
+    "name": "Gurzag Ironskull",
+    "slug": "gurzag",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -493,6 +579,7 @@
     "id":  321 ,
     "warband_id":  32 ,
     "name": "Bonekutta",
+    "slug": "bonekutta",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -528,6 +615,7 @@
     "id":  322 ,
     "warband_id":  32 ,
     "name": "Hakka",
+    "slug": "hakka",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -563,6 +651,7 @@
     "id":  323 ,
     "warband_id":  32 ,
     "name": "Basha",
+    "slug": "basha",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -597,7 +686,8 @@
   {
     "id":  930 ,
     "warband_id":  93 ,
-    "name": "Grimnir",
+    "name": "Fjul-Grimnir",
+    "slug": "grimnir",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -632,7 +722,8 @@
   {
     "id":  931 ,
     "warband_id":  93 ,
-    "name": "Tefk",
+    "name": "Tefk Flamebearer",
+    "slug": "tefk",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -667,7 +758,8 @@
   {
     "id":  932 ,
     "warband_id":  93 ,
-    "name": "Vol",
+    "name": "Vol Urrukbane",
+    "slug": "vol",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -702,7 +794,8 @@
   {
     "id":  933 ,
     "warband_id":  93 ,
-    "name": "Maegrim",
+    "name": "Mad Maegrim",
+    "slug": "maegrim",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -737,7 +830,8 @@
   {
     "id":  1070 ,
     "warband_id":  107 ,
-    "name": "Skritch",
+    "name": "Skritch Spiteclaw",
+    "slug": "skritch",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -772,7 +866,8 @@
   {
     "id":  1071 ,
     "warband_id":  107 ,
-    "name": "Krrk",
+    "name": "Krrk the Almost-Trusted",
+    "slug": "krrk",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -807,7 +902,8 @@
   {
     "id":  1072 ,
     "warband_id":  107 ,
-    "name": "Lurking",
+    "name": "Lurking Skaven",
+    "slug": "lurking",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -842,7 +938,8 @@
   {
     "id":  1073 ,
     "warband_id":  107 ,
-    "name": "Festering",
+    "name": "Festering Skaven",
+    "slug": "festering",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -877,7 +974,8 @@
   {
     "id":  1074 ,
     "warband_id":  107 ,
-    "name": "Hungering",
+    "name": "Hungering Skaven",
+    "slug": "hungering",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -912,7 +1010,8 @@
   {
     "id":  1190 ,
     "warband_id":  119 ,
-    "name": "Magore",
+    "name": "Magore Redhand",
+    "slug": "magore",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -948,6 +1047,7 @@
     "id":  1191 ,
     "warband_id":  119 ,
     "name": "Riptooth",
+    "slug": "riptooth",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -982,7 +1082,8 @@
   {
     "id":  1192 ,
     "warband_id":  119 ,
-    "name": "Zharkus",
+    "name": "Zharkus the Bloodsighted",
+    "slug": "zharkus",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1017,7 +1118,8 @@
   {
     "id":  1193 ,
     "warband_id":  119 ,
-    "name": "Ghartok",
+    "name": "Ghartok Flayskull",
+    "slug": "ghartok",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1052,7 +1154,8 @@
   {
     "id":  1200 ,
     "warband_id":  120 ,
-    "name": "Sanson",
+    "name": "Sanson Farstrider",
+    "slug": "farstrider",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -1087,7 +1190,8 @@
   {
     "id":  1201 ,
     "warband_id":  120 ,
-    "name": "Almeric",
+    "name": "Almeric Eagle-Eye",
+    "slug": "eagleeye",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1122,7 +1226,8 @@
   {
     "id":  1202 ,
     "warband_id":  120 ,
-    "name": "Elias",
+    "name": "Elias Swiftblade",
+    "slug": "swiftblade",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1157,7 +1262,8 @@
   {
     "id":  1620 ,
     "warband_id":  162 ,
-    "name": "Stormsire",
+    "name": "Averon Stormsire",
+    "slug": "stormsire",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -1192,7 +1298,8 @@
   {
     "id":  1621 ,
     "warband_id":  162 ,
-    "name": "Ammis",
+    "name": "Ammis Dawnguard",
+    "slug": "dawnguard",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1227,7 +1334,8 @@
   {
     "id":  1622 ,
     "warband_id":  162 ,
-    "name": "Rastus",
+    "name": "Rastus the Charmed",
+    "slug": "rastus",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1263,6 +1371,7 @@
     "id":  1680 ,
     "warband_id":  168 ,
     "name": "Briar Queen",
+    "slug": "briarqueen",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -1297,7 +1406,8 @@
   {
     "id":  1681 ,
     "warband_id":  168 ,
-    "name": "Varclav",
+    "name": "Varclav the Cruel",
+    "slug": "varclav",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1333,6 +1443,7 @@
     "id":  1682 ,
     "warband_id":  168 ,
     "name": "The Ever-hanged",
+    "slug": "everhanged",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1368,6 +1479,7 @@
     "id":  1683 ,
     "warband_id":  168 ,
     "name": "Chainrasp",
+    "slug": "chainrasp1",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1403,6 +1515,7 @@
     "id":  1684 ,
     "warband_id":  168 ,
     "name": "Chainrasp",
+    "slug": "chainrasp2",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1438,6 +1551,7 @@
     "id":  1685 ,
     "warband_id":  168 ,
     "name": "Chainrasp",
+    "slug": "chainrasp3",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -1473,6 +1587,7 @@
     "id":  1686 ,
     "warband_id":  168 ,
     "name": "Chainrasp",
+    "slug": "chainrasp4",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -2523,6 +2638,7 @@
     "id":  2600 ,
     "warband_id":  260 ,
     "name": "Ylthari",
+    "slug": "ylthari",
     "leader": true,
     "inspiration": "",
     "cards": [
@@ -2557,7 +2673,8 @@
   {
     "id":  2601 ,
     "warband_id":  260 ,
-    "name": "Ahnslaine",
+    "name": "Ahnslaine, Revenant Archer",
+    "slug": "ahnslaine",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -2592,7 +2709,8 @@
   {
     "id":  2602 ,
     "warband_id":  260 ,
-    "name": "Gallanghann",
+    "name": "Gallanghann of the Glade",
+    "slug": "gallanghann",
     "leader": false,
     "inspiration": "",
     "cards": [
@@ -3887,286 +4005,6 @@
         "atk_dice": 0 ,
         "atk_dmg": 0 ,
         "url":"https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/09/xie5chzQfEjZLZTr.png"
-      }
-    ]
-  },
-  {
-    "id":  2690 ,
-    "warband_id":  269 ,
-    "name": "Morgwaeth",
-    "leader": true,
-    "inspiration": "",
-    "cards": [
-      {
-        "inspired":false,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      },
-      {
-        "inspired":true,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      }
-    ]
-  },
-  {
-    "id":  2691 ,
-    "warband_id":  269 ,
-    "name": "Kyrae",
-    "leader": false,
-    "inspiration": "",
-    "cards": [
-      {
-        "inspired":false,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      },
-      {
-        "inspired":true,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      }
-    ]
-  },
-  {
-    "id":  2692 ,
-    "warband_id":  269 ,
-    "name": "Khamyss",
-    "leader": false,
-    "inspiration": "",
-    "cards": [
-      {
-        "inspired":false,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      },
-      {
-        "inspired":true,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      }
-    ]
-  },
-  {
-    "id":  2693 ,
-    "warband_id":  269 ,
-    "name": "Kyrssa",
-    "leader": false,
-    "inspiration": "",
-    "cards": [
-      {
-        "inspired":false,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      },
-      {
-        "inspired":true,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      }
-    ]
-  },
-  {
-    "id":  2694 ,
-    "warband_id":  269 ,
-    "name": "Lethyr",
-    "leader": false,
-    "inspiration": "",
-    "cards": [
-      {
-        "inspired":false,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      },
-      {
-        "inspired":true,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      }
-    ]
-  },
-  {
-    "id":  2700 ,
-    "warband_id":  270 ,
-    "name": "Morgok",
-    "leader": true,
-    "inspiration": "",
-    "cards": [
-      {
-        "inspired":false,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      },
-      {
-        "inspired":true,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      }
-    ]
-  },
-  {
-    "id":  2701 ,
-    "warband_id":  270 ,
-    "name": "’Ardskull",
-    "leader": false,
-    "inspiration": "",
-    "cards": [
-      {
-        "inspired":false,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      },
-      {
-        "inspired":true,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      }
-    ]
-  },
-  {
-    "id":  2702 ,
-    "warband_id":  270 ,
-    "name": "Thugg",
-    "leader": false,
-    "inspiration": "",
-    "cards": [
-      {
-        "inspired":false,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
-      },
-      {
-        "inspired":true,
-        "magic": 0 ,
-        "move": 0 ,
-        "deftype":"",
-        "defense": 0 ,
-        "wounds": 0 ,
-        "atk_rng": 0 ,
-        "atk_type":"",
-        "atk_dice": 0 ,
-        "atk_dmg": 0 ,
-        "url":""
       }
     ]
   }
