@@ -60,3 +60,14 @@
 .card-illegal {
   filter: grayscale(100%);
 }
+
+#warbandfilter .active img {
+  opacity: 0.5;
+}
+
+.deckrmv {
+  cursor: pointer;
+}
+.deckrmv :hover {
+  color: darkred;
+}

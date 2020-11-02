@@ -274,29 +274,7 @@
       },
       "members": ["Fecula", "Ghulgogh", "Sepsimus"],
       "colour": "#000000"
-    },
-    {
-      "id": 269,
-      "name": "Morgwaeth's Blade Coven",
-      "slug": "morgwaeth",
-      "icon": {
-        "filename": "morgwaeth-icon.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/morgwaeth-icon.png"
-      },
-      "members": ["Morgwaeth", "Kyrae", "Khamyss", "Kyrssa", "Lethyr"],
-      "colour": "#000000"
-    },
-    {
-      "id": 270,
-      "name": "Morgok's Krushas",
-      "slug": "morgok",
-      "icon": {
-        "filename": "morgok-icon.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/morgok-icon.png"
-      },
-      "members": ["Morgok", "’Ardskull", "Thugg"],
-      "colour": "#000000"
-    }
+    } 
   ],
   "sets": [
     {
@@ -522,24 +500,6 @@
       "icon": {
         "filename": "wurm-icon.png",
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/wurm-icon.png"
-      }
-    },
-    {
-      "id": 269,
-      "name": "Morgwaeth's Blade Coven",
-      "slug": "morgwaeth",
-      "icon": {
-        "filename": "morgwaeth-icon.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/morgwaeth-icon.png"
-      }
-    },
-    {
-      "id": 270,
-      "name": "Morgok's Krushas",
-      "slug": "morgok",
-      "icon": {
-        "filename": "morgok-icon.png",
-        "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2020/02/morgok-icon.png"
       }
     }
   ],

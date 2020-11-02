@@ -25,7 +25,7 @@
   
 (defn do-redirect [ req ]
   (redirect
-    (re-find #".+decks|.+" 
+    (re-find #".+decks|.+mortis|.+" 
       (-> req :headers (get "referer" "/")))))
   
 ;[id system name decklist alliance tags notes uid]
@@ -222,6 +222,7 @@
 (defroutes whuw-mortis-routes
   (GET "/"         [] pages/whuw-mortis-decks)
   (GET "/new"      [] pages/whuw-mortis-deckbuilder)
+  (GET "/new/:champ" [] pages/whuw-mortis-deckbuilder)
   (GET "/edit/:id" [] pages/whuw-mortis-deckbuilder))
   
   
@@ -242,8 +243,10 @@
   (GET "/" [] pages/whuw-home)
   (context "/decks" [] 
     (friend/wrap-authorize whuw-deck-routes #{::db/user}))
+    ;whuw-deck-routes)
   (context "/mortis" []
     (friend/wrap-authorize whuw-mortis-routes #{::db/user})) 
+    ;whuw-mortis-routes)
   (GET "/champions" [] pages/whuw-mortis-champs)
   (GET "/cards"     [] pages/whuw-cards)
   (GET "/boards"    [] pages/whuw-boards)
