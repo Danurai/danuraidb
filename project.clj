@@ -29,7 +29,7 @@
                 ; [com.taoensso/sente "1.12.0"]
                 ; page rendering
                 [hiccup "1.0.5"]
-				[reagent "0.7.0"]
+                [reagent "0.7.0"]
                 [cljs-http "0.1.46"]
                 ; user management
                 [com.cemerick/friend "0.2.3"]
