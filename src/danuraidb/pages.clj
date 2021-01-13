@@ -102,7 +102,7 @@
               (for [card results :let [q (:quantity card) d (:difficulty card 0)]]
                 [:div.col-4
                   [:div.mb-2 {:style "position: relative; display: inline-block;" :title "Quantity (normal/difficulty)"}
-                    [:img.img-fluid.card-link {:data-code (:code card) :src (:cgdbimgurl card)}]
+                    [:img.img-fluid.card-link {:data-code (:code card) :src (:url card)}]
                     [:div.px-2 {:style "font-size: 1.25em; color: black; position: absolute; right: 5%; bottom: 5%; opacity: 0.7; background-color: white; border-radius: 15%;"}
                       (if (contains? #{"enemy" "treachery" "location"} (:type_code card))
                           (str (- q d) "/" d)
