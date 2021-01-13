@@ -112,7 +112,9 @@
        (map (fn [p]
               (assoc p :sku (str "MEC" (format "%02d" (get sku-code (:id p)))))))))
               
-
+(defn get-lotracg-cards []
+  (load-json-file "private/lotracg_cards.json"))
+  
 ;(defn- cgdb-card-name [ card ]
 ;  (let [pack (->> (get-packs-with-sku) (filter #(= (:code %) (:pack_code card))) first)]
 ;    (cond
@@ -166,6 +168,7 @@
 	
 (defn lotrdb-api-data [ id req ]
 	(case id
+    "cardsdigital" (get-lotracg-cards)
 		"cards"     (get-cards-with-cycle)
 		"packs"     (get-packs-with-sku)
 		"cycles"    (get-cycles)
