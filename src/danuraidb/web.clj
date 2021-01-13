@@ -143,8 +143,10 @@
     pages/lotrdb-packs-page)
   (GET "/scenarios" []
     pages/lotrdb-scenarios-page)
-  (GET "/search" []
+  (GET "/search/physical" []
     pages/lotrdb-search-page)
+  (GET "/search/digital" []
+    pages/lotrdb-search-digital)
   (GET "/folders" []
     pages/lotrdb-folders)
   (context "/questlog" []

@@ -22,7 +22,7 @@
     "/img/lotrdb/icons/sphere_fellowship.png" 
     "LotR DB" 
     "lotrdb"
-    ["decks" "packs" "scenarios" "search" "folders" "quest log" "solo"]
+    ["decks" "packs" "scenarios" "search|physical|digital" "folders" "quest log" "solo"]
     req))
     
 (defn lotrdb-home [ req ]
@@ -152,7 +152,7 @@
                         [:div [:a.card-link {:href (str "/lotrdb/card/" (:code q)) :data-code (:code q)} (:name q)]])]
                     [:div.col-sm-6 
                       [:h5
-                        [:a {:href (str "/lotrdb/search?q=n:" (->> s :encounters (map :name) (clojure.string/join "|")))}
+                        [:a {:href (str "/lotrdb/search/physical?q=n:" (->> s :encounters (map :name) (clojure.string/join "|")))}
                         "Encounter Sets"]]
                       ; assumed Encounter set always includes encounter pack with a matching name
                       [:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name s) " " "+"))} (:name s)]]
@@ -420,8 +420,9 @@
               [:div.d-flex.justify-content-between
                 [:div.h3 (str "Saved Decks (" (count decks) ")")]
                 [:div 
-                  [:button.btn.btn-warning.mr-1 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
-                  [:a.btn.btn-primary {:href "/lotrdb/decks/new" :title "New Deck"} [:i.fas.fa-plus]]]]
+                  [:button.btn.btn-warning.mr-2 {:data-toggle "modal" :data-target "#importdeck" :title "Import"} [:i.fas.fa-file-import]]
+                  [:a.btn.btn-primary.mr-1 {:href "/lotrdb/decks/new" :title "New Deck"} [:i.fas.fa-plus]]
+                  [:a.btn.btn-primary.mr-2 {:href "/lotrdb/decks/digital/new" :title "New Digital Deck"} [:i.far.fa-plus-square]]]]
               [:div.d-flex
                 [:div#decklists.w-100
                   [:ul.list-group
@@ -455,6 +456,7 @@
 ; Deckbuilder - single deck ;
 ; Re-write using datatables...? Performance? ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defn lotrdb-deckbuilder [ req ]
   (let [deckdata (model/get-deck-data req)]

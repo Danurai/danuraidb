@@ -7,44 +7,8 @@
         :href uri
         :style "text-transform: capitalize;"
         :class (if (= uri (:uri req)) "active")}  link]]))
-;; TODO Match part of URI for sub-menus e.g. decks/new
-
-(defn navbar 
-  ([ iconsrc title root links req & {:keys [style]}]
-    [:nav.navbar.navbar-expand-lg.navbar-dark.bg-dark {:style style}
-      [:div.container-fluid
-      ;; Home Brand with Icon
-        [:div.nav-item.dropdown
-          [:a..navbar-brand.h1.mb-0.dropdown-toggle {:href "#" :role "button" :data-toggle "dropdown"} 
-            [:img.mr-1 {:src iconsrc :style "width: 1em;"}] title]
-          [:div.dropdown-menu
-            (map (fn [s]
-              [:a.dropdown-item {:href (str "/" (:code s) "/decks")} [:img.mr-1 {:src (:icon s) :style "width: 1em;"}] (:desc s)]) model/systems)
-            [:a.dropdown-item {:href "/staging"} [:i.fas.fa-file-upload.text-primary.mr-2] "Staging"]]]
-      ;; Collapse Button for smaller viewports
-        [:button.navbar-toggler {:type "button" :data-toggle "collapse" :data-target "#navbarSupportedContent" 
-                              :aria-controls "navbarSupportedContent" :aria-label "Toggle Navigation" :aria-expanded "false"}
-          [:span.navbar-toggler-icon]]
-      ;; Collapsable Content
-        [:div#navbarSupportedContent.collapse.navbar-collapse
-      ;; List of Links
-          [:ul.navbar-nav.mr-auto
-            (for [link links]
-              (nav-link req root (clojure.string/lower-case link)))]
-      ;; Login Icon
-            [:span.nav-item.dropdown
-              [:a#userDropdown.nav-link.dropdown-toggle.text-white {:href="#" :role "button" :data-toggle "dropdown" :aria-haspopup "true" :aria-expanded "false"}
-                [:i.fas.fa-user]
-                (if-let [identity (friend/identity req)]
-                  [:span.h5.mx-2 (:current identity)])]
-                (if-let [identity (friend/identity req)]
-                  [:div.dropdown-menu {:aria-labelledby "userDropdown"}
-                    (if (friend/authorized? #{::db/admin} (friend/identity req))
-                      [:a.dropdown-item {:href "/admin"} "Admin Console"])
-                    [:a.dropdown-item {:href "/logout"} "Logout"]]
-                  [:div.dropdown-menu {:aria-labelledby "userDropdown"}
-                    [:a.dropdown-item {:href "/login"} "Login"]])]]]])
-  ([req] (navbar "/img/danuraidb.png" "DanuraiDB" "/" [] req)))
+        
+;; ---- Match part of URI for sub-menus e.g. decks/new "search|physical|digital"
 
 (def pretty-head
   [:head
