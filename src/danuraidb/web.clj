@@ -116,7 +116,11 @@
   (GET "/new" [] pages/lotrdb-deckbuilder)
   (GET "/edit" [] pages/lotrdb-deckbuilder)
   (GET "/edit/:id" [] pages/lotrdb-deckbuilder)
-	(GET "/download/:id" [id] (response (model/o8dfile id 0))))
+	(GET "/download/:id" [id] (response (model/o8dfile id 0)))
+  (GET "/digital/new" [] pages/lotrdb-digideckbuilder)
+  (GET "/digital/edit" [] pages/lotrdb-digideckbuilder)
+  (GET "/digital/edit/:id" [] pages/lotrdb-digideckbuilder)
+  )
   
   
 (defroutes lotrdb-quest-routes
@@ -137,8 +141,8 @@
 				response
 				(content-type "application/json")))
   (context "/decks" []
-    ;lotrdb-deck-routes) 
-    (friend/wrap-authorize lotrdb-deck-routes #{::db/user}))
+    lotrdb-deck-routes) 
+    ;(friend/wrap-authorize lotrdb-deck-routes #{::db/user}))
   (GET "/packs" []
     pages/lotrdb-packs-page)
   (GET "/scenarios" []

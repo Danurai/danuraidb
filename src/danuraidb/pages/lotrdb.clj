@@ -266,6 +266,83 @@
       (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1")
       (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))
 
+(defn lotrdb-search-digital [ req ]
+  (let [q (or (-> req :params :q) "")
+       view (or (-> req :params :view) "")
+       sort (or (-> req :params :sort) "code")
+       sortfield (case sort
+                  "sphere" :sphere_code
+                  "type"   :type_code
+                  (keyword sort))
+       sortfn (case sort
+                ("sphere" "type" "code" "name") #(compare %1 %2)
+                #(compare %2 %1))
+       results (sort-by sortfield sortfn (model/cardfilter q (model/get-lotracg-cards) :lotrdb))]
+    (h/html5
+      lotrdb-pretty-head
+      [:body
+        (lotrdb-navbar req)
+        [:div.container.my-3
+          [:form {:action "/lotrdb/search/digital" :method "GET"}
+            [:div.row
+              [:div.col-sm-4.mb-2
+                [:div.input-group
+                  [:input.form-control.search-info {:type "text" :name "q" :value q}]
+                  [:div.input-group-append
+                    [:button.btn.btn-primary.mr-2 {:role "submit"} "Search"]]]]
+              [:div.col-sm-4.mb-2
+                [:select.form-control {:type "select" :name "view"}
+                  [:option {:selected (= view "list") :value "list"} "View as list"]
+                  [:option {:selected (= view "cards") :value "cards"} "View as cards"]]]
+              [:div.col-sm-4.mb-2
+                [:select.form-control {:type "select" :name "sort"}
+                  (for [s ["code" "name" "type" "sphere" "threat" "willpower" "attack" "defense" "health"]]
+                    [:option {:value s :selected (= (name sort) s)} (str "Sort by " s)])]]]]
+          [:div.row
+            (if (= view "cards")
+              (for [card results :let [q (:quantity card) d (:difficulty card 0)]]
+                [:div.col-4
+                  [:div.mb-2 {:style "position: relative; display: inline-block;" :title "Quantity (normal/difficulty)"}
+                    [:img.img-fluid.card-link {:data-code (:code card) :src (str "https://digital.ringsdb.com/" (:imagesrc card))}]
+                    [:div.px-2 {:style "font-size: 1.25em; color: black; position: absolute; right: 5%; bottom: 5%; opacity: 0.7; background-color: white; border-radius: 15%;"}
+                      (if (contains? #{"enemy" "treachery" "location"} (:type_code card))
+                          (str (- q d) "/" d)
+                          q)]
+                    ]]) ;(or (:cgdbimgurl card) (model/get-card-image-url card))}]])
+              [:div.col
+                [:table#tblresults.table.table-sm.table-hover
+                  [:thead [:tr  
+                    [:th.sortable.d-none.d-md-table-cell "Code"]
+                    [:th.sortable "Name"]
+                    [:th.sortable.text-center {:title "Threat/Cost"} [:span.lotr-type-threat] "/C." ]
+                    [:th.sortable.text-center {:title "Willpower"} [:span.lotr-type-willpower]]
+                    [:th.sortable.text-center {:title "Attack"} [:span.lotr-type-attack]]
+                    [:th.sortable.text-center {:title "Defense"} [:span.lotr-type-defense]]
+                    [:th.sortable.text-center {:title "Health"} [:span.lotr-type-health]]
+                    [:th.sortable "Type"]
+                    [:th.sortable "Sphere"]
+                    [:th.sortable.d-none.d-md-table-cell "Set"]
+                    [:th.text-center {:title "Quantity (Normal/Difficulty)"} "Qty."]]]
+                  [:tbody#bodyresults
+                    (for [card results]
+                      [:tr
+                        [:td.d-none.d-md-table-cell (:code card)]
+                        [:td [:a.card-link-digital {:data-code (:code card) :href (str "/lotrdb/card/digital/" (:code card))} (:name card)]]
+                        [:td.text-center (or (:threat card) (:cost card))]
+                        [:td.text-center (:willpower card)]
+                        [:td.text-center (:attack card)]
+                        [:td.text-center (:defense card)]
+                        [:td.text-center (:health card)]
+                        [:td (:type_name card)]
+                        [:td (:sphere_name card)]
+                        [:td.d-none.d-md-table-cell (str (:pack_name card) " #" (:position card))]
+                        [:td.text-center 
+                          (if (contains? #{"enemy" "treachery" "location"} (:type_code card))
+                              (let [q (:quantity card) d (:difficulty card 0)]
+                                (str (- q d) "/" d))
+                              (:quantity card))]])]]])]]
+      (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1")
+      (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))
 
       
 ; CARD PAGE ;
@@ -397,16 +474,19 @@
         [:div
           [:button.btn.btn-sm.btn-danger.mr-1 {:data-toggle "modal" :data-target "#deletemodal" :data-name (:name d) :data-uid (:uid d)} [:i.fas.fa-times.mr-1] "Delete"]
           [:button.btn.btn-sm.btn-success.mr-1 {:data-toggle "modal" :data-target "#exportdeck" :data-export (lotrdb-export-string d deck-cards) :data-deckname (:name d)} [:i.fas.fa-file-export.mr-1] "Export"]
-          [:a.btn.btn-sm.btn-primary.mr-1 {:href (str "/lotrdb/decks/edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"
+          [:a.btn.btn-sm.btn-primary.mr-1 {:href (str "/lotrdb/decks/" (if (-> d :system (= "0.1")) "digital/") "edit/" (:uid d))} [:i.fas.fa-edit.mr-1] "Edit"
           [:a.btn.btn-sm.btn-primary {:href (str "/lotrdb/decks/download/" (:uid d)) :download (-> d :name model/o8dname)} [:i.fas.fa-download.mr-1] "OCTGN File"]]]]
     ]))
        
 
-
 (defn lotrdb-decks [req]
-  (let [decks (db/get-user-decks 0 (-> req model/get-authentications (get :uid 1002)))
+  (let [decks (reverse (sort-by :updated (concat
+                (db/get-user-decks 0 (-> req model/get-authentications (get :uid 1002)))
+                (db/get-user-decks 0.1 (-> req model/get-authentications (get :uid 1002)))
+                )))
         fellowships (db/get-user-deckgroups 0 (-> req model/get-authentications (get :uid 1002)))
-        card-data (model/get-cards-with-cycle)]
+        card-data (model/get-cards-with-cycle)
+        digi-card-data (model/get-lotracg-cards)]
     (h/html5
       lotrdb-pretty-head
       [:body
@@ -426,7 +506,8 @@
               [:div.d-flex
                 [:div#decklists.w-100
                   [:ul.list-group
-                    (map (fn [d] (lotrdb-deck-card d card-data)) decks)]]]]
+                    (for [d decks :let [cd (if (-> d :system (= "0")) card-data digi-card-data)]]
+                      (lotrdb-deck-card d cd))]]]]
             [:div#fellowshiptab.tab-pane.fade.my-3 {:role "tabpanel"}
               [:div.d-flex.justify-content-between
                 [:div.h3 (str "Saved Fellowships (" (count fellowships) ")")]
@@ -450,8 +531,7 @@
         (exportdeckmodal)
         (toaster)
         (h/include-js "/js/lotrdb/lotrdb_decklist.js?v=1.0")
-        (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))    
-               
+        (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))
 
 ; Deckbuilder - single deck ;
 ; Re-write using datatables...? Performance? ;

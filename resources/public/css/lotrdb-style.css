@@ -116,3 +116,23 @@ a {
   box-radius: 0px;
   box-shadow: 0 0 10px red;
 }
+
+.rarity {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 1px solid grey;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rarity-core {
+  background-color: grey;
+}
+.rarity-standard {
+  background-color: lightblue;
+}
+.rarity-legendary {
+  background-color: goldenrod;
+}
