@@ -27,6 +27,15 @@ a {
   background-size: 185px;
   background-position: 90% 5%;
 }
+.digideckhero {
+  width: 100px;
+  height: 140px;
+  border: 1px solid darkslategrey;
+  border-radius: 4px;
+  background-repeat: no-repeat;
+  background-size: 225;
+  background-position: 50% 20%;
+}
 
 .deckcard {
     width: 100px;

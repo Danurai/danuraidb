@@ -141,8 +141,8 @@
 				response
 				(content-type "application/json")))
   (context "/decks" []
-    lotrdb-deck-routes) 
-    ;(friend/wrap-authorize lotrdb-deck-routes #{::db/user}))
+    ;lotrdb-deck-routes) 
+    (friend/wrap-authorize lotrdb-deck-routes #{::db/user}))
   (GET "/packs" []
     pages/lotrdb-packs-page)
   (GET "/scenarios" []

@@ -461,7 +461,10 @@
           [:div.d-none.d-sm-flex
             (for [h heroes] 
               [:span 
-                [:div.deckhero.ml-1 {:style (str "background-image: url(" (:cgdbimgurl h) "); position: relative;") :title (:name h)}
+                [:div.ml-1 {
+                  :class (if (-> d :system (= "0")) "deckhero" "digideckhero")
+                  :style (str "background-image: url(" (if (-> d :system (= "0")) (:cgdbimgurl h) (str "/img/lotrdb/digital/" (:code h) ".png")) "); position: relative;") 
+                  :title (:name h)}
                   [:span {:style "position: absolute; right: 2px; bottom: 2px;"}
                     [:img {:style "width: 35px" :src (str "/img/lotrdb/icons/sphere_" (:sphere_code h) ".png")}]]]]
                 )]]]
