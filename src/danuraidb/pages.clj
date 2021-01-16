@@ -97,7 +97,7 @@
                             [:td.text-center (:defense crd)]
                             [:td.text-center (:health crd)]
                             [:td.d-none (:pack_code crd)]
-                            [:td.d-none (:traits crd)]
+                            [:td.d-none (if (-> crd :traits nil?) "" (model/normalise (:traits crd)))]
                             [:td.d-none (:text crd)]
                             [:td.d-none (:rarity crd)]
                           ])

@@ -28,6 +28,36 @@ $('#sphere_code').on('change',function() {
   DT.columns(4).search(flt,true,false).draw();
 });
 
+/*
+0-code
+1-qty
+2-name
+3-type+code
+4-sphere_code
+5-cost
+6-willpower
+7-attack
+8-defense
+9-health
+10-pack_code
+11-traits
+12-text
+13-rarity
+*/
+
+function applyfilters ( txt ) {
+  let trait = /r:(\w+)/.exec(txt);
+  if (trait != null) { 
+    console.log(trait[1]);
+    DT.column(2).search("");
+    DT.column(11).search(trait[1],true,false).draw(); 
+  } else {
+    DT.column(11).search("").draw();
+  }
+  
+  
+}
+
 $('#filtertext')
   .typeahead({
     hint: true, highlight: true, minLength: 2
@@ -46,7 +76,7 @@ $('#filtertext')
   .on('input', function () {
     val = $(this).val();
     // parse traits, text
-    DT.columns(2).search(val).draw();
+    applyfilters(val);
   });
 
 // TABLE UPDATES
