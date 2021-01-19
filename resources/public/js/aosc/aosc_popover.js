@@ -1,12 +1,17 @@
 const icon_path = '/img/aosc/icons/';
 
-function setpopover(ele, crd) {
-  $(ele).popover({
-    trigger: 'hover',
-    placement: 'auto',
-    html: true,
-    content: tooltip_body(crd)
-  }).popover('show');
+
+var is_touch_device = ("ontouchstart" in window) || window.DocumentTouch && document instanceof DocumentTouch;
+
+if (! is_touch_device) {
+  function setpopover(ele, crd) {
+    $(ele).popover({
+      trigger: 'hover',
+      placement: 'auto',
+      html: true,
+      content: tooltip_body(crd)
+    }).popover('show');
+  }
 }
 
 function tooltip_corners(crn,cat) {

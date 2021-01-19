@@ -311,7 +311,7 @@ function setModalHtml(modal,crd) {
     .find('.modal-body')
     .html('<div class="row">'
       + '<div class="col-sm-9">'
-      + '<img src="/img/aosc/cards/' + crd.skus.filter(sku => (sku.default == true && sku.lang == "en"))[0].id + '.jpg" style="width: 100%;"></img>'
+      + '<img src="https://assets.warhammerchampions.com/card-database/cards/' + crd.skus.filter(sku => (sku.default == true && sku.lang == "en"))[0].id + '.jpg" style="width: 100%;"></img>'
       + '</div></div>');
 }  
 function modalButtonGroup(crd) {

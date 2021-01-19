@@ -90,7 +90,8 @@ function write_row(c, sku, blocked) {
     + '<td>' + sku.finish + '</td>'
     + '<td>' + sku.id + '.jpg</td>'
     + '<td><img width="50px" src="/img/aosc/cards/' + sku.id + '.jpg"></img></td>'
-    + (blocked ? '<td>Blocked</td>' : '<td><img width="50px" src="https://assets.warhammerchampions.com/card-database/cards/' + sku.id + '.jpg"></img></td>')
+    //+ (blocked ? '<td>Blocked</td>' : '<td><img width="50px" src="https://assets.warhammerchampions.com/card-database/cards/' + sku.id + '.jpg"></img></td>')
+    + '<td><img width="50px" src="https://assets.warhammerchampions.com/card-database/cards/' + sku.id + '.jpg"></img></td>'
     + '</tr>';
 }
     
