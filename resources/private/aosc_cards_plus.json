@@ -1,0 +1,88 @@
+//https://www.warhammerchampions.com/wp-content/uploads/2019/12/LordKroak_1.png
+//https://www.warhammerchampions.com/wp-content/uploads/2019/12/ViciousColdOneRider_1.png
+//https://www.warhammerchampions.com/wp-content/uploads/2020/01/SummonSeraphon_1.png
+//https://www.warhammerchampions.com/wp-content/uploads/2020/01/WrathoftheSeraphon_1.png
+//https://www.warhammerchampions.com/wp-content/uploads/2020/01/CelestiteSwipe_1.png
+//https://www.warhammerchampions.com/wp-content/uploads/2020/01/SkinkPriest_1.png
+
+
+{
+    "_index": "warhammer-cards",
+    "_type": "card",
+    "_id": "10001",
+    "_score": 1,
+    "_source": {
+        "category": {
+            "en": "Champion"
+        },
+        "tags": ["Seraphon"],
+        "name": "Lord Kroak",
+        "keywords": {
+            "en": ["Heroic Act"]
+        },
+        "collectorNumber": "1001",
+        "corners": [{
+                "position": 1,
+                "smooth": false,
+                "value": "Spell"
+            }, {
+                "position": 2,
+                "smooth": false,
+                "value": "Unit"
+                "qualifier": "Seraphon",
+            }, {
+                "position": 3,
+                "smooth": false,
+                "value": "Damage"
+            }, {
+                "position": 4,
+                "smooth": false,
+                "value": "Ability"
+            }
+        ],
+        "alliance": "Order",
+        "id": 10001,
+        "class": {
+            "en": "Warrior"
+        },
+        "healthMod": 0,
+        "collectorInfo": "004/278 - 01 C",
+        "cost": 3,
+        "effect": {
+            "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
+        },
+        "set": [{
+                "name": "Warband 3",
+                "number": 1
+            }
+        ],
+        "rarity": "Common",
+        "skus": [{
+                "default": true,
+                "finish": "matte",
+                "id": "Bloodreaver_Chieftain",
+                "image": true,
+                "lang": "en"
+            }, {
+                "default": false,
+                "finish": "shiny",
+                "id": "Bloodreaver_Chieftain_Shiny",
+                "image": false,
+                "lang": "en"
+            }, {
+                "default": true,
+                "finish": "matte",
+                "id": "Bloodreaver_Chieftain_De",
+                "image": false,
+                "lang": "de"
+            }, {
+                "default": false,
+                "finish": "shiny",
+                "id": "Bloodreaver_Chieftain_De_Shiny",
+                "image": false,
+                "lang": "de"
+            }
+        ],
+        "links": []
+    }
+}

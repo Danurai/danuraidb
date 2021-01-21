@@ -53,6 +53,10 @@
             [:a {:href "/aosc/decks"} "Login"] 
             [:span.ml-1 "to see your decks"]]]]]))
             
+
+
+
+            
 (defn aosc-collection [ req ]
   (h/html5
     aosc-pretty-head
@@ -141,7 +145,7 @@
     [:div.card-body
       [:h6.card-sbutitle (str (-> r :category :en) " / " (:alliance r))]
       ;[:div.card-text (str r)]
-      [:small [:a {:href (str "/aosc/cards/" (:id r)) :target "_blank"}  "link"]]]])
+      [:small [:a {:href (str "/aosc/cards/" (:id r))}  "link"]]]])
     
             
 (defn aosc-cards-page [req]

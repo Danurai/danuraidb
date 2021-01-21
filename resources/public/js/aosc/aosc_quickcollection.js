@@ -132,7 +132,7 @@ function valueUpdateInputs(crd) {
       + '<div class="col-sm-4">'
         + '<div class="input-group">'
           + '<div class="input-group-prepend">'
-          + '<span class="input-group-text" title="Digital"><i class="fas fa-mobile-alt" /></span>'
+          + '<span class="input-group-text" title="Digital"><i class="fas fa-mobile-alt"></i></span>'
           + '</div>'
           + '<input type="number" data-type="digital" class="form-control" value=' + crd.digital + '></input>'
         + '</div>'
@@ -140,7 +140,7 @@ function valueUpdateInputs(crd) {
       + '<div class="col-sm-4">'
         + '<div class="input-group">'
           + '<div class="input-group-prepend">'
-          + '<span class="input-group-text" title="Physical"><i class="fas fa-globe" /></span>'
+          + '<span class="input-group-text" title="Physical"><i class="fas fa-globe"></i></span>'
           + '</div>'
         + '<input type="number" data-type="physical" class="form-control" value=' + crd.physical + '></input>'
         + '</div>'
@@ -148,7 +148,7 @@ function valueUpdateInputs(crd) {
       + '<div class="col-sm-4">'
         + '<div class="input-group">'
           + '<div class="input-group-prepend">'
-          + '<span class="input-group-text" title="Foil"><i class="far fa-gem" /></span>'
+          + '<span class="input-group-text" title="Foil"><i class="far fa-gem"></i></span>'
           + '</div>'
         + '<input type="number" data-type="foil" class="form-control" value=' + crd.foil + '></input>'
         + '</div>'
@@ -176,12 +176,13 @@ $('#updatemodal').on('show.bs.modal', function (evt) {
   var id = $(evt.relatedTarget).closest('div').data('id');
   var crd = _cards({"id":id}).first();
   var $modalBody = $(this).find('.modal-body');
-  $.get(_localpath + imageName(crd),function () { 
-      setModalBody($modalBody, _localpath, crd);
-    })
-    .fail(function () {
-      setModalBody($modalBody, _remotepath, crd);
-    });
+  setModalBody($modalBody, _remotepath, crd);
+  //$.get(_localpath + imageName(crd),function () { 
+  //    setModalBody($modalBody, _localpath, crd);
+  //  })
+  //  .fail(function () {
+  //    setModalBody($modalBody, _remotepath, crd);
+  //  });
   $(this).find('.modal-title').html('<h4>' + crd.name + '<span class="ml-2" style="font-size: 0.8rem;"> Craft: ' + crd.craftcost + '</span></h4>');
   $($(this).find('.modal-footer a')[0]).attr("href","/aosc/cards/" + crd.id);
 });
