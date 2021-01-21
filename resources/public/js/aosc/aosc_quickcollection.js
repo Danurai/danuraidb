@@ -20,7 +20,8 @@ $.getJSON('/aosc/api/data/cards', function(data) {
           "setnumber":c.set[0].number,
           "text":c.effect.en,
           "maxqty":getMaxQty($.inArray("Unique",c.tags)>-1,$.inArray("Unleash",c.tags)>-1, c.category.en),
-          "craftcost":getCraftCost(c.category.en, c.rarity[0])
+          "craftcost":getCraftCost(c.category.en, c.rarity[0]),
+          "qty": c.physical + c.digital + c.foil
         },c)},["Champion","Blessing","Unit","Spell","Ability"])
   )
   if (sessionStorage.getItem("aoscfilter") != null) {

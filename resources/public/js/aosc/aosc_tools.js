@@ -113,6 +113,15 @@ function parsefilter(f)  {
     outp.digital = getNumberFilter(res[1],res[2]);
   }
   
+  res = /qty\<max/.exec(f);
+  if (res != null) {
+    outp.qty = "max"
+  }
+  res = /qty(\S)([0-9])/.exec(f);
+  if (res != null) {
+    outp.qty = getNumberFilter(res[1],res[2]);
+  }
+  
   
   if ($.isEmptyObject(outp) && f != "")  {
     outp["name"] = {likenocase:f.split('|')};
