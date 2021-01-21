@@ -119,38 +119,55 @@
 ;; https://assets.warhammerchampions.com/card-database/icons/
 ;; https://assets.warhammerchampions.com/card-database/cards/"
 
+
+
 (defn- aosc-img-uri [ img local remote ]
   (if (nil? (io/resource (str "public" local img)))
       (str remote img)
       (str local img)))
+      
 
 (defn- aosc-cardimage [r]
-  (let [img (str (->> r :skus (filter :default) first :id) ".jpg")]
-    [:div.col-sm-3 
-      [:div.row 
-        [:a {:href (str "/aosc/cards/" (:id r))}
-          [:img.py-1.px-1.img-fluid.img-thumbnail {
-            :src   (aosc-img-uri img "/img/aosc/cards/" aosc_card_path)
-            :title (:name r) 
-            :alt   img}]]]]))
+  (let [img (str (->> r :skus (filter :default) first :id) ".jpg")] 
+    [:a {:href (str "/aosc/cards/" (:id r))}
+      [:img.py-1.px-1.img-fluid.img-thumbnail {
+        :src   (aosc-img-uri img "/img/aosc/cards/" aosc_card_path)
+        :title (:name r) 
+        :alt   img}]]))
+            
+(defn- aosc-cardbox [ r ]
+  [:div.card 
+    [:h5.card-header (:name r)]
+    [:div.card-body
+      [:h6.card-sbutitle (str (-> r :category :en) " / " (:alliance r))]
+      ;[:div.card-text (str r)]
+      [:small [:a {:href (str "/aosc/cards/" (:id r)) :target "_blank"}  "link"]]]])
+    
             
 (defn aosc-cards-page [req]
-  (let [q (or (-> req :params :q) "s:4")]
+  (let [q (or (-> req :params :q) "s:4")
+        img (if (-> req :params :q) (-> req :params :images) "on")]
     (h/html5
       aosc-pretty-head
       [:body  
         (aosc-navbar req)
         [:div.container.my-3
-          [:div.row
+          [:div.row [:div.col
             [:form.form-inline.my-2 {:action "/aosc/cards" :method "get"}
-              [:div.row
-                [:div.col
-                  [:div.input-group
-                    [:input.form-control.search-info {:type "text" :name "q" :value q :placeholder "Search"}]
-                    [:div.input-group-append
-                      [:button.btn.btn-primary {:type "submit"} "Search"]]]]]]]
-          [:div.row
-            (map (fn [r] (aosc-cardimage r)) (model/cardfilter q (model/aosc-get-cards) :aosc))]]])))
+              [:div.input-group.mr-2
+                [:input.form-control.search-info {:type "text" :name "q" :value q :placeholder "Search"}]
+                [:div.input-group-append [:button.btn.btn-primary {:type "submit"} "Search"]]]
+              [:div.form-check.mr-2 
+                [:input.form-check-input {:type "checkbox" :name "images" :checked (= img "on")}]
+                [:label.form-check-label "Show Card Images"]]]]]
+          [:div.row.row-cols-4.row-cols-xs-2
+            (map 
+              (fn [r] 
+                [:div.col.mb-2
+                  (if (= img "on")
+                      (aosc-cardimage r)
+                      (aosc-cardbox   r))]
+              ) (model/cardfilter q (model/aosc-get-cards) :aosc))]]])))
             
 (defn aosc-card-page [req]
   (let [id (-> req :params :id)
