@@ -49,7 +49,8 @@ function tooltip_body(crd)  {
     + '<div class="d-flex mt-2">'
     + '<div class="bl-' + cs[0] + ' bg-' + cs[0] + '"></div>'
     + '<div class="br-' + cs[1] + ' bg-' + cs[1] + '"></div>'
-    + '</div>';
+    + '</div>'
+    + (crd.errata.length > 0 ? crd.errata.map(c=>'<div>' + c.errata + '</div>').join("") : '');
 }
 function class_style(crd) {
   var cs;
