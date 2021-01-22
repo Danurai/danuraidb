@@ -171,7 +171,7 @@
                   (if (= img "on")
                       (aosc-cardimage r)
                       (aosc-cardbox   r))]
-              ) (model/cardfilter q (model/aosc-get-cards) :aosc))]]])))
+              ) (sort-by :name (model/cardfilter q (model/aosc-get-cards) :aosc)))]]])))
             
 (defn aosc-card-page [req]
   (let [id (-> req :params :id)
@@ -183,7 +183,10 @@
         (aosc-navbar req)
         [:div.container.my-3
           [:div.row.my-3
-            [:span.h4.m-auto.border-bottom (:name src)]]
+            [:span.h4.m-auto.border-bottom 
+              [:span (:name src)]
+              (if (not-empty (:errata src)) [:a {:href "#errata"} [:small.text-muted.ml-2 "e"]])
+              ]]
           [:div.row
             [:div.col-sm-8
               [:div.row
@@ -229,6 +232,8 @@
                             [:img.subject-icon {:src (str aosc_icon_path "subject_" (:subjectImage src) ".png")}])]]
                   ; Additional info
                     [:tr [:td "id"][:td (:id src)]]
+                    (if (not-empty (:errata src))
+                      [:tr#errata [:td "Errata"][:td (for [e (:errata src)] [:div [:span.mr-2 "2020:"] [:span (:errata e)]])]])
                   ]]]]
             [:div.col-sm-4
               [:img#cardimg.img-fluid {:src (aosc-img-uri (str (->> src :skus (filter :image) first :id) ".jpg") "/img/aosc/cards/" aosc_card_path)}]

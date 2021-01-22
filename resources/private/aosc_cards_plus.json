@@ -1,176 +1,582 @@
-//https://www.warhammerchampions.com/wp-content/uploads/2019/12/LordKroak_1.png
-//https://www.warhammerchampions.com/wp-content/uploads/2019/12/ViciousColdOneRider_1.png
-//https://www.warhammerchampions.com/wp-content/uploads/2020/01/SummonSeraphon_1.png
-//https://www.warhammerchampions.com/wp-content/uploads/2020/01/WrathoftheSeraphon_1.png
-//https://www.warhammerchampions.com/wp-content/uploads/2020/01/CelestiteSwipe_1.png
-//https://www.warhammerchampions.com/wp-content/uploads/2020/01/SkinkPriest_1.png
-
-Chaos
-Archaon – The last two quest corners have swapped around.
-Aspiring Deathbringer – Third Quest Objective is now Khorne Unit. Health modifier has been increased to 0, from -1.
-Beheading Strike – Now only requires 2 Units to be removed, but damage has been lowered to 5.
-Blood for the Blood God – Healing has been reduced to 4, from 5.
-Bloodmaster, Herald of Khorne – Both Unit Objectives have been replaced with Khorne Unit Objectives. Cost has been reduced to 1, from 2.
-Bloodreaver Chieftain – Both Unit Objectives have been replaced with Khorne Unit Objectives. Health modifier has been increased to 1, from 0.
-Curseling – Health modifier has been increased to 0, from -1.
-Exalted Death Bringer – Second Quest Objective is now Damage. Third Quest Objective is now Khorne Unit.
-Gaunt Summoner – Health modifier has been increased to 1, from 0.
-Herald of Nurgle – Quest updated to include Nurgle Unit Objectives. Health modifier reduced to 1, from 2.
-Horticulous Slimux – Last Quest Objective is now a Nurgle Unit.
-Iridescent Horror – Health modifier has been increased to 0, from -1.
-Kairos Fateweaver – Cost has been reduced to 8, from 9.
-Lord of Change – Health modifier has been increased to 1, from 0.
-Ogroid Thaumaturge – Cost has been reduced to 4, from 5.
-Putrid Blightlord – Third Quest Objective is now a Nurgle Unit. Healing from the passive effect has been increased to 2, from 1. Health modifier has been reduced to -1, from 0.
-Rotbringers Sorcerer – Health modifier has been increased to -1, from -2.
-Skarr Bloodwrath – Both Unit Objectives are now Khorne Unit Objectives. Health modifier has been increased to 1, from 0.
-Slaughterpriest – Last quest corner is now Ability, instead of Remove. Health modifier has been increased to 1, from 0. Third Quest Objective is now a Khorne Unit.
-Spell Hunting Flesh Hound – Now also deals damage.
-The Changeling – Health modifier has been increased to 1, from 0.
-Unrivalled Battle-Lust – The second corner is now a 2, instead of a 3.
-Valkia the Bloody – The Heroic Act now only affects Khorne Units.
-Vortemis the All-Seeing – Health modifier has been increased to 2, from 0.
-Order
-Alarielle the Everqueen – The last two Quest Objectives are now Unit and Damage, instead of Ability and Unit.
-Aspect of the Sea – Cost has been reduced to 10, from 11.
-Aventis, Magister of Hammerhal – Cost has been reduced to 9, from 10.
-Averon Stormsire – Health modifier has been increased to 1, from 0.
-Celestant-Prime – Cost has been reduced to 10, from 12.
-Deathly Descent – Now deals damage equal to the number of disengaged enemy Champions before it Removes.
-Devotee of Khaine – First corner has been removed.
-Evocator-Prime – Cost has been reduced to 4, from 5.
-Isharann Soulscryer – Health modifier has been increased to 0, from -2.
-Isharann Tidecaster – Health modifier has been increased to 1, from 0.
-Knight-Incantor – Health modifier has been increased to 1, from -1.
-Lord-Relictor – Health modifier has been increased to 0, from -1.
-Lord-Veritant – Health modifier has been increased to 0, from -1.
-Morathi, High Oracle – The second Quest Objective is now an Ability.
-Mutilating Witch – Corners are now o/2/2 (instead of X/o/2/3).
-Prison of the Gods – Now has a minimum heal amount of 4.
-Spiteful Branchwych – Health modifier has been increased to 0, from -1.
-Towering Treelord Ancient – Cost has been reduced to 9, from 10.
-Zealous Witch Hag – Quest Objectives two and four have swapped places. Cost has been reduced to 4, from 5. Health modifier has been increased to 0, from -1.
-Death
-Abhorrant Ghoul King – Health modifier has been increased to 1, from 0.
-Arkhan, Mortarch of Sacrament – Health modifier has been increased to -1, from -2.
-Bloodseeker Sanguinarch – Cost has been reduced to 8, from 9. Health modifier has been increased to 2, from 1.
-Bloody Vampire Queen – Health modifier has been increased to 1, from -1.
-Coven Throne – Cost has been reduced to 8, from 10.
-Death Unabated – Only the first two corners now restrict actions. Corners three and four now draw 1 and 2 cards instead.
-Feasting Vargheist – First corner is now an X.
-Guardian of Souls – Health modifier has been increased to -1, from -2.
-Hungering Vampire Lord – Health modifier has been increased to 1, from -1.
-Lady Olynder, Mortarch of Grief – Health modifier has been increased to 0, from -1.
-Macabre Ghoul King – Cost has been reduced to 8, from 9.
-Nagash, Supreme Lord of the Undead – Cost has been reduced to 13, from 15. Health modifier has been increased to 2, from 1.
-Neferata, Mortarch of Blood – The Vampire Unit can now be deployed onto herself or an adjacent Champion. The removal field has gone down to a cone in front of her.
-Reikenor the Grimhailer – Health modifier has been increased to 2, from 1.
-Skulking Necromancer – Cost has been reduced to 5, from 6.
-The Briar Queen – Health modifier has been increased to 1, from 0.
-Twisted Necromancer – Health modifier has been increased to -1, from -2.
-Vampire Lord of Nightmare – Cost has been reduced to 3, from 5.
-Destruction
-Aleguzzler Gargant – Now removes one highlighted Unit, instead of all.
-Ancient Dankhold Troggboss – The highlight now only affects Units diagonally across. Cost has been increased to 12, from 11. Health modifier has been reduced to 0, from 1.
-Bonesplitter Shaman – Health modifier has been increased to 0, from -1.
-Cruisin’ for a Bruisin’ – Damage has been reduced to 10, from 12. Highlight is now 3-wide, instead of board wide.
-Flame-Belching Firebelly – Cost has been reduced to 9, from 10. Health modifier has been increased to 1, from 0.
-Foul Butcher – Health modifier has been increased to 1, from 0.
-Grot Shaman Spider Rider – Health modifier has been increased to 1, from 0.
-Hallucinating Shroomancer – Health modifier has been increased to 0, from -1.
-Hypnotic Boggleye – Cost has been reduced to 1, from 2.
-Kunnin’ Grot Shaman – Health modifier has been increased to 0, from -1.
-Mosh Pit – Base damage has been reduced to 2, from 3.
-Rallying Cry – Can no longer deploy onto Wizards and now only either on the acting Champion or adjacent Champions (as opposed to any Champion).
-Repulsive Butcher – Cost has been reduced to 5, from 6.
-Skragrott, the Loonking – Health modifier has been increased to 0, from -1.
-Smash and Bash – Highlight is now 3-wide, instead of board wide.
-Snazzgar Stinkmullet – Health modifier has been increased to 0, from -1.
-Sneaky Grot Shaman – Cost has been reduced to 2, from 3.
-Squig Lure – Now has three corners instead of four.
-Weirdnob Shaman – Cost has been reduced to 5, from 6.
-Zarbag the Shaman – Health modifier has been increased to 1, from 0.
-Neutral Cards
-Choking Vines – Now only prevents rotations on the first two corners. Third corner is an X, and fourth corner deals 8 damage.
-Gaze of Vulcatrix – Damage has been increased to 6, from 4.
-
 {
-    "_index": "warhammer-cards",
-    "_type": "card",
-    "_id": "10001",
-    "_score": 1,
-    "_source": {
-        "category": {
-            "en": "Champion"
-        },
-        "tags": ["Seraphon"],
-        "name": "Lord Kroak",
-        "keywords": {
-            "en": ["Heroic Act"]
-        },
-        "collectorNumber": "1001",
-        "corners": [{
-                "position": 1,
-                "smooth": false,
-                "value": "Spell"
-            }, {
-                "position": 2,
-                "smooth": false,
-                "value": "Unit"
-                "qualifier": "Seraphon",
-            }, {
-                "position": 3,
-                "smooth": false,
-                "value": "Damage"
-            }, {
-                "position": 4,
-                "smooth": false,
-                "value": "Ability"
-            }
-        ],
-        "alliance": "Order",
-        "id": 10001,
-        "class": {
-            "en": "Warrior"
-        },
-        "healthMod": 0,
-        "collectorInfo": "004/278 - 01 C",
-        "cost": 3,
-        "effect": {
-            "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
-        },
-        "set": [{
-                "name": "Warband 3",
-                "number": 1
-            }
-        ],
-        "rarity": "Common",
-        "skus": [{
-                "default": true,
-                "finish": "matte",
-                "id": "Bloodreaver_Chieftain",
-                "image": true,
-                "lang": "en"
-            }, {
-                "default": false,
-                "finish": "shiny",
-                "id": "Bloodreaver_Chieftain_Shiny",
-                "image": false,
-                "lang": "en"
-            }, {
-                "default": true,
-                "finish": "matte",
-                "id": "Bloodreaver_Chieftain_De",
-                "image": false,
-                "lang": "de"
-            }, {
-                "default": false,
-                "finish": "shiny",
-                "id": "Bloodreaver_Chieftain_De_Shiny",
-                "image": false,
-                "lang": "de"
-            }
-        ],
-        "links": []
+  "errata": [
+    {"id": "", "name": "Chaos"},
+    {"id": "", "name": "Archaon", "errata": "The last two quest corners have swapped around."},
+    {"id": "", "name": "Aspiring Deathbringer", "errata": "Third Quest Objective is now Khorne Unit. Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Beheading Strike", "errata": "Now only requires 2 Units to be removed, but damage has been lowered to 5."},
+    {"id": "", "name": "Blood for the Blood God", "errata": "Healing has been reduced to 4, from 5."},
+    {"id": "", "name": "Bloodmaster, Herald of Khorne", "errata": "Both Unit Objectives have been replaced with Khorne Unit Objectives. Cost has been reduced to 1, from 2."},
+    {"id": "", "name": "Bloodreaver Chieftain", "errata": "Both Unit Objectives have been replaced with Khorne Unit Objectives. Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Curseling", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Exalted Death Bringer", "errata": "Second Quest Objective is now Damage. Third Quest Objective is now Khorne Unit."},
+    {"id": "", "name": "Gaunt Summoner", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Herald of Nurgle", "errata": "Quest updated to include Nurgle Unit Objectives. Health modifier reduced to 1, from 2."},
+    {"id": "", "name": "Horticulous Slimux", "errata": "Last Quest Objective is now a Nurgle Unit."},
+    {"id": "", "name": "Iridescent Horror", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Kairos Fateweaver", "errata": "Cost has been reduced to 8, from 9."},
+    {"id": "", "name": "Lord of Change", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Ogroid Thaumaturge", "errata": "Cost has been reduced to 4, from 5."},
+    {"id": "", "name": "Putrid Blightlord", "errata": "Third Quest Objective is now a Nurgle Unit. Healing from the passive effect has been increased to 2, from 1. Health modifier has been reduced to -1, from 0."},
+    {"id": "", "name": "Rotbringers Sorcerer", "errata": "Health modifier has been increased to -1, from -2."},
+    {"id": "", "name": "Skarr Bloodwrath", "errata": "Both Unit Objectives are now Khorne Unit Objectives. Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Slaughterpriest", "errata": "Last quest corner is now Ability, instead of Remove. Health modifier has been increased to 1, from 0. Third Quest Objective is now a Khorne Unit."},
+    {"id": "", "name": "Spell Hunting Flesh Hound", "errata": "Now also deals damage."},
+    {"id": "", "name": "The Changeling", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Unrivalled Battle-Lust", "errata": "The second corner is now a 2, instead of a 3."},
+    {"id": "", "name": "Valkia the Bloody", "errata": "The Heroic Act now only affects Khorne Units."},
+    {"id": "", "name": "Vortemis the All-Seeing", "errata": "Health modifier has been increased to 2, from 0."},
+    {"id": "", "name": "Order"},
+    {"id": "", "name": "Alarielle the Everqueen", "errata": "The last two Quest Objectives are now Unit and Damage, instead of Ability and Unit."},
+    {"id": "", "name": "Aspect of the Sea", "errata": "Cost has been reduced to 10, from 11."},
+    {"id": "", "name": "Aventis, Magister of Hammerhal", "errata": "Cost has been reduced to 9, from 10."},
+    {"id": "", "name": "Averon Stormsire", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Celestant-Prime", "errata": "Cost has been reduced to 10, from 12."},
+    {"id": "", "name": "Deathly Descent", "errata": "Now deals damage equal to the number of disengaged enemy Champions before it Removes."},
+    {"id": "", "name": "Devotee of Khaine", "errata": "First corner has been removed."},
+    {"id": "", "name": "Evocator-Prime", "errata": "Cost has been reduced to 4, from 5."},
+    {"id": "", "name": "Isharann Soulscryer", "errata": "Health modifier has been increased to 0, from -2."},
+    {"id": "", "name": "Isharann Tidecaster", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Knight-Incantor", "errata": "Health modifier has been increased to 1, from -1."},
+    {"id": "", "name": "Lord-Relictor", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Lord-Veritant", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Morathi, High Oracle", "errata": "The second Quest Objective is now an Ability."},
+    {"id": "", "name": "Mutilating Witch", "errata": "Corners are now o/2/2 (instead of X/o/2/3)."},
+    {"id": "", "name": "Prison of the Gods", "errata": "Now has a minimum heal amount of 4."},
+    {"id": "", "name": "Spiteful Branchwych", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Towering Treelord Ancient", "errata": "Cost has been reduced to 9, from 10."},
+    {"id": "", "name": "Zealous Witch Hag", "errata": "Quest Objectives two and four have swapped places. Cost has been reduced to 4, from 5. Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Death"},
+    {"id": "", "name": "Abhorrant Ghoul King", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Arkhan, Mortarch of Sacrament", "errata": "Health modifier has been increased to -1, from -2."},
+    {"id": "", "name": "Bloodseeker Sanguinarch", "errata": "Cost has been reduced to 8, from 9. Health modifier has been increased to 2, from 1."},
+    {"id": "", "name": "Bloody Vampire Queen", "errata": "Health modifier has been increased to 1, from -1."},
+    {"id": "", "name": "Coven Throne", "errata": "Cost has been reduced to 8, from 10."},
+    {"id": "", "name": "Death Unabated", "errata": "Only the first two corners now restrict actions. Corners three and four now draw 1 and 2 cards instead."},
+    {"id": "", "name": "Feasting Vargheist", "errata": "First corner is now an X."},
+    {"id": "", "name": "Guardian of Souls", "errata": "Health modifier has been increased to -1, from -2."},
+    {"id": "", "name": "Hungering Vampire Lord", "errata": "Health modifier has been increased to 1, from -1."},
+    {"id": "", "name": "Lady Olynder, Mortarch of Grief", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Macabre Ghoul King", "errata": "Cost has been reduced to 8, from 9."},
+    {"id": "", "name": "Nagash, Supreme Lord of the Undead", "errata": "Cost has been reduced to 13, from 15. Health modifier has been increased to 2, from 1."},
+    {"id": "", "name": "Neferata, Mortarch of Blood", "errata": "The Vampire Unit can now be deployed onto herself or an adjacent Champion. The removal field has gone down to a cone in front of her."},
+    {"id": "", "name": "Reikenor the Grimhailer", "errata": "Health modifier has been increased to 2, from 1."},
+    {"id": "", "name": "Skulking Necromancer", "errata": "Cost has been reduced to 5, from 6."},
+    {"id": "", "name": "The Briar Queen", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Twisted Necromancer", "errata": "Health modifier has been increased to -1, from -2."},
+    {"id": "", "name": "Vampire Lord of Nightmare", "errata": "Cost has been reduced to 3, from 5."},
+    {"id": "", "name": "Destruction"},
+    {"id": "", "name": "Aleguzzler Gargant", "errata": "Now removes one highlighted Unit, instead of all."},
+    {"id": "", "name": "Ancient Dankhold Troggboss", "errata": "The highlight now only affects Units diagonally across. Cost has been increased to 12, from 11. Health modifier has been reduced to 0, from 1."},
+    {"id": "", "name": "Bonesplitter Shaman", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Cruisin’ for a Bruisin’", "errata": "Damage has been reduced to 10, from 12. Highlight is now 3-wide, instead of board wide."},
+    {"id": "", "name": "Flame-Belching Firebelly", "errata": "Cost has been reduced to 9, from 10. Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Foul Butcher", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Grot Shaman Spider Rider", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Hallucinating Shroomancer", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Hypnotic Boggleye", "errata": "Cost has been reduced to 1, from 2."},
+    {"id": "", "name": "Kunnin’ Grot Shaman", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Mosh Pit", "errata": "Base damage has been reduced to 2, from 3."},
+    {"id": "", "name": "Rallying Cry", "errata": "Can no longer deploy onto Wizards and now only either on the acting Champion or adjacent Champions (as opposed to any Champion)."},
+    {"id": "", "name": "Repulsive Butcher", "errata": "Cost has been reduced to 5, from 6."},
+    {"id": "", "name": "Skragrott, the Loonking", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Smash and Bash", "errata": "Highlight is now 3-wide, instead of board wide."},
+    {"id": "", "name": "Snazzgar Stinkmullet", "errata": "Health modifier has been increased to 0, from -1."},
+    {"id": "", "name": "Sneaky Grot Shaman", "errata": "Cost has been reduced to 2, from 3."},
+    {"id": "", "name": "Squig Lure", "errata": "Now has three corners instead of four."},
+    {"id": "", "name": "Weirdnob Shaman", "errata": "Cost has been reduced to 5, from 6."},
+    {"id": "", "name": "Zarbag the Shaman", "errata": "Health modifier has been increased to 1, from 0."},
+    {"id": "", "name": "Neutral Cards"},
+    {"id": "", "name": "Choking Vines", "errata": "Now only prevents rotations on the first two corners. Third corner is an X, and fourth corner deals 8 damage."},
+    {"id": "", "name": "Gaze of Vulcatrix", "errata": "Damage has been increased to 6, from 4."}
+  ],
+  "seraphon_urls" [
+    "https://www.warhammerchampions.com/wp-content/uploads/2019/12/LordKroak_1.png",
+    "https://www.warhammerchampions.com/wp-content/uploads/2019/12/ViciousColdOneRider_1.png",
+    "https://www.warhammerchampions.com/wp-content/uploads/2020/01/SummonSeraphon_1.png",
+    "https://www.warhammerchampions.com/wp-content/uploads/2020/01/WrathoftheSeraphon_1.png",
+    "https://www.warhammerchampions.com/wp-content/uploads/2020/01/CelestiteSwipe_1.png",
+    "https://www.warhammerchampions.com/wp-content/uploads/2020/01/SkinkPriest_1.png"
+  ],
+  "seraphon_cards": [
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "10001",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Champion"
+            },
+            "tags": ["Seraphon"],
+            "name": "Lord Kroak",
+            "keywords": {
+                "en": ["Heroic Act"]
+            },
+            "collectorNumber": "",
+            "corners": [{
+                    "position": 1,
+                    "smooth": false,
+                    "value": "Spell"
+                }, {
+                    "position": 2,
+                    "smooth": false,
+                    "value": "Unit"
+                    "qualifier": "Seraphon",
+                }, {
+                    "position": 3,
+                    "smooth": false,
+                    "value": "Damage"
+                }, {
+                    "position": 4,
+                    "smooth": false,
+                    "value": "Ability"
+                }
+            ],
+            "alliance": "Order",
+            "id": 10001,
+            "class": {
+                "en": "Warrior"
+            },
+            "healthMod": 0,
+            "collectorInfo": "",
+            "cost": 3,
+            "effect": {
+                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
+            },
+            "set": [{
+                    "name": "Warband 3",
+                    "number": 1
+                }
+            ],
+            "rarity": "Common",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }
+            ],
+            "links": []
+        }
+    },
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "10002",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Blessing"
+            },
+            "tags": ["Seraphon"],
+            "name": "Wrath of the Seraphon",
+            "keywords": {
+                "en": []
+            },
+            "collectorNumber": "",
+            "corners": [{
+                    "position": 1,
+                    "smooth": false,
+                    "value": "Spell"
+                }, {
+                    "position": 2,
+                    "smooth": false,
+                    "value": "Unit"
+                    "qualifier": "Seraphon",
+                }, {
+                    "position": 3,
+                    "smooth": false,
+                    "value": "Damage"
+                }, {
+                    "position": 4,
+                    "smooth": false,
+                    "value": "Ability"
+                }
+            ],
+            "alliance": "Order",
+            "id": 10001,
+            "class": {
+                "en": "Warrior"
+            },
+            "healthMod": 0,
+            "collectorInfo": "",
+            "cost": 3,
+            "effect": {
+                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
+            },
+            "set": [{
+                    "name": "Warband 3",
+                    "number": 1
+                }
+            ],
+            "rarity": "Common",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }
+            ],
+            "links": []
+        }
+    },
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "10001",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Champion"
+            },
+            "tags": ["Seraphon"],
+            "name": "Lord Kroak",
+            "keywords": {
+                "en": ["Heroic Act"]
+            },
+            "collectorNumber": "",
+            "corners": [{
+                    "position": 1,
+                    "smooth": false,
+                    "value": "Spell"
+                }, {
+                    "position": 2,
+                    "smooth": false,
+                    "value": "Unit"
+                    "qualifier": "Seraphon",
+                }, {
+                    "position": 3,
+                    "smooth": false,
+                    "value": "Damage"
+                }, {
+                    "position": 4,
+                    "smooth": false,
+                    "value": "Ability"
+                }
+            ],
+            "alliance": "Order",
+            "id": 10001,
+            "class": {
+                "en": "Warrior"
+            },
+            "healthMod": 0,
+            "collectorInfo": "",
+            "cost": 3,
+            "effect": {
+                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
+            },
+            "set": [{
+                    "name": "Warband 3",
+                    "number": 1
+                }
+            ],
+            "rarity": "Common",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }
+            ],
+            "links": []
+        }
+    },
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "10001",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Champion"
+            },
+            "tags": ["Seraphon"],
+            "name": "Lord Kroak",
+            "keywords": {
+                "en": ["Heroic Act"]
+            },
+            "collectorNumber": "",
+            "corners": [{
+                    "position": 1,
+                    "smooth": false,
+                    "value": "Spell"
+                }, {
+                    "position": 2,
+                    "smooth": false,
+                    "value": "Unit"
+                    "qualifier": "Seraphon",
+                }, {
+                    "position": 3,
+                    "smooth": false,
+                    "value": "Damage"
+                }, {
+                    "position": 4,
+                    "smooth": false,
+                    "value": "Ability"
+                }
+            ],
+            "alliance": "Order",
+            "id": 10001,
+            "class": {
+                "en": "Warrior"
+            },
+            "healthMod": 0,
+            "collectorInfo": "",
+            "cost": 3,
+            "effect": {
+                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
+            },
+            "set": [{
+                    "name": "Warband 3",
+                    "number": 1
+                }
+            ],
+            "rarity": "Common",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }
+            ],
+            "links": []
+        }
+    },
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "10001",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Champion"
+            },
+            "tags": ["Seraphon"],
+            "name": "Lord Kroak",
+            "keywords": {
+                "en": ["Heroic Act"]
+            },
+            "collectorNumber": "",
+            "corners": [{
+                    "position": 1,
+                    "smooth": false,
+                    "value": "Spell"
+                }, {
+                    "position": 2,
+                    "smooth": false,
+                    "value": "Unit"
+                    "qualifier": "Seraphon",
+                }, {
+                    "position": 3,
+                    "smooth": false,
+                    "value": "Damage"
+                }, {
+                    "position": 4,
+                    "smooth": false,
+                    "value": "Ability"
+                }
+            ],
+            "alliance": "Order",
+            "id": 10001,
+            "class": {
+                "en": "Warrior"
+            },
+            "healthMod": 0,
+            "collectorInfo": "",
+            "cost": 3,
+            "effect": {
+                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
+            },
+            "set": [{
+                    "name": "Warband 3",
+                    "number": 1
+                }
+            ],
+            "rarity": "Common",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }
+            ],
+            "links": []
+        }
+    },
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "10001",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Champion"
+            },
+            "tags": ["Seraphon"],
+            "name": "Lord Kroak",
+            "keywords": {
+                "en": ["Heroic Act"]
+            },
+            "collectorNumber": "",
+            "corners": [{
+                    "position": 1,
+                    "smooth": false,
+                    "value": "Spell"
+                }, {
+                    "position": 2,
+                    "smooth": false,
+                    "value": "Unit"
+                    "qualifier": "Seraphon",
+                }, {
+                    "position": 3,
+                    "smooth": false,
+                    "value": "Damage"
+                }, {
+                    "position": 4,
+                    "smooth": false,
+                    "value": "Ability"
+                }
+            ],
+            "alliance": "Order",
+            "id": 10001,
+            "class": {
+                "en": "Warrior"
+            },
+            "healthMod": 0,
+            "collectorInfo": "",
+            "cost": 3,
+            "effect": {
+                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
+            },
+            "set": [{
+                    "name": "Warband 3",
+                    "number": 1
+                }
+            ],
+            "rarity": "Common",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "en"
+                }, {
+                    "default": true,
+                    "finish": "matte",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }, {
+                    "default": false,
+                    "finish": "shiny",
+                    "id": "LordKroak_1",
+                    "image": false,
+                    "lang": "de"
+                }
+            ],
+            "links": []
+        }
     }
+  ]
 }

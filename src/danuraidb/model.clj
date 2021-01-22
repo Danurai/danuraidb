@@ -190,15 +190,29 @@
     (catch Exception e nil)))
 
 (defn aosc-api-cards []
-  (if-let [res (aoscsearch 1)]
-    (-> (aoscsearch (-> res :body (json/read-str :key-fn keyword) :hits :total))
-        :body
-        (json/read-str :key-fn keyword)
-        (assoc :source "https://carddatabase.warhammerchampions.com/warhammer-cards/_search"))
-    (-> (load-json-file "private/aosc_cards.json")
-        (assoc :source "aosc_cards.json"))))
+  (let [errata (:errata (load-json-file "private/aosc_cards_plus.json"))
+        data (if-let [res (aoscsearch 1)]
+              (-> (aoscsearch (-> res :body (json/read-str :key-fn keyword) :hits :total))
+                  :body
+                  (json/read-str :key-fn keyword)
+                  (assoc :source "https://carddatabase.warhammerchampions.com/warhammer-cards/_search"))
+              (-> (load-json-file "private/aosc_cards.json")
+                  (assoc :source "aosc_cards.json")))]
+    (assoc-in data [:hits :hits]
+      (mapv 
+        (fn [ hit ]
+          (let [e (filter #(= (:name %) (-> hit :_source :name)) errata)]
+            (-> hit 
+              (assoc-in [:_source :errata] e)
+              (assoc-in [:_source :setnumber] (-> hit :_source :set first :number)))))
+        (-> data :hits :hits)))))
         
 (defn aosc-get-cards []
+  (->> (aosc-api-cards) 
+       :hits :hits
+       (map :_source)))
+    
+(defn aosc-get-cards-orig []
   (map 
     #(assoc (:_source %) :setnumber (-> % :_source :set first :number))
     (-> (aosc-api-cards) :hits :hits)))
