@@ -132,7 +132,7 @@
       
 
 (defn- aosc-cardimage [r]
-  (let [img (str (->> r :skus (filter :default) first :id) ".jpg")] 
+  (let [img (or (-> r :links first) (str (->> r :skus (filter :default) first :id) ".jpg"))]
     [:a {:href (str "/aosc/cards/" (:id r))}
       [:img.py-1.px-1.img-fluid.img-thumbnail {
         :src   (aosc-img-uri img "/img/aosc/cards/" aosc_card_path)
