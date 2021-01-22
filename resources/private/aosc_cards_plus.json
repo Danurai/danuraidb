@@ -97,11 +97,11 @@
     "https://www.warhammerchampions.com/wp-content/uploads/2020/01/CelestiteSwipe_1.png",
     "https://www.warhammerchampions.com/wp-content/uploads/2020/01/SkinkPriest_1.png"
   ],
-  "seraphon_cards": [
+  "extra_hits": [
     {
         "_index": "warhammer-cards",
         "_type": "card",
-        "_id": "10001",
+        "_id": "999000001",
         "_score": 1,
         "_source": {
             "category": {
@@ -112,7 +112,7 @@
             "keywords": {
                 "en": ["Heroic Act"]
             },
-            "collectorNumber": "",
+            "collectorNumber": "1",
             "corners": [{
                     "position": 1,
                     "smooth": false,
@@ -120,7 +120,7 @@
                 }, {
                     "position": 2,
                     "smooth": false,
-                    "value": "Unit"
+                    "value": "Unit",
                     "qualifier": "Seraphon",
                 }, {
                     "position": 3,
@@ -133,449 +133,274 @@
                 }
             ],
             "alliance": "Order",
-            "id": 10001,
+            "id": 999000001,
             "class": {
-                "en": "Warrior"
+                "en": "Warrior Wizard"
             },
             "healthMod": 0,
-            "collectorInfo": "",
-            "cost": 3,
+            "collectorInfo": "001/006 - 4a E",
+            "cost": 13,
             "effect": {
                 "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
             },
             "set": [{
-                    "name": "Warband 3",
-                    "number": 1
+                    "name": "Warband",
+                    "number": 4.1
                 }
             ],
-            "rarity": "Common",
+            "rarity": "Exclusive",
             "skus": [{
                     "default": true,
                     "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
+                    "id": "LordKroak",
+                    "image": true,
                     "lang": "en"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "en"
-                }, {
-                    "default": true,
-                    "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
                 }
             ],
-            "links": []
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2019/12/LordKroak_1.png"]
         }
     },
     {
         "_index": "warhammer-cards",
         "_type": "card",
-        "_id": "10002",
+        "_id": "999000002",
         "_score": 1,
         "_source": {
             "category": {
                 "en": "Blessing"
             },
-            "tags": ["Seraphon"],
+            "tags": [],
             "name": "Wrath of the Seraphon",
+            "keywords": {
+                "en": ["Heroic Act","Deploy","Rotate"]
+            },
+            "collectorNumber": "2",
+            "corners": [{
+                    "position": 1,
+                    "smooth": false,
+                    "value": "1"
+                }, {
+                    "position": 2,
+                    "smooth": true,
+                    "value": "X"
+                }, {
+                    "position": 3,
+                    "smooth": true,
+                    "value": "X"
+                }, {
+                    "position": 4,
+                    "smooth": false,
+                    "value": "2"
+                }
+            ],
+            "alliance": "Order",
+            "subjectImage": "0000001110",
+            "id": 999000002,
+            "collectorInfo": "002/006 4a E",
+            "effect": {
+                "en": "[Heroic Act]: You may [Deploy] 1 *Seraphon* Unit from your discard pile onto a highlighted Champion (normal restrictions apply), Your Opponent shuffles X cards from their hand into their deck. [Rotate] this 1 step forwards."
+            },
+            "set": [{
+                    "name": "Warband",
+                    "number": 4.1
+                }
+            ],
+            "rarity": "Exclusive",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "WrathoftheSeraphon",
+                    "image": true,
+                    "lang": "en"
+                }
+            ],
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2020/01/WrathoftheSeraphon_1.png"]
+        }
+    },
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "999000003",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Unit"
+            },
+            "tags": ["Seraphon"],
+            "name": "Star-Stone Skink Priest",
+            "keywords": {
+                "en": ["Deploys","Rotate"]
+            },
+            "collectorNumber": "3",
+            "corners": [{
+                    "position": 1,
+                    "smooth": false,
+                    "value": "1"
+                }, {
+                    "position": 2,
+                    "smooth": false,
+                    "value": "2"
+                }
+            ],
+            "alliance": "Order",
+            "subjectImage": "0000001010",
+            "id": 999000003,
+            "collectorInfo": "003/006 4a E",
+            "effect": {
+                "en": "When a highlighted Wizard [Deploys] a Spell, deal X damage to your Opponent, your Opponent shuffles 1 card from their hans into their deck, and [Rotate] this 1 step forwards."
+            },
+            "set": [{
+                    "name": "Warband",
+                    "number": 4.1
+                }
+            ],
+            "rarity": "Exclusive",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "StarStone_Skink_Priest",
+                    "image": true,
+                    "lang": "en"
+                }
+            ],
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2020/01/SkinkPriest_1.png"]
+        }
+    },
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "999000004",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Unit"
+            },
+            "tags": ["Beast","Seraphon"],
+            "name": "Vicious Cold One Rider",
+            "keywords": {
+                "en": ["Discard"]
+            },
+            "collectorNumber": "4",
+            "corners": [{
+                    "position": 1,
+                    "smooth": true,
+                    "value": "X"
+                }, {
+                    "position": 2,
+                    "smooth": true,
+                    "value": "5"
+                }
+            ],
+            "alliance": "Order",
+            "id": 999000004,
+            "collectorInfo": "004/006 4a E",
+            "effect": {
+                "en": "As this enters play, [Discard] 1 card from your hand.\nX damage to your Opponent. Increase this by 2 if they have 5 or fewer cards in their hand."
+            },
+            "set": [{
+                    "name": "Warband",
+                    "number": 4.1
+                }
+            ],
+            "rarity": "Exclusive",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "Vicious_Cold_One_Rider",
+                    "image": true,
+                    "lang": "en"
+                }
+            ],
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2019/12/ViciousColdOneRider_1.png"]
+        }
+    },
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "999000005",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Spell"
+            },
+            "tags": [],
+            "name": "Summon Seraphon",
             "keywords": {
                 "en": []
             },
-            "collectorNumber": "",
+            "collectorNumber": "5",
             "corners": [{
                     "position": 1,
-                    "smooth": false,
-                    "value": "Spell"
+                    "smooth": true,
+                    "value": "X"
                 }, {
                     "position": 2,
-                    "smooth": false,
-                    "value": "Unit"
-                    "qualifier": "Seraphon",
-                }, {
-                    "position": 3,
-                    "smooth": false,
-                    "value": "Damage"
-                }, {
-                    "position": 4,
-                    "smooth": false,
-                    "value": "Ability"
+                    "smooth": true,
+                    "value": "2"
                 }
             ],
             "alliance": "Order",
-            "id": 10001,
-            "class": {
-                "en": "Warrior"
-            },
-            "healthMod": 0,
-            "collectorInfo": "",
-            "cost": 3,
+            "id": 999000005,
+            "collectorInfo": "005/006 4a E",
             "effect": {
-                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
+                "en": "Your Opponent shuffles X cards from their hand into their deck.\nSearch your deck for up to X *Seraphon* Units and move them to your hand. Shuffle your deck."
             },
             "set": [{
-                    "name": "Warband 3",
-                    "number": 1
+                    "name": "Warband",
+                    "number": 4.1
                 }
             ],
-            "rarity": "Common",
+            "rarity": "Exclusive",
             "skus": [{
                     "default": true,
                     "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
+                    "id": "Sumnmon_Seraphon",
+                    "image": true,
                     "lang": "en"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "en"
-                }, {
-                    "default": true,
-                    "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
                 }
             ],
-            "links": []
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2020/01/SummonSeraphon_1.png"]
         }
     },
     {
         "_index": "warhammer-cards",
         "_type": "card",
-        "_id": "10001",
+        "_id": "999000006",
         "_score": 1,
         "_source": {
             "category": {
-                "en": "Champion"
+                "en": "Action"
             },
-            "tags": ["Seraphon"],
-            "name": "Lord Kroak",
+            "tags": [],
+            "name": "Celestite Swipe",
             "keywords": {
-                "en": ["Heroic Act"]
+                "en": ["Draw"]
             },
-            "collectorNumber": "",
-            "corners": [{
-                    "position": 1,
-                    "smooth": false,
-                    "value": "Spell"
-                }, {
-                    "position": 2,
-                    "smooth": false,
-                    "value": "Unit"
-                    "qualifier": "Seraphon",
-                }, {
-                    "position": 3,
-                    "smooth": false,
-                    "value": "Damage"
-                }, {
-                    "position": 4,
-                    "smooth": false,
-                    "value": "Ability"
-                }
-            ],
+            "collectorNumber": "6",
+            "corners": [],
             "alliance": "Order",
-            "id": 10001,
+            "id": 999000006,
             "class": {
-                "en": "Warrior"
-            },
-            "healthMod": 0,
-            "collectorInfo": "",
-            "cost": 3,
+              "en": "Warrior"},
+            "collectorInfo": "006/006 4a E",
             "effect": {
-                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
+                "en": "3 damage to your Opponent.\nIf your Opponent has 5 or fewer cards in their hand, you [Draw] 1 card."
             },
             "set": [{
-                    "name": "Warband 3",
-                    "number": 1
+                    "name": "Warband",
+                    "number": 4.1
                 }
             ],
-            "rarity": "Common",
+            "rarity": "Exclusive",
             "skus": [{
                     "default": true,
                     "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
+                    "id": "Celestite_Swipe",
+                    "image": true,
                     "lang": "en"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "en"
-                }, {
-                    "default": true,
-                    "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
                 }
             ],
-            "links": []
-        }
-    },
-    {
-        "_index": "warhammer-cards",
-        "_type": "card",
-        "_id": "10001",
-        "_score": 1,
-        "_source": {
-            "category": {
-                "en": "Champion"
-            },
-            "tags": ["Seraphon"],
-            "name": "Lord Kroak",
-            "keywords": {
-                "en": ["Heroic Act"]
-            },
-            "collectorNumber": "",
-            "corners": [{
-                    "position": 1,
-                    "smooth": false,
-                    "value": "Spell"
-                }, {
-                    "position": 2,
-                    "smooth": false,
-                    "value": "Unit"
-                    "qualifier": "Seraphon",
-                }, {
-                    "position": 3,
-                    "smooth": false,
-                    "value": "Damage"
-                }, {
-                    "position": 4,
-                    "smooth": false,
-                    "value": "Ability"
-                }
-            ],
-            "alliance": "Order",
-            "id": 10001,
-            "class": {
-                "en": "Warrior"
-            },
-            "healthMod": 0,
-            "collectorInfo": "",
-            "cost": 3,
-            "effect": {
-                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
-            },
-            "set": [{
-                    "name": "Warband 3",
-                    "number": 1
-                }
-            ],
-            "rarity": "Common",
-            "skus": [{
-                    "default": true,
-                    "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "en"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "en"
-                }, {
-                    "default": true,
-                    "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
-                }
-            ],
-            "links": []
-        }
-    },
-    {
-        "_index": "warhammer-cards",
-        "_type": "card",
-        "_id": "10001",
-        "_score": 1,
-        "_source": {
-            "category": {
-                "en": "Champion"
-            },
-            "tags": ["Seraphon"],
-            "name": "Lord Kroak",
-            "keywords": {
-                "en": ["Heroic Act"]
-            },
-            "collectorNumber": "",
-            "corners": [{
-                    "position": 1,
-                    "smooth": false,
-                    "value": "Spell"
-                }, {
-                    "position": 2,
-                    "smooth": false,
-                    "value": "Unit"
-                    "qualifier": "Seraphon",
-                }, {
-                    "position": 3,
-                    "smooth": false,
-                    "value": "Damage"
-                }, {
-                    "position": 4,
-                    "smooth": false,
-                    "value": "Ability"
-                }
-            ],
-            "alliance": "Order",
-            "id": 10001,
-            "class": {
-                "en": "Warrior"
-            },
-            "healthMod": 0,
-            "collectorInfo": "",
-            "cost": 3,
-            "effect": {
-                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
-            },
-            "set": [{
-                    "name": "Warband 3",
-                    "number": 1
-                }
-            ],
-            "rarity": "Common",
-            "skus": [{
-                    "default": true,
-                    "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "en"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "en"
-                }, {
-                    "default": true,
-                    "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
-                }
-            ],
-            "links": []
-        }
-    },
-    {
-        "_index": "warhammer-cards",
-        "_type": "card",
-        "_id": "10001",
-        "_score": 1,
-        "_source": {
-            "category": {
-                "en": "Champion"
-            },
-            "tags": ["Seraphon"],
-            "name": "Lord Kroak",
-            "keywords": {
-                "en": ["Heroic Act"]
-            },
-            "collectorNumber": "",
-            "corners": [{
-                    "position": 1,
-                    "smooth": false,
-                    "value": "Spell"
-                }, {
-                    "position": 2,
-                    "smooth": false,
-                    "value": "Unit"
-                    "qualifier": "Seraphon",
-                }, {
-                    "position": 3,
-                    "smooth": false,
-                    "value": "Damage"
-                }, {
-                    "position": 4,
-                    "smooth": false,
-                    "value": "Ability"
-                }
-            ],
-            "alliance": "Order",
-            "id": 10001,
-            "class": {
-                "en": "Warrior"
-            },
-            "healthMod": 0,
-            "collectorInfo": "",
-            "cost": 3,
-            "effect": {
-                "en": "[Heroic Act]: Look at your Opponent's hand and shuffle 3 of their cards into their deck. This Heroic act can only be used once per game."
-            },
-            "set": [{
-                    "name": "Warband 3",
-                    "number": 1
-                }
-            ],
-            "rarity": "Common",
-            "skus": [{
-                    "default": true,
-                    "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "en"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "en"
-                }, {
-                    "default": true,
-                    "finish": "matte",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
-                }, {
-                    "default": false,
-                    "finish": "shiny",
-                    "id": "LordKroak_1",
-                    "image": false,
-                    "lang": "de"
-                }
-            ],
-            "links": []
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2020/01/CelestiteSwipe_1.png"]
         }
     }
   ]
