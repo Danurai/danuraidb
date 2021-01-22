@@ -13,7 +13,7 @@
   
 (load "pages/common")
 (load "pages/lotrdb") 
-(load "pages/aosc")    
+(load "pages/aosc")
 (load "pages/whuw")
 (load "pages/whconq")
 (load "pages/admin")
