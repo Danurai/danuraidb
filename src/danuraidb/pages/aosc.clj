@@ -132,10 +132,10 @@
       
 
 (defn- aosc-cardimage [r]
-  (let [img (or (-> r :links first) (str (->> r :skus (filter :default) first :id) ".jpg"))]
+  (let [img (str (->> r :skus (filter :default) first :id) ".jpg")]
     [:a {:href (str "/aosc/cards/" (:id r))}
       [:img.py-1.px-1.img-fluid.img-thumbnail {
-        :src   (aosc-img-uri img "/img/aosc/cards/" aosc_card_path)
+        :src   (or (-> r :links first) (aosc-img-uri img "/img/aosc/cards/" aosc_card_path))
         :title (:name r) 
         :alt   img}]]))
             
@@ -236,7 +236,7 @@
                       [:tr#errata [:td "Errata"][:td (for [e (:errata src)] [:div [:span.mr-2 "2020:"] [:span (:errata e)]])]])
                   ]]]]
             [:div.col-sm-4
-              [:img#cardimg.img-fluid {:src (aosc-img-uri (str (->> src :skus (filter :image) first :id) ".jpg") "/img/aosc/cards/" aosc_card_path)}]
+              [:img#cardimg.img-fluid {:src (or (-> src :links first) (aosc-img-uri (str (->> src :skus (filter :image) first :id) ".jpg") "/img/aosc/cards/" aosc_card_path))}]
               (if (< 1 (->> src :skus (filter :image) count))
                 [:div.d-flex.justify-content-around
                   (map-indexed (fn [id sku]
