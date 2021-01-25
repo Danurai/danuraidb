@@ -269,7 +269,7 @@
     {
         "_index": "warhammer-cards",
         "_type": "card",
-        "_id": "999000004",
+        "_id": "5641309",
         "_score": 1,
         "_source": {
             "category": {
@@ -292,7 +292,7 @@
                 }
             ],
             "alliance": "Order",
-            "id": 999000004,
+            "id": 5641309,
             "collectorInfo": "004/006 4a E",
             "effect": {
                 "en": "As this enters play, [Discard] 1 card from your hand.\nX damage to your Opponent. Increase this by 2 if they have 5 or fewer cards in their hand."
@@ -401,6 +401,47 @@
                 }
             ],
             "links": ["https://www.warhammerchampions.com/wp-content/uploads/2020/01/CelestiteSwipe_1.png"]
+        }
+    },
+    {
+        "_index": "warhammer-cards",
+        "_type": "card",
+        "_id": "999000007",
+        "_score": 1,
+        "_source": {
+            "category": {
+                "en": "Champion"
+            },
+            "tags": [],
+            "name": "Grombrindal",
+            "keywords": {
+                "en": ["Draw"]
+            },
+            "collectorNumber": "1",
+            "corners": [],
+            "alliance": "Order",
+            "id": 999000011,
+            "class": {
+              "en": "Warrior"},
+            "collectorInfo": "007/001 4b E",
+            "effect": {
+                "en": "At the start of your turn, if you have 5 or less health, [Draw] 1 card and gain 2 health."
+            },
+            "set": [{
+                    "name": "Warband",
+                    "number": 4.2
+                }
+            ],
+            "rarity": "Exclusive",
+            "skus": [{
+                    "default": true,
+                    "finish": "matte",
+                    "id": "Grombrindal",
+                    "image": true,
+                    "lang": "en"
+                }
+            ],
+            "links": ["/img/aosc/cards/grombrindal.jpg"]
         }
     }
   ]
