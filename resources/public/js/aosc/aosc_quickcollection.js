@@ -89,12 +89,12 @@ function imageName(c) {
 }
   
 function write_cards() {
-  $.get(_localpath + imageName(_cards().first()),function () { 
-    write_table(_localpath);
-  })
-  .fail(function () {
+  //$.get(_localpath + imageName(_cards().first()),function () { 
+  //  write_table(_localpath);
+  //})
+  //.fail(function () {
     write_table(_remotepath);
-  });
+  //});
 }
 
 function write_table(imgpath) {
@@ -110,12 +110,13 @@ function write_table(imgpath) {
 
   outp += '<tr>'
   for (i=0; i<res.length; i++) {
+    let src = (res[i].skus[0].src ? res[i].skus[0].src : imgpath + imageName(res[i]))
     if (((i % 7) == 0) && (i != 0)) {
        outp += '</tr><tr>';
     }
     total = (parseInt(res[i].digital) + parseInt(res[i].physical) + parseInt(res[i].foil));
     outp += '<td><div class="cardcontainer" data-id=' + res[i].id + '>'
-        + '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + imgpath + imageName(res[i]) + '" alt="' + res[i].name + '" />'
+        + '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + src + '" alt="' + res[i].name + '" />'
         + '<span class="collectionbox ' + (total == 0 ? 'lockbox' : 'countbox') + '">'
         + '<span data-id=' + res[i].id + ' data-toggle="modal" data-target="#updatemodal">'
           + (total == 0 ? '<i class="fa fa-lock">' : 'x' + total)
@@ -188,9 +189,10 @@ $('#updatemodal').on('show.bs.modal', function (evt) {
 });
 
 function setModalBody ( $modalBody, path, crd ) {
+  let src = (crd.skus[0].src ? crd.skus[0].src  : path + imageName(crd));
   $modalBody.html(
     valueUpdateInputs (crd) 
-     + '<img class="mt-2" src="' + path + imageName(crd) + '" onerror="imgerr"></img>');
+     + '<img class="mt-2" src="' + src + '"></img>');
 }
 
 $('#updatemodal').on('change','input[type=number]',function () {
