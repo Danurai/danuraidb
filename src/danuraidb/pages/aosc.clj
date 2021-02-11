@@ -15,20 +15,7 @@
     ["decks" "collection" "cards"]
     req
     :style "background-color: darkblue !important;"))
-    
-;; TODO - 
-; e.g.
-;(defn convert
-;"Converts single element to hiccup or reagent"
-;[pre txt]
-;  (if-let [symbol (re-matches #"\[(\w+)\]" txt)]
-;    [:i {:class (str pre (second symbol))}]
-;    txt))
-;(defn lotrdb-markdown [ txt ]
-;  (->> txt
-;      (re-seq #"\[\w+\]|\w+|." )
-;      (map #(model/convert "lotr-type-" %))
-;      model/makespan))
+   
 
 (defn- aosc-convert [ txt ]
   (if-let [kw (re-matches #"\[(\w+)\]" txt)]
@@ -135,7 +122,7 @@
   (let [img (str (->> r :skus (filter :default) first :id) ".jpg")]
     [:a {:href (str "/aosc/cards/" (:id r))}
       [:img.py-1.px-1.img-fluid.img-thumbnail {
-        :src   (or (-> r :skus first :src) (aosc-img-uri img "/img/aosc/cards/" aosc_card_path))
+        :src   (or (-> r :links first) (aosc-img-uri img "/img/aosc/cards/" aosc_card_path))
         :title (:name r) 
         :alt   img}]]))
             
@@ -236,13 +223,16 @@
                       [:tr#errata [:td "Errata"][:td (for [e (:errata src)] [:div [:span.mr-2 "2020:"] [:span (:errata e)]])]])
                   ]]]]
             [:div.col-sm-4
-              [:img#cardimg.img-fluid {:src (or (-> src :skus first :src) (aosc-img-uri (str (->> src :skus (filter :image) first :id) ".jpg") "/img/aosc/cards/" aosc_card_path))}]
+              [:img#cardimg.img-fluid {:src (or (-> src :links first) (aosc-img-uri (str (->> src :skus (filter :image) first :id) ".jpg") "/img/aosc/cards/" aosc_card_path))}]
               (if (< 1 (->> src :skus (filter :image) count))
                 [:div.d-flex.justify-content-around
                   (map-indexed (fn [id sku]
                     [:span [:a.altlink {:href "#" :data-id (:id sku)} (str "#" (inc id))]]) (->> src :skus (filter :image)))])]]]
         [:script "$('.altlink').on('click',function (evt) {evt.preventDefault(); $('#cardimg').attr('src','/img/aosc/cards/' + $(this).data('id') + '.jpg');});"]])))
 
+;; Deck Lists
+
+        
 (defn- get-aosc-deck-cards [deck aosc-card-data]
   (map (fn [c] 
     (conj (->> aosc-card-data (filter #(= (:id %) (:id c))) first) c)) 
@@ -272,7 +262,10 @@
     [:li.list-group-item.list-deck-card
       [:div.d-flex.justify-content-between {:data-toggle "collapse" :href (str "#" "deck_" (:uid d))} 
         [:div
-          [:div.h3.mr-2 (:name d)]
+          [:div.d-flex 
+            [:h3.my-auto.mr-2 (:name d)] 
+            [:i.fas.fa-heart.my-auto.mr-1.text-secondary] 
+            [:div.my-auto (->> deck-cards (filter #(= (-> % :category :en) "Champion")) (map #(* (:count %) (:healthMod %))) (apply +) (+ 30) )]]
           [:div
             [:div.bold "Champion"]
             [:div.text-muted
