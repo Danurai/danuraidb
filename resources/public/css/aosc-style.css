@@ -39,10 +39,15 @@ body {
   width: 90px;
   height: auto !important;
 }
-@media (min-width: 1175px) {
+@media (min-width: 768px) {
   #cards .cardimg {
-     width: 150px;
-    height: auto;} 
+    width: 150px;
+    height: auto;
+  }
+  
+  #cards .cardbox {
+    width: 150px  !important;
+  } 
 }
 
 #cards .cardimggrey {
@@ -53,24 +58,11 @@ body {
 #cards .cardbox {
   width: 90px;
   height: 100px;
-  font-style: bold;
+  font-weight: bold;
   background-color: lightgray;
   border-radius: 5px;
   border: 1px solid black;
-  margin-top: 10px;
   user-select: none;
-}
-@media (min-width 1175px) {
-  #cards .cardbox {
-    width: 90px;
-    height: 100px;
-    font-style: bold;
-    background-color: lightgray;
-    border-radius: 5px;
-    border: 1px solid black;
-    margin-top: 10px;
-    user-select: none;
-  }
 }
 
 #cards .cardboxgrey {

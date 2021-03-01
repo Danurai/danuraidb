@@ -311,7 +311,11 @@ function setModalHtml(modal,crd) {
     .find('.modal-body')
     .html('<div class="row">'
       + '<div class="col-sm-9">'
-      + '<img src="https://assets.warhammerchampions.com/card-database/cards/' + crd.skus.filter(sku => (sku.default == true && sku.lang == "en"))[0].id + '.jpg" style="width: 100%;"></img>'
+      + '<img src="'
+        + (typeof crd.imgurl == 'undefined'
+          ? 'https://assets.warhammerchampions.com/card-database/cards/' + crd.skus.filter(sku => (sku.default == true && sku.lang == "en"))[0].id + '.jpg'
+          : crd.imgurl[0])
+        + '" style="width: 100%;"></img>'
       + '</div></div>');
 }  
 function modalButtonGroup(crd) {
