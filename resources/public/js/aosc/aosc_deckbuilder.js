@@ -90,7 +90,7 @@ function card_button_group(c) {
 function maxAllowedInDeck(c) {
   if (c._id == -117917574 || c.name == "Festering Nurglings"){   //Festering Nurglings
     return 7;
-  } else if ($.inArray("Unique", c.tags) == true || c.category.en == "Blessing") {
+  } else if ($.inArray("Unleash", c.tags) == true || $.inArray("Unique", c.tags) == true || c.category.en == "Blessing") {
     return 1;
   } else if (c.category.en == "Champion") {
     return 2;

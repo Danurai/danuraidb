@@ -89,15 +89,15 @@ function imageName(c) {
 }
   
 function write_cards() {
-  //$.get(_localpath + imageName(_cards().first()),function () { 
-  //  write_table(_localpath);
-  //})
-  //.fail(function () {
-    write_table(_remotepath);
-  //});
+  $.get(_remotepath + imageName(_cards().first()),function () { 
+    write_table(true);
+  })
+  .fail(function () {
+    write_table(false);
+  });
 }
 
-function write_table(imgpath) {
+function write_table( showimgs ) {
   var outp = '<table class="mx-auto"><tbody>';
   var c;
   var total = 0;
@@ -110,13 +110,14 @@ function write_table(imgpath) {
 
   outp += '<tr>'
   for (i=0; i<res.length; i++) {
-    let src = (res[i].skus[0].src ? res[i].skus[0].src : imgpath + imageName(res[i]))
     if (((i % 7) == 0) && (i != 0)) {
        outp += '</tr><tr>';
     }
     total = (parseInt(res[i].digital) + parseInt(res[i].physical) + parseInt(res[i].foil));
     outp += '<td><div class="cardcontainer" data-id=' + res[i].id + '>'
-        + '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + src + '" alt="' + res[i].name + '" />'
+        + (showimgs
+            ? '<img class="cardimg' + (total == 0 ? ' cardimggrey' : '') + '" src="' + _remotepath + imageName(res[i]) + '" alt="' + res[i].name + '" />'
+            : '<div class="cardbox d-flex' + (total == 0 ? ' cardboxgrey' : '') + '"><div class="w-100 mt-3 text-center">' + res[i].name + '</div></div>')
         + '<span class="collectionbox ' + (total == 0 ? 'lockbox' : 'countbox') + '">'
         + '<span data-id=' + res[i].id + ' data-toggle="modal" data-target="#updatemodal">'
           + (total == 0 ? '<i class="fa fa-lock">' : 'x' + total)
@@ -176,23 +177,22 @@ function valueUpdateInputsX(crd) {
 $('#updatemodal').on('show.bs.modal', function (evt) {
   var id = $(evt.relatedTarget).closest('div').data('id');
   var crd = _cards({"id":id}).first();
-  var $modalBody = $(this).find('.modal-body');
-  setModalBody($modalBody, _remotepath, crd);
-  //$.get(_localpath + imageName(crd),function () { 
-  //    setModalBody($modalBody, _localpath, crd);
-  //  })
-  //  .fail(function () {
-  //    setModalBody($modalBody, _remotepath, crd);
-  //  });
+  $modalBody = $(this).find('.modal-body');
+  $.get(_remotepath + imageName(crd),function () { 
+      setModalBody($modalBody, true, crd);
+    })
+    .fail(function () {
+      setModalBody($modalBody, false, crd);
+    });
   $(this).find('.modal-title').html('<h4>' + crd.name + '<span class="ml-2" style="font-size: 0.8rem;"> Craft: ' + crd.craftcost + '</span></h4>');
   $($(this).find('.modal-footer a')[0]).attr("href","/aosc/cards/" + crd.id);
 });
 
-function setModalBody ( $modalBody, path, crd ) {
-  let src = (crd.skus[0].src ? crd.skus[0].src  : path + imageName(crd));
+function setModalBody ( $modalBody, showimg, crd ) {
   $modalBody.html(
     valueUpdateInputs (crd) 
-     + '<img class="mt-2" src="' + src + '"></img>');
+    + (showimg ? '<img class="mt-2" src="' + _remotepath + imageName(crd) + '" alt="' + crd.name + '"></img>' : '')
+  );
 }
 
 $('#updatemodal').on('change','input[type=number]',function () {
