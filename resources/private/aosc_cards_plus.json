@@ -107,7 +107,7 @@
             "category": {
                 "en": "Champion"
             },
-            "tags": ["Seraphon"],
+            "tags": ["Seraphon" "Unique"],
             "name": "Lord Kroak",
             "keywords": {
                 "en": ["Heroic Act"]
@@ -154,11 +154,10 @@
                     "finish": "matte",
                     "id": "LordKroak",
                     "image": true,
-                    "src": "https://www.warhammerchampions.com/wp-content/uploads/2019/12/LordKroak_1.png",
                     "lang": "en"
                 }
             ],
-            "links": []
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2019/12/LordKroak_1.png"]
         }
     },
     {
@@ -212,11 +211,10 @@
                     "finish": "matte",
                     "id": "WrathoftheSeraphon",
                     "image": true,
-                    "src": "https://www.warhammerchampions.com/wp-content/uploads/2020/01/WrathoftheSeraphon_1.png",
                     "lang": "en"
                 }
             ],
-            "links": []
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2020/01/WrathoftheSeraphon_1.png"]
         }
     },
     {
@@ -262,11 +260,10 @@
                     "finish": "matte",
                     "id": "StarStone_Skink_Priest",
                     "image": true,
-                    "src": "https://www.warhammerchampions.com/wp-content/uploads/2020/01/SkinkPriest_1.png",
                     "lang": "en"
                 }
             ],
-            "links": []
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2020/01/SkinkPriest_1.png"]
         }
     },
     {
@@ -311,11 +308,10 @@
                     "finish": "matte",
                     "id": "Vicious_Cold_One_Rider",
                     "image": true,
-                    "src": "https://www.warhammerchampions.com/wp-content/uploads/2019/12/ViciousColdOneRider_1.png",
                     "lang": "en"
                 }
             ],
-            "links": []
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2019/12/ViciousColdOneRider_1.png"]
         }
     },
     {
@@ -360,11 +356,10 @@
                     "finish": "matte",
                     "id": "Sumnmon_Seraphon",
                     "image": true,
-                    "src": "https://www.warhammerchampions.com/wp-content/uploads/2020/01/SummonSeraphon_1.png",
                     "lang": "en"
                 }
             ],
-            "links": []
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2020/01/SummonSeraphon_1.png"]
         }
     },
     {
@@ -374,7 +369,7 @@
         "_score": 1,
         "_source": {
             "category": {
-                "en": "Ability"
+                "en": "Action"
             },
             "tags": [],
             "name": "Celestite Swipe",
@@ -402,11 +397,10 @@
                     "finish": "matte",
                     "id": "Celestite_Swipe",
                     "image": true,
-                    "src": "https://www.warhammerchampions.com/wp-content/uploads/2020/01/CelestiteSwipe_1.png",
                     "lang": "en"
                 }
             ],
-            "links": []
+            "links": ["https://www.warhammerchampions.com/wp-content/uploads/2020/01/CelestiteSwipe_1.png"]
         }
     },
     {
@@ -425,7 +419,7 @@
             },
             "collectorNumber": "1",
             "corners": [],
-            "alliance": "Any",
+            "alliance": "Order",
             "id": 999000011,
             "class": {
               "en": "Warrior"},
@@ -444,11 +438,10 @@
                     "finish": "matte",
                     "id": "Grombrindal",
                     "image": true,
-                    "src": "/img/aosc/cards/grombrindal.jpg",
                     "lang": "en"
                 }
             ],
-            "links": []
+            "links": ["/img/aosc/cards/grombrindal.jpg"]
         }
     }
   ]
