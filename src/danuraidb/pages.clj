@@ -8,6 +8,7 @@
     [clj-time.core :as time]
     [clj-time.format :as tf]
     [clj-time.coerce :as tc]
+    [clj-http.client :as client]
     [danuraidb.database :as db]
     [danuraidb.model :as model]))
   
