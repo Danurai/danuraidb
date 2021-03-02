@@ -90,20 +90,16 @@ function imageName(c) {
   
 
 function write_cards() {
-  let i = new Image();
-  try {
-    i.src = _remotepath + imageName(_cards().first())
-  } catch (e) {
-    write_table(false);
-    return;
-  }
+  let testimg = new Image();
+  testimg.onload=write_table_with_images;
+  testimg.onerror=write_table_without_images;
+  testimg.src=_remotepath + imageName(_cards().first());
+}
+function write_table_with_images() {
   write_table(true);
-//  $.get(_remotepath + imageName(_cards().first()),function () { 
-//    write_table(true);
-//  })
-//  .fail(function () {
-//    write_table(false);
-//  });
+}
+function write_table_without_images() {
+  write_table(false);
 }
 
 function write_table( showimgs ) {
