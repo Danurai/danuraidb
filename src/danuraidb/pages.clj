@@ -11,10 +11,45 @@
     [clj-http.client :as client]
     [danuraidb.database :as db]
     [danuraidb.model :as model]))
+
+  
+(import java.util.Base64)
+
   
 (load "pages/common")
 (load "pages/lotrdb") 
 (load "pages/aosc")
+
+(defn- file->bytes [ file ]
+  (with-open [xin (io/input-stream file)
+              xout (java.io.ByteArrayOutputStream.)]
+    (io/copy xin xout)
+    (.toByteArray xout)))
+
+(defn img-to-base64 [ src ]
+  (let [f   (io/file src)
+        fb  (file->bytes f)]
+    (str 
+      "data:image/"
+      (->> src (re-find #"\.(\w+)$") second)
+      ";base64,"
+      (.encodeToString (Base64/getEncoder) fb))))
+
+(defn aosc-imgdata [ req ]
+  (let [src "/img/aosc/cards/Light_of_Sigmar.jpg"
+        b64 (img-to-base64 (str "resources/public" src))]
+    (h/html5
+      pretty-head
+      [:body
+        (navbar req)
+        [:div.container.my-3
+          [:div src]
+          [:div b64]
+          [:div 
+            [:img {:src src :width "400px"}]
+            [:img {:src b64 :width "400px"}]
+            ]]])))
+
 (load "pages/whuw")
 (load "pages/whconq")
 (load "pages/admin")

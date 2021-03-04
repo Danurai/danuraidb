@@ -203,9 +203,11 @@
   (POST "/new"     [] pages/aosc-deckbuilder)
   (GET "/new/:id"  [] pages/aosc-deckbuilder)
   (GET "/edit/:id" [] pages/aosc-deckbuilder))
-    
+
+   
 (defroutes aosc-routes
   (GET "/" [] pages/aosc-home)
+  (GET "/imgdata" [] pages/aosc-imgdata)
   (context "/decks" [] 
     (friend/wrap-authorize aosc-deck-routes #{::db/user}))
   (context "/collection" [] 
