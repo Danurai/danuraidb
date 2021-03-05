@@ -412,7 +412,7 @@
             "category": {
                 "en": "Champion"
             },
-            "tags": [],
+            "tags": ["Unique"],
             "name": "Grombrindal",
             "keywords": {
                 "en": ["Draw"]
@@ -423,7 +423,9 @@
             "id": 999000011,
             "class": {
               "en": "Warrior"},
+            "healthMod": -3,
             "collectorInfo": "007/001 4b E",
+            "cost": 3,
             "effect": {
                 "en": "At the start of your turn, if you have 5 or less health, [Draw] 1 card and gain 2 health."
             },
@@ -441,7 +443,7 @@
                     "lang": "en"
                 }
             ],
-            "imgurl": ["/img/aosc/cards/grombrindal.jpg"]
+            "imgurl": ["/img/aosc/cards/Grombrindal.jpg"]
         }
     }
   ]
