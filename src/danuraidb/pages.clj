@@ -33,7 +33,7 @@
 (defn- card-url [ c ]
   (str 
     aosc_card_path
-    (->> c :skus (filter :image) first :image)
+    (->> c :skus (filter :image) first :id)
     ".jpg"))
 
     (defn aosc-card-page [req]
@@ -100,6 +100,7 @@
                       ]]]]
                 [:div.col-sm-4
                   ;[:img#cardimg.img-fluid {:src (or (-> src :imgurl first) (aosc-img-uri (str (->> src :skus (filter :image) first :id) ".jpg") "/img/aosc/cards/" aosc_card_path))}]
+                  [:div (card-url src)]
                   [:img#cardimg.img-fluid {:src (or (-> src :imgurl first) (imgBase64Str (card-url src)) )}]
                   (if (< 1 (->> src :skus (filter :image) count))
                     [:div.d-flex.justify-content-around
