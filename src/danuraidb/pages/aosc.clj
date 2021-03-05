@@ -43,6 +43,95 @@
 
 
 
+            (import (org.apache.commons.codec.binary Base64))
+
+            (defn imgBase64Str [ src ]
+              (try 
+                (str 
+                  "data:image/"
+                  (second (re-find #"\.(\w+)$" src))
+                  ";base64, "
+                  (String. (Base64/encodeBase64 (:body (client/get src {:as :byte-array})))))
+                (catch Exception e src )))
+            
+            (defn- card-url [ c ]
+              (str 
+                aosc_card_path
+                (->> c :skus (filter :image) first :id)
+                ".jpg"))
+            
+                (defn aosc-card-page [req]
+                  (let [id (-> req :params :id)
+                        src (->> (model/aosc-get-cards) (filter #(= (-> % :id str) id)) first)
+                        owned (db/get-user-collection (-> req model/get-authentications :uid))]
+                    (h/html5
+                      aosc-pretty-head
+                      [:body
+                        (aosc-navbar req)
+                        [:div.container.my-3
+                          [:div.row.my-3
+                            [:span.h4.m-auto.border-bottom 
+                              [:span (:name src)]
+                              (if (not-empty (:errata src)) [:a {:href "#errata"} [:small.text-muted.ml-2 "e"]])
+                              ]]
+                          [:div.row
+                            [:div.col-sm-8
+                              [:div.row
+                                [:table.table.table-sm.table-hover
+                                  [:tbody
+                                    [:tr [:td "Alliance"][:td.h5 [:span.badge.badge-secondary [:a.text-white {:href (str "/aosc/cards?q=a:" (:alliance src))} (:alliance src)]]]]
+                                    [:tr [:td "Category"][:td [:a {:href (str "/aosc/cards?q=c:" (-> src :category :en))} (-> src :category :en)]]]
+                                    [:tr [:td "Class"][:td [:a {:href (str "/aosc/cards?q=l:" (-> src :class :en))} (-> src :class :en)]]]
+                                    [:tr [:td "Collector Info"][:td (-> src :collectorInfo)]]
+                                    [:tr 
+                                      [:td "Collection"]
+                                      [:td (if (nil? (-> req model/get-authentications :uid))
+                                              [:span [:a {:href (str "/aosc/cardlogin/" id)} "Login"] " to see your collection info"]
+                                              (for [[k v] (owned (keyword id))] [:span.mr-2 (str (-> k name clojure.string/capitalize) ": " v)]))]]
+                                    [:tr [:td "Corners"]
+                                      [:td 
+                                        (for [corner (->> src :corners)]
+                                          [:span
+                                            {:class (str "popover-corner-bg popover-corner-" (-> src :category :en clojure.string/lower-case) (if (:smooth corner) "smooth" "clunky"))}
+                                            (case (:value corner)
+                                              ("Remove" "Heal" "Damage" "Spell" "Unit" "Ability") 
+                                                [:img.popover-corner-image {:src (str aosc_icon_path "quest_" 
+                                                               (-> corner :value clojure.string/lower-case) 
+                                                               (if (some? (:qualifier corner)) (str "_" (-> corner :qualifier clojure.string/lower-case)))
+                                                               ".png")}]
+                                              "o" ""
+                                              [:span.popover-corner-value (:value corner)])])]]
+                                    [:tr [:td "Tags"]
+                                      [:td 
+                                        (for [tag (:tags src)]
+                                          [:span.mr-2 
+                                            [:img.data-icon.mr-2 {:src (str aosc_icon_path "tag_" (clojure.string/lower-case tag) ".png")}]
+                                            [:a {:href (str "/aosc/cards?q=t:" tag)} (str tag)]])]]
+                                    [:tr [:td "Set"][:td [:a {:href (str "/aosc/cards?q=s:" (:setnumber src))} (str (-> src :set first :number) ": " (-> src :set  first :name))]]]
+                                    [:tr [:td "Rarity"][:td [:img.data-icon.mr-2 {:src (str aosc_icon_path "rarity_" (-> src :rarity clojure.string/lower-case) ".png")}]
+                                                          [:a {:href (str "/aosc/cards?q=r:" (:rarity src))} (:rarity src)]]]
+                                    [:tr [:td "Cost"][:td (:cost src)]]
+                                    [:tr [:td "Health"][:td (:healthMod src)]]
+                                    [:tr [:td "Effect"][:td (-> src :effect :en aosc-markdown)]]                    
+                                    [:tr 
+                                      [:td "Subject"]
+                                      [:td (if (some? (:subjectImage src)) 
+                                            [:img.subject-icon {:src (str aosc_icon_path "subject_" (:subjectImage src) ".png")}])]]
+                                  ; Additional info
+                                    [:tr [:td "id"][:td (:id src)]]
+                                    (if (not-empty (:errata src))
+                                      [:tr#errata [:td "Errata"][:td (for [e (:errata src)] [:div [:span.mr-2 "2020:"] [:span (:errata e)]])]])
+                                  ]]]]
+                            [:div.col-sm-4
+                              ;[:img#cardimg.img-fluid {:src (or (-> src :imgurl first) (aosc-img-uri (str (->> src :skus (filter :image) first :id) ".jpg") "/img/aosc/cards/" aosc_card_path))}]
+                              [:img#cardimg.img-fluid {:src (or (-> src :imgurl first) (imgBase64Str (card-url src)) )}]
+                              (if (< 1 (->> src :skus (filter :image) count))
+                                [:div.d-flex.justify-content-around
+                                  (map-indexed (fn [id sku]
+                                    [:span [:a.altlink {:href "#" :data-id (:id sku)} (str "#" (inc id))]]) (->> src :skus (filter :image)))])]]]
+                        [:script "$('.altlink').on('click',function (evt) {evt.preventDefault(); $('#cardimg').attr('src','/img/aosc/cards/' + $(this).data('id') + '.jpg');});"]])))
+                
+
             
 (defn aosc-collection [ req ]
   (h/html5
@@ -119,127 +208,57 @@
 
 
 
-      (defn- aosc-cardimage [r]
-        (let [img (str (->> r :skus (filter :default) first :id) ".jpg")]
-          [:a {:href (str "/aosc/cards/" (:id r))}
-            [:img.py-1.px-1.img-fluid.img-thumbnail {
-              :src   (or (-> r :imgurl first) (aosc-img-uri img "/img/aosc/cards/" aosc_card_path))
-              :title (:name r) 
-              :alt   img}]]))
-                  
-      (defn- aosc-cardbox [ r ]
-        [:div.card 
-          [:h5.card-header (:name r)]
-          [:div.card-body
-            [:h6.card-sbutitle (str (-> r :category :en) " / " (:alliance r))]
-            ;[:div.card-text (str r)]
-            [:small [:a {:href (str "/aosc/cards/" (:id r))}  "link"]]]])
-      
-      (defn- aosc-get-images []
-        (let [img (str "https://assets.warhammerchampions.com/card-database/cards/" (->> (model/aosc-get-cards) first :skus (filter :default) first :id) ".jpg")]
-          (try 
-            (client/get img)
-            (catch Exception e (prn (str "Failed to load "img)) ))))
+(defn- aosc-cardimage [r]
+  (let [img (str (->> r :skus (filter :default) first :id) ".jpg")]
+    [:a {:href (str "/aosc/cards/" (:id r))}
+      [:img.py-1.px-1.img-fluid.img-thumbnail {
+        :src   (or (-> r :imgurl first) (aosc-img-uri img "/img/aosc/cards/" aosc_card_path))
+        :title (:name r) 
+        :alt   img}]]))
             
-                  
-      (defn aosc-cards-page [req]
-        (let [q (or (-> req :params :q) "s:4")
-              get-images (if (some? (aosc-get-images)) "on")
-              img (if (-> req :params :q) (-> req :params :images) get-images)]
-          (h/html5
-            aosc-pretty-head
-            [:body  
-              (aosc-navbar req)
-              [:div.container.my-3
-                [:div.row [:div.col
-                  [:form.form-inline.my-2 {:action "/aosc/cards" :method "get"}
-                    [:div.input-group.mr-2
-                      [:input.form-control.search-info {:type "text" :name "q" :value q :placeholder "Search"}]
-                      [:div.input-group-append [:button.btn.btn-primary {:type "submit"} "Search"]]]
-                    [:div.form-check.mr-2 
-                      [:input.form-check-input {:type "checkbox" :name "images" :checked (= img "on")}]
-                      [:label.form-check-label "Show Card Images"]]]]]
-                [:div.row.row-cols-4.row-cols-xs-2
-                  (map 
-                    (fn [r] 
-                      [:div.col.mb-2
-                        (if (= img "on")
-                            (aosc-cardimage r)
-                            (aosc-cardbox   r))]
-                    ) (sort-by :name (model/cardfilter q (model/aosc-get-cards) :aosc)))
-                ]]])))
+(defn- aosc-cardbox [ r ]
+  [:div.card 
+    [:h5.card-header (:name r)]
+    [:div.card-body
+      [:h6.card-sbutitle (str (-> r :category :en) " / " (:alliance r))]
+      ;[:div.card-text (str r)]
+      [:small [:a {:href (str "/aosc/cards/" (:id r))}  "link"]]]])
+
+(defn- aosc-get-images []
+  (let [img (str "https://assets.warhammerchampions.com/card-database/cards/" (->> (model/aosc-get-cards) first :skus (filter :default) first :id) ".jpg")]
+    (try 
+      (client/get img)
+      (catch Exception e (prn (str "Failed to load "img)) ))))
       
             
-(defn aosc-card-page [req]
-  (let [id (-> req :params :id)
-        src (->> (model/aosc-get-cards) (filter #(= (-> % :id str) id)) first)
-        owned (db/get-user-collection (-> req model/get-authentications :uid))]
+(defn aosc-cards-page [req]
+  (let [q (or (-> req :params :q) "s:4")
+        get-images (if (some? (aosc-get-images)) "on")
+        img (if (-> req :params :q) (-> req :params :images) get-images)]
     (h/html5
       aosc-pretty-head
-      [:body
+      [:body  
         (aosc-navbar req)
         [:div.container.my-3
-          [:div.row.my-3
-            [:span.h4.m-auto.border-bottom 
-              [:span (:name src)]
-              (if (not-empty (:errata src)) [:a {:href "#errata"} [:small.text-muted.ml-2 "e"]])
-              ]]
-          [:div.row
-            [:div.col-sm-8
-              [:div.row
-                [:table.table.table-sm.table-hover
-                  [:tbody
-                    [:tr [:td "Alliance"][:td.h5 [:span.badge.badge-secondary [:a.text-white {:href (str "/aosc/cards?q=a:" (:alliance src))} (:alliance src)]]]]
-                    [:tr [:td "Category"][:td [:a {:href (str "/aosc/cards?q=c:" (-> src :category :en))} (-> src :category :en)]]]
-                    [:tr [:td "Class"][:td [:a {:href (str "/aosc/cards?q=l:" (-> src :class :en))} (-> src :class :en)]]]
-                    [:tr [:td "Collector Info"][:td (-> src :collectorInfo)]]
-                    [:tr 
-                      [:td "Collection"]
-                      [:td (if (nil? (-> req model/get-authentications :uid))
-                              [:span [:a {:href (str "/aosc/cardlogin/" id)} "Login"] " to see your collection info"]
-                              (for [[k v] (owned (keyword id))] [:span.mr-2 (str (-> k name clojure.string/capitalize) ": " v)]))]]
-                    [:tr [:td "Corners"]
-                      [:td 
-                        (for [corner (->> src :corners)]
-                          [:span
-                            {:class (str "popover-corner-bg popover-corner-" (-> src :category :en clojure.string/lower-case) (if (:smooth corner) "smooth" "clunky"))}
-                            (case (:value corner)
-                              ("Remove" "Heal" "Damage" "Spell" "Unit" "Ability") 
-                                [:img.popover-corner-image {:src (str aosc_icon_path "quest_" 
-                                               (-> corner :value clojure.string/lower-case) 
-                                               (if (some? (:qualifier corner)) (str "_" (-> corner :qualifier clojure.string/lower-case)))
-                                               ".png")}]
-                              "o" ""
-                              [:span.popover-corner-value (:value corner)])])]]
-                    [:tr [:td "Tags"]
-                      [:td 
-                        (for [tag (:tags src)]
-                          [:span.mr-2 
-                            [:img.data-icon.mr-2 {:src (str aosc_icon_path "tag_" (clojure.string/lower-case tag) ".png")}]
-                            [:a {:href (str "/aosc/cards?q=t:" tag)} (str tag)]])]]
-                    [:tr [:td "Set"][:td [:a {:href (str "/aosc/cards?q=s:" (:setnumber src))} (str (-> src :set first :number) ": " (-> src :set  first :name))]]]
-                    [:tr [:td "Rarity"][:td [:img.data-icon.mr-2 {:src (str aosc_icon_path "rarity_" (-> src :rarity clojure.string/lower-case) ".png")}]
-                                          [:a {:href (str "/aosc/cards?q=r:" (:rarity src))} (:rarity src)]]]
-                    [:tr [:td "Cost"][:td (:cost src)]]
-                    [:tr [:td "Health"][:td (:healthMod src)]]
-                    [:tr [:td "Effect"][:td (-> src :effect :en aosc-markdown)]]                    
-                    [:tr 
-                      [:td "Subject"]
-                      [:td (if (some? (:subjectImage src)) 
-                            [:img.subject-icon {:src (str aosc_icon_path "subject_" (:subjectImage src) ".png")}])]]
-                  ; Additional info
-                    [:tr [:td "id"][:td (:id src)]]
-                    (if (not-empty (:errata src))
-                      [:tr#errata [:td "Errata"][:td (for [e (:errata src)] [:div [:span.mr-2 "2020:"] [:span (:errata e)]])]])
-                  ]]]]
-            [:div.col-sm-4
-              [:img#cardimg.img-fluid {:src (or (-> src :imgurl first) (aosc-img-uri (str (->> src :skus (filter :image) first :id) ".jpg") "/img/aosc/cards/" aosc_card_path))}]
-              (if (< 1 (->> src :skus (filter :image) count))
-                [:div.d-flex.justify-content-around
-                  (map-indexed (fn [id sku]
-                    [:span [:a.altlink {:href "#" :data-id (:id sku)} (str "#" (inc id))]]) (->> src :skus (filter :image)))])]]]
-        [:script "$('.altlink').on('click',function (evt) {evt.preventDefault(); $('#cardimg').attr('src','/img/aosc/cards/' + $(this).data('id') + '.jpg');});"]])))
-
+          [:div.row [:div.col
+            [:form.form-inline.my-2 {:action "/aosc/cards" :method "get"}
+              [:div.input-group.mr-2
+                [:input.form-control.search-info {:type "text" :name "q" :value q :placeholder "Search"}]
+                [:div.input-group-append [:button.btn.btn-primary {:type "submit"} "Search"]]]
+              [:div.form-check.mr-2 
+                [:input.form-check-input {:type "checkbox" :name "images" :checked (= img "on")}]
+                [:label.form-check-label "Show Card Images"]]]]]
+          [:div.row.row-cols-4.row-cols-xs-2
+            (map 
+              (fn [r] 
+                [:div.col.mb-2
+                  (if (= img "on")
+                      (aosc-cardimage r)
+                      (aosc-cardbox   r))]
+              ) (sort-by :name (model/cardfilter q (model/aosc-get-cards) :aosc)))
+          ]]])))
+      
+            
 ;; Deck Lists
 
         
