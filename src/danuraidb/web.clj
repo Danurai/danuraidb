@@ -207,7 +207,6 @@
    
 (defroutes aosc-routes
   (GET "/" [] pages/aosc-home)
-  (GET "/imgdata" [] pages/aosc-imgdata)
   (context "/decks" [] 
     (friend/wrap-authorize aosc-deck-routes #{::db/user}))
   (context "/collection" [] 
