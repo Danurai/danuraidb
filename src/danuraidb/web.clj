@@ -235,6 +235,7 @@
   
   
 (defroutes whuw-api-routes
+  (GET "/yauwdb" [] (-> model/whuwdata2 json/write-str response (content-type "application/json") ) )
   (GET "/cards" [] (-> (model/whuw_fullcards) json/write-str response (content-type "application/json")))
   (GET "/card/:id" [id]
     (-> (->> (model/whuw_fullcards) (filter #(= (:id %) id)) first)
@@ -257,6 +258,7 @@
   (GET "/champions" [] pages/whuw-mortis-champs)
   (GET "/cards"     [] pages/whuw-cards)
   (GET "/boards"    [] pages/whuw-boards)
+  (GET "/yauwdb"    [] pages/yauwdb)
   (context "/api" [] whuw-api-routes))
   
 ;; WHCONQ ;;
