@@ -71,3 +71,42 @@
 .deckrmv :hover {
   color: darkred;
 }
+
+#set-cards .whuw__card, #faction-cards .whuw__card {
+  cursor: pointer;
+}
+.whuw__fighter-cards {
+  width: 200px;
+  position: relative;
+  padding-top: 20px;
+  margin: 0.2rem;
+}
+.whuw__cards-swap-trigger {
+  position: absolute;
+  right: 0px;
+  border-radius: 50%;
+  background-color: #222;
+  border: 2px dashed #ddd;
+  color: white;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 99;
+}
+.whuw__cards-wrapper {
+  margin-top: 1rem;
+  position: relative;
+  height: 250px;
+  z-index: 0;
+}
+.whuw__fighter-card {
+  width: 80%;
+  position: absolute;
+  transform: translate( 20%, 10% );
+  transition: transform .3s ease-in-out;
+  z-index: 0;
+  cursor: pointer;
+}
+.whuw__fighter-card-active {
+  transform: translate( 0px, 0px ); 
+  z-index: 1;
+}
