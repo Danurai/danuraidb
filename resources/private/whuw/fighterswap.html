@@ -1,0 +1,92 @@
+<div class="warbands__fighters-content warbands__fighters-cards">
+    <div class="warbands__cards-swap-trigger" data-js-toggle-cards=""></div>
+    <div class="warbands__cards-wrapper">
+        <a href="https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek_ENG.png" data-fancybox="images-0-garrekgorebeard" tabindex="0">
+            <img src="https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek_ENG.png" alt="Garrek Gorebeard Silver Card" class="warbands__cards-card" data-js-toggle-card="">
+        </a>
+        <a href="https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek-INS_ENG.png" data-fancybox="images-0-garrekgorebeard" tabindex="0">
+            <img src="https://warhammerunderworlds.com/wp-content/uploads/sites/6/2018/10/Garrek-INS_ENG.png" alt="Garrek Gorebeard Silver Card" class="warbands__cards-card warbands__cards-card--active" data-js-toggle-card="">
+        </a>
+    </div>
+</div>
+
+
+.warbands__fighters-cards {
+  padding: 0 80px 0 40px;
+  position: relative; }
+  @media only screen and (min-width: 900px) {
+    .warbands__fighters-cards {
+      margin-top: 30px;
+      min-height: 560px;
+      padding: 0 0 0 10px; } }
+
+.warbands__cards-wrapper {
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 166%;
+  position: relative; }
+  @media only screen and (min-width: 600px) {
+    .warbands__cards-wrapper {
+      min-height: 540px;
+      padding-top: 0; } }
+
+.warbands__cards-swap-trigger {
+  -ms-flex-align: center;
+      align-items: center;
+  background-color: #000;
+  background-image: url("../images/warbands/toggle.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  border: solid 2px #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  display: -ms-flexbox;
+  display: flex;
+  height: 60px;
+  -ms-flex-pack: center;
+      justify-content: center;
+  position: absolute;
+  right: 90px;
+  top: -25px;
+  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  width: 60px;
+  z-index: 12; }
+  @media only screen and (min-width: 900px) {
+    .warbands__cards-swap-trigger {
+      background-size: auto;
+      height: 90px;
+      top: -30px;
+      width: 90px; } }
+  .warbands__cards-swap-trigger:hover {
+    background-color: #363636;
+    border-color: transparent; }
+    .warbands__cards-swap-trigger:hover::before {
+      animation: spinAround 9s linear infinite .2s;
+      border: 2px dashed #fff;
+      border-radius: 50%;
+      content: '';
+      height: 100%;
+      left: -2px;
+      padding: 0;
+      pointer-events: none;
+      position: absolute;
+      top: -2px;
+      width: 100%;
+      z-index: -9; }
+
+.warbands__cards-card {
+  left: 50%;
+  max-width: 344px;
+  position: absolute;
+  top: 0;
+  -ms-transform: translate(-35%, 50px);
+      transform: translate(-35%, 50px);
+  transition: transform .3s ease-in-out;
+  width: 100%;
+  z-index: 0; }
+
+.warbands__cards-card--active {
+  -ms-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+  z-index: 1; }
