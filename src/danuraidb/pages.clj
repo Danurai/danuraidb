@@ -19,13 +19,45 @@
 (load "pages/lotrdb") 
 (load "pages/aosc")
 (load "pages/whuw")
+
+(defn yauwdb [ req ]
+  (let [ sets     (->> model/whuwdata2 :sets (map (fn [[k, v]] v)) (sort-by :id)) 
+         factions (->> model/whuwdata2 :factions (map (fn [[k v]] v)) (sort-by :id)) 
+         cards    (->> model/whuwdata2 :cards (map (fn [[k v]] v)) (sort-by :id))  ]
+    (h/html5
+      pretty-head
+      [:body {:style "background-color: #222;"}
+        (whuw-navbar req)
+        [:div.container-fluid.my-3
+          [:div.container.mb-2
+            [:select#faction.form-control.mr-2.bg-dark.text-light
+              (for [ faction factions ]
+                [:option (:displayName faction)])]]
+          [:div#faction-members]
+          [:div
+            [:ul.nav.nav-tabs {:role "tablist"}
+              [:li.nav-item {:role "presentation"}
+                [:button#faction-tab.nav-link.btn-secondary.active {:data-toggle "tab" :data-target "#faction-cards" :type "button" :role "tab"} "Faction Cards" ] ]
+              [:li.nav-item {:role "presentation"}
+                [:button#set-tab.nav-link.btn-secondary {:data-toggle "tab" :data-target "#set-cards" :type "button" :role "tab"} "Set Cards"]]]
+            [:div.tab-content
+              [:div#faction-cards.tab-pane.fade.show.active.py-3 {:role "tabpanel"}]
+              [:div#set-cards.tab-pane.fade.py-3 {:role "tabpanel"}]]]]
+        [:div#card-modal.modal {:tabindex -1 :role "modal"}
+          [:div.modal-dialog {:role "document"}
+            [:div.modal-content {:style "border: none;"}
+              [:div.modal-body.bg-dark.rounded.text-center]]]]
+      ]
+      (h/include-js "/js/whuw/whuw_yauwdbdata.js")
+      (h/include-css "/css/whuw-style.css"))))
+
 (load "pages/whconq")
 (load "pages/admin")
 
 (defn home [req]
   (h/html5
     pretty-head
-    [:body;
+    [:body
       (navbar req)
       [:div.container.my-3
         [:div.h5 "Deckbuilders"]

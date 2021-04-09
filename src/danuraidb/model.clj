@@ -262,6 +262,9 @@
 
 (def whuwdata
   (load-json-file "private/whuw/whuw_data_r2.json"))
+
+(def whuwdata2 
+  (load-json-file "private/whuw/yauwdb.json"))
   
 (def whuwchamps 
   (load-json-file "private/whuw/whuw_champions.json"))
