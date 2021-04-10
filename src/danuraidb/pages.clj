@@ -29,6 +29,14 @@
       [:body {:style "background-color: #222;"}
         (whuw-navbar req)
         [:div.container-fluid.my-3
+          [:div#info 
+            [:small 
+              [:span.mr-1 "Warhammer Underworlds is &#169; "]
+              [:a.mr-1 {:href="https://warhammerunderworlds.com/"} "Games Workshop."]
+              [:span.mr-1 "Card images and databases courtesy of"] 
+              [:a.mr1 {:href "https://github.com/PompolutZ/yawudb"} "https://github.com/PompolutZ/yawudb"]
+              [:a.mr1 {:href "https://yawudb.com/"} "yawudb.com"]
+             ]]
           [:div.container.mb-2
             [:select#faction.form-control.mr-2.bg-dark.text-light
               (for [ faction factions ]

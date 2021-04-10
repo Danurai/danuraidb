@@ -12,4 +12,5 @@ pom.xml.asc
 .lein-plugins/
 .lein-failures
 .nrepl-port
+figwheel_server.log
 .cpcache/
