@@ -58,8 +58,8 @@ $.get(url, data => {
     }
 
     function factionMember( factionName, m, i ) {
-        let srcBase = `/img/whuw/fighters/${factionName}-${i}.png`;
-        let srcInspired = `/img/whuw/fighters/${factionName}-${i}-inspired.png`;
+        let srcBase = `/img/whuw/fighters/${factionName}-${i}.webp`;
+        let srcInspired = `/img/whuw/fighters/${factionName}-${i}-inspired.webp`;
         let innerHTML = `<div class="whuw__fighter-cards">
                             <div class="whuw__cards-swap-trigger"><i class="fas fa-exchange-alt fa-lg"></i></div>
                             <div class="whuw__cards-wrapper">
@@ -79,17 +79,13 @@ $.get(url, data => {
     }
     function cardElement( card, nameSet = true ) {
         let imgname = String(card.id).padStart(5, '0');
-        //let src = `/img/whuw/assets/cards/${imgname}`;
         let src = warhammerUnderworldsCardURL( card );
         let set = Object.values(_sets).filter( s => s.id == card.setId )[0];
         let setNameDisplay = nameSet ? 'inherit' : 'none';
-        //return `<img class="whuwcard" style="width: 150px; padding: 0.2rem;" src = "${src}.png">`
+        let alt = card.id + ': ' + card.name;
 
         return `<div style="width: 180px; padding: 0.3rem;" >
-                    <picture class="whuw__picture" data-card-id = ${card.id}>
-                        <!-- source srcset = "${src}.webp" -->
-                        <img class = "img-fluid whuw__card" src = "${src}" data-toggle = "modal" data-target = "#card-modal">
-                    </picture>
+                    <img class = "img-fluid whuw__card" src = "${src}" data-toggle = "modal" data-target = "#card-modal" alt = "${alt}">
                     <div style = "text-align: center; font-size: 0.6rem; color: #ddd; display: ${setNameDisplay};"><b>${set.displayName}</b></div>
                 </div>`
     }

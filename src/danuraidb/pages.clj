@@ -26,10 +26,10 @@
          cards    (->> model/whuwdata2 :cards (map (fn [[k v]] v)) (sort-by :id))  ]
     (h/html5
       pretty-head
-      [:body {:style "background-color: #222;"}
+      [:body.text-light {:style "background-color: #222;"}
         (whuw-navbar req)
         [:div.container-fluid.my-3
-          [:div#info.bg-dark.text-light.w-100 {:style "position: fixed; bottom: 0px;"}
+          [:div#info.bg-dark.w-100 {:style "position: fixed; bottom: 0px;"}
             [:small
               [:span.mr-1 "Warhammer Underworlds is &#169; "]
               [:a.mr-1 {:href="https://warhammerunderworlds.com/"} "Games Workshop."]
