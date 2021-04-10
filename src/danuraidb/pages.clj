@@ -29,12 +29,12 @@
       [:body {:style "background-color: #222;"}
         (whuw-navbar req)
         [:div.container-fluid.my-3
-          [:div#info 
-            [:small 
+          [:div#info.bg-dark.text-light.w-100 {:style "position: fixed; bottom: 0px;"}
+            [:small
               [:span.mr-1 "Warhammer Underworlds is &#169; "]
               [:a.mr-1 {:href="https://warhammerunderworlds.com/"} "Games Workshop."]
-              [:span.mr-1 "Card images and databases courtesy of"] 
-              [:a.mr1 {:href "https://github.com/PompolutZ/yawudb"} "https://github.com/PompolutZ/yawudb"]
+              [:span.mr-1 "Warband images and databases courtesy of"] 
+              [:a.mr2 {:href "https://github.com/PompolutZ/yawudb"} "https://github.com/PompolutZ/yawudb"]
               [:a.mr1 {:href "https://yawudb.com/"} "yawudb.com"]
              ]]
           [:div.container.mb-2
