@@ -28,7 +28,7 @@
     (str whuw_icon_path "Shadespire-Library-Icons-Universal.png")
     "WHUW DB" 
     "whuw"
-    ["decks" "mortis" "champions" "cards" "boards" "yauwdb"]
+    ["decks" "mortis" "cards" "boards" "yauwdb"]  ;"champions"
     req))
                   
 (defn whuw-home [ req ]
