@@ -72,9 +72,24 @@
   color: darkred;
 }
 
+.whuw__card {
+  min-height: 350px;
+}
 #set-cards .whuw__card, #faction-cards .whuw__card {
   cursor: pointer;
+  width: 250px;
 }
+#set-cards .icon, #faction-cards .icon {
+  width: 40px;
+}
+.icon {
+  width: 48px;
+}
+#set-cards .icon-secondary {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1)
+}
+
 .whuw__fighter-cards {
   width: 200px;
   position: relative;

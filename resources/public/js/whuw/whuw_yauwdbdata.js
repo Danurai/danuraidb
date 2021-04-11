@@ -1,4 +1,4 @@
-let _factions, _sets, _cards, _factionMembers;
+let _factions, _sets, _cards, _factionMembers, _setCounts;
 let url = "/whuw/api/yauwdb";
 
 $.get(url, data => {
@@ -7,6 +7,9 @@ $.get(url, data => {
     _sets = data.sets;
     _cards = data.cards;
 
+    Object.values( _sets ).forEach( s => {
+        _sets[ s.displayName ].cardCount = Object.values( _cards ).filter( c => c.setId == s.id ).length;
+    })
 
     $('#faction').on('change', function () {
         let faction = this.value;
@@ -70,6 +73,28 @@ $.get(url, data => {
         return innerHTML; 
     }
 
+    
+    function cardElement( card, nameSet = true ) {
+        let set = Object.values(_sets).filter( s => s.id == card.setId )[0];
+        let faction = Object.values(_factions).filter( f => f.id == card.factionId)[0];
+        let wave = String(Math.floor(card.id / 1000));
+        return `<div class="whuw__card d-flex flex-column m-1 border border-light rounded bg-secondary">
+                <div style = "flex: 1 1 auto;" class="p-2" data-toggle="modal" data-target="#card-modal" data-cardid="${card.id}">
+                    <div class="d-flex justify-content-between mb-2">
+                        <img class="icon" src="/img/whuw/icons/type_${card.type.toLowerCase()}.png" title="${card.type}">
+                        <img class="icon" src="/img/whuw/icons/${faction.name}-icon.png" title="${faction.displayName}">
+                    </div>
+                    <h5 class="text-center">${card.name}</h5>
+                    <div class="text-center small">${card.rule}</div>
+                </div>
+                ${nameSet ? `<div style = "text-align: center; font-size: 0.8rem;"><b>${set.displayName}</b></div>` : ``}
+                <div class="small mx-2 mb-1">
+                    <img style="width: 16px" src="/img/whuw/icons/wave-${wave.padStart( 2, '0')}-icon.png" title="Wave ${wave}">
+                    <span>#${card.id % 1000}/${set.cardCount}</span>
+                </div>
+            </div>`
+    }
+
     function warhammerUnderworldsCardURL( card ) {
         let setPrefix = [ '-', 'S', 'L', 'NV', 'NVPU', 'COD', 'BG', 'BGGIFTPACK', 'ARENAMORTIS', 'DIRECHASM' ];
         let cycle = Math.round( card.id / 1000 );
@@ -77,7 +102,7 @@ $.get(url, data => {
         let cardImg =  setPrefix[ cycle ] + ( cycle == 1 ? setCardId.padStart( 3, '0' ) : cycle == 2 ? setCardId.padStart( 2, '0' ) : setCardId );
         return `https://images.warhammerunderworlds.com/en/${cardImg}.png`;
     }
-    function cardElement( card, nameSet = true ) {
+    function cardImgElement( card, nameSet = true ) {
         let imgname = String(card.id).padStart(5, '0');
         let src = warhammerUnderworldsCardURL( card );
         let set = Object.values(_sets).filter( s => s.id == card.setId )[0];
@@ -100,9 +125,15 @@ $.get(url, data => {
         //let imgname = String(card.id).padStart(5, '0');
         //let src = `/img/whuw/assets/cards/${imgname}`;
         let src = evt.relatedTarget.src;
-        $('#card-modal').find('.modal-body').html(
-            `<picture><img class="img-fluid" src="${src}"></picture>`   //<source srcset = "${src}_xs.webp">
-        );
+        if (typeof src == 'undefined') {
+            $('#card-modal').find('.modal-body').html(
+                cardElement( _cards[ $(evt.relatedTarget).data('cardid') ] )
+            );    
+        } else {
+            $('#card-modal').find('.modal-body').html(
+                `<picture><img class="img-fluid" src="${src}"></picture>`   //<source srcset = "${src}_xs.webp">
+            );
+        }
     });
 
     
