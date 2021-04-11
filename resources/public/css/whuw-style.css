@@ -82,10 +82,11 @@
 #set-cards .icon, #faction-cards .icon {
   width: 40px;
 }
-.icon {
-  width: 48px;
+#set-cards .icon-sm, #faction-cards .icon-sm {
+  width: 32px;
+  height: 32px;
 }
-#set-cards .icon-secondary {
+#set-cards .icon-grey, #faction-cards .icon-grey {
   -webkit-filter: grayscale(1);
   filter: grayscale(1)
 }

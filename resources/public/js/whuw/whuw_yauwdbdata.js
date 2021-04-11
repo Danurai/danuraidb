@@ -72,12 +72,19 @@ $.get(url, data => {
                         </div>`
         return innerHTML; 
     }
-
     
     function cardElement( card, nameSet = true ) {
         let set = Object.values(_sets).filter( s => s.id == card.setId )[0];
         let faction = Object.values(_factions).filter( f => f.id == card.factionId)[0];
         let wave = String(Math.floor(card.id / 1000));
+        let setIcons = (typeof card.duplicates != 'undefined'
+            ? card
+                .duplicates
+                .map( id => {
+                    let dupeset = Object.values(_sets).filter( s => s.id == _cards[ id ].setId )[0];
+                    return `<img class="icon-sm${id != card.id ? ' icon-grey' : ''}" src="/img/whuw/icons/${dupeset.name}-icon.png" title="${dupeset.displayName}">` })
+                .join(' ')
+            : `<img class="icon-sm" src="/img/whuw/icons/${set.name}-icon.png" title="${set.displayName}">` );
         return `<div class="whuw__card d-flex flex-column m-1 border border-light rounded bg-secondary">
                 <div style = "flex: 1 1 auto;" class="p-2" data-toggle="modal" data-target="#card-modal" data-cardid="${card.id}">
                     <div class="d-flex justify-content-between mb-2" style="align-items: flex-start;">
@@ -87,10 +94,12 @@ $.get(url, data => {
                     <h5 class="text-center">${card.name}</h5>
                     <div class="text-center small">${card.rule}</div>
                 </div>
-                ${nameSet ? `<div style = "text-align: center; font-size: 0.8rem;"><b>${set.displayName}</b></div>` : ``}
-                <div class="small mx-2 mb-1">
-                    <img style="width: 16px" src="/img/whuw/icons/wave-${wave.padStart( 2, '0')}-icon.png" title="Wave ${wave}">
-                    <span>#${card.id % 1000}/${set.cardCount}</span>
+                <div class="p-2">
+                    <div><span>Sets: </span>${setIcons}</div>
+                    <div class="small d-flex">
+                        <img class="mr-1 ml-auto" style="width: 16px" src="/img/whuw/icons/wave-${wave.padStart( 2, '0')}-icon.png" title="Wave ${wave}">
+                        <div>#${card.id % 1000}/${set.cardCount}</div>
+                    </div>
                 </div>
             </div>`
     }
