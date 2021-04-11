@@ -80,7 +80,7 @@ $.get(url, data => {
         let wave = String(Math.floor(card.id / 1000));
         return `<div class="whuw__card d-flex flex-column m-1 border border-light rounded bg-secondary">
                 <div style = "flex: 1 1 auto;" class="p-2" data-toggle="modal" data-target="#card-modal" data-cardid="${card.id}">
-                    <div class="d-flex justify-content-between mb-2">
+                    <div class="d-flex justify-content-between mb-2" style="align-items: flex-start;">
                         <img class="icon" src="/img/whuw/icons/type_${card.type.toLowerCase()}.png" title="${card.type}">
                         <img class="icon" src="/img/whuw/icons/${faction.name}-icon.png" title="${faction.displayName}">
                     </div>
