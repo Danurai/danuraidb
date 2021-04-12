@@ -1,4 +1,4 @@
-let _factions, _sets, _cards, _factionMembers, _setCounts;
+let _factions, _sets, _cards, _factionMembers, _waveCounts;
 let url = "/whuw/api/yauwdb";
 
 $.get(url, data => {
@@ -6,10 +6,11 @@ $.get(url, data => {
     _factionMembers = data.factionMembers;
     _sets = data.sets;
     _cards = data.cards;
-
-    Object.values( _sets ).forEach( s => {
-        _sets[ s.displayName ].cardCount = Object.values( _cards ).filter( c => c.setId == s.id ).length;
-    })
+    let _waveIds = new Set( Object.keys(_cards).map( id => id[0] ) );
+    _waveCounts = {};
+    _waveIds.forEach( id => {
+        _waveCounts[id] = Object.keys( _cards ).filter( c => c[0] == id ).length;
+    });
 
     $('#faction').on('change', function () {
         let faction = this.value;
@@ -74,17 +75,19 @@ $.get(url, data => {
     }
     
     function cardElement( card, nameSet = true ) {
+        let wave = String(Math.floor(card.id / 1000));
         let set = Object.values(_sets).filter( s => s.id == card.setId )[0];
         let faction = Object.values(_factions).filter( f => f.id == card.factionId)[0];
-        let wave = String(Math.floor(card.id / 1000));
         let setIcons = (typeof card.duplicates != 'undefined'
-            ? card
-                .duplicates
-                .map( id => {
+            ? card.duplicates.map( id => {
                     let dupeset = Object.values(_sets).filter( s => s.id == _cards[ id ].setId )[0];
                     return `<img class="icon-sm${id != card.id ? ' icon-grey' : ''}" src="/img/whuw/icons/${dupeset.name}-icon.png" title="${dupeset.displayName}">` })
                 .join(' ')
             : `<img class="icon-sm" src="/img/whuw/icons/${set.name}-icon.png" title="${set.displayName}">` );
+        let gloryIcon = '<img class="icon m-1" src="/img/whuw/icons/total_glory.png">';
+        let gloryIcons = (typeof card.glory != 'undefined' 
+            ? `<div class="d-flex justify-content-center">${gloryIcon.repeat( card.glory )}</div>`
+            : '')
         return `<div class="whuw__card d-flex flex-column m-1 border border-light rounded bg-secondary">
                 <div style = "flex: 1 1 auto;" class="p-2" data-toggle="modal" data-target="#card-modal" data-cardid="${card.id}">
                     <div class="d-flex justify-content-between mb-2" style="align-items: flex-start;">
@@ -92,13 +95,14 @@ $.get(url, data => {
                         <img class="icon" src="/img/whuw/icons/${faction.name}-icon.png" title="${faction.displayName}">
                     </div>
                     <h5 class="text-center">${card.name}</h5>
-                    <div class="text-center small">${card.rule}</div>
+                    <div class="text-center small">${whuw_markdown( card.rule )}</div>
                 </div>
+                ${gloryIcons}
                 <div class="p-2">
                     <div><span>Sets: </span>${setIcons}</div>
                     <div class="small d-flex">
                         <img class="mr-1 ml-auto" style="width: 16px" src="/img/whuw/icons/wave-${wave.padStart( 2, '0')}-icon.png" title="Wave ${wave}">
-                        <div>#${card.id % 1000}/${set.cardCount}</div>
+                        <div>#${card.id % 1000}/${_waveCounts[ wave ]}</div>
                     </div>
                 </div>
             </div>`
@@ -146,6 +150,19 @@ $.get(url, data => {
     });
 
     
-    $('#faction')[0].value = 'Sepulchral Guard';
+    $('#faction')[0].value = `Khagra's Ravagers`;
     $('#faction').trigger('change');
 });
+
+function whuw_markdown( str ) {
+    /*
+        **...** bold
+        \n newline
+        [...]
+    */
+    return str
+            .replace(/\*{2}(.*?)\*{2}/g, '<b>$1</b>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/\\n/g, '<br />')
+            .replace(/\[(.+)\]/g,'<div class="p-2 text-white rounded" style="background-color: black">$1</div>');
+}
