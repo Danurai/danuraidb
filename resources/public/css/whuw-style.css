@@ -75,6 +75,9 @@
 .whuw__card {
   min-height: 350px;
 }
+#card-modal .icon {
+  width: 64px;
+}
 #set-cards .whuw__card, #faction-cards .whuw__card {
   cursor: pointer;
   width: 250px;
