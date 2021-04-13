@@ -544,7 +544,7 @@
         "url": "https://warhammerunderworlds.com/wp-content/uploads/sites/6/2017/12/Shadespire-Library-Icons-Upgrade.png"
       }
     }
-  ]
+  ],
   "boards": [
     {
       "set_name": "Shadespire",
@@ -595,6 +595,12 @@
       "filename": "the-ruptured-seal.jpg",
       "championship_legal": true
     }, {
+      "set_name": "Starter Set",
+      "number": "1A",
+      "name": "Cursed Oubliette",
+      "filename": "cursed-oubliette.jpg",
+      "championship_legal": false
+    }, {
       "set_name": "Nightvault: Forbidden Chambers",
       "number": "1A",
       "name": "Molten Shardpit",
@@ -636,13 +642,101 @@
       "name": "The Animus Forge",
       "filename": "the-animus-forge.jpg",
       "championship_legal": false
-    },
-    {
+    }, {
       "set_name": "The Shattered City",
       "number": "1B",
       "name": "The Arcane Nexus",
       "filename": "the-arcane-nexus.jpg",
       "championship_legal": false
+    }, {
+      "set_name": "Arena Mortis",
+      "number": "1A",
+      "name": "Shade-Cursed Lair",
+      "filename": "shade-cursed-lair.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Arena Mortis",
+      "number": "1B",
+      "name": "Ravaged Hall",
+      "filename": "ravaged-hall.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "DireChasm",
+      "number": "1A",
+      "name": "Hives of Sacrifice",
+      "filename": "hives-of-sacrifice.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "DireChasm",
+      "number": "1B",
+      "name": "Ambertrap Nest",
+      "filename": "ambertrap-nest.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "DireChasm",
+      "number": "2A",
+      "name": "Poll of Fangs",
+      "filename": "pool-of-fangs.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "DireChasm",
+      "number": "2B",
+      "name": "Menhirs of Binding",
+      "filename": "menhirs-of-binding.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Starter Set",
+      "number": "1B",
+      "name": "Soul Refractor",
+      "filename": "soul-refractor.jpg",
+      "championship_legal": false
+    }, {
+      "set_name": "Starter Set",
+      "number": "2A",
+      "name": "The Mirror Well",
+      "filename": "the-mirror-well.jpg",
+      "championship_legal": true
+    }, {
+      "set_name": "Starter Set",
+      "number": "2B",
+      "name": "Shyshian Stardial",
+      "filename": "shyishian-stardial.jpg",
+      "championship_legal": true
+    }],
+  "formats": {
+    "Vanguard": {
+      "boards": ["Hives of Sacrifice","Ambertrap Nest","Pool of Fangs","Menhirs of Binding"],
+      "card_restriction": {
+        "wave": [9]
+      },
+      "note": "Direchasm Warbands and Boards only. No Forsaken or Rerticted Cards"
+    },
+    "Relic": {
+      "boards": ["all"],
+      "card_restriction": {
+        "forsaken": [3317,3340,3391,3397,1329,6403,1336,6418,1347,1368,4048]
+      },
+      "note": "All Warbands and Boards. Forsaken cards, no Restricted cards."
+    },
+    "Arena Mortis": {
+      "boards": ["all"],
+      "card_restriction": {
+        "forsaken": [3424,6418,1347,3368]
+      },
+      "note": "All Warbands and Boards. Forsaken cards, no Restricted cards."
+    },
+    "Championship": {
+      "boards": [
+        "Shrine of the Silent People", "Wyrmgrave", "Abandoned Lair", "Living Rock", 
+        "Ravaged Hall", "Shade-cursed Lair",
+        "Hives of Sacrifice", "Ambertrap Nest", "Pool of Fangs", "Menhirs of Binding"
+      ],
+      "card_restriction": {
+        "wave": [6, 7, 8, 9],
+        "forsaken": [6403,6418],
+        "restricted": [6282,6299,6308,6383,6393,6315,6341,8029,6359,6362,7021,6363,6429,6431,7038,8038,6434,8039,6251,6071,6076, 5042,6172,6191,3004,3037,3042,3047]
+      },
+      "note": "All Warbands, Restricted Boards, Last 2 Wave Universal Cards. Forsaken cards, and maximum of 3 restricted cards."
     }
-  ]
+  }
 }
