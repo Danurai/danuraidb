@@ -14,17 +14,31 @@ $.get(url, data => {
 
     $('#faction').on('change', function () {
         let faction = this.value;
+        let factionId = _factions[ faction ].id;
+        let sets = new Set( Object.values(_cards).filter( c => c.factionId == factionId ).map( c => c.setId ) );
+        $('#faction-members').empty();
         viewFighters( faction );
         viewFactionCards( faction );
-        viewSetCards( faction );
+        viewSetCards( sets );
     });
+
+    $('#set').on('change', function () {
+        let set = _sets[ this.value ];
+        let factionIds = set.displayName == "Leaders" || set.displayName == "Power Unbound"
+            ? new Set()
+            : new Set( Object.values( _cards ).filter( c => c.setId == set.id ).map( c => c.factionId ) );
+        let factions = Object.values( _factions ).filter( f => factionIds.has( f.id ) );
+        $('#faction-members').empty();
+        factions.forEach( f => viewFighters( f.displayName ) );
+        $('#faction-cards').empty();
+        viewSetCards( [ set.id ] );
+    })
 
     function viewFighters ( faction ) {
         let factionName = _factions[ faction ].name;
         let members = _factionMembers[ factionName ];
         let factionFighters = $('<div class="whuw__faction-fighters d-flex flex-wrap justify-content-center mb-2"></div>');
         $('#faction-members')
-            .empty()
             .append ( factionFighters );
         if ( typeof members != 'undefined' ) {
             members.forEach( ( m, i ) => {
@@ -44,9 +58,7 @@ $.get(url, data => {
         });
     }
 
-    function viewSetCards( faction ) {
-        let factionId = _factions[ faction ].id;
-        let sets = new Set( Object.values(_cards).filter( c => c.factionId == factionId ).map( c => c.setId ) );
+    function viewSetCards( sets ) {
         $('#set-cards').empty();
         sets.forEach( setId => {
             let set = Object.values( _sets ).filter( s => s.id == setId )[0];
@@ -149,7 +161,20 @@ $.get(url, data => {
         }
     });
 
-    
+    $('#filteroptions').on('change', function () {
+        let opt = $(this).find('input:checked')[0].id;
+        if ( opt == 'opt-faction' ) {
+            $('#faction').css('display', 'block');
+            $('#set').css('display', 'none');
+            $('#faction').trigger('change');
+        } else {
+            $('#faction').css('display', 'none');
+            $('#set').css('display', 'block');
+            $('#set').trigger('change');
+        }
+        console.log( opt );
+    });
+
     $('#faction')[0].value = `Khagra's Ravagers`;
     $('#faction').trigger('change');
 });
