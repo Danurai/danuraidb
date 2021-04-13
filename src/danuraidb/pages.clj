@@ -29,7 +29,7 @@
       [:body.text-light {:style "background-color: #222;"}
         (whuw-navbar req)
         [:div.container-fluid.my-3
-          [:div#info.bg-dark.w-100 {:style "position: fixed; bottom: 0px;"}
+          [:div#info.bg-dark.w-100 {:style "position: fixed; bottom: 0px; left: 0px; padding-left: 1rem; z-index: 99;"}
             [:small
               [:span.mr-1 "Warhammer Underworlds is &#169; "]
               [:a.mr-1 {:href="https://warhammerunderworlds.com/"} "Games Workshop."]
@@ -38,9 +38,18 @@
               [:a.mr1 {:href "https://yawudb.com/"} "yawudb.com"]
              ]]
           [:div.container.mb-2
-            [:select#faction.form-control.mr-2.bg-dark.text-light
-              (for [ faction factions ]
-                [:option (:displayName faction)])]]
+            [:div.d-flex
+              [:div#filteroptions.btn-group.btn-group-toggle.mr-2 {:data-toggle "buttons"}
+                [:label.btn.btn-secondary.active [:input#opt-faction {:type "radio" :name "option" :checked true} "Faction"]]
+                [:label.btn.btn-secondary [:input#opt-set {:type "radio" :name "option"} "Set"]]
+              ]
+              [:select#faction.form-control.mr-2.bg-dark.text-light
+                (for [ faction factions ]
+                  [:option (:displayName faction)])]
+              [:select#set.form-control.mr-2.bg-dark.text-light {:style "display: none;"}
+                (for [ set sets ]
+                  [:option (:displayName set)])]
+            ]]
           [:div#faction-members]
           [:div
             [:ul.nav.nav-tabs {:role "tablist"}
@@ -54,7 +63,7 @@
         [:div#card-modal.modal {:tabindex -1 :role "modal"}
           [:div.modal-dialog {:role "document"}
             [:div.modal-content {:style "border: none;"}
-              [:div.modal-body.bg-dark.rounded.text-center]]]]
+              [:div.modal-body.bg-dark.rounded]]]]
       ]
       (h/include-js "/js/whuw/whuw_yauwdbdata.js")
       (h/include-css "/css/whuw-style.css"))))
