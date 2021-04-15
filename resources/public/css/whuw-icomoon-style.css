@@ -1,10 +1,9 @@
 @font-face {
-  font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?at03dp');
-  src:  url('fonts/icomoon.eot?at03dp#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?at03dp') format('truetype'),
-    url('fonts/icomoon.woff?at03dp') format('woff'),
-    url('fonts/icomoon.svg?at03dp#icomoon') format('svg');
+  font-family: 'whuw-icomoon';
+  src:
+    url('/fonts/whuw-icomoon.ttf?at03dp') format('truetype'),
+    url('/fonts/whuw-icomoon.woff?at03dp') format('woff'),
+    url('/fonts/whuw-icomoon.svg?at03dp#whuw-icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -12,7 +11,7 @@
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
+  font-family: 'whuw-icomoon' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -40,11 +39,20 @@
 .icon-atSup2:before {
   content: "\e904";
 }
+.icon-dfCrit:before {
+  content: "\e900";
+}
 .icon-dfBlock:before {
   content: "\e905";
 }
 .icon-dfDodge:before {
   content: "\e906";
+}
+.icon-dfSup1:before {
+  content: "\e903";
+}
+.icon-dfSup2:before {
+  content: "\e904";
 }
 .icon-Hex:before {
   content: "\e907";
@@ -52,13 +60,16 @@
 .icon-leader:before {
   content: "\e908";
 }
-.icon-magChannel:before {
+.icon-MagCrit:before {
+  content: "\e900";
+}
+.icon-MagChannel:before {
   content: "\e909";
 }
-.icon-magFocus:before {
+.icon-MagFocus:before {
   content: "\e90a";
 }
-.icon-smash:before {
+.icon-boom:before {
   content: "\e90b";
 }
 .icon-wand:before {

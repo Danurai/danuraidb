@@ -595,12 +595,6 @@
       "filename": "the-ruptured-seal.jpg",
       "championship_legal": true
     }, {
-      "set_name": "Starter Set",
-      "number": "1A",
-      "name": "Cursed Oubliette",
-      "filename": "cursed-oubliette.jpg",
-      "championship_legal": false
-    }, {
       "set_name": "Nightvault: Forbidden Chambers",
       "number": "1A",
       "name": "Molten Shardpit",
@@ -664,7 +658,7 @@
       "set_name": "DireChasm",
       "number": "1A",
       "name": "Hives of Sacrifice",
-      "filename": "hives-of-sacrifice.jpg",
+      "filename": "hive-of-sacrifice.jpg",
       "championship_legal": true
     }, {
       "set_name": "DireChasm",
@@ -675,7 +669,7 @@
     }, {
       "set_name": "DireChasm",
       "number": "2A",
-      "name": "Poll of Fangs",
+      "name": "Pool of Fangs",
       "filename": "pool-of-fangs.jpg",
       "championship_legal": true
     }, {
@@ -684,6 +678,12 @@
       "name": "Menhirs of Binding",
       "filename": "menhirs-of-binding.jpg",
       "championship_legal": true
+    }, {
+      "set_name": "Starter Set",
+      "number": "1A",
+      "name": "Cursed Oubliette",
+      "filename": "the-cursed-oubliette.jpg",
+      "championship_legal": false
     }, {
       "set_name": "Starter Set",
       "number": "1B",
