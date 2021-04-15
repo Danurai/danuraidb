@@ -78,20 +78,44 @@
 #card-modal .icon {
   width: 64px;
 }
-#set-cards .whuw__card, #faction-cards .whuw__card {
+#card-list .whuw__card {
   cursor: pointer;
   width: 250px;
 }
-#set-cards .icon, #faction-cards .icon {
+#card-list .icon {
   width: 40px;
 }
-#set-cards .icon-sm, #faction-cards .icon-sm {
+#card-list .icon-sm {
   width: 32px;
   height: 32px;
 }
-#set-cards .icon-grey, #faction-cards .icon-grey {
+#card-list .icon-grey {
   -webkit-filter: grayscale(1);
   filter: grayscale(1)
+}
+
+.action {
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background-color: black;
+  color: white;
+  border-radius: 0.3rem!important;
+}
+.action .icon-atSmash,
+.action .icon-atFury,
+.action .icon-MagChannel,
+.action .icon-MagFocus {
+  background-color: white!important;
+  color: black!important;
+  padding: 0.1rem;
+}
+.action-effect {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8em;
 }
 
 .whuw__fighter-cards {
