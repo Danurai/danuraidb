@@ -136,7 +136,7 @@ $.get(url, data => {
             : `<img class="icon-sm" src="/img/whuw/icons/${set.name}-icon.png" title="${set.displayName}">` );
         let gloryIcon = '<img class="icon m-1" src="/img/whuw/icons/total_glory.png">';
         let gloryIcons = (typeof card.glory != 'undefined' 
-            ? `<div class="d-flex justify-content-center">${gloryIcon.repeat( card.glory )}</div>`
+            ? `<div class="d-flex justify-content-center" style="align-items: flex-start;">${gloryIcon.repeat( card.glory )}</div>`
             : '')
         return `<div class="whuw__card d-flex flex-column m-1 border border-light rounded bg-secondary">
                 <div style = "flex: 1 1 auto;" class="p-2" data-toggle="modal" data-target="#card-modal" data-cardid="${card.id}">
@@ -150,7 +150,7 @@ $.get(url, data => {
                 ${gloryIcons}
                 <div class="p-2">
                     <div><span>Sets: </span>${setIcons}</div>
-                    <div class="small d-flex">
+                    <div class="small d-flex" style="align-items: flex-start;">
                         <img class="mr-1 ml-auto" style="width: 16px" src="/img/whuw/icons/wave-${wave.padStart( 2, '0')}-icon.png" title="Wave ${wave}">
                         <div>#${card.id % 1000}/${_waveCounts[ wave ]}</div>
                     </div>
