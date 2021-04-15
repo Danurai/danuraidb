@@ -80,7 +80,7 @@ $.get(url, data => {
         let header = `<h5 class="text-center text-capitalize">${filter} Cards</h5>`;
         if ( view == 'List') {
             let wrapper = $('<div class="container"></div>')
-            let factionCardTable = $('<table class="table text-light"></table>');
+            let factionCardTable = $('<table class="table table-sm text-light"></table>');
             let factionCardThead = $('<thead><tr><th class="d-none">ID</th><th class="text-center">Faction</th><th class="text-center">Type</th><th>Name</th><th class="text-center">Glory</th><th class="text-center">Wave</th><th class="text-center">#</th></tr></thead>');
             factionCards = $('<tbody></tbody>');
             $('#card-list')
@@ -164,17 +164,9 @@ $.get(url, data => {
         let cardImg =  setPrefix[ cycle ] + ( cycle == 1 ? setCardId.padStart( 3, '0' ) : cycle == 2 ? setCardId.padStart( 2, '0' ) : setCardId );
         return `https://images.warhammerunderworlds.com/en/${cardImg}.png`;
     }
-    function cardImgElement( card, nameSet = true ) {
-        let imgname = String(card.id).padStart(5, '0');
+    function cardImgElement( card ) {
         let src = warhammerUnderworldsCardURL( card );
-        let set = Object.values(_sets).filter( s => s.id == card.setId )[0];
-        let setNameDisplay = nameSet ? 'inherit' : 'none';
-        let alt = card.id + ': ' + card.name;
-
-        return `<div style="width: 180px; padding: 0.3rem;" >
-                    <img class = "img-fluid whuw__card" src = "${src}" data-toggle = "modal" data-target = "#card-modal" alt = "${alt}">
-                    <div style = "text-align: center; font-size: 0.6rem; color: #ddd; display: ${setNameDisplay};"><b>${set.displayName}</b></div>
-                </div>`
+        return `<img class = "whuw__card m-2" src = "${src}" data-toggle = "modal" data-target = "#card-modal" alt = "${card.id + ': ' + card.name}" title="${card.name}">`
     }
 
     $('#faction-members')
