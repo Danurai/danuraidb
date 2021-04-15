@@ -39,34 +39,29 @@
              ]]
           [:div.container.mb-2
             [:div.d-flex
-              [:div#filteroptions.btn-group.btn-group-toggle.mr-2 {:data-toggle "buttons"}
-                [:label.btn.btn-secondary.active [:input#opt-faction {:type "radio" :name "option" :checked true} "Faction"]]
-                [:label.btn.btn-secondary [:input#opt-set {:type "radio" :name "option"} "Set"]]
-              ]
-              [:select#faction.form-control.mr-2.bg-dark.text-light
-                (for [ faction factions ]
-                  [:option (:displayName faction)])]
-              [:select#set.form-control.mr-2.bg-dark.text-light {:style "display: none;"}
-                (for [ set sets ]
-                  [:option (:displayName set)])]
-            ]]
-          [:div#faction-members]
-          [:div
-            [:ul.nav.nav-tabs {:role "tablist"}
-              [:li.nav-item {:role "presentation"}
-                [:button#faction-tab.nav-link.btn-secondary.active {:data-toggle "tab" :data-target "#faction-cards" :type "button" :role "tab"} "Faction Cards" ] ]
-              [:li.nav-item {:role "presentation"}
-                [:button#set-tab.nav-link.btn-secondary {:data-toggle "tab" :data-target "#set-cards" :type "button" :role "tab"} "Set Cards"]]]
-            [:div.tab-content
-              [:div#faction-cards.tab-pane.fade.show.active.py-3 {:role "tabpanel"}]
-              [:div#set-cards.tab-pane.fade.py-3 {:role "tabpanel"}]]]]
+              [:div#factionset.input-group.mr-2
+                [:div.input-group-prepend
+                  [:button#fs-toggle.btn.btn-secondary.active {:data-toggle "button" :title "Faction / Set Toggle"} [:i.fas.fa-sync-alt]]
+                  [:label#fs-label.input-group-text.bg-dark.text-light "Faction:"]]
+                [:select#set.form-control.bg-dark.text-light.d-none {:style "border-radius: 0 .25rem .25rem 0;"}
+                  (for [ set sets ]
+                    [:option (:displayName set)])]
+                [:select#faction.form-control.bg-dark.text-light
+                  (for [ faction factions ]
+                    [:option (:displayName faction)])]]
+                [:label.my-auto.mr-2 "Layout"]
+              [:select#display.form-control.bg-dark.text-light 
+                (for [ display ["Formatted", "Image", "List"] ]
+                  [:option display])]]]
+          [:div#faction-members.mb-2]
+          [:div#card-list.mb-2]
         [:div#card-modal.modal {:tabindex -1 :role "modal"}
           [:div.modal-dialog {:role "document"}
             [:div.modal-content {:style "border: none;"}
-              [:div.modal-body.bg-dark.rounded]]]]
-      ]
+              [:div.modal-body.bg-dark.rounded]]]]]]
       (h/include-js "/js/whuw/whuw_yauwdbdata.js")
-      (h/include-css "/css/whuw-style.css"))))
+      (h/include-css "/css/whuw-style.css")
+      (h/include-css "/css/whuw-icomoon-style.css"))))
 
 (load "pages/whconq")
 (load "pages/admin")
