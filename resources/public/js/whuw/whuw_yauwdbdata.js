@@ -1,9 +1,10 @@
-let _factions, _sets, _cards, _factionMembers, _waveCounts;
+let _factions, _sets, _cards, _factionMembers, _cardrestrictions, _waveCounts;
 let url = "/whuw/api/yauwdb";
 
 $.get(url, data => {
     _factions = data.factions;
     _factionMembers = data.factionMembers;
+    _cardrestrictions = data.cardrestrictions;
     _sets = data.sets;
     _cards = data.cards;
     let _waveIds = new Set( Object.keys(_cards).map( id => id[0] ) );
@@ -81,7 +82,7 @@ $.get(url, data => {
         if ( view == 'List') {
             let wrapper = $('<div class="container"></div>')
             let factionCardTable = $('<table class="table table-sm text-light"></table>');
-            let factionCardThead = $('<thead><tr><th class="d-none">ID</th><th class="text-center">Faction</th><th class="text-center">Type</th><th>Name</th><th class="text-center">Glory</th><th class="text-center">Wave</th><th class="text-center">#</th></tr></thead>');
+            let factionCardThead = $('<thead><tr><th class="d-none">ID</th><th class="text-center">Faction</th><th class="text-center">Type</th><th>Name</th><th>Restriction</th><th class="text-center">Glory</th><th class="text-center">Wave</th><th class="text-center">#</th></tr></thead>');
             factionCards = $('<tbody></tbody>');
             $('#card-list')
                 .empty()
@@ -119,6 +120,7 @@ $.get(url, data => {
                 <td class="text-center"><img class="icon-sm" src="/img/whuw/icons/${faction.name}-icon.png" alt="${faction.name}" title="${faction.displayName}"></img></td>
                 <td class="text-center"><img class="icon-sm" src="/img/whuw/icons/type_${card.type.toLowerCase()}.png" alt="${card.type}" title="${card.type}"></img></td>
                 <td><span style="cursor: pointer;" data-toggle="modal" data-target="#card-modal" data-cardid="${card.id}">${card.name}</a></td>
+                <td>${ typeof _cardrestrictions[ card.id ] != 'undefined' ? _cardrestrictions[ card.id ] : ''}</td>
                 <td class="text-center">${ card.glory != null ? card.glory : ''}</td>
                 <td class="text-center"><img class="icon-sm" src="/img/whuw/icons/wave-${wave.padStart( 2, '0')}-icon.png" title="Wave ${wave}"></td>
                 <td class="text-center">#${card.id % 1000}/${_waveCounts[ wave ]}</td>
@@ -148,6 +150,9 @@ $.get(url, data => {
                     <div class="text-center small">${whuw_markdown( card.rule )}</div>
                 </div>
                 ${gloryIcons}
+                ${ typeof _cardrestrictions[ card.id ] != 'undefined' 
+                    ? `<div class="restricted"><div class="restricted-header">Restricted:</div><div class="restricted-body">${_cardrestrictions[ card.id ]}</div></div>`
+                    : ''}
                 <div class="p-2">
                     <div><span>Sets: </span>${setIcons}</div>
                     <div class="small d-flex" style="align-items: flex-start;">
