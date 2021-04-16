@@ -117,6 +117,24 @@
   text-align: center;
   font-size: 0.8em;
 }
+.restricted {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5em;
+  margin: 0em 1.5em;
+  background-color: black;
+  color: white;
+  border-radius: 0.3rem!important;
+}
+.restricted-header {
+  text-align: center;
+  font-size: 0.6em;;
+}
+.restricted-body {
+  text-align: center;
+  font-weight: bold;
+  font-variant: small-caps;
+}
 
 .whuw__fighter-cards {
   width: 200px;
