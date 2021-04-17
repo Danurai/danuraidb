@@ -7,10 +7,10 @@ $.get(url, data => {
     _cardrestrictions = data.cardrestrictions;
     _sets = data.sets;
     _cards = data.cards;
-    let _waveIds = new Set( Object.keys(_cards).map( id => id[0] ) );
+    let _waveIds = new Set( Object.keys(_cards).map( id => Math.floor(id / 1000) ) );
     _waveCounts = {};
     _waveIds.forEach( id => {
-        _waveCounts[id] = Object.keys( _cards ).filter( c => c[0] == id ).length;
+        _waveCounts[id] = Object.keys( _cards ).filter( c => Math.floor( c / 1000 ) == id ).length;
     });
 
     $('#faction').on('change', function () {
@@ -151,7 +151,10 @@ $.get(url, data => {
                 </div>
                 ${gloryIcons}
                 ${ typeof _cardrestrictions[ card.id ] != 'undefined' 
-                    ? `<div class="restricted"><div class="restricted-header">Restricted:</div><div class="restricted-body">${_cardrestrictions[ card.id ]}</div></div>`
+                    ? `<div class="restricted">
+                            <div class="restricted-header">Restricted:</div>
+                            <div class="restricted-body">${_cardrestrictions[ card.id ].replace(/(leader|wizard)/i, '<i class="icon-$1></i>')}</div>
+                        </div>`
                     : ''}
                 <div class="p-2">
                     <div><span>Sets: </span>${setIcons}</div>
