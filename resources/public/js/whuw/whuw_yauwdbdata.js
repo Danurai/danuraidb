@@ -153,7 +153,7 @@ $.get(url, data => {
                 ${ typeof _cardrestrictions[ card.id ] != 'undefined' 
                     ? `<div class="restricted">
                             <div class="restricted-header">Restricted:</div>
-                            <div class="restricted-body">${_cardrestrictions[ card.id ].replace(/(leader|wizard)/i, '<i class="icon-$1></i>')}</div>
+                            <div class="restricted-body">${_cardrestrictions[ card.id ].replace(/(leader|wizard)/i, '<i class="icon-$1.png"></i>')}</div>
                         </div>`
                     : ''}
                 <div class="p-2">
