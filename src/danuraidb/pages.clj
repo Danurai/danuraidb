@@ -19,50 +19,6 @@
 (load "pages/lotrdb") 
 (load "pages/aosc")
 (load "pages/whuw")
-
-(defn yauwdb [ req ]
-  (let [ sets     (->> model/whuwdata2 :sets (map (fn [[k, v]] v)) (sort-by :id)) 
-         factions (->> model/whuwdata2 :factions (map (fn [[k v]] v)) (sort-by :id)) 
-         cards    (->> model/whuwdata2 :cards (map (fn [[k v]] v)) (sort-by :id))  ]
-    (h/html5
-      pretty-head
-      [:body.text-light {:style "background-color: #222;"}
-        (whuw-navbar req)
-        [:div.container-fluid.py-3
-          [:div#info.bg-dark.w-100 {:style "position: fixed; bottom: 0px; left: 0px; padding-left: 1rem; z-index: 99;"}
-            [:small
-              [:span.mr-1 "Warhammer Underworlds is &#169; "]
-              [:a.mr-1 {:href="https://warhammerunderworlds.com/"} "Games Workshop."]
-              [:span.mr-1 "Warband images and data courtesy of"] 
-              [:a.mr-1 {:href "https://github.com/PompolutZ/yawudb"} "https://github.com/PompolutZ/yawudb"]
-              [:a.mr-1 {:href "https://yawudb.com/"} "yawudb.com"]
-             ]]
-          [:div.container.mb-2
-            [:div.d-flex
-              [:div#factionset.input-group.mr-2
-                [:div.input-group-prepend
-                  [:button#fs-toggle.btn.btn-secondary.active {:data-toggle "button" :title "Faction / Set Toggle"} [:i.fas.fa-sync-alt]]
-                  [:label#fs-label.input-group-text.bg-dark.text-light "Faction:"]]
-                [:select#set.form-control.bg-dark.text-light.d-none {:style "border-radius: 0 .25rem .25rem 0;"}
-                  (for [ set sets ]
-                    [:option (:displayName set)])]
-                [:select#faction.form-control.bg-dark.text-light
-                  (for [ faction factions ]
-                    [:option (:displayName faction)])]]
-                [:label.my-auto.mr-2 "Layout"]
-              [:select#display.form-control.bg-dark.text-light 
-                (for [ display ["Formatted", "Image", "List"] ]
-                  [:option display])]]]
-          [:div#faction-members.mb-2]
-          [:div#card-list.mb-2]
-        [:div#card-modal.modal {:tabindex -1 :role "modal"}
-          [:div.modal-dialog {:role "document"}
-            [:div.modal-content {:style "border: none;"}
-              [:div.modal-body.bg-dark.rounded]]]]]]
-      (h/include-js "/js/whuw/whuw_yauwdbdata.js")
-      (h/include-css "/css/whuw-style.css")
-      (h/include-css "/css/whuw-icomoon-style.css"))))
-
 (load "pages/whconq")
 (load "pages/admin")
 

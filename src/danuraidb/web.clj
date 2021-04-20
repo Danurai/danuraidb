@@ -258,7 +258,7 @@
   (GET "/champions" [] pages/whuw-mortis-champs)
   (GET "/cards"     [] pages/whuw-cards)
   (GET "/boards"    [] pages/whuw-boards)
-  (GET "/yauwdb"    [] pages/yauwdb)
+  (GET "/collection" [] pages/whuw-collection)
   (context "/api" [] whuw-api-routes))
   
 ;; WHCONQ ;;
