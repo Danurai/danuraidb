@@ -705,7 +705,7 @@
     }],
   "formats": {
     "Vanguard": {
-      "boards": ["Hives of Sacrifice","Ambertrap Nest","Pool of Fangs","Menhirs of Binding"],
+      "boards": ["Hive of Sacrifice","Ambertrap Nest","Pool of Fangs","Menhirs of Binding"],
       "card_restriction": {
         "wave": [9]
       },
@@ -728,8 +728,8 @@
     "Championship": {
       "boards": [
         "Shrine of the Silent People", "Wyrmgrave", "Abandoned Lair", "Living Rock", 
-        "Ravaged Hall", "Shade-cursed Lair",
-        "Hives of Sacrifice", "Ambertrap Nest", "Pool of Fangs", "Menhirs of Binding"
+        "Ravaged Hall", "Shade-Cursed Lair",
+        "Hive of Sacrifice", "Ambertrap Nest", "Pool of Fangs", "Menhirs of Binding"
       ],
       "card_restriction": {
         "wave": [6, 7, 8, 9],

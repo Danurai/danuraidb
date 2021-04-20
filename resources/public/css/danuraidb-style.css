@@ -77,7 +77,7 @@ cite {
    min-width: 175px;
 }
 
-.twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 100%; }
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 100%; color: black;}
 
 .typeahead { background-color: #fff; }
 

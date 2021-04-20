@@ -225,28 +225,29 @@
           [:div#results.row]]]
       (h/include-js "/js/whuw/whuw_cards.js?v=1")]))
       
-
 (defn whuw-boards [ req ]
-  (h/html5
-    whuw-pretty-head
-    [:body
-      (whuw-navbar req)
-      [:div.container.my-3
-        [:div.row
-          (for [b (-> model/whuwdata :boards)]
-            [:div.col-sm-6.mb-2 (:key (gensym))
-              [:div.border.border-secondary
-                [:div.mb-1
-                  [:img.img-fluid {:src (str "/img/whuw/boards/" (:filename b))}]]
-                [:div.ml-2.mb-1
-                  [:h5.mb-0 (:name b)]
-                  [:span.mr-2 (:set_name b)] 
-                  ;[:span " - Championship Legal:"
-                  ;  (if (:championship_legal b) 
-                  ;      [:i.fas.fa-check-circle.ml-1.text-success] 
-                  ;      [:i.fas.fa-times-circle.ml-1.text-danger])]
-                ]]])]]]))
-                        
+  (let [ formats (:formats model/whuwdata)]
+    (h/html5
+      whuw-pretty-head
+      [:body.text-light {:style "background-color: #222;"}
+        (whuw-navbar req)
+        [:div.container.my-3
+          [:div.row
+            (for [b (-> model/whuwdata :boards)]
+              [:div.col-sm-6.mb-2
+                [:div.border.border-secondary.bg-dark
+                  [:div.mb-1
+                    [:img.img-fluid {:src (str "/img/whuw/boards/" (:filename b))}]]
+                  [:div.ml-2.mb-1
+                    [:div.mb-1
+                      [:span.h5.mr-2 (:name b)]
+                      [:span (:set_name b)]] 
+                    [:div.d-flex.justify-content-between
+                      (for [ [fk fv] formats ]
+                        [:span.mr-2
+                          (if (or (= (:boards fv) ["all"]) (contains? (-> fv :boards set) (:name b)))
+                              [:span.badge.badge-success.py-1.px-2 fk]
+                              [:span.badge.badge-danger.py-1.px-2 fk])])]]]])]]])))
 
 (defn getfilename [ url ]
   (re-find #"[\w|\-]+\.png$" url))
