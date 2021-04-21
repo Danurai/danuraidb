@@ -505,7 +505,7 @@
           [:div.modal-dialog {:role "document"}
             [:div.modal-content {:style "border: none;"}
               [:div.modal-body.bg-dark.rounded]]]]]]
-      (h/include-js "/js/whuw/whuw_yauwdbdata.js")
+      [:script {:src "/js/whuw/whuw_yauwdbdata.js" :type "module"}]
       (h/include-css "/css/whuw-style.css")
       (h/include-css "/css/whuw-icomoon-style.css"))))
 
@@ -513,24 +513,24 @@
   (let [sets (->> model/whuwdata2 :sets vals (sort-by :id))]
     (h/html5
       whuw-pretty-head
-      [:body
+      [:body.text-light {:style "background-color: #222"}
         (whuw-navbar req)
           [:div.container.my-3
             [:div.row
               [:div#sets.col-sm-4
                 [:h5#collection.text-center "Collection"]
+                [:div.mt-2 [:b "Add Cards"]
+                [:input#addcards.form-control.typeahead.text-dark]
+                [:div#extracardlist.mb-2]
                 (for [v sets]
                   [:div.d-flex 
                     [:input.mr-2.my-auto {:type "checkbox" :data-setid (:id v) }]
-                    [:span (:displayName v)]])
-                [:div.mt-2 [:b "Add Cards"]
-                [:input#addcards.form-control.typeahead]
-                [:div#extracardlist]]]
+                    [:span (:displayName v)]])]]
               [:div.col-sm-8
                 [:h5 "Card Search"]
-                [:input#searchcards.form-control.typeahead]
+                [:input#searchcards.form-control.typeahead.text-dark]
                 [:div#cardinfo]]]]]
-        (h/include-js "/js/whuw/whuw_collection.js?v=0.1")
+        [:script {:src "/js/whuw/whuw_collection.js?v=0.1" :type "module"}]
         (h/include-js "/js/externs/typeahead.js?v=1.0")
         (h/include-css "/css/whuw-style.css?v=1.0")
         (h/include-css "/css/whuw-icomoon-style.css?v=1.0"))))
