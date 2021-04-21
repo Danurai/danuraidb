@@ -1,3 +1,5 @@
+import { whuw_markdown } from './whuw_utils.js';
+
 let _cards, _sets, _factions;
 let _cardrestrictions;
 
@@ -14,7 +16,6 @@ $.get("/whuw/api/yauwdb", data => {
     _sets = Object.values( data.sets );
     _cardrestrictions = data.cardrestrictions;
 
-    
     let ownedSets = getOwnedSets();
     ownedSets.forEach( s => $('#sets').find(`input[data-setid=${s}]`).attr('checked',true));
     updateCollectionCount();
@@ -56,10 +57,8 @@ $.get("/whuw/api/yauwdb", data => {
       }
     });
     function tficon( bool ) {
-        return bool
-            ? '<i class="fa fa-check-circle text-success"></i>'
-            : '<i class="fa fa-times-circle text-danger"></i>'
-    }
+        return bool ? '<i class="fa fa-check-circle text-success"></i>' : '<i class="fa fa-times-circle text-danger"></i>'
+    };
     $('#addcards').on('typeahead:select typeahead:autocomplete',function () {
         let val = $(this).val();
         let cardmatch = _cards.filter( c => `${c.name} (${c.setName})` == val );
@@ -76,7 +75,6 @@ $.get("/whuw/api/yauwdb", data => {
     function isInCollection( cardid ) {
         let ownedSets = getOwnedSets();
         let ownedCards = _cards.filter( c => ownedSets.includes( c.setId ) ).map( c => c.id ).concat( getOwnedCards() );
-
         return ownedCards.includes( cardid );
     }
 
@@ -117,21 +115,3 @@ $.get("/whuw/api/yauwdb", data => {
         return lscards == null || lscards == "" ? [] : JSON.parse( lscards );
     }
 });
-
-
-function whuw_markdown( str ) {
-    /*
-        **...** bold
-        \n newline
-        [...] Attack Action
-        :xxx: Symbol
-    */
-    return str
-            .replace(/\*{2}(.*?)\*{2}/g, '<b>$1</b>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/\\n/g, '<br />')
-            .replace(/\:(\w+)\:/g, '<i class="icon-$1"></i>')
-            .replace(/\-\((.*?)\)\-/g, '<div class="action-effect">$1</div>')
-            .replace(/\s(\-|[0-9])\s\-/g, ' $1 ')
-            .replace(/\[(.*?)\]/g,'<div class="h5 rounded action">$1</div><br />');
-}

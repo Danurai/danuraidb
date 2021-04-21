@@ -707,7 +707,7 @@
     "Vanguard": {
       "boards": ["Hive of Sacrifice","Ambertrap Nest","Pool of Fangs","Menhirs of Binding"],
       "card_restriction": {
-        "wave": [9]
+        "wave": [9, 10, 11]
       },
       "note": "Direchasm Warbands and Boards only. No Forsaken or Rerticted Cards"
     },
