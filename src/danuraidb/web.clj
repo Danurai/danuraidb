@@ -257,6 +257,7 @@
     ;whuw-mortis-routes)
   (GET "/champions" [] pages/whuw-mortis-champs)
   (GET "/cards"     [] pages/whuw-cards)
+  (GET "/sets"     [] pages/whuw-sets)
   (GET "/boards"    [] pages/whuw-boards)
   (GET "/collection" [] pages/whuw-collection)
   (context "/api" [] whuw-api-routes))

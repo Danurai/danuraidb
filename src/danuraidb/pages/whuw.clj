@@ -28,7 +28,7 @@
     (str whuw_icon_path "Shadespire-Library-Icons-Universal.png")
     "WHUW DB" 
     "whuw"
-    ["decks" "mortis" "cards" "boards" "collection"]  ;"champions"
+    ["decks" "mortis" "cards" "sets" "boards" "collection"]  ;"champions"
     req))
                   
 (defn whuw-home [ req ]
@@ -466,7 +466,7 @@
     (h/include-js "/js/whuw/whuw_mortisdb.js"))))
 
   
-(defn whuw-cards [ req ]  
+(defn whuw-sets [ req ]  
   (let [ sets     (->> model/whuwdata2 :sets (map (fn [[k, v]] v)) (sort-by :id)) 
          factions (->> model/whuwdata2 :factions (map (fn [[k v]] v)) (sort-by :id)) 
          cards    (->> model/whuwdata2 :cards (map (fn [[k v]] v)) (sort-by :id))  ]

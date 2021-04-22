@@ -19,6 +19,35 @@
 (load "pages/lotrdb") 
 (load "pages/aosc")
 (load "pages/whuw")
+(defn whuw-cards [ req ]
+  (let [sets (->> model/whuwdata2 :sets vals (sort-by :id))
+       factions (->> model/whuwdata2 :factions vals (sort-by :id))]
+    (h/html5 
+      whuw-pretty-head
+      [:body.text-light {:style "background-color: #222;"}
+        (whuw-navbar req)
+        [:div.container.my-3
+          [:div.row
+            [:div#sets.col-sm-4
+              [:h5#collection.text-center "Sets"]
+       ;       [:div.mt-2 [:b "Add Cards"]
+       ;       [:input#addcards.form-control.typeahead.text-dark]
+       ;       [:div#extracardlist.mb-2]
+              (for [v sets]
+                [:div.d-flex 
+                  [:input.mr-2.my-auto {:type "checkbox" :data-setid (:id v) }]
+                  [:span (:displayName v)]])]
+            [:div.col-sm-8
+              [:h5 "Filter Factions"]
+              [:select#factions.form-control {:multiple true}
+                (for [ f factions ]
+                  [:option {:value (-> f :id)} (:displayName f)])]
+              [:div#cardlist]]]]]
+      [:script {:src "/js/whuw/whuw_cards.js?v=0.1" :type "module"}]
+      ;(h/include-js "/js/externs/typeahead.js?v=1.0")
+      (h/include-css "/css/whuw-style.css?v=1.0")
+      (h/include-css "/css/whuw-icomoon-style.css?v=1.0"))))
+
 (load "pages/whconq")
 (load "pages/admin")
 
