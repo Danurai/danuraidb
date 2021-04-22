@@ -39,10 +39,23 @@
                   [:span (:displayName v)]])]
             [:div.col-sm-8
               [:h5 "Filter Factions"]
-              [:select#factions.form-control {:multiple true}
+              [:select#factions.form-control.mb-2 {:multiple true}
                 (for [ f factions ]
                   [:option {:value (-> f :id)} (:displayName f)])]
-              [:div#cardlist]]]]]
+              [:div#cardlist
+                [:input#tablefilter.form-control {:placeholder "Filter Results"}]
+                [:table.table.table-sm.text-light
+                  [:thead [:tr 
+                    [:th.text-center.d-none "#"]
+                    [:th.text-center "Type"]
+                    [:th.text-center "Faction"]
+                    [:th "Card"]
+                    [:th.text-center {:title "Vanguard - Latest Wave"} "Van"]
+                    [:th.text-center {:title "Relic - Open Format"} "Rel"]
+                    [:th.text-center {:title "Arena Mortis - Heor on Hero"} "AM"]
+                    [:th.text-center {:title "Championship - Competitive Play"} "Ch"]
+                    [:th.text-center {:title "Underworlds Online"} "On"]]]
+                [:tbody]]]]]]]
       [:script {:src "/js/whuw/whuw_cards.js?v=0.1" :type "module"}]
       ;(h/include-js "/js/externs/typeahead.js?v=1.0")
       (h/include-css "/css/whuw-style.css?v=1.0")

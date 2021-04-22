@@ -737,6 +737,17 @@
         "restricted": [6282,6299,6308,6383,6393,6315,6341,8029,6359,6362,7021,6363,6429,6431,7038,8038,6434,8039,6251,6071,6076, 5042,6172,6191,3004,3037,3042,3047]
       },
       "note": "All Warbands, Restricted Boards, Last 2 Wave Universal Cards. Forsaken cards, and maximum of 3 restricted cards."
+    },
+    "Online": {
+      "boards": [
+
+      ],
+      "card_restriction": {
+        "wave": [ 1 ],
+        "forsaken": [ 1380, 1395, 1396, 1397, 1398, 1399, 1400, 1401, 1409, 1417, 1422 ],
+        "restricted": [ 1373, 1376, 1384, 1393, 1395, 1410, 1412, 1420, 1424  ]
+      },
+      "note": "Wave 1 Only"
     }
   }
 }
