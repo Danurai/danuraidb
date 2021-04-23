@@ -65,7 +65,7 @@ $.get( url, data => {
         tbody.append( `<tr>
           <td class="text-center d-none">${c.id}</td>
           <td class="text-center"><img class="icon-sm" src="/img/whuw/icons/type_${c.type.toLowerCase()}.png" title="${c.type}"></img></td>
-          <td class="text-center"><img class="icon-sm" src="/img/whuw/icons/${f.displayName}-icon.png" title="${f.displayName}"></img></td>
+          <td class="text-center"><img class="icon-sm" src="/img/whuw/icons/${f.displayName.toLowerCase()}-icon.png" title="${f.displayName}"></img></td>
           <td title="id: ${c.id}">${c.name}</td>
           ${ Object.keys(c.formats)
               .map( f => `<td class="text-center">${ formatele( c.formats, f )}</td>` )
