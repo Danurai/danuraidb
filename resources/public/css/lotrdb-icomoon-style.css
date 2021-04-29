@@ -24,6 +24,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.lotr-type-resource:before {
+  content: "\e90e";
+}
+
 .lotr-type-neutral:before {
   content: "\e90e";
 }

@@ -407,7 +407,47 @@
               [:img {:src (:cgdbimgurl card)}]]]] ;(or (:cgdbimgurl card) (model/get-card-image-url card))}]]]]
       (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1")
       (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))                            
- 
+(defn lotrdb-digital-card-page [ id ]
+  (let [cards  (model/get-lotracg-cards)
+        card   (->> cards (filter #(= (:code %) id)) first)
+        prc    (prev-card cards id)
+        nxc    (next-card cards id)
+        ]
+    (h/html5
+      lotrdb-pretty-head
+      [:body
+        (lotrdb-navbar nil)
+        [:div.container.my-3
+          [:div.row.mb-2
+            [:div.col
+              (if (some? prc)
+                [:a.btn.btn-primary.card-link
+                  {:href (str "/lotrdb/card/digital/" (:code prc)) :data-code (:code prc)}
+                  [:div (:name prc)][:small (str (:pack_name prc) " #" (:position prc))]]
+                [:button.btn.button-primary])
+              (if (some? nxc)
+                [:a.btn.btn-primary.card-link.float-right
+                  {:href (str "/lotrdb/card/digital/" (:code nxc)) :data-code (:code nxc)}
+                  [:div (:name nxc)][:small (str (:pack_name nxc) " #" (:position nxc))]])]]
+          [:div.row
+            [:div.col-sm-6
+              [:div.card 
+                [:div.card-header
+                  [:span.h3.card-title 
+                    (if (:is_unique card)
+                      [:i.lotr-type-unique.unique-icon])
+                    (:name card)]
+                  (lotrdb-card-icon card)]
+                [:div.card-body
+                  [:div.text-center [:b (:traits card)]]
+                  [:div {:style "white-space: pre-wrap;"} (-> card :text lotrdb-markdown)]
+                  [:div.mt-1	 [:em {:style "white-space: pre-wrap;"} (:flavor card)]]
+                  [:div [:small.text-muted (str (:pack_name card) " #" (:position card))]]]]]
+            [:div.col-sm-6
+              [:img {:src (str "/img/lotrdb/digital/" (:code card) ".webp")}]]]]
+      (h/include-js "/js/lotrdb/lotrdb_popover.js?v=1")
+      (h/include-css "/css/lotrdb-icomoon-style.css?v=1")])))
+
 ;;;;;;;;;;;;;
 ; DECK LIST ;
 ;;;;;;;;;;;;;
@@ -463,7 +503,7 @@
               [:span 
                 [:div.ml-1 {
                   :class (if (-> d :system (= "0")) "deckhero" "digideckhero")
-                  :style (str "background-image: url(" (if (-> d :system (= "0")) (:cgdbimgurl h) (str "/img/lotrdb/digital/" (:code h) ".png")) "); position: relative;") 
+                  :style (str "background-image: url(" (if (-> d :system (= "0")) (:cgdbimgurl h) (str "/img/lotrdb/digital/" (:code h) ".webp")) "); position: relative;") 
                   :title (:name h)}
                   [:span {:style "position: absolute; right: 2px; bottom: 2px;"}
                     [:img {:style "width: 35px" :src (str "/img/lotrdb/icons/sphere_" (:sphere_code h) ".png")}]]]]
@@ -496,8 +536,8 @@
         (lotrdb-navbar req)
         [:div.container.my-3
           [:ul.nav.nav-tabs.nav-fill {:role "tablist"}
-            [:li.h4.nav-item [:a.nav-link.active {:href "#decktab" :data-toggle "tab" :role "tab"} "Decks"]]
-            [:li.h4.nav-item [:a.nav-link {:href "#fellowshiptab" :data-toggle "tab" :role "tab"} "Fellowships"]]]
+            [:li.h4.nav-item {:style "margin-bottom: 0px;"} [:a.nav-link.active {:href "#decktab" :data-toggle "tab" :role "tab"} "Decks"]]
+            [:li.h4.nav-item {:style "margin-bottom: 0px;"} [:a.nav-link {:href "#fellowshiptab" :data-toggle "tab" :role "tab"} "Fellowships"]]]
           [:div.tab-content
             [:div#decktab.tab-pane.fade.show.active.my-3 {:role "tabpanel"}
               [:div.d-flex.justify-content-between
@@ -1213,7 +1253,7 @@
                 [:h5.modal-title]
                 [:span.buttons]
                 [:button.close {:data-dismiss "modal"} "x"]]
-              [:div.modal-body]
+              [:div.modal-body.text-center]
               [:div.modal-footer]]]]
     ;(h/include-css "//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css")
     (h/include-css "//cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css")

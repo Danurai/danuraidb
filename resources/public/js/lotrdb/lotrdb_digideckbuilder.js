@@ -115,7 +115,7 @@ function decklisthtml ( decklist, cards ) {
     outp += '<a class="card-link-digital mr-2" '
       + 'href="lotrdb/card/' + c.code + '" '
       + 'data-code="' + c.code + '" data-toggle="modal" data-target="#cardmodal">'
-      + '<img class="img-fluid deckcard" src="/img/lotrdb/digital/' + c.code + '.png" />'
+      + '<img class="img-fluid deckcard" src="/img/lotrdb/digital/' + c.code + '.webp" />'
       + '</a>';
   });
   outp += '</div>';
@@ -201,7 +201,7 @@ function setModalHtml(modal,crd) {
       + '<button class="close" type="button" data-dismiss="modal"><span>&times;</span></button>');
   modal
     .find('.modal-body')
-    .html('<img src="/img/lotrdb/digital/' + crd.code + '.png" class="img-fluid" />');
+    .html('<img src="/img/lotrdb/digital/' + crd.code + '.webp" class="img-fluid" />');
   modal
     .find('.modal-footer')
     .html('<span>' + crd.pack_name + ' #' + crd.position + '</span>');

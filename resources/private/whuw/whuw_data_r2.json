@@ -740,7 +740,7 @@
     },
     "Online": {
       "boards": [
-
+        "The Mirror Well", "Katophrane's Reliquary", "The Shattered Tower", "Shyshian Stardial", "The Animus Forge"
       ],
       "card_restriction": {
         "wave": [ 1 ],

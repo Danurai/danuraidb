@@ -163,7 +163,9 @@
   (GET "/pack/:id" [ id ]
     #(pages/lotrdb-search-page (assoc-in % [:params :q] (str "e:" id)))) 
   (GET "/card/:id" [ id ]
-    (pages/lotrdb-card-page id)))
+    (pages/lotrdb-card-page id))
+  (GET "/card/digital/:id" [ id ]
+    (pages/lotrdb-digital-card-page id)))
     
     
 ;; AOSC ;;
