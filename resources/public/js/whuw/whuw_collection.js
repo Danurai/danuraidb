@@ -20,7 +20,7 @@ $.get("/whuw/api/yauwdb", data => {
     ownedSets.forEach( s => $('#sets').find(`input[data-setid=${s}]`).attr('checked',true));
     updateCollectionCount();
     updateOwnedCards();
-
+    updateFolder( 1 );
 
     $('.typeahead').typeahead({
         hint: true, highlight: true, minLength: 2
@@ -114,4 +114,19 @@ $.get("/whuw/api/yauwdb", data => {
         let lscards = window.localStorage.getItem('whuwownedcards');
         return lscards == null || lscards == "" ? [] : JSON.parse( lscards );
     }
+
+    function updateFolder( page ) {
+        let ownedSets = getOwnedSets();
+        let ownedCards = _cards
+            .filter( c => ownedSets.includes( c.setId ) )
+            .concat( getOwnedCards() )
+            .sort( (a, b) => a.warbandid < b.warbandid ? -1 : 1 );
+        let viewCards = ownedCards.slice( page * 9 - 9, 9 );
+
+        $('#foldernav').html( `${Math.ceil( ownedCards.length / 9 )} pages` );
+        $('#folderpage').empty()
+        viewCards.forEach( c => {
+            $('#folderpage').append(`<div class="whuw_card"><div>${c.id} ${c.name}</div></div>`)
+        })
+    } 
 });
