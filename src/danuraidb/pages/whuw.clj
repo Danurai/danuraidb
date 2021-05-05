@@ -529,7 +529,10 @@
               [:div.col-sm-8
                 [:h5 "Card Search"]
                 [:input#searchcards.form-control.typeahead.text-dark]
-                [:div#cardinfo]]]]]
+                [:div#cardinfo]
+                [:div#folder
+                  [:div#foldernav]
+                  [:div#folderpage]]]]]]
         [:script {:src "/js/whuw/whuw_collection.js?v=0.1" :type "module"}]
         (h/include-js "/js/externs/typeahead.js?v=1.0")
         (h/include-css "/css/whuw-style.css?v=1.0")
