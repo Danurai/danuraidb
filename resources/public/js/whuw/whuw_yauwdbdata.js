@@ -23,7 +23,7 @@ $.get(url, data => {
         $('#faction').on('change', function () {
             let faction = _factions[ this.value ];
             $('#faction-members').empty();
-            viewFighters( [ faction ]);
+            viewFighters( [ faction ], true);
             viewFactionCards( faction, $('#display').val() );
             syncSet( faction );
         });
@@ -40,7 +40,7 @@ $.get(url, data => {
                 ? new Set()
                 : new Set( Object.values( _cards ).filter( c => c.setId == set.id ).map( c => c.factionId ) );
             let factionArray = Object.values( _factions ).filter( f => factionIds.has( f.id ) );
-            viewFighters( factionArray );
+            viewFighters( factionArray, false );
             viewSetCards( set, $('#display').val()  );
         })
         $('#display').on('change', function () {
@@ -49,7 +49,7 @@ $.get(url, data => {
                 : $('#faction').trigger( 'change' );
         });
 
-        function viewFighters ( factionArray ) {
+        function viewFighters ( factionArray, anyset ) {
             $('#faction-members').empty();
             factionArray.forEach( f => {
                 let members = _factionMembers[ f.name ];
@@ -59,6 +59,23 @@ $.get(url, data => {
                     members.forEach( ( m, i ) => {
                         factionFighters.append( fighterCards( f.name, m, i + 1 ) );
                     })
+                }
+
+                if (f.name != 'universal') {
+                    let rivalsFormatCheck = $('<div class="text-center"></div>')
+                    let cardlist = Object.values( _cards ).filter( c => c.factionId == f.id )
+                    let type = {}
+                    // Objective, Upgrade, Ploy, Spell
+                    type.obj = cardlist.filter( c => c.type == "Objective").length
+                    type.oth = cardlist.filter( c => c.type != "Objective").length
+                    type.upgrade = cardlist.filter( c => c.type == "Upgrade").length
+                    type.ploy = cardlist.filter( c => c.type == "Ploy").length
+                    type.spell = cardlist.filter( c => c.type == "Spell").length
+                    let rivalslegal =  (type.obj == 12 && type.oth >= 20)
+                        ? '<i class="fas fa-check text-success" />'
+                        : '<i class="fas fa-times text-danger" />'
+                    $('#faction-members').append ( rivalsFormatCheck );
+                    rivalsFormatCheck.append(`<div>Objectives: ${type.obj},  Upgrade/Ploy/Spell: ${type.upgrade}/${type.ploy}/${type.spell} Rivals: ${rivalslegal}</div>`)
                 }
             });
         }
