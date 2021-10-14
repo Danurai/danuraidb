@@ -3,8 +3,8 @@
 		"sets": "https://raw.githubusercontent.com/PompolutZ/yawudb/master/src/data/wudb/db.js",
 		"factions": "https://raw.githubusercontent.com/PompolutZ/yawudb/master/src/data/wudb/db.js",
 		"cards": "https://raw.githubusercontent.com/PompolutZ/yawudb/master/src/data/wudb/db.js",
-		"factionMembers": "",
-		"cardrestrictions": ""
+		"factionMembers": "Manual",
+		"cardrestrictions": "Manual"
 	},
 	"sets": {
 		"Core set": {
@@ -30126,11 +30126,11 @@
 		],
 		"the-grymwatch": [
 			"Duke Crakmarrow",
-			"",
-			"",
-			"",
-			"",
-			""
+			"Gristlewel",
+			"Master Talon",
+			"Nights Herald",
+			"Royal Butcher",
+			"Valreek the Tracker"
 		],
 		"rippas-snarlfangs": [
 			"Rippa",
@@ -30192,6 +30192,27 @@
 			"Gorath the Enforcer",
 			"Vellas von Faine",
 			"Ennias Curse-born"
+		],
+		"hedkrakkas-madmob": [
+			"Hedkrakka",
+			"Wollop",
+			"Toofdagga",
+			"Dakko"
+		],
+		"kainans-reapers": [
+			"Mir Kainan",
+			"Binar Khenta",
+			"Hakor",
+			"Karu",
+			"Nohem",
+			"Senha"
+		],
+		"elathains-soulreapers": [
+			"Elathain",
+			"Fuirann",
+			"Tammael",
+			"Duinclaw",
+			"Spinefin"
 		],
 		"storm-of-celestus": [
 			"Celestus",
