@@ -80,28 +80,19 @@
     ]))
                   
 (defn testpage [ req ]
-; lotr card img urls
-  (let [crds (model/get-cards)]
+  (let [gw (-> "private/whuw/whuw_data_r2.json" io/resource slurp (json/read-str :key-fn keyword)) ]
     (h/html5
-      lotrdb-pretty-head
-      [:style ".card {width: 200px;}"]
+      pretty-head
       [:body 
-        (lotrdb-navbar req)
+        (navbar req)
         [:div.container.my-3
-          [:div.row.mb-2
-            [:div.col
-              [:div#types.btn-group.btn-group-toggle {:data-toggle "buttons"}
-                (for [t (->> crds (map :type_code) distinct sort)]
-                  [:label.btn.btn-outline-primary {:class (if (= t "quest") "active")}
-                    [:input {:type "radio" :data-type_code t :name "typecode" }]
-                    t])]]]
-          [:div#cards.row.mb-2]
-        ]
-        [:div#cardmodal.modal.fade {:tabindex -1 :role "dialog"}
-          [:div.modal-dialog.modal-lg {:role "document"}
-            [:div.modal-content
-              [:div.modal-header
-                [:h4#cardname.modal-title]
-                [:button.close {:type "button" :data-dismiss "modal"} [:span "&times;"]]]
-              [:div#cardimg.modal-body]]]]
-      (h/include-js "/js/lotrdb/cardurltest.js?v=1")])))
+          [:div "Warbands"]
+          [:table.table
+            [:thead [:tr [:th "name"] [:th "filename"] [:th "icons"]]]
+            [:tbody
+              (for [s (:sets gw)]
+                [:tr 
+                  [:td (:name s)]
+                  [:td (-> s :icon :filename)]
+                  [:td [:img.icon-sm {:src (str "/img/whuw/icons/" (-> s :icon :filename))}]]])
+            ]]]])))
