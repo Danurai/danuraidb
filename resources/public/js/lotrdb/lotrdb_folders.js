@@ -1,5 +1,6 @@
 var corecount;
 var _db_cards;
+var _all_cards;
 var _filter = {"pack_code":["Core"],"sphere_code":"leadership","type_code":["hero","ally","attachment","event"]};  //treasure, player-side-quest 'objective ally'
 var _pageno = 1;
 var _pages = Array(9).fill({});
@@ -65,11 +66,11 @@ if (packs != null) {
 }
 
 $.getJSON('/lotrdb/api/data/cards',function (data) {
+  _all_cards = TAFFY(data);
   data = data
     .filter(c => -1 < $.inArray(c.type_code, _filter.type_code));
   //  .map(c => $.extend(c,{"normalname": normalisename(c.name)}));
   _db_cards = TAFFY(data);
-  
   setpacks();
 });
 
@@ -86,7 +87,7 @@ $('#types').on('click','li',function () {
   writepage(); 
 })
 
-$('#coresets').on('change', function () {
+$('#coresets').on('input', function () {
   corecount = (parseInt($('input[type=radio]:checked', this).val()));
   localStorage.setItem('lotrdb_corecount',corecount);
   writepage();
@@ -149,6 +150,23 @@ function writepage() {
       +   '</div>'
       + '</div>').join('')
    )
+  updateCardCounts();
+}
+
+
+function updateCardCounts() {
+  let total = 0;
+  
+  $('#cardcounts').empty();
+  _filter.pack_code.forEach( fp => {
+    let pack_count = _all_cards({"pack_code":fp}).sum("quantity");
+    if (fp == 'Core') {
+      pack_count *= corecount = $('#coresets').find('input[type=radio]:checked').val();
+    }
+    total += pack_count;
+    $('#cardcounts').append(`<div class="d-flex"><div>${_all_cards({"pack_code":fp}).first().pack_name}</div><div class="ml-auto">${pack_count}</div></div>`) 
+  });
+  $('#cardcounts').append(`<div class="d-flex"><b>Total</b><b class="ml-auto">${total}</b></div>`)
 }
 
 function lortdb_markdown (str) {
