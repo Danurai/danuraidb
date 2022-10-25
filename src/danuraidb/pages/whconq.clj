@@ -122,7 +122,16 @@
         [:div.row.my-2
           [:div.col-md-4
             [:h2 "Packs"]
-            [:div#packlist]]
+            [:div#packlist]
+            [:div 
+              [:h3 "Card Counts"]
+              [:div.d-flex
+                [:div "Core Sets"]
+                [:div#coresetcount.btn-group.btn-group-xs.btn-group-toggle.ml-auto.my-auto {:data-toggle "buttons"}
+                  [:label.btn.btn-outline-secondary [:input#1core {:type "radio" :name "corecount" :value 1} 1]]
+                  [:label.btn.btn-outline-secondary [:input#2core {:type "radio" :name "corecount" :value 2} 2]]
+                  [:label.btn.btn-outline-secondary.active [:input#3core {:type "radio" :name "corecount" :value 3 :checked true} 3]]]]
+              [:div#cardcounts.mb-3]]]
           [:div.col-md-8
             [:div.row.justify-content-between
               [:h2 "Virtual Folders"]

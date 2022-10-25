@@ -957,8 +957,8 @@
                       [:div.d-flex
                         [:span.h5.my-auto (:name c)]
                         [:div#coresets.ml-auto.btn-group.btn-group-sm.btn-group-toggle {:data-toggle "buttons"}
-                          [:label#core1.btn.btn-outline-secondary.active
-                            [:input {:name "corecount" :value "1" :type "radio" :checked true}] "1"]
+                          [:label#core1.btn.btn-outline-secondary
+                            [:input {:name "corecount" :value "1" :type "radio"}] "1"]
                           [:label#core2.btn.btn-outline-secondary
                             [:input {:name "corecount" :value "2" :type "radio"}] "2"]
                           [:label#core3.btn.btn-outline-secondary
@@ -977,7 +977,9 @@
                           (for [p pcks]                          
                             [:div.d-flex
                               [:span (:name p)]
-                              [:span.ml-auto [:input.pack {:type "checkbox" :id (str "pck_" (:id p)) :data-code (:code p)}]]])]))))]]]]
+                              [:span.ml-auto [:input.pack {:type "checkbox" :id (str "pck_" (:id p)) :data-code (:code p)}]]])]))))
+                [:div.h5.text-center.my-2 "Card Counts"]
+                [:div#cardcounts.mb-3]]]]]
       [:div#cardmodal.modal.fade {:tabindex -1 :role "dialog"}
         [:div.modal-dialog {:role "document"}
           [:div.modal-content

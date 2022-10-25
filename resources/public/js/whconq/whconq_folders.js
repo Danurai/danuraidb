@@ -149,13 +149,13 @@ function updateFolder()	{
   }
   while (pages.length % 9 != 0) { pages.push({"name":""}); }
   drawpage();
+  updateCardCounts();
 }
 
 function drawpage()	{
   var pagecount = (pages.length/9);
   var outp = '';
   var pager = '';
-  var id;
   
   pagenum = Math.max(0,pagenum);
   pagenum = Math.min(pagecount-1,pagenum);
@@ -185,8 +185,7 @@ function drawpage()	{
 
 function cardCards() {
   var outp = '';
-  var id;
-  
+  var id;  
   
   if (pages.length == 0) {
     outp = 'You do not own any ' + _factions({"code":faction_code}).first().name + ' cards.';
@@ -223,7 +222,25 @@ function cardCards() {
   return outp;
 }
 
+function updateCardCounts() {
+  let total = 0;
+  
+  $('#cardcounts').empty();
+  
+  filter_pack.forEach( fp => {
+    let pack_count = _cards({"pack_code":fp}).sum("quantity");
+    if (fp == 'core') {
+      pack_count *= $('#coresetcount').find('input:checked').val();
+    }
+    total += pack_count;
+    $('#cardcounts').append(`<div class="d-flex"><div>${_packs({"code":fp}).first().name}</div><div class="ml-auto">${pack_count}</div></div>`) 
+  });
+  $('#cardcounts').append(`<div class="d-flex"><b>Total</b><b class="ml-auto">${total}</b></div>`)
+}
+
 // Listeners //
+$('#coresetcount').on('input', e => updateCardCounts() );
+
 $('#foldersections').on('click','li',function () {
   pagenum = 0;
   section = factions[$(this).data('faction')];
