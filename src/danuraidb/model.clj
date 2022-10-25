@@ -104,7 +104,9 @@
   (load-json-file "private/lotrdb_data_cards.json"))
 			
 (defn get-scenarios []
-  (load-json-file "private/ringsdb-api-public-scenarios.json"))
+  (let [scenarios (load-json-file "private/ringsdb-api-public-scenarios.json")
+        difficult (load-json-file "private/lotrdb_difficulty.json")]
+    (mapv (fn [d] (assoc d :difficulty (-> (filter #(= (:id %) (:id d)) difficult) first (dissoc :id)))) scenarios)))
       
 ;; Actual Functions
 (defn get-packs-with-sku []

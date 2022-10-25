@@ -160,7 +160,7 @@
                         (if (not= (:name s) (:name e))
                           [:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]
         [:div#modaldata.modal.fade {:tab-index -1 :role "dialog"}
-          [:div.modal-dialog.modal-lg {:role "document"}
+          [:div.modal-dialog.modal-xl {:role "document"}
             [:div.modal-content
               [:div.modal-header
                 [:h4.modal-title.w-100 ""]
@@ -174,12 +174,16 @@
                     [:button#diffdown.btn.btn-outline-secondary {:style "line-height: 1em;"} [:i.fas.fa-caret-left.fa-xs]]
                     [:button#diffup.btn.btn-outline-secondary {:style "line-height: 1em;"} [:i.fas.fa-caret-right.fa-xs]]]]
                 [:div.row
-                  [:div.col-6
+                  [:div.col-4
                     [:canvas#piechart {:width "200" :height "200"}]
                     ]
-                  [:div.col-6
+                  [:div.col-4
                     [:canvas#barchart {:width "200" :height "200"}]
-                    ]]]]]]
+                    ]
+                  [:div.col-4
+                    [:canvas#polarchart {:width "200" :height "200"}]
+                    ]
+                ]]]]]
         (h/include-js "https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js")
         (h/include-js "https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0")
         (h/include-js "/js/lotrdb/lotrdb_scenarios.js?v=0.1")]))) 

@@ -51,6 +51,22 @@ var baroptions = {
     fontSize: 18
   }
 }
+var polardata = {
+  labels: ['Official Diff.','TFTC Diff.','Base','Spec.','Rnd.','Multi.'],
+  datasets: [{
+    label: 'Difficulty',
+    data: [4,4,1,0,0,1],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(75, 192, 192)',
+      'rgb(255, 205, 86)',
+      'rgb(201, 203, 207)',
+      'rgb(54, 162, 235)',
+      'rgb(162, 0, 162)'
+    ]
+  }]
+}
+var polaroptions = {}
   
 var pieChart = new Chart($('#piechart'), {
   type: "pie", 
@@ -63,6 +79,12 @@ var barChart = new Chart($('#barchart'), {
   data: bardata,
   options: baroptions
 });
+
+var polarChart = new Chart($('#polarchart'), {
+  type: "polarArea",
+  data: polardata,
+  options: polaroptions
+})
 
 $.getJSON('/lotrdb/api/data/scenarios', function (data) {
   _scenarios = data;
@@ -100,6 +122,7 @@ function updateCharts ( diff ) {
   var surges = _scen[diff + "_surges"];
   var shadows = _scen[diff + "_shadows"];
   var cards = _scen[diff + "_cards"];
+  var difficulty = Object.values(_scen.difficulty)
   
   
   
@@ -109,4 +132,7 @@ function updateCharts ( diff ) {
   barChart.data.datasets[0].data = [surges,shadows]
   barChart.data.datasets[1].data = [cards-surges, cards-shadows]
   barChart.update();
+
+  polarChart.data.datasets[0].data = difficulty;
+  polarChart.update();
 }
