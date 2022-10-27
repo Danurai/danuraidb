@@ -67,6 +67,53 @@ var polardata = {
   }]
 }
 var polaroptions = {}
+var bardiff_data = {
+  labels: ['FFG', 'TftC'],
+  datasets: [
+    {
+      label: 'Base Difficulty',
+      data: [4, 0],
+      backgroundColor: 'rgb(255, 99, 132)',
+    },
+    {
+      label: 'Specialisation',
+      data: [0,2],
+      backgroundColor: 'rgb(75, 192, 192)'
+    },
+    {
+      label: 'Randomness',
+      data: [0,2],
+      backgroundColor: 'rgb(255, 205, 86)'
+    },
+    {
+      label: 'Multiplayer',
+      data: [0,2],
+      backgroundColor: 'rgb(201, 203, 207)'
+    }
+  ]
+}
+var bardiff_options = {
+  title: {
+    display: true,
+    text: "FFG vs TftC Difficulty Ratings",
+    fontFamily: "'Eczar', serif",
+    fontSize: 18
+  },
+  responsive: true,
+  scales: {
+    xAxes: [{
+      stacked: true,
+    }],
+    yAxes: [{
+      stacked: true,
+      ticks: {
+        stepSize: 1,
+        min: 0,
+        max: 14
+      }
+    }]
+  }
+}
   
 var pieChart = new Chart($('#piechart'), {
   type: "pie", 
@@ -81,9 +128,9 @@ var barChart = new Chart($('#barchart'), {
 });
 
 var polarChart = new Chart($('#polarchart'), {
-  type: "polarArea",
-  data: polardata,
-  options: polaroptions
+  type: "bar", //"polarArea",
+  data:     bardiff_data, //polardata,
+  options:  bardiff_options //polaroptions
 })
 
 $.getJSON('/lotrdb/api/data/scenarios', function (data) {
@@ -122,7 +169,7 @@ function updateCharts ( diff ) {
   var surges = _scen[diff + "_surges"];
   var shadows = _scen[diff + "_shadows"];
   var cards = _scen[diff + "_cards"];
-  var difficulty = Object.values(_scen.difficulty)
+  var difficulty = Object.values(_scen.difficulty) // FFG, TftC Total, Base, 
   
   
   
@@ -133,6 +180,9 @@ function updateCharts ( diff ) {
   barChart.data.datasets[1].data = [cards-surges, cards-shadows]
   barChart.update();
 
-  polarChart.data.datasets[0].data = difficulty;
+  polarChart.data.datasets[0].data = [difficulty[0],difficulty[2]];
+  for (i=1; i<4; i++) {
+    polarChart.data.datasets[i].data = [0,difficulty[i+2]];
+  }
   polarChart.update();
 }
