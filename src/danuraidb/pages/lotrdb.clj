@@ -181,7 +181,7 @@
                     [:canvas#barchart {:width "200" :height "200"}]
                     ]
                   [:div.col-4
-                    [:canvas#polarchart {:width "200" :height "200"}]
+                    [:canvas#diffchart {:width "200" :height "200"}]
                     ]
                 ]]]]]
         (h/include-js "https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js")
