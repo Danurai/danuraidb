@@ -33,39 +33,6 @@
 ; LOTRDB   ;
 ;;;;;;;;;;;;
 
-;; DATA
-(def cgdb-pack-name {
-  "HfG"  "thfg"
-  "JtR"  "ajtr"
-  "HoEM" "thoem"
-  "WitW" "twitw"
-  "BoG"  "tbog"
-  "Starter" "core"
-  "TiT" "trouble-in-tharbad"
-})
-;; DATA
-(def sku-code { ; id (MEC)sku
-  1  1                                ; Core
-  2  2  3  3  4  4  5  5  6  6  7  7   ; Shadows of Mirkwood
-  8  8                                ; Khazad-dum
-  9  9  10 10 11 11 12 12 13 13 14 14   ; Dwarrowdelf
-  15 17                               ; Heirs of Numenor
-  16 18 17 19 18 20 19 21 20 22 21 23   ; Against the Shadow
-  22 25                               ; Voice of Isengard/
-  23 26 24 27 25 28 26 29 27 30 28 31   ; Ring-maker
-  29 38                               ; The Lost Realm
-  30 39 31 40 32 41 33 42 34 43 35 44   ; Angmar Awakened
-  36 47                               ; The Grey Havens
-  37 48 40 34 41 45 42 46 43 48 44 49   ; Dream-chaser
-  38 16 39 24                          ; Saga - The Hobbit 
-  45 50 46 51 47 54 48 52 49 53 55 62   ; Saga - The Lord of the Rings
-  53 55                               ; The Sands of Harad
-  50 56 51 57 52 58 54 59 56 60 57 61   ; Haradrim
-  58 65                               ; The Wilds of Rhovanion
-  59 66 60 67 62 68 63 69 65 70         ; Ered Mithrin
-  61 73                                ; 2 player Ltd Collectors Edition Starter
-  64 99 ; PoD
-})
 ;; Function
 (defn normalise [ name ]
   (-> name
@@ -79,100 +46,40 @@
       (string/replace #"[\u00ec-\u00ef]" "i")
       (string/replace #"[\u00f2-\u00f6]" "o")
       (string/replace #"[\u00f9-\u00fc]" "u")))
-      
-;(defn normalise-name [ name ]
-;  (-> name
-;      string/lower-case
-;      (string/replace #"\s" "-")
-;      (string/replace #"\'|\!|\,|\." "")
-;      normalise
-;      (string/replace "herald-of-anorien","hearld-of-anorien")
-;      (string/replace "defender-of-the-naith","defender-of-naith")
-;      (string/replace "warden-of-arnor","warden-of-anor")
-;      (string/replace "the-fall-of-gil-galad","the-fall-of-gil--galad")
-;      ))
-    
-;; ALL GET JSON FILES - API WRAPPER
+          
+;; TODO ALL GET JSON FILES - Function?
 
-(defn get-cycles [] 
-  (load-json-file "private/lotrdb_data_cycles.json"))
 			
 (defn get-packs [] 
-  (load-json-file "private/ringsdb-api-public-packs.json"))
+  (load-json-file "private/lotrdb/lotrdb_data_packs.json"))
       
 (defn get-cards [] 
-  (load-json-file "private/lotrdb_data_cards.json"))
+  (map 
+    #(-> %
+        (assoc :normalname (-> % :name normalise))
+        (assoc :normaltraits (if (:trait %) (-> % :traits normalise))))
+    (load-json-file "private/lotrdb/lotrdb_data_cards.json")))
 			
-(defn get-scenarios []
-  (let [scenarios (load-json-file "private/ringsdb-api-public-scenarios.json")
-        difficult (load-json-file "private/lotrdb_difficulty.json")]
-    (mapv (fn [d] (assoc d :difficulty (-> (filter #(= (:id %) (:id d)) difficult) first (dissoc :id)))) scenarios)))
-      
-;; Actual Functions
-(defn get-packs-with-sku []
-  (->> (get-packs)
-       (map (fn [p]
-              (assoc p :sku (str "MEC" (format "%02d" (get sku-code (:id p)))))))))
-              
+(defn get-cycles [] 
+;  (let [cards (get-cards)]
+;    (->> cards
+;         (map #(hash-map :cycle_position (:cycle_position %) :name (:cycle_name %)))
+;         distinct)))
+  (load-json-file "private/lotrdb/lotrdb_data_cycles.json"))
+
 (defn get-lotracg-cards []
-  (load-json-file "private/lotracg_cards.json"))
-  
-;(defn- cgdb-card-name [ card ]
-;  (let [pack (->> (get-packs-with-sku) (filter #(= (:code %) (:pack_code card))) first)]
-;    (cond
-;      (some #(= (:id pack) %) (set (apply merge (range 1 23) [37 38 39 61])))
-;        (str 
-;          (normalise-name (:name card))
-;          "-"
-;          (cgdb-pack-name (:pack_code card) (clojure.string/lower-case (:pack_code card))))
-;      (= (:id pack) 23)
-;        (str 
-;          (normalise-name (:name card))
-;          "_"
-;          (normalise-name (:pack_name card))
-;          "_"
-;          (:position card)) 
-;      (< 23 (:id pack) 26)
-;        (str 
-;          (normalise-name (:name card))
-;          "-"
-;          (normalise-name (:pack_name card))
-;          "-"
-;          (:position card)) 
-;      (= (:id pack) 40)
-;        (str (:sku pack) "_" (format "%03d" (:position card)))
-;      :else ;(< 25 (:id pack))
-;        (str (:sku pack) "_" (:position card))
-;      )))
-;          
-;(defn get-card-image-url 
-;  ([ card size ]
-;      (str "http://www.cardgamedb.com/forums/uploads/lotr/"
-;          ;(if (= size :small) "tn_" "ffg_")
-;          (cgdb-card-name card)
-;          ".jpg"))
-;  ([ card ] 
-;    (get-card-image-url card :normal)))
-							
-(defn get-cards-with-cycle []
-  (let [positions (reduce merge (map #(hash-map (:code %) (:cycle_position %)) (get-packs)))
-				cycles (get-cycles)]
-    (map (fn [c] 
-					(let [pos (get positions (:pack_code c))
-								cycle (->> cycles (filter #(= (:cycle_position %) pos)) first)]
-						(assoc c :cycle_position pos
-										 :cycle_name (:name cycle)
-                     :normalname (-> c :name normalise)
-                     :normaltraits (if (:traits c) (-> c :traits normalise))
-                     ;:cgdbimgurl (get-card-image-url c)
-										 )))
-      (get-cards))))
+  (load-json-file "private/lotrdb/lotracg_cards.json"))
+
+(defn get-scenarios []
+  (let [scenarios (load-json-file "private/lotrdb/ringsdb-api-public-scenarios.json")
+        difficult (load-json-file "private/lotrdb/lotrdb_difficulty.json")]
+    (mapv (fn [d] (assoc d :difficulty (-> (filter #(= (:id %) (:id d)) difficult) first (dissoc :id)))) scenarios)))
 	
 (defn lotrdb-api-data [ id req ]
 	(case id
     "cardsdigital" (get-lotracg-cards)
-		"cards"     (get-cards-with-cycle)
-		"packs"     (get-packs-with-sku)
+		"cards"     (get-cards)
+		"packs"     (get-packs)
 		"cycles"    (get-cycles)
 		"scenarios" (get-scenarios)
     "decks"     (db/get-user-decks 0 (-> req get-authentications :uid))
