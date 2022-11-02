@@ -85,7 +85,7 @@
                       (lotrdb-card-icon (first quests))]]
                   [:div.row
                     [:div.col-sm-6
-                      [:h5 "Quests"]
+                      [:h5 [:a {:href (str "/lotrdb/search/physical?q=t:quest+n:" (:name s))} "Quests"]]
                       (for [q quests]
                         [:div [:a.card-link {:href (str "/lotrdb/card/" (:code q)) :data-code (:code q)} (:name q)]])]
                     [:div.col-sm-6 
@@ -96,7 +96,7 @@
                       [:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name s) " " "+"))} (:name s)]]
                       (for [e (sort-by :id (:encounters s))]
                         (if (not= (:name s) (:name e))
-                          [:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]
+                          [:div [:a {:href (str "/lotrdb/search/physical?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]
         [:div#modaldata.modal.fade {:tab-index -1 :role "dialog"}
           [:div.modal-dialog.modal-xl {:role "document"}
             [:div.modal-content

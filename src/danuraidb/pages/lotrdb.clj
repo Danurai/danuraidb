@@ -18,7 +18,7 @@
 
 (defn- lotrdb-markdown [ txt ]
   (if txt
-    (->> (clojure.string/replace txt #"[A-Z]\w+:" #(str "<b>" %1 "</b>"))
+    (->> (clojure.string/replace txt #"[A-Z]\w+\s\w+:|[A-Z]\w+:" #(str "<b>" %1 "</b>"))
           (re-seq #"\[\w+\]|\w+|." )
           (map #(model/convert "lotr-type-" %))
           model/makespan)
