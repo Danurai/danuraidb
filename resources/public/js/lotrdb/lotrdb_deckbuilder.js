@@ -309,6 +309,25 @@ $('#notes').on('input',function() {
 
 // COLLECTION TAB
 
+$('#selectall').on('click', e => {
+  e.stopPropagation();
+  $('#collectiontab').find('input[type="checkbox"]').prop('checked',true);
+  $('#3core').prop('checked',true)
+  update_collection_saved()
+});
+$('#selectnon').on('click', e => {
+  e.stopPropagation();
+  $('#collectiontab').find('input[type="checkbox"]').prop('checked',false);
+  $('#1core').prop('checked',true)
+  update_collection_saved()
+});
+
+function update_collection_saved() {
+  var x = Array.from($('#collectiontab').find('input[data-type=pack][type=checkbox]:checked')).map(e=>$(e).data('id'));
+  _filter.pack_code = ["Core"].concat(x);
+  window.localStorage.setItem('lotrpacks_owned',JSON.stringify(_filter.pack_code));
+  write_table();
+}
 $('#collectiontab')
   .on('change','input[type=radio]', function () {
     _corecount = $(this).val();
@@ -322,10 +341,7 @@ $('#collectiontab')
     } else {
       $li.find('input[data-type=cycle]').prop('checked', ($li.find('input[data-type=pack]:checked').length > 5));    
     }
-    var x = Array.from($('#collectiontab').find('input[data-type=pack][type=checkbox]:checked')).map(e=>$(e).data('id'));
-    _filter.pack_code = ["Core"].concat(x);
-    window.localStorage.setItem('lotrpacks_owned',JSON.stringify(_filter.pack_code));
-    write_table();
+    update_collection_saved()
   });
   
   
