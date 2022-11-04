@@ -661,6 +661,9 @@
             [:div.col-lg-5
               [:div#packs.list-group
                 [:div.h4.text-center "Packs Owned"]
+                [:div
+                  [:a.selectpacks.mr-2.me-2 {:href "#" :data-select "all"} "All"]
+                  [:a.selectpacks.mr-2.me-2 {:href "#" :data-select "none"} "None"]]
                 (for [c cycles :let [cycle_id (str "cyc_" (:cycle_position c))]]
                   (if (= 1 (:cycle_position c)) ; Core
                     [:div.list-group-item
