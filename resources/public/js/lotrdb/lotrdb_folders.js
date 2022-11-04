@@ -1,7 +1,6 @@
 var corecount;
 var _db_cards;
-var _all_cards;
-var _filter = {"pack_code":["Core"],"sphere_code":"leadership","type_code":["hero","ally","attachment","event"]};  //treasure, player-side-quest 'objective ally'
+var _filter = {"pack_code":["Core"],"sphere_code":"leadership","deck":"Hero","type_code":["hero","ally","attachment","event","player-side-quest","treasure"]};  //treasure, player-side-quest 'objective' 'contract'
 var _pageno = 1;
 var _pages = Array(9).fill({});
 
@@ -66,11 +65,9 @@ if (packs != null) {
 }
 
 $.getJSON('/lotrdb/api/data/cards',function (data) {
-  _all_cards = TAFFY(data);
-  data = data
-    .filter(c => -1 < $.inArray(c.type_code, _filter.type_code));
+  //data = data.filter(c => c.deck == 'Hero') //-1 < $.inArray(c.type_code, _filter.type_code));
   //  .map(c => $.extend(c,{"normalname": normalisename(c.name)}));
-  _db_cards = TAFFY(data);
+  _db_cards = TAFFY(data.filter(c => c.deck == 'Hero'));
   setpacks();
 });
 
@@ -108,6 +105,13 @@ $('#packs')
 $('#pager').on('click','button',function() {
   turnpage(parseInt($(this).val()));
 });
+
+$('.selectpacks').on('click', function(e) {
+  e.preventDefault();
+  let all = $(this).data('select') == 'all';
+  $('#packs').find('input[type="checkbox"]').prop('checked',all)
+  setpacks();
+});
   
 function setpacks() {
   var packs = $.merge(['Core'],$('#packs').find('input[type=checkbox].pack:checked').toArray().map(p=>$(p).data('code')));
@@ -118,7 +122,7 @@ function setpacks() {
   _pages = [];
   var crdlst = _db_cards(_filter);
   
-  $.each(["hero","ally","attachment","event"],function (id, t) {
+  $.each(_filter.type_code,function (id, t) {
     var tmp = crdlst.filter({"type_code":t}).order('normalname').get();
     $.merge(_pages,tmp);
     if (tmp.length%9 > 0) {$.merge(_pages,Array(9-(tmp.length%9)).fill({}));}
@@ -155,18 +159,22 @@ function writepage() {
 
 
 function updateCardCounts() {
-  let total = 0;
+  let total_cards = 0;
+  let total_unique = 0;
   
   $('#cardcounts').empty();
   _filter.pack_code.forEach( fp => {
-    let pack_count = _all_cards({"pack_code":fp}).sum("quantity");
+    let pack_cards = _db_cards({"pack_code":fp})
+    let pack_unique = pack_cards.count()
+    let pack_total = pack_cards.sum("quantity");
     if (fp == 'Core') {
-      pack_count *= corecount = $('#coresets').find('input[type=radio]:checked').val();
+      pack_total *= corecount = $('#coresets').find('input[type=radio]:checked').val();
     }
-    total += pack_count;
-    $('#cardcounts').append(`<div class="d-flex"><div>${_all_cards({"pack_code":fp}).first().pack_name}</div><div class="ml-auto">${pack_count}</div></div>`) 
+    total_unique += pack_unique
+    total_cards  += pack_total;
+    $('#cardcounts').append(`<div class="d-flex"><div>${_db_cards({"pack_code":fp}).first().pack_name}</div><div class="ml-auto">${pack_unique} / ${pack_total}</div></div>`) 
   });
-  $('#cardcounts').append(`<div class="d-flex"><b>Total</b><b class="ml-auto">${total}</b></div>`)
+  $('#cardcounts').append(`<div class="d-flex"><b>Total</b><b class="ml-auto">${total_unique} / ${total_cards}</b></div>`)
 }
 
 function lortdb_markdown (str) {
