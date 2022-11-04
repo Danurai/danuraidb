@@ -3,6 +3,8 @@ pom.xml.asc
 *.jar
 *.class
 *.sqlite3
+*.sql
+*.dump
 /lib/
 /classes/
 /target/
