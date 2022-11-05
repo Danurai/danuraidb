@@ -61,6 +61,85 @@
 ;;;;;;;;;;;;;
 
 (defn lotrdb-scenarios-page [ req ]
+	(let [cycles (model/get-cycles)
+        packs  (model/get-packs)
+        scens  (model/get-scenarios)
+        cards  (model/get-cards)]
+		(h/html5
+			lotrdb-pretty-head
+			[:body  
+				(lotrdb-navbar req)
+        [:div.container.my-3
+          [:div#accordionparent.accordion 
+            (for [c cycles] 
+              [:div.card ;.accordion-item
+                [:div.card-header {:id (str "heading" (:cycle_position c))}
+                    [:button.btn.btn-block.text-left {:type "button" :data-toggle "collapse" :data-target (str "#collapse" (:cycle_position c))} 
+                      [:h5.mb-0 (:name c)]]]
+                [:div {:id (str "collapse" (:cycle_position c)) :data-parent "#accordionparent" :class (if (= (:cycle_position c) 1) "collapse show" "collapse")}
+                  [:div.card-body
+                    (let [packs_in_cycle (->> packs (filter #(= (:cycle_position c) (:cycle_position %))) (map :name))
+                          scens_in_cycle (->> scens (filter (fn [q] (#(some #{(:pack q)} packs_in_cycle)))) (sort-by :id))]
+                      (for [s scens_in_cycle]
+                        
+                        (let [quests (->> cards (filter #(= (:type_code %) "quest")) (filter #(= (:encounter_name %) (:name s))))] 
+                          [:li.list-group-item 
+                          [:div.row ;.justify-content-between
+                            [:span.h4 
+                              [:span.mr-2 (:name s)]
+                              [:span.mr-2 [:small "icon"]]
+                              [:i.fas.fa-chart-pie.ml-2.fa-xs.text-secondary {
+                                :style "cursor: pointer;" 
+                                :data-target "#modaldata" :data-toggle "modal"
+                                :data-quest-id (:id s)
+                                }]]]
+                          [:div.row
+                            [:div.col-sm-6
+                              [:h5 [:a {:href (str "/lotrdb/search/physical?q=t:quest+n:" (:name s))} "Quests"]]
+                              (for [q quests]
+                                [:div [:a.card-link {:href (str "/lotrdb/card/" (:code q)) :data-code (:code q)} (:name q)]])]
+                            [:div.col-sm-6 
+                              [:h5
+                                [:a {:href (str "/lotrdb/search/physical?q=n:" (->> s :encounters (map :name) (clojure.string/join "|")))}
+                                "Encounter Sets"]]
+                              ; assumed Encounter set always includes encounter pack with a matching name
+                              [:div [:a {:href (str "/lotrdb/search/physical?q=n:" (clojure.string/replace (:name s) " " "+"))} (:name s)]]
+                              (for [e (sort-by :id (:encounters s))]
+                                (if (not= (:name s) (:name e))
+                                  [:div [:a {:href (str "/lotrdb/search/physical?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]])))]]])]
+
+          [:div#modaldata.modal.fade {:tab-index -1 :role "dialog"}
+            [:div.modal-dialog.modal-xl {:role "document"}
+              [:div.modal-content
+                [:div.modal-header
+                  [:h4.modal-title.w-100 ""]
+                  [:button.close {:type "button" :data-dismiss "modal" :aria-label "Close"}
+                    [:span {:aria-hidden "true"} "\u00d7"]]]
+                [:div.modal-body
+                  [:div.d-flex.mb-3
+                    [:h5.my-auto "Difficulty:"
+                      [:span#difftxt.mx-2 "Normal"]]
+                    [:div.ml-2.btn-group.btn-group-sm 
+                      [:button#diffdown.btn.btn-outline-secondary {:style "line-height: 1em;"} [:i.fas.fa-caret-left.fa-xs]]
+                      [:button#diffup.btn.btn-outline-secondary {:style "line-height: 1em;"} [:i.fas.fa-caret-right.fa-xs]]]]
+                  [:div.row
+                    [:div.col-4
+                      [:canvas#piechart {:width "200" :height "200"}]
+                      ]
+                    [:div.col-4
+                      [:canvas#barchart {:width "200" :height "200"}]
+                      ]
+                    [:div.col-4
+                      [:canvas#diffchart {:width "200" :height "200"}]
+                      ]
+                  ]]]]]
+          (h/include-js "https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js")
+          (h/include-js "https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0")
+          (h/include-js "/js/lotrdb/lotrdb_scenarios.js?v=0.1")
+                    
+                    ]])))
+
+(defn lotrdb-scenarios-pagex [ req ]
 	(let [cards (model/get-cards)]
 		(h/html5
 			lotrdb-pretty-head
@@ -69,6 +148,7 @@
         [:div.container.my-3
           [:ul.list-group
             (for [s (model/get-scenarios)]
+
               (let [quests (->> cards (filter #(= (:type_code %) "quest")) (filter #(= (:encounter_name %) (:name s))))] 
                 [:li.list-group-item 
                   [:div.row.justify-content-between
@@ -94,7 +174,9 @@
                       [:div [:a {:href (str "/lotrdb/search?q=n:" (clojure.string/replace (:name s) " " "+"))} (:name s)]]
                       (for [e (sort-by :id (:encounters s))]
                         (if (not= (:name s) (:name e))
-                          [:div [:a {:href (str "/lotrdb/search/physical?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]))]]
+                          [:div [:a {:href (str "/lotrdb/search/physical?q=n:" (clojure.string/replace (:name e) " " "+"))} (:name e)]]))]]]
+                          
+                ))]]
         [:div#modaldata.modal.fade {:tab-index -1 :role "dialog"}
           [:div.modal-dialog.modal-xl {:role "document"}
             [:div.modal-content
