@@ -1,6 +1,6 @@
 var corecount;
 var _db_cards;
-var _filter = {"pack_code":["Core"],"sphere_code":"leadership","deck":"Hero","type_code":["hero","ally","attachment","event","player-side-quest","treasure"]};  //treasure, player-side-quest 'objective' 'contract'
+var _filter = {"pack_code":["Core"],"sphere_code":"leadership","deck":"Hero","type_code":["hero","ally","attachment","event","player-side-quest",]};  //treasure, player-side-quest 'objective' 'contract'
 var _pageno = 1;
 var _pages = Array(9).fill({});
 
@@ -65,14 +65,17 @@ if (packs != null) {
 }
 
 $.getJSON('/lotrdb/api/data/cards',function (data) {
-  //data = data.filter(c => c.deck == 'Hero') //-1 < $.inArray(c.type_code, _filter.type_code));
-  //  .map(c => $.extend(c,{"normalname": normalisename(c.name)}));
-  _db_cards = TAFFY(data.filter(c => c.deck == 'Hero'));
+  _db_cards = TAFFY(data
+                      .filter(c => _filter.type_code.includes(c.type_code))
+                      .filter(c => c.type_code != 'hero' | ['baggins','fellowship'].includes(c.sphere_code)==false  ) );
   setpacks();
 });
 
 $('#spheres').on('click','li',function () {
-  _filter.sphere_code = $(this).data('code');
+  core_spheres = ['leadership','lore','spirit','tactics']
+  extra_spheres = ['neutral','baggins','fellowship']
+  sphere = $(this).data('code')
+  _filter.sphere_code = core_spheres.includes(sphere) ? sphere : extra_spheres  
   setpacks();
 });
 
