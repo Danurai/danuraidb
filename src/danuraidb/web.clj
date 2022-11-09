@@ -147,14 +147,15 @@
     pages/lotrdb-packs-page)
   (GET "/scenarios" []
     pages/lotrdb-scenarios-page)
-  (GET "/search/physical" []
+  (GET "/search" []
     pages/lotrdb-search-page)
+  (GET "/search/physical" []
+    (redirect "/lotrdb/search")) ;pages/lotrdb-search-page)
   (GET "/search/digital" []
     pages/lotrdb-search-digital)
   (GET "/folders" []
     pages/lotrdb-folders)
   (context "/questlog" []
-    ;lotrdb-quest-routes)
     (friend/wrap-authorize lotrdb-quest-routes #{::db/user}))
   (GET "/solo" []
     (friend/wrap-authorize pages/lotrdb-solo-page #{::db/user}))
