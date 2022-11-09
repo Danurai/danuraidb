@@ -14,6 +14,9 @@ function lortdb_markdown (str) {
 // resource
 // threat
 
+function canonical( s ) {
+  return s.replaceAll(/[\s|\u0027]/g,'-').toLowerCase();
+}
   
 function card_icon(c) {
   var img = '';
@@ -26,7 +29,7 @@ function card_icon(c) {
       img += 'sphere_' + c.sphere_code;
       break;
     default:
-      img += 'pack_' + c.pack_code;
+      img += 'pack-' + canonical(c.pack_name);
   }
   img += '.png"></img>'
   return img
