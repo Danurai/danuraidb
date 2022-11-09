@@ -42,6 +42,9 @@
                       (for [sublink (rest dd) :let [subroot (str "/" root "/" (first dd) "/" sublink)]]
                         (dropdown-link req root (first dd) sublink))]]
                   (nav-link req root (clojure.string/lower-case link))))]
+      ;; Search
+          [:form.form-inline {:action (str "/" root "/search") :method "get"}
+            [:input.form-control {:name "q" :type "search" :placeholder "Search"}]]
       ;; Login Icon
             [:span.nav-item.dropdown
               [:a#userDropdown.nav-link.dropdown-toggle.text-white {:href="#" :role "button" :data-toggle "dropdown" :aria-haspopup "true" :aria-expanded "false"}
